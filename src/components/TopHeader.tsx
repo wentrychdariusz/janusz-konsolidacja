@@ -3,7 +3,7 @@ import React from 'react';
 
 const TopHeader = () => {
   return (
-    <div className="bg-gradient-to-r from-business-blue-600 via-business-blue-500 to-navy-600 text-white py-3 px-4 relative overflow-hidden">
+    <div className="lg:hidden bg-gradient-to-r from-business-blue-600 via-business-blue-500 to-navy-600 text-white py-3 px-4 relative overflow-hidden">
       {/* Pieniądze jako tło */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15"
@@ -20,13 +20,11 @@ const TopHeader = () => {
             <div className="bg-gradient-to-br from-business-blue-700 to-navy-700 rounded-lg p-4 shadow-xl border-2 border-prestige-gold-400/70 backdrop-blur-sm">
               <div className="flex items-center space-x-4">
                 {/* Book image */}
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 shadow-lg border border-prestige-gold-400/50">
-                  <img 
-                    src="/lovable-uploads/68877fd7-1b70-47e9-b545-82e5e2b6e5e4.png" 
-                    alt="Książka Nowe Życie Bez Długów" 
-                    className="h-16 md:h-20 object-contain rounded shadow-md"
-                  />
-                </div>
+                <img 
+                  src="/lovable-uploads/68877fd7-1b70-47e9-b545-82e5e2b6e5e4.png" 
+                  alt="Książka Nowe Życie Bez Długów" 
+                  className="h-20 md:h-24 object-contain rounded shadow-2xl"
+                />
                 
                 {/* Text content */}
                 <div className="text-center">
