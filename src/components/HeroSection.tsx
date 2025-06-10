@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import QuickRegistrationForm from './QuickRegistrationForm';
 import { CheckCircle, Shield, Award, Users, Trophy, Target } from 'lucide-react';
@@ -26,24 +25,25 @@ const HeroSection = () => {
     <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden">
       {/* Dariusz background image - desktop */}
       <div 
-        className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+        className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url('/lovable-uploads/eb0658a9-c99a-4631-a61d-1543709a3efa.png')`,
-          backgroundPosition: 'center top',
+          backgroundPosition: 'center -50px',
         }}
       ></div>
       
       {/* Dariusz background image - mobile */}
       <div 
-        className="block md:hidden absolute inset-0 bg-contain bg-center bg-no-repeat opacity-40"
+        className="block md:hidden absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url('/lovable-uploads/c432fd37-2b35-4462-9077-b3a0ad7fb614.png')`,
-          backgroundPosition: 'center center',
+          backgroundPosition: 'center -30px',
         }}
       ></div>
       
-      {/* Dark overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-gray-900/50 to-gray-800/60"></div>
+      {/* Gradient overlay for tonal transition */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/80"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/60"></div>
       
       <div className="relative z-10 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-8 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
