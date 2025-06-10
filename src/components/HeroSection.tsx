@@ -23,8 +23,18 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-br from-gray-900 via-navy-900 to-gray-800 min-h-screen relative">
-      <div className="absolute inset-0 bg-gradient-to-r from-navy-900/95 via-gray-900/90 to-navy-800/95"></div>
+    <section className="bg-gradient-to-br from-gray-900 via-navy-900 to-gray-800 min-h-screen relative overflow-hidden">
+      {/* Dariusz background image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+        style={{
+          backgroundImage: `url('/lovable-uploads/eb0658a9-c99a-4631-a61d-1543709a3efa.png')`,
+          backgroundPosition: 'center 20%',
+        }}
+      ></div>
+      
+      {/* Dark overlay for better text readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-navy-900/90 via-gray-900/85 to-navy-800/90"></div>
       
       <div className="relative z-10 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-8 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -46,7 +56,7 @@ const HeroSection = () => {
               uwolnić się od długów. Moje sprawdzone metody są w <span className="text-business-blue-400 font-bold">100% legalne</span> i skuteczne.
             </p>
             
-            {/* Benefits Cards - Bigger and Better */}
+            {/* Benefits Cards */}
             <div className="grid grid-cols-1 gap-6 mt-8">
               {benefits.map((benefit, index) => (
                 <div 
