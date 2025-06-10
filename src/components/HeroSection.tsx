@@ -23,10 +23,10 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-br from-gray-900 via-navy-900 to-gray-800 min-h-screen relative overflow-hidden">
+    <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden">
       {/* Dariusz background image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-35"
         style={{
           backgroundImage: `url('/lovable-uploads/eb0658a9-c99a-4631-a61d-1543709a3efa.png')`,
           backgroundPosition: 'center 20%',
@@ -34,7 +34,7 @@ const HeroSection = () => {
       ></div>
       
       {/* Dark overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-navy-900/90 via-gray-900/85 to-navy-800/90"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-gray-900/60 to-gray-800/70"></div>
       
       <div className="relative z-10 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-8 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
