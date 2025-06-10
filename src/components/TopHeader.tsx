@@ -7,7 +7,7 @@ const TopHeader = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-prestige-gold-400/20 to-transparent animate-pulse"></div>
       <div className="relative z-10 text-center">
         <p className="text-sm md:text-base font-medium">
-          💰 Zarabiaj 5-15 tysięcy złotych miesięcznie bez prowadzenia działalności gospodarczej
+          💸 Pomogłem już ponad 2000 osób wyjść z długów - Zobacz jak to zrobić LEGALNIE
         </p>
       </div>
     </div>

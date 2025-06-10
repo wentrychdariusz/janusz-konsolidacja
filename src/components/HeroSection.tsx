@@ -1,24 +1,24 @@
 
 import React, { useState } from 'react';
 import QuickRegistrationForm from './QuickRegistrationForm';
-import { CheckCircle, DollarSign, Star } from 'lucide-react';
+import { CheckCircle, Shield, Award } from 'lucide-react';
 
 const HeroSection = () => {
   const benefits = [
     {
-      icon: DollarSign,
-      title: "5-15 tysięcy miesięcznie",
-      description: "Stały dodatkowy dochód"
+      icon: Shield,
+      title: "20 lat doświadczenia",
+      description: "Sprawdzony ekspert oddłużenia"
     },
     {
       icon: CheckCircle,
-      title: "Bez działalności",
-      description: "Bez papierologii i komplikacji"
+      title: "2000+ osób pomożonych",
+      description: "Realne rezultaty i zadowoleni klienci"
     },
     {
-      icon: Star,
-      title: "Proven system",
-      description: "Sprawdzony system zarabiania"
+      icon: Award,
+      title: "100% legalnie",
+      description: "Bezpieczne metody zgodne z prawem"
     }
   ];
 
@@ -26,7 +26,7 @@ const HeroSection = () => {
     <section 
       className="bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 min-h-screen relative"
       style={{
-        backgroundImage: `url('https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=1920&h=1080&fit=crop&crop=center')`,
+        backgroundImage: `url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&h=1080&fit=crop&crop=center')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundBlendMode: 'overlay'
@@ -40,18 +40,18 @@ const HeroSection = () => {
           {/* Left Content */}
           <div className="space-y-4 md:space-y-6 animate-fade-in">
             <div className="font-montserrat text-prestige-gold-400 text-sm sm:text-base md:text-lg lg:text-xl text-center md:text-left font-black tracking-wide uppercase">
-              Pieniądze to wolność.
+              Dariusz Wentrych - Ekspert Oddłużenia
             </div>
             
             <h1 className="font-montserrat font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl text-center md:text-left leading-tight">
-              <span className="text-white">Zarabiaj </span>
-              <span className="text-business-blue-400">5-15 tysięcy złotych</span>
-              <span className="text-white"> miesięcznie bez prowadzenia działalności gospodarczej</span>
+              <span className="text-white">Uwolnij się od </span>
+              <span className="text-business-blue-400">długów raz na zawsze</span>
+              <span className="text-white"> - 20 lat doświadczenia w pomocy Polakom</span>
             </h1>
             
             <p className="text-warm-neutral-200 text-base md:text-lg text-center md:text-left font-lato">
-              Pokażę Ci sprawdzony system, dzięki któremu możesz generować stały dodatkowy dochód 
-              bez konieczności zakładania firmy czy prowadzenia skomplikowanej papierologii.
+              Jestem Dariusz Wentrych i przez ostatnie 20 lat pomogłem ponad 2000 osób całkowicie 
+              uwolnić się od długów. Moje sprawdzone metody są w 100% legalne i skuteczne.
             </p>
             
             {/* Benefits Cards */}
@@ -68,6 +68,15 @@ const HeroSection = () => {
                   <p className="text-warm-neutral-300 text-xs">{benefit.description}</p>
                 </div>
               ))}
+            </div>
+
+            {/* Trust indicators */}
+            <div className="bg-gradient-to-r from-white/10 to-white/5 border border-prestige-gold-200/30 rounded-xl p-4 mt-6">
+              <div className="text-center">
+                <div className="text-prestige-gold-400 font-bold text-lg mb-1">Zaufało mi już</div>
+                <div className="text-white text-2xl font-black">2000+ osób</div>
+                <div className="text-warm-neutral-300 text-sm mt-1">które dziś żyją bez długów</div>
+              </div>
             </div>
           </div>
           
