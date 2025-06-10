@@ -29,16 +29,16 @@ const HeroSection = () => {
         className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
         style={{
           backgroundImage: `url('/lovable-uploads/eb0658a9-c99a-4631-a61d-1543709a3efa.png')`,
-          backgroundPosition: 'center 10%',
+          backgroundPosition: 'center top',
         }}
       ></div>
       
       {/* Dariusz background image - mobile */}
       <div 
-        className="block md:hidden absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+        className="block md:hidden absolute inset-0 bg-contain bg-center bg-no-repeat opacity-40"
         style={{
           backgroundImage: `url('/lovable-uploads/c432fd37-2b35-4462-9077-b3a0ad7fb614.png')`,
-          backgroundPosition: 'center 20%',
+          backgroundPosition: 'center center',
         }}
       ></div>
       
