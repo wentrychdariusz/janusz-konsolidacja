@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Plus } from 'lucide-react';
 
 const QuickRegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -38,15 +39,20 @@ const QuickRegistrationForm = () => {
       {/* Header with Dariusz's photo */}
       <div className="text-center bg-gradient-to-r from-navy-900 to-business-blue-600 text-white p-6">
         <div className="flex justify-center items-center mb-4">
-          <div className="relative">
+          <div className="flex items-center space-x-2">
+            {/* Dariusz main photo */}
             <img 
               src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
               alt="Dariusz Wentrych"
               className="w-20 h-20 rounded-full overflow-hidden border-4 border-prestige-gold-400 shadow-xl object-cover"
             />
-            {/* Team members overlapping next to Dariusz */}
-            <div className="absolute -right-6 top-1 flex">
-              <Avatar className="w-8 h-8 border-2 border-prestige-gold-400 -mr-2 z-10">
+            
+            {/* Plus icon */}
+            <Plus className="w-4 h-4 text-prestige-gold-300" />
+            
+            {/* Team members */}
+            <div className="flex items-center space-x-1">
+              <Avatar className="w-12 h-12 border-3 border-prestige-gold-400">
                 <AvatarImage 
                   src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
                   alt="Członek zespołu"
@@ -54,7 +60,7 @@ const QuickRegistrationForm = () => {
                 />
                 <AvatarFallback className="text-xs">KZ</AvatarFallback>
               </Avatar>
-              <Avatar className="w-8 h-8 border-2 border-prestige-gold-400">
+              <Avatar className="w-12 h-12 border-3 border-prestige-gold-400">
                 <AvatarImage 
                   src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
                   alt="Członek zespołu"
