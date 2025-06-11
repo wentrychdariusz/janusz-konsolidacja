@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Plus } from 'lucide-react';
@@ -43,15 +44,15 @@ const QuickRegistrationForm = () => {
             <img 
               src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
               alt="Dariusz Wentrych"
-              className="w-20 h-20 rounded-full overflow-hidden border-4 border-prestige-gold-400 shadow-xl object-cover"
+              className="w-16 h-16 rounded-full overflow-hidden border-3 border-prestige-gold-400 shadow-xl object-cover"
             />
             
             {/* Plus icon */}
-            <Plus className="w-4 h-4 text-prestige-gold-300" />
+            <Plus className="w-3 h-3 text-prestige-gold-300" />
             
             {/* Team members */}
             <div className="flex items-center space-x-1">
-              <Avatar className="w-12 h-12 border-3 border-prestige-gold-400">
+              <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
                 <AvatarImage 
                   src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
                   alt="Członek zespołu"
@@ -59,13 +60,21 @@ const QuickRegistrationForm = () => {
                 />
                 <AvatarFallback className="text-xs">KZ</AvatarFallback>
               </Avatar>
-              <Avatar className="w-12 h-12 border-3 border-prestige-gold-400">
+              <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
                 <AvatarImage 
                   src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
                   alt="Członek zespołu"
                   className="object-cover"
                 />
                 <AvatarFallback className="text-xs">MK</AvatarFallback>
+              </Avatar>
+              <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
+                <AvatarImage 
+                  src="/lovable-uploads/73083e2d-4631-4f25-abd0-a482d29bb838.png"
+                  alt="Członek zespołu"
+                  className="object-cover"
+                />
+                <AvatarFallback className="text-xs">AS</AvatarFallback>
               </Avatar>
             </div>
           </div>
