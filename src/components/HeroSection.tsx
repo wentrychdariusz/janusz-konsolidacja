@@ -12,13 +12,13 @@ const HeroSection = () => {
     },
     {
       icon: Users,
-      title: "2000+ zadowolonych klientów",
-      description: "Skutecznie pomogłem wyjść z długów bez bankructwa"
+      title: "15.000 zadowolonych klientów",
+      description: "Mojej firmie zaufało już 15.000 zadowolonych klientów"
     },
     {
-      icon: Target,
-      title: "100% skuteczność",
-      description: "Sprawdzone i w pełni legalne metody oddłużeniowe"
+      icon: Shield,
+      title: "Bezpłatna konsultacja",
+      description: "Pierwsza konsultacja oddłużeniowa całkowicie za darmo"
     }
   ];
 
@@ -61,7 +61,7 @@ const HeroSection = () => {
             </h1>
             
             <p className="text-warm-neutral-200 text-xl md:text-2xl text-center md:text-left font-lato leading-relaxed font-medium">
-              Jestem Dariusz Wentrych i przez ostatnie 20 lat pomogłem ponad <span className="text-prestige-gold-400 font-bold">2000 osób</span> całkowicie 
+              Jestem Dariusz Wentrych i przez ostatnie 20 lat pomogłem ponad <span className="text-prestige-gold-400 font-bold">15.000 osób</span> całkowicie 
               uwolnić się od długów. Moje sprawdzone metody są w <span className="text-business-blue-400 font-bold">100% legalne</span> i skuteczne.
             </p>
             
@@ -89,7 +89,7 @@ const HeroSection = () => {
             <div className="bg-gradient-to-r from-prestige-gold-400/20 to-prestige-gold-500/10 border-2 border-prestige-gold-400/50 rounded-xl p-8 mt-8 backdrop-blur-sm">
               <div className="text-center">
                 <div className="text-prestige-gold-400 font-bold text-2xl mb-3">Zaufało mi już</div>
-                <div className="text-white text-5xl font-black mb-3">2000+ osób</div>
+                <div className="text-white text-5xl font-black mb-3">15.000 osób</div>
                 <div className="text-warm-neutral-200 text-xl mb-6">które dziś żyją bez długów</div>
                 <div className="grid grid-cols-3 gap-4">
                   <div className="text-center">
@@ -97,8 +97,8 @@ const HeroSection = () => {
                     <div className="text-warm-neutral-300 text-sm">lat doświadczenia</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-prestige-gold-400 text-3xl font-bold">100%</div>
-                    <div className="text-warm-neutral-300 text-sm">skuteczność</div>
+                    <div className="text-prestige-gold-400 text-3xl font-bold">15K</div>
+                    <div className="text-warm-neutral-300 text-sm">zadowolonych klientów</div>
                   </div>
                   <div className="text-center">
                     <div className="text-prestige-gold-400 text-3xl font-bold">0 zł</div>
