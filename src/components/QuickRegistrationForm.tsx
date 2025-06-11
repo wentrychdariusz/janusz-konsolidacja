@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Plus } from 'lucide-react';
@@ -77,9 +76,6 @@ const QuickRegistrationForm = () => {
         </div>
         <div className="mt-4">
           <h2 className="text-lg font-bold">Bezpłatna konsultacja oddłużeniowa</h2>
-          <p className="text-sm text-prestige-gold-300 mt-2 font-medium">
-            Sprawdź jak uwolnić się od długów w 100% legalnie
-          </p>
         </div>
 
         {/* Team info */}
@@ -88,9 +84,9 @@ const QuickRegistrationForm = () => {
         </div>
       </div>
 
-      {/* Info section */}
-      <div className="text-center bg-gray-50 p-3">
-        <p className="text-sm text-gray-700 font-medium">
+      {/* Info section with gradient background */}
+      <div className="text-center bg-gradient-to-r from-prestige-gold-50 via-warm-neutral-50 to-business-blue-50 p-4 border-y border-warm-neutral-200">
+        <p className="text-sm text-navy-800 font-medium">
           📞 Oddzwonimy do Ciebie najszybciej jak to będzie możliwe
         </p>
       </div>
