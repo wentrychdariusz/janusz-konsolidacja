@@ -37,12 +37,33 @@ const QuickRegistrationForm = () => {
     <div className="bg-white shadow-xl border-0 w-full max-w-md mx-auto rounded-lg overflow-hidden">
       {/* Header with Dariusz's photo */}
       <div className="text-center bg-gradient-to-r from-navy-900 to-business-blue-600 text-white p-6">
-        <div className="flex justify-center mb-4">
-          <img 
-            src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-            alt="Dariusz Wentrych"
-            className="w-20 h-20 rounded-full overflow-hidden border-4 border-prestige-gold-400 shadow-xl object-cover"
-          />
+        <div className="flex justify-center items-center mb-4">
+          <div className="relative">
+            <img 
+              src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+              alt="Dariusz Wentrych"
+              className="w-20 h-20 rounded-full overflow-hidden border-4 border-prestige-gold-400 shadow-xl object-cover"
+            />
+            {/* Team members overlapping next to Dariusz */}
+            <div className="absolute -right-6 top-1 flex">
+              <Avatar className="w-8 h-8 border-2 border-prestige-gold-400 -mr-2 z-10">
+                <AvatarImage 
+                  src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
+                  alt="Członek zespołu"
+                  className="object-cover"
+                />
+                <AvatarFallback className="text-xs">KZ</AvatarFallback>
+              </Avatar>
+              <Avatar className="w-8 h-8 border-2 border-prestige-gold-400">
+                <AvatarImage 
+                  src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
+                  alt="Członek zespołu"
+                  className="object-cover"
+                />
+                <AvatarFallback className="text-xs">MK</AvatarFallback>
+              </Avatar>
+            </div>
+          </div>
         </div>
         <div>
           <h3 className="text-lg font-bold text-white">Dariusz Wentrych</h3>
@@ -55,28 +76,9 @@ const QuickRegistrationForm = () => {
           </p>
         </div>
 
-        {/* Team members */}
-        <div className="mt-4 flex justify-center items-center space-x-3">
-          <Avatar className="w-12 h-12 border-2 border-prestige-gold-400">
-            <AvatarImage 
-              src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
-              alt="Członek zespołu"
-              className="object-cover"
-            />
-            <AvatarFallback>KZ</AvatarFallback>
-          </Avatar>
-          <Avatar className="w-12 h-12 border-2 border-prestige-gold-400">
-            <AvatarImage 
-              src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
-              alt="Członek zespołu"
-              className="object-cover"
-            />
-            <AvatarFallback>MK</AvatarFallback>
-          </Avatar>
-          <div className="text-center ml-3">
-            <p className="text-xs text-prestige-gold-300">Profesjonalny zespół</p>
-            <p className="text-xs text-white font-medium">3+ ekspertów</p>
-          </div>
+        {/* Team info */}
+        <div className="mt-4">
+          <p className="text-xs text-prestige-gold-300">Profesjonalny zespół 3+ ekspertów</p>
         </div>
       </div>
 
