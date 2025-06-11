@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Users, Phone, Clock } from 'lucide-react';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const QuickRegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -55,19 +55,27 @@ const QuickRegistrationForm = () => {
           </p>
         </div>
 
-        {/* Team section with smaller icons */}
-        <div className="mt-4 flex justify-center items-center space-x-4">
-          <div className="flex items-center space-x-2">
-            <Users className="w-4 h-4 text-prestige-gold-400" />
-            <span className="text-xs text-white">Zespół ekspertów</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Phone className="w-4 h-4 text-prestige-gold-400" />
-            <span className="text-xs text-white">Szybki kontakt</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Clock className="w-4 h-4 text-prestige-gold-400" />
-            <span className="text-xs text-white">Natychmiastowa pomoc</span>
+        {/* Team members */}
+        <div className="mt-4 flex justify-center items-center space-x-3">
+          <Avatar className="w-12 h-12 border-2 border-prestige-gold-400">
+            <AvatarImage 
+              src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
+              alt="Członek zespołu"
+              className="object-cover"
+            />
+            <AvatarFallback>KZ</AvatarFallback>
+          </Avatar>
+          <Avatar className="w-12 h-12 border-2 border-prestige-gold-400">
+            <AvatarImage 
+              src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
+              alt="Członek zespołu"
+              className="object-cover"
+            />
+            <AvatarFallback>MK</AvatarFallback>
+          </Avatar>
+          <div className="text-center ml-3">
+            <p className="text-xs text-prestige-gold-300">Profesjonalny zespół</p>
+            <p className="text-xs text-white font-medium">3+ ekspertów</p>
           </div>
         </div>
       </div>
