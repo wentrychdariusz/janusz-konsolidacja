@@ -27,18 +27,76 @@ const ImagineSection = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-16 md:py-24">
-      <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/80 via-navy-900/60 to-business-blue-700/40"></div>
+    <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-16 md:py-24 overflow-hidden">
+      {/* Background mosaic with Dariusz photos */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/95 via-navy-900/90 to-business-blue-700/95 z-10"></div>
+        
+        {/* Photo mosaic grid */}
+        <div className="absolute inset-0 grid grid-cols-6 md:grid-cols-8 lg:grid-cols-12 gap-1 p-4 opacity-20">
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          
+          {/* Repeat pattern for full coverage */}
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+        </div>
+      </div>
       
-      <div className="relative z-10 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
+      <div className="relative z-20 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6">
             <span className="text-white">Wyobraź sobie </span>
             <span className="text-prestige-gold-400">życie bez ograniczeń finansowych</span>
           </h2>
-          <p className="text-warm-neutral-200 text-lg md:text-xl max-w-3xl mx-auto font-lato">
+          <p className="text-warm-neutral-200 text-lg md:text-xl max-w-3xl mx-auto font-lato mb-8">
             To nie sen - to rzeczywistość, którą możesz osiągnąć już dziś
           </p>
+          
+          {/* Trust section */}
+          <div className="bg-white/10 backdrop-blur-sm border border-prestige-gold-200/30 rounded-xl p-6 max-w-2xl mx-auto">
+            <h3 className="text-prestige-gold-400 font-bold text-2xl md:text-3xl mb-2 font-montserrat">
+              Mamy największe zaufanie klientów
+            </h3>
+            <p className="text-white text-lg font-lato">
+              Klienci nas kochają!
+            </p>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
