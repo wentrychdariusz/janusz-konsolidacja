@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Users, Phone, Clock } from 'lucide-react';
 
 const QuickRegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -53,12 +54,28 @@ const QuickRegistrationForm = () => {
             Sprawdź jak uwolnić się od długów w 100% legalnie
           </p>
         </div>
+
+        {/* Team section with smaller icons */}
+        <div className="mt-4 flex justify-center items-center space-x-4">
+          <div className="flex items-center space-x-2">
+            <Users className="w-4 h-4 text-prestige-gold-400" />
+            <span className="text-xs text-white">Zespół ekspertów</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Phone className="w-4 h-4 text-prestige-gold-400" />
+            <span className="text-xs text-white">Szybki kontakt</span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Clock className="w-4 h-4 text-prestige-gold-400" />
+            <span className="text-xs text-white">Natychmiastowa pomoc</span>
+          </div>
+        </div>
       </div>
 
       {/* Info section */}
       <div className="text-center bg-gray-50 p-3">
         <p className="text-sm text-gray-700 font-medium">
-          📞 Zadzwonię do Ciebie w ciągu 24h i przedstawię konkretny plan działania
+          📞 Oddzwonimy do Ciebie najszybciej jak to będzie możliwe
         </p>
       </div>
 
