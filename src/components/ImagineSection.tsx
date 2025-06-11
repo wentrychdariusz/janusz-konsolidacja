@@ -30,51 +30,117 @@ const ImagineSection = () => {
     <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-16 md:py-24 overflow-hidden">
       {/* Background mosaic with Dariusz photos */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/80 via-navy-900/75 to-business-blue-700/80 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/75 via-navy-900/70 to-business-blue-700/75 z-10"></div>
         
-        {/* Photo mosaic grid */}
-        <div className="absolute inset-0 grid grid-cols-6 md:grid-cols-8 lg:grid-cols-12 gap-1 p-4 opacity-40">
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+        {/* Photo mosaic grid - expanded and mixed */}
+        <div className="absolute inset-0 grid grid-cols-8 md:grid-cols-12 lg:grid-cols-16 gap-1 p-2 opacity-50">
+          {/* Row 1 */}
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
           
-          {/* Repeat pattern for full coverage */}
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          {/* Row 2 */}
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
           
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          {/* Row 3 */}
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
           
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          {/* Row 4 */}
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
           
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-16 md:h-20 object-cover rounded" />
+          {/* Row 5 */}
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          
+          {/* Row 6 */}
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-14 md:h-18 object-cover rounded" />
         </div>
       </div>
       
