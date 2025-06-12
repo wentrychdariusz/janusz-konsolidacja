@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Star } from 'lucide-react';
 
@@ -45,7 +46,7 @@ const MentorSection = () => {
             <img 
               src="/lovable-uploads/b1beb685-d9f6-4c89-aadc-9f16c27fa4d7.png"
               alt="Pan Krzysztof"
-              className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full border-3 border-prestige-gold-400 object-cover"
+              className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full border-3 border-prestige-gold-400 object-cover object-top"
             />
           </div>
           <p className="text-white text-sm font-lato">Pan Krzysztof</p>
@@ -108,14 +109,14 @@ const MentorSection = () => {
           </h3>
           
           <div className="max-w-3xl mx-auto space-y-6">
-            <div className="bg-red-500/20 border border-red-400/30 rounded-xl p-6">
-              <p className="text-white text-lg font-lato">
+            <div className="bg-gradient-to-r from-red-500/10 to-red-600/15 border border-red-400/20 rounded-2xl p-8 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+              <p className="text-white text-lg font-lato font-medium">
                 ❌ Pozostać w miejscu, w którym jesteś – pozwolić, by długi dalej rządziły Twoim życiem.
               </p>
             </div>
             
-            <div className="bg-success-500/20 border border-success-400/30 rounded-xl p-6">
-              <p className="text-white text-lg font-lato">
+            <div className="bg-gradient-to-r from-success-500/15 to-success-400/20 border border-success-400/30 rounded-2xl p-8 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+              <p className="text-white text-lg font-lato font-medium">
                 ✅ Powiedzieć STOP! Przejąć kontrolę. Zacząć od nowa.
               </p>
             </div>
