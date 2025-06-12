@@ -35,12 +35,12 @@ const ImagineSection = () => {
   return (
     <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-16 md:py-20 lg:py-24 overflow-hidden min-h-[120vh] lg:min-h-[130vh]">
       {/* Background mosaic with better mobile handling */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 overflow-hidden">
         {/* Solid background for mobile, mosaic for larger screens */}
         <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-business-blue-800 to-navy-900 md:hidden"></div>
         
         {/* Photo mosaic - only visible on medium screens and up */}
-        <div className="absolute inset-0 hidden md:grid grid-cols-12 lg:grid-cols-16 gap-0">
+        <div className="absolute inset-0 hidden md:grid grid-cols-12 lg:grid-cols-16 overflow-hidden">
           {Array.from({ length: 200 }, (_, index) => {
             const images = [
               "/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png",
@@ -54,11 +54,11 @@ const ImagineSection = () => {
             ];
             const imageIndex = index % images.length;
             return (
-              <div key={index} className="aspect-square overflow-hidden">
+              <div key={index} className="aspect-square">
                 <img 
                   src={images[imageIndex]} 
                   alt="" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover block"
                 />
               </div>
             );
