@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MapPin, Car, Award, Users, Star } from 'lucide-react';
 
@@ -114,7 +113,8 @@ const ImagineSection = () => {
                 Dlaczego wybierają nas klienci?
               </h3>
               <p className="text-warm-neutral-300 text-lg font-lato">
-                Sprawdź, co wyróżnia nas na rynku
+                W świecie, gdzie inni widzą w Tobie tylko numer, my widzimy człowieka.
+                Dla większości liczy się szybka sprzedaż i prowizja. U nas liczy się rozmowa, zrozumienie i realna pomoc. Nie działamy schematami, nie składamy pustych obietnic i nie wciskamy rozwiązań na siłę. Zamiast tego dajemy Ci czas, wsparcie i skuteczny plan działania. Klienci wracają do nas, bo wiedzą, że tu liczy się człowiek, nie target. To nasza przewaga nad całą resztą.
               </p>
             </div>
             
