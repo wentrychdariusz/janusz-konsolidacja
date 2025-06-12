@@ -109,13 +109,13 @@ const MentorSection = () => {
           </h3>
           
           <div className="max-w-3xl mx-auto space-y-6">
-            <div className="bg-gradient-to-r from-red-500/10 to-red-600/15 border border-red-400/20 rounded-2xl p-8 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="bg-gradient-to-r from-red-600/20 via-red-500/15 to-red-700/20 border border-red-400/30 rounded-2xl p-8 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
               <p className="text-white text-lg font-lato font-medium">
                 ❌ Pozostać w miejscu, w którym jesteś – pozwolić, by długi dalej rządziły Twoim życiem.
               </p>
             </div>
             
-            <div className="bg-gradient-to-r from-success-500/15 to-success-400/20 border border-success-400/30 rounded-2xl p-8 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="bg-gradient-to-r from-success-600/20 via-success-500/15 to-success-400/20 border border-success-400/40 rounded-2xl p-8 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
               <p className="text-white text-lg font-lato font-medium">
                 ✅ Powiedzieć STOP! Przejąć kontrolę. Zacząć od nowa.
               </p>
