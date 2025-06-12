@@ -1,31 +1,7 @@
-
 import React from 'react';
-import { Heart, Home, Plane, ShoppingBag, MapPin, Car, Award, Users } from 'lucide-react';
+import { MapPin, Car, Award, Users } from 'lucide-react';
 
 const ImagineSection = () => {
-  const benefits = [
-    {
-      icon: Home,
-      title: "Własne miejsce",
-      description: "Zarabiaj na wymarzony dom lub mieszkanie"
-    },
-    {
-      icon: Plane,
-      title: "Podróże marzeń",
-      description: "Odkrywaj świat bez martwienia się o budżet"
-    },
-    {
-      icon: ShoppingBag,
-      title: "Finansowa swoboda",
-      description: "Kup to, na co masz ochotę bez zastanawiania się"
-    },
-    {
-      icon: Heart,
-      title: "Spokój dla rodziny",
-      description: "Zapewnij bliskim bezpieczeństwo finansowe"
-    }
-  ];
-
   const expertise = [
     {
       icon: MapPin,
@@ -145,7 +121,7 @@ const ImagineSection = () => {
           <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover" />
           <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover" />
           <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover" />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9কিন্তc346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover" />
           
           {/* Row 6 */}
           <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover" />
@@ -177,27 +153,9 @@ const ImagineSection = () => {
           </p>
         </div>
 
-        {/* Video and expertise section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-16">
-          {/* Left side - Video */}
-          <div className="flex justify-center">
-            <div className="w-full max-w-lg">
-              <script src="https://fast.wistia.com/player.js" async></script>
-              <script src="https://fast.wistia.com/embed/nlk4gmdg22.js" async type="module"></script>
-              <style>{`
-                wistia-player[media-id='nlk4gmdg22']:not(:defined) { 
-                  background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/nlk4gmdg22/swatch'); 
-                  display: block; 
-                  filter: blur(5px); 
-                  padding-top:177.78%; 
-                }
-              `}</style>
-              <wistia-player media-id="nlk4gmdg22" aspect="0.5625"></wistia-player>
-            </div>
-          </div>
-
-          {/* Right side - Expertise list */}
-          <div className="space-y-6">
+        {/* Expertise section - centered */}
+        <div className="flex justify-center mb-16">
+          <div className="space-y-6 max-w-2xl">
             {expertise.map((item, index) => (
               <div 
                 key={index}
@@ -213,21 +171,6 @@ const ImagineSection = () => {
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          {benefits.map((benefit, index) => (
-            <div 
-              key={index}
-              className="bg-white/10 backdrop-blur-sm border border-prestige-gold-200/30 rounded-xl p-6 text-center hover:bg-white/15 hover:-translate-y-1 transition-all duration-300"
-            >
-              <div className="bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <benefit.icon className="w-8 h-8 text-navy-900" />
-              </div>
-              <h3 className="text-white font-semibold text-lg mb-2 font-montserrat">{benefit.title}</h3>
-              <p className="text-warm-neutral-300 text-sm font-lato">{benefit.description}</p>
-            </div>
-          ))}
         </div>
       </div>
     </section>
