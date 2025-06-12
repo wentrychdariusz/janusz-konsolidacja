@@ -78,10 +78,10 @@ const FloatingAvatar = () => {
         </div>
       </div>
 
-      {/* Modal with Calculator */}
+      {/* Modal with Calculator - Zwiększony rozmiar i lepsze scroll */}
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-auto relative">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[95vh] overflow-hidden relative flex flex-col">
             {/* Close Button */}
             <button
               onClick={handleClose}
@@ -90,8 +90,8 @@ const FloatingAvatar = () => {
               <X className="w-4 h-4 text-gray-600" />
             </button>
             
-            {/* Header with Dariusz */}
-            <div className="bg-gradient-to-r from-navy-900 to-business-blue-600 text-white p-6 rounded-t-2xl">
+            {/* Header with Dariusz - Fixed */}
+            <div className="bg-gradient-to-r from-navy-900 to-business-blue-600 text-white p-6 rounded-t-2xl flex-shrink-0">
               <div className="flex items-center space-x-4">
                 <img 
                   src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
@@ -105,8 +105,8 @@ const FloatingAvatar = () => {
               </div>
             </div>
             
-            {/* Calculator Content */}
-            <div className="p-6">
+            {/* Calculator Content - Scrollable */}
+            <div className="flex-1 overflow-y-auto p-6">
               <DebtCalculator />
             </div>
           </div>
