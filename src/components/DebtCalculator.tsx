@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -229,7 +230,7 @@ const DebtCalculator = () => {
 
                 <div>
                   <Label htmlFor="payday" className="text-navy-800 font-medium text-sm lg:text-base">
-                    Suma zadłużenia w chwilówkach/parabankach
+                    Suma chwilówek/parabanków
                   </Label>
                   <div className="relative mt-2">
                     <Input
@@ -248,7 +249,7 @@ const DebtCalculator = () => {
 
                 <div>
                   <Label htmlFor="bank" className="text-navy-800 font-medium text-sm lg:text-base">
-                    Suma zaciągniętych kredytów bankowych
+                    Suma kredytów bankowych
                   </Label>
                   <div className="relative mt-2">
                     <Input
