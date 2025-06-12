@@ -131,6 +131,15 @@ const MentorSection = () => {
                 ⚠️ Nie ryzykuj z firmami, które nie mają doświadczenia i chcą Cię tylko oszukać!
               </h3>
               
+              {/* Added image after the warning text */}
+              <div className="flex justify-center mb-8">
+                <img 
+                  src="/lovable-uploads/0309cd85-8ab0-4aa0-8ec6-e919cb08209f.png"
+                  alt="Osoba z problemami finansowymi"
+                  className="w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-2xl border-4 border-white/60 object-cover shadow-xl"
+                />
+              </div>
+              
               <div className="text-left space-y-4 mb-8">
                 <p className="text-white text-lg font-lato leading-relaxed">
                   Jest tyle firm naciągaczy, że nawet jeśli masz wątpliwości i byłeś w tych firmach, jak najszybciej skontaktuj się z nami, aby porównać zapisy prawne z naszym zespołem ekspertów.
