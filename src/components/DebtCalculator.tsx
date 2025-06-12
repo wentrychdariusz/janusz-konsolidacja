@@ -132,58 +132,6 @@ const DebtCalculator = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      {/* Sekcja z Dariuszem i zespołem - pod nagłówkiem */}
-      <div className="text-center mb-8 bg-gradient-to-r from-navy-900 via-business-blue-600 to-navy-900 rounded-2xl p-6 shadow-xl">
-        <div className="flex justify-center items-center mb-4">
-          <div className="flex items-center space-x-2">
-            {/* Dariusz main photo */}
-            <img 
-              src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-              alt="Dariusz Wentrych"
-              className="w-16 h-16 rounded-full overflow-hidden border-3 border-prestige-gold-400 shadow-xl object-cover"
-            />
-            
-            {/* Plus icon */}
-            <Plus className="w-3 h-3 text-prestige-gold-300" />
-            
-            {/* Team members */}
-            <div className="flex items-center space-x-1">
-              <Avatar className="w-12 h-12 border-2 border-prestige-gold-400">
-                <AvatarImage 
-                  src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
-                  alt="Członek zespołu"
-                  className="object-cover"
-                />
-                <AvatarFallback className="text-xs">KZ</AvatarFallback>
-              </Avatar>
-              <Avatar className="w-12 h-12 border-2 border-prestige-gold-400">
-                <AvatarImage 
-                  src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
-                  alt="Członek zespołu"
-                  className="object-cover"
-                />
-                <AvatarFallback className="text-xs">MK</AvatarFallback>
-              </Avatar>
-              <Avatar className="w-12 h-12 border-2 border-prestige-gold-400">
-                <AvatarImage 
-                  src="/lovable-uploads/73083e2d-4631-4f25-abd0-a482d29bb838.png"
-                  alt="Członek zespołu"
-                  className="object-cover"
-                />
-                <AvatarFallback className="text-xs">AS</AvatarFallback>
-              </Avatar>
-            </div>
-          </div>
-        </div>
-        <div className="mb-4">
-          <h3 className="text-xl font-bold text-white">Dariusz Wentrych i Zespół</h3>
-          <p className="text-prestige-gold-300">Eksperci Oddłużenia - 20+ lat doświadczenia</p>
-        </div>
-        <p className="text-white/90 text-sm">
-          Profesjonalny zespół specjalistów gotowy pomóc w Twojej sytuacji oddłużeniowej
-        </p>
-      </div>
-
       <div className="grid lg:grid-cols-2 gap-8 items-start">
         {/* Kalkulator */}
         <div className="bg-white rounded-2xl shadow-xl border-0 p-8">
@@ -199,6 +147,55 @@ const DebtCalculator = () => {
             <p className="text-warm-neutral-600">
               Sprawdź, czy możemy Ci pomóc w konsolidacji chwilówek
             </p>
+          </div>
+
+          {/* Sekcja z Dariuszem i zespołem - element budujący zaufanie */}
+          <div className="text-center mb-8 bg-gradient-to-r from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 rounded-xl p-4 border border-warm-neutral-200">
+            <div className="flex justify-center items-center mb-3">
+              <div className="flex items-center space-x-2">
+                {/* Dariusz main photo */}
+                <img 
+                  src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                  alt="Dariusz Wentrych"
+                  className="w-12 h-12 rounded-full overflow-hidden border-2 border-prestige-gold-400 shadow-md object-cover"
+                />
+                
+                {/* Plus icon */}
+                <Plus className="w-3 h-3 text-prestige-gold-400" />
+                
+                {/* Team members */}
+                <div className="flex items-center space-x-1">
+                  <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
+                    <AvatarImage 
+                      src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
+                      alt="Członek zespołu"
+                      className="object-cover"
+                    />
+                    <AvatarFallback className="text-xs">KZ</AvatarFallback>
+                  </Avatar>
+                  <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
+                    <AvatarImage 
+                      src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
+                      alt="Członek zespołu"
+                      className="object-cover"
+                    />
+                    <AvatarFallback className="text-xs">MK</AvatarFallback>
+                  </Avatar>
+                  <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
+                    <AvatarImage 
+                      src="/lovable-uploads/73083e2d-4631-4f25-abd0-a482d29bb838.png"
+                      alt="Członek zespołu"
+                      className="object-cover"
+                    />
+                    <AvatarFallback className="text-xs">AS</AvatarFallback>
+                  </Avatar>
+                </div>
+              </div>
+            </div>
+            <div className="mb-2">
+              <h3 className="text-sm font-semibold text-navy-800">Dariusz Wentrych i Eksperci</h3>
+              <p className="text-xs text-warm-neutral-600">20+ lat doświadczenia w oddłużeniu</p>
+            </div>
           </div>
 
           <div className="space-y-6">
