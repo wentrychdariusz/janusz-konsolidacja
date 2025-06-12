@@ -123,7 +123,7 @@ const MentorSection = () => {
           </div>
         </div>
 
-        {/* Warning section about scammer companies */}
+        {/* Warning section about scammer companies - NOWA OSOBNA SEKCJA */}
         <div className="text-center">
           <div className="max-w-4xl mx-auto">
             <div className="bg-gradient-to-r from-red-600/30 via-red-500/25 to-red-700/30 border-2 border-red-400/50 rounded-2xl p-8 md:p-12 backdrop-blur-sm shadow-2xl">
