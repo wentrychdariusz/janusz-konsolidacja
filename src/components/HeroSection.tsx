@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import DebtCalculator from './DebtCalculator';
 import TrustBar from './TrustBar';
@@ -49,7 +50,7 @@ const HeroSection = () => {
         <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-8 md:py-16">
           
           {/* Header Section - Full Width */}
-          <div className="w-full text-center mb-8 md:mb-12 animate-fade-in">
+          <div className="w-full text-center mb-6 md:mb-8 animate-fade-in">
             <div className="flex justify-center items-center mb-4 lg:mb-6">
               <img 
                 src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
@@ -66,7 +67,7 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Trust Bar - Full Width */}
+        {/* Trust Bar - Full Width - Moved closer to header */}
         <TrustBar />
 
         <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-8 md:py-16">
@@ -82,7 +83,7 @@ const HeroSection = () => {
               
               <p className="text-warm-neutral-200 text-xl md:text-2xl text-center font-lato leading-relaxed font-medium">
                 Jestem Dariusz Wentrych i przez ostatnie 20 lat pomogłem ponad <span className="text-prestige-gold-400 font-bold">15.000 osób</span> całkowicie 
-                uwolnić się od długów. Moje sprawdzone metody są w <span className="text-business-blue-400 font-bold">100% legalne</span> i skuteczne.
+                uwolnić się od długów. Moje sprawdzone metody są w <span className="text-business-blue-400 font-bold">100% skuteczne</span>.
               </p>
               
               {/* Benefits Cards - Mobile */}
@@ -125,7 +126,7 @@ const HeroSection = () => {
               
               <p className="text-warm-neutral-200 text-xl lg:text-2xl text-left font-lato leading-relaxed font-medium">
                 Jestem Dariusz Wentrych i przez ostatnie 20 lat pomogłem ponad <span className="text-prestige-gold-400 font-bold">15.000 osób</span> całkowicie 
-                uwolnić się od długów. Moje sprawdzone metody są w <span className="text-business-blue-400 font-bold">100% legalne</span> i skuteczne.
+                uwolnić się od długów. Moje sprawdzone metody są w <span className="text-business-blue-400 font-bold">100% skuteczne</span>.
               </p>
               
               {/* Benefits Cards - Desktop */}
