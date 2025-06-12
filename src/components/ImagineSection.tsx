@@ -1,6 +1,16 @@
 
+
 import React from 'react';
 import { MapPin, Car, Award, Users } from 'lucide-react';
+
+// Declare custom element for TypeScript
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'wistia-player': any;
+    }
+  }
+}
 
 const ImagineSection = () => {
   const expertise = [
@@ -175,6 +185,16 @@ const ImagineSection = () => {
 
           {/* Right side - Expertise list */}
           <div className="space-y-6">
+            {/* Text above icons */}
+            <div className="mb-8">
+              <h3 className="text-white text-2xl md:text-3xl font-bold mb-4 font-montserrat">
+                Dlaczego wybierają nas klienci?
+              </h3>
+              <p className="text-warm-neutral-300 text-lg font-lato">
+                Sprawdź, co wyróżnia nas na rynku
+              </p>
+            </div>
+            
             {expertise.map((item, index) => (
               <div 
                 key={index}
@@ -197,3 +217,4 @@ const ImagineSection = () => {
 };
 
 export default ImagineSection;
+
