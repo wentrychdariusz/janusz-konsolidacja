@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Star } from 'lucide-react';
+import { Star, X, Check } from 'lucide-react';
 
 const MentorSection = () => {
   const testimonials = [
@@ -141,30 +141,43 @@ const MentorSection = () => {
                 </p>
                 
                 <div className="bg-white/10 rounded-xl p-6 my-6">
-                  <p className="text-white text-lg font-lato mb-4">
-                    <span className="text-prestige-gold-400 font-bold">Jeśli byłeś u nich – nawet tylko raz –</span><br/>
-                    <span className="text-prestige-gold-400 font-bold">Jeśli coś Ci nie pasuje albo masz cień wątpliwości –</span>
-                  </p>
-                  
                   {/* Comparison section */}
                   <div className="grid md:grid-cols-2 gap-6 my-8">
                     {/* Competitors */}
                     <div className="bg-gradient-to-r from-red-600/40 via-red-500/30 to-red-700/40 rounded-xl p-6 border border-red-400/50">
-                      <h4 className="text-white text-xl font-bold font-montserrat mb-4 text-center">❌ Oni</h4>
+                      <h4 className="text-white text-lg font-bold font-montserrat mb-4 text-center">❌ Oni</h4>
                       <div className="space-y-3">
-                        <p className="text-red-200 text-lg font-lato">Ukrywają koszty</p>
-                        <p className="text-red-200 text-lg font-lato">Poganiają do podpisu</p>
-                        <p className="text-red-200 text-lg font-lato">Zostawiają Cię z problemem</p>
+                        <div className="flex items-center space-x-2">
+                          <X className="w-4 h-4 text-red-400 flex-shrink-0" />
+                          <p className="text-red-200 text-base font-lato">Ukrywają koszty</p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <X className="w-4 h-4 text-red-400 flex-shrink-0" />
+                          <p className="text-red-200 text-base font-lato">Poganiają do podpisu</p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <X className="w-4 h-4 text-red-400 flex-shrink-0" />
+                          <p className="text-red-200 text-base font-lato">Zostawiają Cię z problemem</p>
+                        </div>
                       </div>
                     </div>
                     
                     {/* Your company */}
                     <div className="bg-gradient-to-r from-emerald-500/40 via-green-500/30 to-lime-500/40 rounded-xl p-6 border border-emerald-400/50">
-                      <h4 className="text-white text-xl font-bold font-montserrat mb-4 text-center">✅ My</h4>
+                      <h4 className="text-white text-lg font-bold font-montserrat mb-4 text-center">✅ My</h4>
                       <div className="space-y-3">
-                        <p className="text-emerald-200 text-lg font-lato">Pokazujemy, co naprawdę podpisujesz</p>
-                        <p className="text-emerald-200 text-lg font-lato">Tłumaczymy każdy punkt</p>
-                        <p className="text-emerald-200 text-lg font-lato">Bronimy Cię przed konsekwencjami</p>
+                        <div className="flex items-center space-x-2">
+                          <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                          <p className="text-emerald-200 text-base font-lato">Pokazujemy, co naprawdę podpisujesz</p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                          <p className="text-emerald-200 text-base font-lato">Tłumaczymy każdy punkt</p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                          <p className="text-emerald-200 text-base font-lato">Bronimy Cię przed konsekwencjami</p>
+                        </div>
                       </div>
                     </div>
                   </div>
