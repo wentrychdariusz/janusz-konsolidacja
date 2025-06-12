@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Plus, CheckCircle, Phone } from 'lucide-react';
@@ -204,7 +203,7 @@ const QuickRegistrationForm = () => {
           />
         </div>
 
-        <div className="pt-6">
+        <div className="pt-6 pb-6">
           <button
             type="submit"
             disabled={isSubmitting}
