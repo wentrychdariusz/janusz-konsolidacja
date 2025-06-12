@@ -168,11 +168,11 @@ const HeroSection = () => {
                 <span className="text-business-blue-400">jedną wygodną ratę</span>
               </h1>
               
-              <div className="text-warm-neutral-200 text-xl lg:text-2xl text-left font-lato leading-relaxed font-medium space-y-4">
+              <div className="text-warm-neutral-200 text-lg xl:text-xl text-left font-lato leading-relaxed font-medium space-y-4">
                 <p>
                   <span className="text-white font-bold">Masz długi, chwilówki, komornika na karku?</span> Nie jesteś sam. Od 20 lat pomagamy tam, gdzie inni zawiedli.
                 </p>
-                <p className="text-white font-bold text-lg lg:text-xl uppercase tracking-wide">
+                <p className="text-white font-bold text-base xl:text-lg uppercase tracking-wide">
                   WSPIERAMY KLIENTÓW TAM, GDZIE INNI NIE POTRAFILI ZNALEŹĆ ROZWIĄZAŃ.
                 </p>
                 <p>
