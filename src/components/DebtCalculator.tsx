@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,7 +16,6 @@ const DebtCalculator = () => {
     type: 'positive' | 'warning' | 'negative' | null;
     showForm: boolean;
   }>({ message: '', type: null, showForm: false });
-  const [showFormStep, setShowFormStep] = useState(false);
 
   // Stałe z oryginalnego kalkulatora
   const MARGIN = 10000;
@@ -44,7 +44,6 @@ const DebtCalculator = () => {
         type: 'warning',
         showForm: false
       });
-      setShowFormStep(false);
       return;
     }
 
@@ -59,7 +58,6 @@ const DebtCalculator = () => {
         type: 'negative',
         showForm: false
       });
-      setShowFormStep(false);
       return;
     }
 
@@ -71,7 +69,6 @@ const DebtCalculator = () => {
         type: 'positive',
         showForm: true
       });
-      setShowFormStep(false);
       return;
     }
 
@@ -81,7 +78,6 @@ const DebtCalculator = () => {
         type: 'warning',
         showForm: true
       });
-      setShowFormStep(false);
       return;
     }
 
@@ -90,7 +86,6 @@ const DebtCalculator = () => {
       type: 'negative',
       showForm: false
     });
-    setShowFormStep(false);
   };
 
   const formatNumber = (value: string) => {
@@ -136,19 +131,15 @@ const DebtCalculator = () => {
     }
   };
 
-  const handleShowForm = () => {
-    setShowFormStep(true);
-  };
-
   const handleBackToCalculator = () => {
-    setShowFormStep(false);
+    setResult({ message: '', type: null, showForm: false });
   };
 
   return (
     <div className="w-full h-full flex flex-col">
       <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 items-start h-full">
-        {/* Formularz rejestracyjny - pokazuje się w tym samym miejscu */}
-        {showFormStep ? (
+        {/* Formularz rejestracyjny - pokazuje się automatycznie po pozytywnym wyniku */}
+        {result.showForm ? (
           <div className="animate-fade-in h-full">
             <div className="mb-4 lg:mb-6">
               <Button
@@ -307,22 +298,14 @@ const DebtCalculator = () => {
                   Sprawdź czy Ci pomożemy
                 </Button>
 
-                {result.message && (
+                {result.message && !result.showForm && (
                   <div className={`p-4 lg:p-6 rounded-xl border-2 ${getResultClasses()}`}>
                     <div className="flex items-start space-x-3 lg:space-x-4">
                       {getResultIcon()}
                       <div className="flex-1">
-                        <p className="font-medium leading-relaxed text-sm lg:text-base xl:text-lg mb-3">
+                        <p className="font-medium leading-relaxed text-sm lg:text-base xl:text-lg">
                           {result.message}
                         </p>
-                        {result.showForm && (
-                          <Button
-                            onClick={handleShowForm}
-                            className="w-full bg-gradient-to-r from-success-600 to-success-500 hover:from-success-700 hover:to-success-600 text-white font-bold py-3 text-base rounded-lg shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105"
-                          >
-                            Wypełnij formularz kontaktowy
-                          </Button>
-                        )}
                       </div>
                     </div>
                   </div>
