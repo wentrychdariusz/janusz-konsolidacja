@@ -27,7 +27,7 @@ const ImagineSection = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-16 md:py-24 overflow-hidden min-h-screen">
+    <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-16 md:py-24 overflow-hidden">
       {/* Background mosaic with Dariusz photos */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/75 via-navy-900/70 to-business-blue-700/75 z-10"></div>
@@ -70,16 +70,17 @@ const ImagineSection = () => {
         </div>
 
         {/* Video and expertise section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-16 items-start">
           {/* Left side - Video */}
           <div className="w-full">
-            <div className="relative w-full h-0 pb-[56.25%]">
+            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe 
                 src="https://fast.wistia.net/embed/iframe/nlk4gmdg22?seo=true&videoFoam=true" 
                 title="Video"
                 allow="autoplay; fullscreen" 
                 allowFullScreen 
-                className="absolute top-0 left-0 w-full h-full rounded-lg"
+                className="absolute top-0 left-0 w-full h-full rounded-lg border-0"
+                style={{ width: '100%', height: '100%' }}
               ></iframe>
             </div>
           </div>
