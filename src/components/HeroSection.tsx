@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import DebtCalculator from './DebtCalculator';
 import { CheckCircle, Shield, Award, Users, Trophy, Target } from 'lucide-react';
@@ -59,7 +60,7 @@ const HeroSection = () => {
         <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-8 md:py-16">
           
           {/* Header Section - Full Width */}
-          <div className="w-full text-center mb-6 md:mb-8 animate-fade-in">
+          <div className="w-full text-center mb-4 md:mb-6 animate-fade-in">
             <div className="flex justify-center items-center mb-4 lg:mb-6">
               <img 
                 src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
@@ -76,10 +77,10 @@ const HeroSection = () => {
           </div>
 
           {/* Enhanced Trust Section with More Client Images */}
-          <div className="w-full bg-gradient-to-r from-business-blue-400/20 via-business-blue-300/15 to-business-blue-400/20 border-t border-b border-business-blue-400/30 backdrop-blur-sm py-8 mb-8 rounded-xl">
+          <div className="w-full bg-gradient-to-r from-business-blue-400/20 via-business-blue-300/15 to-business-blue-400/20 border-t border-b border-business-blue-400/30 backdrop-blur-sm py-6 mb-6 rounded-xl">
             <div className="text-center">
               {/* Client photos grid - 8 photos */}
-              <div className="flex flex-wrap justify-center items-center gap-3 mb-6">
+              <div className="flex flex-wrap justify-center items-center gap-3 mb-4">
                 {clientImages.map((image, index) => (
                   <div key={index} className="relative group">
                     <img 
@@ -97,7 +98,7 @@ const HeroSection = () => {
               </div>
               
               {/* Trust messaging */}
-              <div className="space-y-2">
+              <div className="space-y-1">
                 <h3 className="font-montserrat text-white text-xl md:text-2xl font-bold">
                   Oni mi zaufali
                 </h3>
