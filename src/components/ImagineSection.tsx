@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { MapPin, Car, Award, Users } from 'lucide-react';
 
@@ -153,9 +154,27 @@ const ImagineSection = () => {
           </p>
         </div>
 
-        {/* Expertise section - centered */}
-        <div className="flex justify-center mb-16">
-          <div className="space-y-6 max-w-2xl">
+        {/* Video and expertise section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-16">
+          {/* Left side - Video */}
+          <div className="flex justify-center">
+            <div className="w-full max-w-lg">
+              <script src="https://fast.wistia.com/player.js" async></script>
+              <script src="https://fast.wistia.com/embed/nlk4gmdg22.js" async type="module"></script>
+              <style>{`
+                wistia-player[media-id='nlk4gmdg22']:not(:defined) { 
+                  background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/nlk4gmdg22/swatch'); 
+                  display: block; 
+                  filter: blur(5px); 
+                  padding-top:177.78%; 
+                }
+              `}</style>
+              <wistia-player media-id="nlk4gmdg22" aspect="0.5625"></wistia-player>
+            </div>
+          </div>
+
+          {/* Right side - Expertise list */}
+          <div className="space-y-6">
             {expertise.map((item, index) => (
               <div 
                 key={index}
