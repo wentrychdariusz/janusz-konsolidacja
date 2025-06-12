@@ -73,14 +73,13 @@ const ImagineSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-16 items-start">
           {/* Left side - Video */}
           <div className="w-full">
-            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+            <div className="aspect-video w-full">
               <iframe 
                 src="https://fast.wistia.net/embed/iframe/nlk4gmdg22?seo=true&videoFoam=true" 
                 title="Video"
                 allow="autoplay; fullscreen" 
                 allowFullScreen 
-                className="absolute top-0 left-0 w-full h-full rounded-lg border-0"
-                style={{ width: '100%', height: '100%' }}
+                className="w-full h-full rounded-lg border-0"
               ></iframe>
             </div>
           </div>
