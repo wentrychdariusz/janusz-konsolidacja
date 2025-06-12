@@ -140,11 +140,11 @@ const DebtCalculator = () => {
         {/* Formularz rejestracyjny - pokazuje się automatycznie po pozytywnym wyniku */}
         {result.showForm ? (
           <div className="animate-fade-in h-full">
-            <div className="mb-4 lg:mb-6">
+            <div>
               <Button
                 onClick={handleBackToCalculator}
                 variant="ghost"
-                className="mb-4 text-navy-800 hover:text-navy-900"
+                className="text-navy-800 hover:text-navy-900"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Powrót do kalkulatora
