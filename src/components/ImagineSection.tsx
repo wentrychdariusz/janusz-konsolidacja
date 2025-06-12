@@ -79,7 +79,7 @@ const ImagineSection = () => {
             <div className="flex items-center justify-center gap-2 mb-3">
               {renderStars()}
               <span className="text-3xl font-black text-transparent bg-gradient-to-r from-navy-900 via-business-blue-700 to-navy-900 bg-clip-text ml-3 drop-shadow-sm">4.9</span>
-              <span className="text-navy-700 font-bold tracking-wide">(383 OPINII)</span>
+              <span className="text-navy-700 font-bold tracking-wide text-xs md:text-sm">(383 OPINII)</span>
             </div>
             <p className="text-transparent bg-gradient-to-r from-warm-neutral-600 via-navy-600 to-warm-neutral-600 bg-clip-text text-sm font-bold tracking-wide uppercase">
               Zweryfikowane opinie Google i Oferteo
