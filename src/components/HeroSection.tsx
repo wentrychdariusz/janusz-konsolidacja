@@ -117,7 +117,6 @@ const HeroSection = () => {
               <h1 className="font-montserrat font-black text-3xl sm:text-4xl md:text-5xl text-center leading-tight">
                 <span className="text-white">Zamień długi w </span>
                 <span className="text-business-blue-400">jedną wygodną ratę</span>
-                <span className="text-white"> - 20 lat doświadczenia</span>
               </h1>
               
               <p className="text-warm-neutral-200 text-xl md:text-2xl text-center font-lato leading-relaxed font-medium">
@@ -160,7 +159,6 @@ const HeroSection = () => {
               <h1 className="font-montserrat font-black text-4xl lg:text-5xl xl:text-6xl text-left leading-tight">
                 <span className="text-white">Zamień długi w </span>
                 <span className="text-business-blue-400">jedną wygodną ratę</span>
-                <span className="text-white"> - 20 lat doświadczenia</span>
               </h1>
               
               <p className="text-warm-neutral-200 text-xl lg:text-2xl text-left font-lato leading-relaxed font-medium">
