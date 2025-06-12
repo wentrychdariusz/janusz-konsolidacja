@@ -5,15 +5,15 @@ import DebtCalculator from './DebtCalculator';
 
 const FloatingAvatar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [position, setPosition] = useState({ x: 20, y: 20 });
   const [isDragging, setIsDragging] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(true);
   const [showMessage, setShowMessage] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
-  // Sprawdzanie pozycji scroll
+  // Sprawdzanie pozycji scroll i aktualizacja pozycji awatara
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
+      setScrollPosition(scrollY);
       setShowMessage(scrollY > 100); // Pokaż wiadomość po przescrollowaniu 100px
     };
 
@@ -21,74 +21,30 @@ const FloatingAvatar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Auto-animacja poruszania się awatara
-  useEffect(() => {
-    if (isDragging || isOpen) return;
-
-    const interval = setInterval(() => {
-      if (isAnimating) {
-        const maxX = window.innerWidth - 100;
-        const maxY = window.innerHeight - 100;
-        
-        setPosition(prev => ({
-          x: Math.max(20, Math.min(maxX, prev.x + (Math.random() - 0.5) * 100)),
-          y: Math.max(20, Math.min(maxY, prev.y + (Math.random() - 0.5) * 100))
-        }));
-      }
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [isDragging, isOpen, isAnimating]);
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    setIsAnimating(false);
-    
-    const startX = e.clientX - position.x;
-    const startY = e.clientY - position.y;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const newX = Math.max(0, Math.min(window.innerWidth - 80, e.clientX - startX));
-      const newY = Math.max(0, Math.min(window.innerHeight - 80, e.clientY - startY));
-      setPosition({ x: newX, y: newY });
-    };
-
-    const handleMouseUp = () => {
-      setIsDragging(false);
-      setTimeout(() => setIsAnimating(true), 2000);
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-  };
-
   const handleAvatarClick = () => {
     if (!isDragging) {
       setIsOpen(true);
-      setIsAnimating(false);
     }
   };
 
   const handleClose = () => {
     setIsOpen(false);
-    setTimeout(() => setIsAnimating(true), 1000);
+  };
+
+  // Pozycja awatara - 20px od prawej krawędzi + offset na podstawie scroll
+  const avatarStyle = {
+    right: '20px',
+    top: `${Math.max(20, 20 + scrollPosition * 0.3)}px`, // Płynne przesuwanie w dół
   };
 
   return (
     <>
       {/* Floating Avatar */}
       <div
-        className={`fixed z-50 cursor-pointer transition-all duration-500 ${
+        className={`fixed z-50 cursor-pointer transition-all duration-300 ${
           isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
         }`}
-        style={{
-          left: `${position.x}px`,
-          top: `${position.y}px`,
-          transform: isDragging ? 'scale(1.1)' : 'scale(1)'
-        }}
-        onMouseDown={handleMouseDown}
+        style={avatarStyle}
         onClick={handleAvatarClick}
       >
         {/* Avatar Container z napisem */}
