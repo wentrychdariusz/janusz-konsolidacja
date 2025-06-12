@@ -8,6 +8,18 @@ const FloatingAvatar = () => {
   const [position, setPosition] = useState({ x: 20, y: 20 });
   const [isDragging, setIsDragging] = useState(false);
   const [isAnimating, setIsAnimating] = useState(true);
+  const [showMessage, setShowMessage] = useState(false);
+
+  // Sprawdzanie pozycji scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setShowMessage(scrollY > 100); // Pokaż wiadomość po przescrollowaniu 100px
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Auto-animacja poruszania się awatara
   useEffect(() => {
@@ -90,13 +102,15 @@ const FloatingAvatar = () => {
             />
           </div>
           
-          {/* Napis po prawej stronie */}
-          <div className="bg-white rounded-xl shadow-lg p-3 border-2 border-prestige-gold-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-            <div className="text-navy-900 font-semibold text-sm">
-              Zobacz, czy Ci pomogę?
+          {/* Napis po prawej stronie - widoczny podczas scrollowania */}
+          {showMessage && (
+            <div className="bg-white rounded-xl shadow-lg p-3 border-2 border-prestige-gold-400 transition-all duration-300 whitespace-nowrap animate-fade-in">
+              <div className="text-navy-900 font-semibold text-sm">
+                Zobacz, czy Ci pomogę?
+              </div>
+              <div className="absolute left-0 top-1/2 w-0 h-0 border-t-4 border-b-4 border-r-4 border-t-transparent border-b-transparent border-r-white transform -translate-y-1/2 -translate-x-full"></div>
             </div>
-            <div className="absolute left-0 top-1/2 w-0 h-0 border-t-4 border-b-4 border-r-4 border-t-transparent border-b-transparent border-r-white transform -translate-y-1/2 -translate-x-full"></div>
-          </div>
+          )}
           
           {/* Chat Icon Indicator */}
           <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-success-500 rounded-full flex items-center justify-center border-2 border-white">
