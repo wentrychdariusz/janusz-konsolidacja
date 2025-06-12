@@ -57,10 +57,10 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-gray-900/50 to-gray-800/60"></div>
       
       <div className="relative z-10">
-        <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-8 md:py-16">
+        <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-6 md:py-12">
           
           {/* Header Section - Full Width */}
-          <div className="w-full text-center mb-4 md:mb-6 animate-fade-in">
+          <div className="w-full text-center mb-3 md:mb-4 animate-fade-in">
             <div className="flex justify-center items-center mb-4 lg:mb-6">
               <img 
                 src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
@@ -77,10 +77,10 @@ const HeroSection = () => {
           </div>
 
           {/* Enhanced Trust Section with More Client Images */}
-          <div className="w-full bg-gradient-to-r from-business-blue-400/20 via-business-blue-300/15 to-business-blue-400/20 border-t border-b border-business-blue-400/30 backdrop-blur-sm py-6 mb-6 rounded-xl">
+          <div className="w-full bg-gradient-to-r from-business-blue-400/20 via-business-blue-300/15 to-business-blue-400/20 border-t border-b border-business-blue-400/30 backdrop-blur-sm py-4 mb-4 rounded-xl">
             <div className="text-center">
               {/* Client photos grid - 8 photos */}
-              <div className="flex flex-wrap justify-center items-center gap-3 mb-4">
+              <div className="flex flex-wrap justify-center items-center gap-3 mb-3">
                 {clientImages.map((image, index) => (
                   <div key={index} className="relative group">
                     <img 
@@ -110,11 +110,11 @@ const HeroSection = () => {
           </div>
         </div>
 
-        <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-8 md:py-16">
+        <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-4 md:py-8">
           {/* Mobile/Tablet Layout - Stacked */}
-          <div className="block xl:hidden space-y-8">
+          <div className="block xl:hidden space-y-6">
             {/* Content Section */}
-            <div className="space-y-6 md:space-y-8 animate-fade-in">
+            <div className="space-y-4 md:space-y-6 animate-fade-in">
               <h1 className="font-montserrat font-black text-3xl sm:text-4xl md:text-5xl text-center leading-tight">
                 <span className="text-white">Uwolnij się od </span>
                 <span className="text-business-blue-400">długów raz na zawsze</span>
@@ -127,7 +127,7 @@ const HeroSection = () => {
               </p>
               
               {/* Benefits Cards - Mobile */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
                 {benefits.map((benefit, index) => (
                   <div 
                     key={index}
@@ -157,7 +157,7 @@ const HeroSection = () => {
           <div className="hidden xl:grid xl:grid-cols-2 gap-12 items-start">
             
             {/* Left Content - 50% */}
-            <div className="space-y-6 md:space-y-8 animate-fade-in">
+            <div className="space-y-4 md:space-y-6 animate-fade-in">
               <h1 className="font-montserrat font-black text-4xl lg:text-5xl xl:text-6xl text-left leading-tight">
                 <span className="text-white">Uwolnij się od </span>
                 <span className="text-business-blue-400">długów raz na zawsze</span>
@@ -170,7 +170,7 @@ const HeroSection = () => {
               </p>
               
               {/* Benefits Cards - Desktop */}
-              <div className="grid grid-cols-1 gap-6 mt-8">
+              <div className="grid grid-cols-1 gap-6 mt-6">
                 {benefits.map((benefit, index) => (
                   <div 
                     key={index}
