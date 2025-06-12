@@ -48,7 +48,7 @@ const HeroSection = () => {
       <div className="relative z-10 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-8 md:py-16">
         
         {/* Mobile/Tablet Layout - Stacked */}
-        <div className="block xl:hidden space-y-8">
+        <div className="block 2xl:hidden space-y-8">
           {/* Content Section */}
           <div className="space-y-6 md:space-y-8 animate-fade-in">
             <div className="font-montserrat text-prestige-gold-400 text-lg sm:text-xl md:text-2xl text-center font-black tracking-wide uppercase">
@@ -94,10 +94,10 @@ const HeroSection = () => {
         </div>
 
         {/* Desktop Layout - Side by side */}
-        <div className="hidden xl:grid xl:grid-cols-5 gap-12 items-start">
+        <div className="hidden 2xl:grid 2xl:grid-cols-5 gap-12 items-start">
           
           {/* Left Content - 2 kolumny */}
-          <div className="xl:col-span-2 space-y-6 md:space-y-8 animate-fade-in">
+          <div className="2xl:col-span-2 space-y-6 md:space-y-8 animate-fade-in">
             <div className="font-montserrat text-prestige-gold-400 text-2xl lg:text-3xl text-left font-black tracking-wide uppercase">
               Dariusz Wentrych - Ekspert Oddłużenia Nr 1 w Polsce
             </div>
@@ -135,7 +135,7 @@ const HeroSection = () => {
           </div>
           
           {/* Right Content - 3 kolumny */}
-          <div className="xl:col-span-3 flex justify-center animate-fade-in">
+          <div className="2xl:col-span-3 flex justify-center animate-fade-in">
             <div className="w-full">
               <DebtCalculator />
             </div>
