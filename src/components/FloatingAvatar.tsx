@@ -6,15 +6,17 @@ import DebtCalculator from './DebtCalculator';
 const FloatingAvatar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
+  const [showAvatar, setShowAvatar] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
 
-  // Sprawdzanie pozycji scroll i aktualizacja pozycji awatara
+  // Sprawdzanie pozycji scroll i pokazywanie awatara po sekcji kalkulatora
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       setScrollPosition(scrollY);
-      setShowMessage(scrollY > 100); // Pokaż wiadomość po przescrollowaniu 100px
+      
+      // Pokazuj awatar dopiero po przewinięciu poza pierwszą sekcję (około 800px)
+      setShowAvatar(scrollY > 800);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -31,17 +33,22 @@ const FloatingAvatar = () => {
     setIsOpen(false);
   };
 
-  // Pozycja awatara - 20px od prawej krawędzi + offset na podstawie scroll
+  // Naturalna pozycja awatara - płynne przesuwanie w dół z ograniczeniem
   const avatarStyle = {
     right: '20px',
-    top: `${Math.max(20, 20 + scrollPosition * 0.3)}px`, // Płynne przesuwanie w dół
+    top: `${Math.min(Math.max(20, 20 + (scrollPosition - 800) * 0.1), window.innerHeight - 150)}px`,
   };
+
+  // Nie renderuj awatara, jeśli nie powinien być widoczny
+  if (!showAvatar) {
+    return null;
+  }
 
   return (
     <>
       {/* Floating Avatar */}
       <div
-        className={`fixed z-50 cursor-pointer transition-all duration-300 ${
+        className={`fixed z-50 cursor-pointer transition-all duration-500 ease-out ${
           isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
         }`}
         style={avatarStyle}
@@ -49,6 +56,15 @@ const FloatingAvatar = () => {
       >
         {/* Avatar Container z napisem */}
         <div className="relative group flex items-center space-x-3">
+          {/* Napis po lewej stronie awatara - zawsze widoczny */}
+          <div className="bg-white rounded-xl shadow-lg p-3 border-2 border-prestige-gold-400 transition-all duration-300 whitespace-nowrap animate-fade-in">
+            <div className="text-navy-900 font-semibold text-sm">
+              Zobacz, czy Ci pomogę?
+            </div>
+            {/* Strzałka wskazująca na awatar */}
+            <div className="absolute right-0 top-1/2 w-0 h-0 border-t-4 border-b-4 border-l-4 border-t-transparent border-b-transparent border-l-white transform -translate-y-1/2 translate-x-full"></div>
+          </div>
+          
           {/* Avatar Image */}
           <div className="w-20 h-20 rounded-full border-4 border-prestige-gold-400 shadow-xl bg-white overflow-hidden hover:scale-110 transition-transform duration-300">
             <img 
@@ -57,16 +73,6 @@ const FloatingAvatar = () => {
               className="w-full h-full object-cover"
             />
           </div>
-          
-          {/* Napis po prawej stronie - widoczny podczas scrollowania */}
-          {showMessage && (
-            <div className="bg-white rounded-xl shadow-lg p-3 border-2 border-prestige-gold-400 transition-all duration-300 whitespace-nowrap animate-fade-in">
-              <div className="text-navy-900 font-semibold text-sm">
-                Zobacz, czy Ci pomogę?
-              </div>
-              <div className="absolute left-0 top-1/2 w-0 h-0 border-t-4 border-b-4 border-r-4 border-t-transparent border-b-transparent border-r-white transform -translate-y-1/2 -translate-x-full"></div>
-            </div>
-          )}
           
           {/* Chat Icon Indicator */}
           <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-success-500 rounded-full flex items-center justify-center border-2 border-white">
