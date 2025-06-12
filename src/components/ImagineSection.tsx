@@ -40,29 +40,31 @@ const ImagineSection = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-business-blue-800 to-navy-900 md:hidden"></div>
         
         {/* Photo mosaic - only visible on medium screens and up */}
-        <div className="absolute inset-0 hidden md:grid grid-cols-12 lg:grid-cols-16 overflow-hidden">
-          {Array.from({ length: 200 }, (_, index) => {
-            const images = [
-              "/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png",
-              "/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png",
-              "/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png",
-              "/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png",
-              "/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png",
-              "/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png",
-              "/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png",
-              "/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png"
-            ];
-            const imageIndex = index % images.length;
-            return (
-              <div key={index} className="aspect-square">
-                <img 
-                  src={images[imageIndex]} 
-                  alt="" 
-                  className="w-full h-full object-cover block"
-                />
-              </div>
-            );
-          })}
+        <div className="absolute inset-0 hidden md:block overflow-hidden">
+          <div className="grid grid-cols-8 md:grid-cols-12 lg:grid-cols-16 h-full w-full">
+            {Array.from({ length: 200 }, (_, index) => {
+              const images = [
+                "/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png",
+                "/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png",
+                "/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png",
+                "/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png",
+                "/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png",
+                "/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png",
+                "/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png",
+                "/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png"
+              ];
+              const imageIndex = index % images.length;
+              return (
+                <div key={index} className="aspect-square">
+                  <img 
+                    src={images[imageIndex]} 
+                    alt="" 
+                    className="w-full h-full object-cover block"
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
         
         {/* Gradient overlay that transitions from mosaic to solid color */}
