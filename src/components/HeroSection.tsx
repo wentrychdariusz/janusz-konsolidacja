@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import DebtCalculator from './DebtCalculator';
 import { CheckCircle, Shield, Award, Users, Trophy, Target } from 'lucide-react';
@@ -105,17 +106,22 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Enhanced Trust Section with Smaller Client Images */}
-          <div className="w-full bg-gradient-to-r from-business-blue-400/20 via-business-blue-300/15 to-business-blue-400/20 border-t border-b border-business-blue-400/30 backdrop-blur-sm py-3 mb-3 rounded-xl">
-            <div className="text-center">
-              <div className="mb-2">
+          {/* Enhanced Trust Section with Beautiful Background */}
+          <div className="w-full relative bg-gradient-to-r from-prestige-gold-500/10 via-prestige-gold-400/5 to-prestige-gold-500/10 border border-prestige-gold-400/20 backdrop-blur-sm py-4 mb-3 rounded-2xl shadow-lg">
+            {/* Decorative background elements */}
+            <div className="absolute inset-0 bg-gradient-to-br from-business-blue-400/5 via-transparent to-prestige-gold-400/5 rounded-2xl"></div>
+            <div className="absolute top-0 left-1/4 w-32 h-32 bg-prestige-gold-400/5 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 right-1/4 w-24 h-24 bg-business-blue-400/5 rounded-full blur-2xl"></div>
+            
+            <div className="relative text-center">
+              <div className="mb-3">
                 <h3 className="font-montserrat text-white text-lg md:text-xl font-bold">
                   Ponad 15.000 zadowolonych klientów
                 </h3>
               </div>
               
               {/* Client photos grid - 8 photos with smaller size and overlapping */}
-              <div className="flex justify-center items-center mb-2">
+              <div className="flex justify-center items-center mb-3">
                 <div className="flex items-center">
                   {clientImages.map((image, index) => (
                     <div 
@@ -133,13 +139,10 @@ const HeroSection = () => {
                 </div>
               </div>
               
-              {/* Trust messaging */}
+              {/* Trust messaging - Combined in one line */}
               <div>
-                <h3 className="font-montserrat text-white text-xl md:text-2xl font-bold">
-                  Oni mi zaufali
-                </h3>
-                <p className="text-prestige-gold-400 text-lg md:text-xl font-bold">
-                  Teraz ty możesz wyjść z zadłużenia!
+                <p className="text-prestige-gold-400 text-xl md:text-2xl font-bold font-montserrat">
+                  Oni mi zaufali • Teraz ty możesz wyjść z zadłużenia!
                 </p>
               </div>
             </div>
