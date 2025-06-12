@@ -39,7 +39,7 @@ const QuickRegistrationForm = () => {
   // Thank you page after submission
   if (isSubmitted) {
     return (
-      <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
+      <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full mb-16">
         {/* Success header */}
         <div className="text-center mb-8">
           <div className="flex justify-center items-center mb-6">
@@ -127,12 +127,12 @@ const QuickRegistrationForm = () => {
     );
   }
 
-  // Original form with improved spacing
+  // Original form with improved spacing and height matching
   return (
-    <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
+    <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-center min-h-[600px] w-full mb-16">
       {/* Header with strong green background and simplified content */}
-      <div className="text-center mb-6">
-        <div className="bg-gradient-to-r from-success-600 to-success-500 p-6 rounded-xl mb-4">
+      <div className="text-center mb-8">
+        <div className="bg-gradient-to-r from-success-600 to-success-500 p-6 rounded-xl mb-6">
           <div className="flex justify-center items-center mb-4">
             <img 
               src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
@@ -146,7 +146,7 @@ const QuickRegistrationForm = () => {
           </div>
         </div>
         
-        <h2 className="text-2xl font-bold text-navy-900 mb-2">
+        <h2 className="text-2xl font-bold text-navy-900 mb-3">
           Wypełnij formularz
         </h2>
         <p className="text-warm-neutral-600 text-base leading-relaxed">
@@ -154,8 +154,8 @@ const QuickRegistrationForm = () => {
         </p>
       </div>
 
-      {/* Form with improved spacing - moved up */}
-      <form onSubmit={handleSubmit} className="space-y-4 flex-1">
+      {/* Form with centered content */}
+      <form onSubmit={handleSubmit} className="space-y-6 flex-1 flex flex-col justify-center">
         <div>
           <label htmlFor="name" className="block text-base font-medium text-navy-800 mb-2">
             Imię i nazwisko <span className="text-red-500">*</span>
@@ -204,7 +204,7 @@ const QuickRegistrationForm = () => {
           />
         </div>
 
-        <div className="pt-4">
+        <div className="pt-6">
           <button
             type="submit"
             disabled={isSubmitting}
