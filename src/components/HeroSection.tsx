@@ -106,22 +106,22 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Enhanced Trust Section with Beautiful Background */}
-          <div className="w-full relative bg-white/10 border border-white/20 backdrop-blur-sm py-4 mb-3 rounded-2xl shadow-lg">
+          {/* Enhanced Trust Section with Beautiful Background - bez ramki */}
+          <div className="w-full relative bg-gradient-to-br from-white/5 via-white/10 to-white/5 backdrop-blur-md py-6 mb-3 rounded-2xl shadow-2xl">
             {/* Decorative background elements */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/8 rounded-2xl"></div>
-            <div className="absolute top-0 left-1/4 w-32 h-32 bg-white/5 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-1/4 w-24 h-24 bg-white/3 rounded-full blur-2xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-prestige-gold-400/5 via-transparent to-business-blue-400/5 rounded-2xl"></div>
+            <div className="absolute top-0 left-1/4 w-32 h-32 bg-white/3 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 right-1/4 w-24 h-24 bg-prestige-gold-400/10 rounded-full blur-2xl"></div>
             
             <div className="relative text-center">
-              <div className="mb-3">
+              <div className="mb-4">
                 <h3 className="font-montserrat text-white text-lg md:text-xl font-bold">
                   Ponad 15.000 zadowolonych klientów
                 </h3>
               </div>
               
               {/* Client photos grid - 8 photos with smaller size and overlapping */}
-              <div className="flex justify-center items-center mb-3">
+              <div className="flex justify-center items-center mb-4">
                 <div className="flex items-center">
                   {clientImages.map((image, index) => (
                     <div 
