@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import DebtCalculator from './DebtCalculator';
 import { CheckCircle, Shield, Award, Users, Trophy, Target } from 'lucide-react';
@@ -40,14 +39,14 @@ const HeroSection = () => {
         className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
         style={{
           backgroundImage: `url('/lovable-uploads/eb0658a9-c99a-4631-a61d-1543709a3efa.png')`,
-          backgroundPosition: 'center -50px',
+          backgroundPosition: 'center top',
           backgroundSize: 'cover',
-          minHeight: '100%'
+          height: '100%'
         }}
       ></div>
       
-      {/* Dark overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-gray-900/50 to-gray-800/60"></div>
+      {/* Enhanced dark overlay with gradient fade to black at bottom */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-gray-900/50 to-black"></div>
       
       <div className="relative z-10">
         <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-4 md:py-8">
