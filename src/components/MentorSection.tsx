@@ -193,12 +193,19 @@ const MentorSection = () => {
                 </div>
                 
                 <div className="space-y-3">
-                  <p className="text-white text-lg font-lato">
-                    <span className="text-prestige-gold-400 font-bold">Nasz zespół ekspertów sprawdzi, co Ci wciskali</span> i pokaże, czy próbują Cię oszukać.
-                  </p>
-                  <p className="text-white text-lg font-lato">
-                    Porównamy wszystkie zapisy, rozbijemy ich sztuczki na kawałki.
-                  </p>
+                  {/* Smaller font on white background sections */}
+                  <div className="bg-white rounded-lg p-4 my-4">
+                    <p className="text-gray-800 text-sm font-lato leading-relaxed">
+                      <span className="font-bold">Nasz zespół ekspertów sprawdzi, co Ci wciskali</span> i pokaże, czy próbują Cię oszukać.
+                    </p>
+                  </div>
+                  
+                  <div className="bg-white rounded-lg p-4 my-4">
+                    <p className="text-gray-800 text-sm font-lato leading-relaxed">
+                      Porównamy wszystkie zapisy, rozbijemy ich sztuczki na kawałki.
+                    </p>
+                  </div>
+                  
                   <p className="text-white text-lg font-lato">
                     <span className="text-prestige-gold-400 font-bold">Nie daj się wciągnąć w ich gierki.</span>
                   </p>
