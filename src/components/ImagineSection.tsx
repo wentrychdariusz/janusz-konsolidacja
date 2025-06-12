@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { MapPin, Car, Award, Users, Star } from 'lucide-react';
 
@@ -66,18 +67,21 @@ const ImagineSection = () => {
       
       <div className="relative z-20 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
-          <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6">
-            <span className="text-prestige-gold-400 uppercase tracking-wider">KLIENCI NAS KOCHAJĄ!</span>
+          <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-4">
+            <span className="text-prestige-gold-400">Mamy największe zaufanie klientów w Polsce</span>
           </h2>
+          <h3 className="text-white text-lg md:text-xl lg:text-2xl max-w-3xl mx-auto font-lato mb-8 uppercase tracking-wider font-bold">
+            KLIENCI NAS KOCHAJĄ!
+          </h3>
           
-          {/* Rating section with white rounded background */}
-          <div className="bg-white rounded-2xl px-8 py-6 inline-block shadow-xl">
+          {/* Rating section with white rounded background and premium effects */}
+          <div className="bg-gradient-to-br from-white via-gray-50 to-white rounded-2xl px-8 py-6 inline-block shadow-2xl border border-gray-100 backdrop-blur-sm transform hover:scale-105 transition-all duration-300">
             <div className="flex items-center justify-center gap-2 mb-3">
               {renderStars()}
-              <span className="text-3xl font-bold text-navy-900 ml-3">4.9</span>
-              <span className="text-navy-700 font-semibold">(383 OPINII)</span>
+              <span className="text-3xl font-black text-transparent bg-gradient-to-r from-navy-900 via-business-blue-700 to-navy-900 bg-clip-text ml-3 drop-shadow-sm">4.9</span>
+              <span className="text-navy-700 font-bold tracking-wide">(383 OPINII)</span>
             </div>
-            <p className="text-navy-600 text-sm font-semibold">
+            <p className="text-transparent bg-gradient-to-r from-warm-neutral-600 via-navy-600 to-warm-neutral-600 bg-clip-text text-sm font-bold tracking-wide uppercase">
               Zweryfikowane opinie Google i Oferteo
             </p>
           </div>
