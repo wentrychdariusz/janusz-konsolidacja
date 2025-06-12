@@ -258,10 +258,10 @@ const DebtCalculator = () => {
 
             <Button
               onClick={calculate}
-              className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105"
+              className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105"
             >
               <Calculator className="w-5 h-5 mr-2" />
-              Sprawdź możliwość pomocy
+              Sprawdź czy Ci pomożemy
             </Button>
 
             {result.message && (
