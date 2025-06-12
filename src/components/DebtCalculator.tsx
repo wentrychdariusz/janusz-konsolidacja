@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Calculator, CheckCircle, AlertCircle, XCircle } from 'lucide-react';
-import QuickRegistrationForm from './QuickRegistrationForm';
+import { Calculator, CheckCircle, AlertCircle, XCircle, Plus } from 'lucide-react';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const DebtCalculator = () => {
   const [income, setIncome] = useState('');
@@ -135,7 +135,53 @@ const DebtCalculator = () => {
       <div className="grid lg:grid-cols-2 gap-8 items-start">
         {/* Kalkulator */}
         <div className="bg-white rounded-2xl shadow-xl border-0 p-8">
+          {/* Header z Dariuszem i zespołem */}
           <div className="text-center mb-8">
+            <div className="flex justify-center items-center mb-4">
+              <div className="flex items-center space-x-2">
+                {/* Dariusz main photo */}
+                <img 
+                  src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                  alt="Dariusz Wentrych"
+                  className="w-16 h-16 rounded-full overflow-hidden border-3 border-prestige-gold-400 shadow-xl object-cover"
+                />
+                
+                {/* Plus icon */}
+                <Plus className="w-3 h-3 text-prestige-gold-500" />
+                
+                {/* Team members */}
+                <div className="flex items-center space-x-1">
+                  <Avatar className="w-12 h-12 border-2 border-prestige-gold-400">
+                    <AvatarImage 
+                      src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
+                      alt="Członek zespołu"
+                      className="object-cover"
+                    />
+                    <AvatarFallback className="text-xs">KZ</AvatarFallback>
+                  </Avatar>
+                  <Avatar className="w-12 h-12 border-2 border-prestige-gold-400">
+                    <AvatarImage 
+                      src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
+                      alt="Członek zespołu"
+                      className="object-cover"
+                    />
+                    <AvatarFallback className="text-xs">MK</AvatarFallback>
+                  </Avatar>
+                  <Avatar className="w-12 h-12 border-2 border-prestige-gold-400">
+                    <AvatarImage 
+                      src="/lovable-uploads/73083e2d-4631-4f25-abd0-a482d29bb838.png"
+                      alt="Członek zespołu"
+                      className="object-cover"
+                    />
+                    <AvatarFallback className="text-xs">AS</AvatarFallback>
+                  </Avatar>
+                </div>
+              </div>
+            </div>
+            <div className="mb-4">
+              <h3 className="text-lg font-bold text-navy-900">Dariusz Wentrych i Zespół</h3>
+              <p className="text-sm text-prestige-gold-600">Eksperci Oddłużenia - 20+ lat doświadczenia</p>
+            </div>
             <div className="flex justify-center items-center mb-4">
               <div className="bg-gradient-to-r from-navy-900 to-business-blue-600 p-3 rounded-full">
                 <Calculator className="w-8 h-8 text-white" />
@@ -228,7 +274,7 @@ const DebtCalculator = () => {
           </div>
         </div>
 
-        {/* Formularz kontaktowy - pokazuje się tylko przy pozytywnym wyniku */}
+        {/* Formularz JotForm - pokazuje się tylko przy pozytywnym wyniku */}
         {result.showForm && (
           <div className="animate-fade-in">
             <div className="mb-4 text-center">
@@ -239,7 +285,28 @@ const DebtCalculator = () => {
                 Nasz ekspert skontaktuje się z Tobą w ciągu 24 godzin
               </p>
             </div>
-            <QuickRegistrationForm />
+            
+            {/* JotForm iframe */}
+            <div className="bg-white rounded-2xl shadow-xl border-0 overflow-hidden">
+              <iframe
+                id="JotFormIFrame-251622180937053"
+                title="Rejestracja Leada"
+                onLoad={() => {
+                  window.parent.scrollTo(0,0);
+                }}
+                allowTransparency={true}
+                allow="geolocation; microphone; camera; fullscreen"
+                src="https://form.jotform.com/251622180937053"
+                frameBorder="0"
+                style={{
+                  minWidth: '100%',
+                  maxWidth: '100%',
+                  height: '539px',
+                  border: 'none'
+                }}
+                scrolling="no"
+              />
+            </div>
           </div>
         )}
       </div>
