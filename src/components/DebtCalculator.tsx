@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Calculator, CheckCircle, AlertCircle, XCircle, Plus, ArrowLeft } from 'lucide-react';
+import { Calculator, CheckCircle, AlertCircle, XCircle, Plus } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import QuickRegistrationForm from './QuickRegistrationForm';
 
@@ -130,27 +130,12 @@ const DebtCalculator = () => {
     }
   };
 
-  const handleBackToCalculator = () => {
-    setResult({ message: '', type: null, showForm: false });
-  };
-
   return (
     <div className="w-full h-full flex flex-col">
       <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 items-start h-full">
         {/* Formularz rejestracyjny - pokazuje się automatycznie po pozytywnym wyniku */}
         {result.showForm ? (
           <div className="animate-fade-in h-full">
-            <div>
-              <Button
-                onClick={handleBackToCalculator}
-                variant="ghost"
-                className="text-navy-800 hover:text-navy-900"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Powrót do kalkulatora
-              </Button>
-            </div>
-            
             <QuickRegistrationForm />
           </div>
         ) : (
