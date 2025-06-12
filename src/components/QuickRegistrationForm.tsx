@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Plus, CheckCircle, Phone } from 'lucide-react';
@@ -152,7 +151,7 @@ const QuickRegistrationForm = () => {
           Wypełnij formularz
         </h2>
         <p className="text-warm-neutral-600 text-base leading-relaxed">
-          Skontaktujemy się z Tobą, aby przeanalizować Twoją sytuację
+          Skontaktujemy się z Tobą, aby przeanalizować Twoją sytuację. Jesteś na dobrej drodze do konsolidacji.
         </p>
       </div>
 
