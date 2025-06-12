@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MapPin, Car, Award, Users } from 'lucide-react';
+import { MapPin, Car, Award, Users, Star } from 'lucide-react';
 
 const ImagineSection = () => {
   const expertise = [
@@ -25,6 +25,12 @@ const ImagineSection = () => {
       description: "Kompleksowa obsługa klienta"
     }
   ];
+
+  const renderStars = () => {
+    return [...Array(5)].map((_, i) => (
+      <Star key={i} className="w-5 h-5 text-prestige-gold-400 fill-current" />
+    ));
+  };
 
   return (
     <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-24 md:py-32 lg:py-40 overflow-hidden min-h-[120vh] lg:min-h-[130vh]">
@@ -67,6 +73,18 @@ const ImagineSection = () => {
           <p className="text-white text-lg md:text-xl max-w-3xl mx-auto font-lato mb-8">
             Klienci nas kochają!
           </p>
+          
+          {/* Rating section with white rounded background */}
+          <div className="bg-white rounded-2xl px-8 py-6 inline-block shadow-lg">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              {renderStars()}
+              <span className="text-2xl font-bold text-navy-900 ml-2">4.9</span>
+              <span className="text-navy-700 font-medium">(383 OPINII)</span>
+            </div>
+            <p className="text-navy-600 text-sm font-medium">
+              Zweryfikowane opinie Google i Oferteo
+            </p>
+          </div>
         </div>
 
         {/* Video and expertise section */}
