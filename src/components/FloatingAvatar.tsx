@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
@@ -9,14 +8,14 @@ const FloatingAvatar = () => {
   const [showAvatar, setShowAvatar] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
 
-  // Sprawdzanie pozycji scroll i pokazywanie awatara przy nagłówku "Mamy największe zaufanie klientów w Polsce"
+  // Sprawdzanie pozycji scroll i pokazywanie awatara przy sekcji "Zweryfikowane opinie Google i Oferteo"
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       setScrollPosition(scrollY);
       
-      // Pokazuj awatar dopiero przy nagłówku "Mamy największe zaufanie klientów w Polsce" - około 1200px
-      setShowAvatar(scrollY > 1200);
+      // Pokazuj awatar dopiero przy sekcji "Zweryfikowane opinie Google i Oferteo" - około 1600px
+      setShowAvatar(scrollY > 1600);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -36,7 +35,7 @@ const FloatingAvatar = () => {
   // Naturalna pozycja awatara - płynne przesuwanie w dół z ograniczeniem
   const avatarStyle = {
     right: '20px',
-    top: `${Math.min(Math.max(20, 20 + (scrollPosition - 1200) * 0.1), window.innerHeight - 150)}px`,
+    top: `${Math.min(Math.max(20, 20 + (scrollPosition - 1600) * 0.1), window.innerHeight - 150)}px`,
   };
 
   // Nie renderuj awatara, jeśli nie powinien być widoczny
