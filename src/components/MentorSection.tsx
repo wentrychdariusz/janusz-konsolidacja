@@ -115,7 +115,7 @@ const MentorSection = () => {
               </p>
             </div>
             
-            <div className="bg-gradient-to-r from-success-600/20 via-success-500/15 to-success-400/20 border border-success-400/40 rounded-2xl p-8 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="bg-gradient-to-r from-green-400/25 via-green-300/20 to-lime-400/25 border border-green-300/50 rounded-2xl p-8 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
               <p className="text-white text-lg font-lato font-medium">
                 ✅ Powiedzieć STOP! Przejąć kontrolę. Zacząć od nowa.
               </p>
