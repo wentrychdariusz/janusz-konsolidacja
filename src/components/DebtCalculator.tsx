@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -150,15 +149,6 @@ const DebtCalculator = () => {
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Powrót do kalkulatora
               </Button>
-              
-              <div className="text-center">
-                <h3 className="text-xl lg:text-2xl font-bold text-navy-900 mb-2 lg:mb-3">
-                  Skontaktuj się z nami
-                </h3>
-                <p className="text-warm-neutral-600 text-base lg:text-lg">
-                  Nasz ekspert skontaktuje się z Tobą w ciągu 24 godzin
-                </p>
-              </div>
             </div>
             
             <QuickRegistrationForm />
