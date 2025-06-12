@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Plus } from 'lucide-react';
+import { Plus, CheckCircle, Phone } from 'lucide-react';
 
 const QuickRegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +10,7 @@ const QuickRegistrationForm = () => {
     phone: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -27,6 +28,7 @@ const QuickRegistrationForm = () => {
       // Simulate form submission
       await new Promise(resolve => setTimeout(resolve, 2000));
       console.log('Form submitted:', formData);
+      setIsSubmitted(true);
     } catch (error) {
       console.error('Form submission error:', error);
     } finally {
@@ -34,6 +36,98 @@ const QuickRegistrationForm = () => {
     }
   };
 
+  // Thank you page after submission
+  if (isSubmitted) {
+    return (
+      <div className="bg-white shadow-xl border-0 w-full max-w-md mx-auto rounded-lg overflow-hidden">
+        {/* Success header */}
+        <div className="text-center bg-gradient-to-r from-success-600 to-success-500 text-white p-6">
+          <div className="flex justify-center items-center mb-4">
+            <CheckCircle className="w-16 h-16 text-white" />
+          </div>
+          <h2 className="text-xl font-bold">Dziękujemy za rejestrację!</h2>
+          <p className="text-success-100 text-sm mt-2">Twoje zgłoszenie zostało pomyślnie wysłane</p>
+        </div>
+
+        {/* Dariusz and team section */}
+        <div className="text-center bg-gradient-to-r from-navy-900 to-business-blue-600 text-white p-6">
+          <div className="flex justify-center items-center mb-4">
+            <div className="flex items-center space-x-2">
+              {/* Dariusz main photo */}
+              <img 
+                src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                alt="Dariusz Wentrych"
+                className="w-16 h-16 rounded-full overflow-hidden border-3 border-prestige-gold-400 shadow-xl object-cover"
+              />
+              
+              {/* Plus icon */}
+              <Plus className="w-3 h-3 text-prestige-gold-300" />
+              
+              {/* Team members */}
+              <div className="flex items-center space-x-1">
+                <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
+                  <AvatarImage 
+                    src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
+                    alt="Członek zespołu"
+                    className="object-cover"
+                  />
+                  <AvatarFallback className="text-xs">KZ</AvatarFallback>
+                </Avatar>
+                <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
+                  <AvatarImage 
+                    src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
+                    alt="Członek zespołu"
+                    className="object-cover"
+                  />
+                  <AvatarFallback className="text-xs">MK</AvatarFallback>
+                </Avatar>
+                <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
+                  <AvatarImage 
+                    src="/lovable-uploads/73083e2d-4631-4f25-abd0-a482d29bb838.png"
+                    alt="Członek zespołu"
+                    className="object-cover"
+                  />
+                  <AvatarFallback className="text-xs">AS</AvatarFallback>
+                </Avatar>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-white">Dariusz Wentrych i Zespół</h3>
+            <p className="text-sm text-prestige-gold-300">Eksperci Oddłużenia - 20+ lat doświadczenia</p>
+          </div>
+        </div>
+
+        {/* Call back message */}
+        <div className="text-center bg-gradient-to-r from-prestige-gold-50 via-warm-neutral-50 to-business-blue-50 p-6">
+          <Phone className="w-12 h-12 text-navy-900 mx-auto mb-4" />
+          <h3 className="text-lg font-bold text-navy-900 mb-2">
+            Oddzwonimy najszybciej jak to możliwe
+          </h3>
+          <p className="text-sm text-navy-700 mb-4">
+            Nasz ekspert skontaktuje się z Tobą w ciągu 24 godzin, aby omówić Twoją sytuację i zaproponować najlepsze rozwiązanie.
+          </p>
+          <div className="bg-white rounded-lg p-4 border border-warm-neutral-200">
+            <p className="text-xs text-warm-neutral-600">
+              <strong>Twoje dane:</strong><br />
+              Imię: {formData.name}<br />
+              Email: {formData.email}<br />
+              Telefon: {formData.phone}
+            </p>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="text-center p-4 bg-warm-neutral-100">
+          <p className="text-xs text-warm-neutral-500">
+            Dziękujemy za zaufanie. Twoje dane są bezpieczne i nie będą udostępniane osobom trzecim.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Original form
   return (
     <div className="bg-white shadow-xl border-0 w-full max-w-md mx-auto rounded-lg overflow-hidden">
       {/* Header with Dariusz's photo */}
@@ -104,7 +198,7 @@ const QuickRegistrationForm = () => {
       <form onSubmit={handleSubmit} className="p-6 space-y-4">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-navy-800 mb-1">
-            Imię <span className="text-red-500">*</span>
+            Imię i nazwisko <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -112,7 +206,7 @@ const QuickRegistrationForm = () => {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            placeholder="Wpisz swoje imię"
+            placeholder="Wpisz swoje imię i nazwisko"
             required
             className="w-full px-3 py-2 mt-1 border border-warm-neutral-300 rounded-lg focus:border-navy-600 focus:ring-1 focus:ring-navy-600 h-10 text-sm"
           />
@@ -155,7 +249,7 @@ const QuickRegistrationForm = () => {
           disabled={isSubmitting}
           className="w-full bg-gradient-to-r from-navy-900 to-navy-700 hover:from-navy-800 hover:to-navy-600 text-white font-bold text-lg rounded-lg shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 h-14 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isSubmitting ? "Wysyłanie..." : "📞 Umów bezpłatną konsultację"}
+          {isSubmitting ? "Wysyłanie..." : "📞 Zarejestruj się"}
         </button>
 
         <p className="text-xs text-gray-500 text-center mt-3">
