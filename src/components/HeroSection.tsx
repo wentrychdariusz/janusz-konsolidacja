@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import DebtCalculator from './DebtCalculator';
 import { CheckCircle, Shield, Award, Users, Trophy, Target } from 'lucide-react';
@@ -32,9 +33,21 @@ const HeroSection = () => {
     "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png"
   ];
 
+  // Dodatkowe zdjęcia dla mozaiki mobilnej
+  const mobileBackgroundImages = [
+    "/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png",
+    "/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png",
+    "/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png",
+    "/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png",
+    "/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png",
+    "/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png",
+    "/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png",
+    "/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png"
+  ];
+
   return (
     <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden">
-      {/* Dariusz background image - desktop only */}
+      {/* Desktop background - Dariusz image */}
       <div 
         className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
         style={{
@@ -45,11 +58,33 @@ const HeroSection = () => {
         }}
       ></div>
       
-      {/* Enhanced gradient overlay with smooth tonal transition */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black"></div>
+      {/* Mobile background - mozaika bez odstępów */}
+      <div className="md:hidden absolute inset-0">
+        <div className="absolute inset-0 grid grid-cols-4 gap-0">
+          {Array.from({ length: 80 }, (_, index) => {
+            const imageIndex = index % mobileBackgroundImages.length;
+            return (
+              <div key={index} className="aspect-square">
+                <img 
+                  src={mobileBackgroundImages[imageIndex]} 
+                  alt="" 
+                  className="w-full h-full object-cover opacity-40"
+                />
+              </div>
+            );
+          })}
+        </div>
+        {/* Gradient overlay dla mobilnej mozaiki */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black"></div>
+        {/* Dodatkowy gradient na dole dla płynnego przejścia */}
+        <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black via-black/90 to-transparent"></div>
+      </div>
       
-      {/* Additional gradient for smoother bottom transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+      {/* Enhanced gradient overlay with smooth tonal transition - desktop */}
+      <div className="hidden md:block absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black"></div>
+      
+      {/* Additional gradient for smoother bottom transition - desktop */}
+      <div className="hidden md:block absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
       
       <div className="relative z-10">
         <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-4 md:py-8">
