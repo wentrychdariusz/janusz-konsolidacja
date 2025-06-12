@@ -57,7 +57,10 @@ const HeroSection = () => {
             />
           </div>
           <div className="font-montserrat text-prestige-gold-400 text-xl md:text-2xl lg:text-3xl font-black tracking-wide uppercase">
-            Dariusz Wentrych - Ekspert Oddłużenia Nr 1 w Polsce
+            Dariusz Wentrych nr 1 w Polsce w oddłużaniu osób fizycznych
+          </div>
+          <div className="font-lato text-warm-neutral-200 text-lg md:text-xl lg:text-2xl font-normal mt-2 lg:mt-4">
+            Pożyczki inwestorskie, konsolidacja pożyczek i chwilówek
           </div>
         </div>
 
