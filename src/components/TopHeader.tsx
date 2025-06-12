@@ -4,7 +4,7 @@ import React from 'react';
 const TopHeader = () => {
   return (
     <div className="lg:hidden bg-gradient-to-r from-business-blue-600 via-business-blue-500 to-navy-600 text-white py-3 px-4 relative overflow-hidden">
-      {/* Pieniądze jako tło */}
+      {/* Pieniądze jako tło z ciemniejszym przejściem z granatu do błękitu */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15"
         style={{
@@ -12,15 +12,16 @@ const TopHeader = () => {
         }}
       ></div>
       
-      <div className="absolute inset-0 bg-gradient-to-r from-prestige-gold-400/15 to-transparent"></div>
+      {/* Ciemniejsze przejście z granatu do błękitu na tle z pieniędzmi */}
+      <div className="absolute inset-0 bg-gradient-to-r from-navy-700/20 via-navy-600/15 to-business-blue-500/10"></div>
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
           {/* Left side - Book promotion with modern design */}
           <div className="flex items-center justify-center md:justify-start">
-            {/* Kompaktowy kontener z gradientowym tłem i ciemniejszymi przejściami tonalnymi */}
-            <div className="relative bg-gradient-to-br from-white/8 via-white/4 to-transparent backdrop-blur-md rounded-xl p-4 shadow-xl border border-white/15 overflow-hidden">
+            {/* Kompaktowy kontener z nowym kolorem tła i ciemniejszymi przejściami tonalnymi */}
+            <div className="relative bg-gradient-to-br from-navy-800/10 via-business-blue-800/8 to-navy-900/12 backdrop-blur-md rounded-xl p-4 shadow-xl border border-white/15 overflow-hidden">
               {/* Ciemniejsze przejścia tonalne dla nowoczesności */}
-              <div className="absolute inset-0 bg-gradient-to-r from-prestige-gold-400/8 via-business-blue-600/10 to-navy-700/15 rounded-xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-navy-700/8 via-business-blue-600/10 to-navy-800/15 rounded-xl"></div>
               <div className="absolute top-0 left-0 w-20 h-20 bg-white/3 rounded-full blur-xl"></div>
               <div className="absolute bottom-0 right-0 w-16 h-16 bg-prestige-gold-400/15 rounded-full blur-lg"></div>
               
