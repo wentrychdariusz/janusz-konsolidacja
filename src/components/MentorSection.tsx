@@ -146,13 +146,27 @@ const MentorSection = () => {
                     <span className="text-prestige-gold-400 font-bold">Jeśli coś Ci nie pasuje albo masz cień wątpliwości –</span>
                   </p>
                   
-                  <div className="text-center bg-gradient-to-r from-red-500 to-red-600 rounded-xl p-6 my-6">
-                    <p className="text-white text-2xl md:text-3xl font-black font-montserrat uppercase tracking-wide">
-                      DZWOŃ DO NAS OD RAZU!
-                    </p>
-                    <p className="text-red-100 text-lg font-bold mt-2">
-                      Nie jutro. Nie za godzinę. TERAZ!
-                    </p>
+                  {/* Comparison section */}
+                  <div className="grid md:grid-cols-2 gap-6 my-8">
+                    {/* Competitors */}
+                    <div className="bg-gradient-to-r from-red-600/40 via-red-500/30 to-red-700/40 rounded-xl p-6 border border-red-400/50">
+                      <h4 className="text-white text-xl font-bold font-montserrat mb-4 text-center">❌ Oni</h4>
+                      <div className="space-y-3">
+                        <p className="text-red-200 text-lg font-lato">Ukrywają koszty</p>
+                        <p className="text-red-200 text-lg font-lato">Poganiają do podpisu</p>
+                        <p className="text-red-200 text-lg font-lato">Zostawiają Cię z problemem</p>
+                      </div>
+                    </div>
+                    
+                    {/* Your company */}
+                    <div className="bg-gradient-to-r from-emerald-500/40 via-green-500/30 to-lime-500/40 rounded-xl p-6 border border-emerald-400/50">
+                      <h4 className="text-white text-xl font-bold font-montserrat mb-4 text-center">✅ My</h4>
+                      <div className="space-y-3">
+                        <p className="text-emerald-200 text-lg font-lato">Pokazujemy, co naprawdę podpisujesz</p>
+                        <p className="text-emerald-200 text-lg font-lato">Tłumaczymy każdy punkt</p>
+                        <p className="text-emerald-200 text-lg font-lato">Bronimy Cię przed konsekwencjami</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 
