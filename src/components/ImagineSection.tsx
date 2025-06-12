@@ -89,20 +89,14 @@ const ImagineSection = () => {
 
         {/* Image and expertise section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-16 items-start">
-          {/* Left side - Dariusz Image with mask effect */}
+          {/* Left side - Dariusz Image without any effects */}
           <div className="w-full">
             <div className="w-full h-[500px] lg:h-[600px] relative">
               <img 
-                src="/lovable-uploads/1d163c41-0a43-4bac-9b5b-9b1c90a3cad4.png" 
+                src="/lovable-uploads/13f2bb30-b521-4709-8d23-16bcbfcc4eb8.png" 
                 alt="Dariusz Wentrych"
                 className="w-full h-full object-cover rounded-2xl shadow-2xl"
-                style={{
-                  maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
-                  WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)'
-                }}
               />
-              {/* Subtle gradient overlay for better blending */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/20 rounded-2xl pointer-events-none"></div>
             </div>
           </div>
 
