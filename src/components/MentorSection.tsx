@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Star } from 'lucide-react';
 
@@ -40,6 +39,18 @@ const MentorSection = () => {
       
       <div className="relative z-10 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
         
+        {/* Avatar section */}
+        <div className="text-center mb-8">
+          <div className="flex justify-center mb-4">
+            <img 
+              src="/lovable-uploads/b1beb685-d9f6-4c89-aadc-9f16c27fa4d7.png"
+              alt="Pan Krzysztof"
+              className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full border-3 border-prestige-gold-400 object-cover"
+            />
+          </div>
+          <p className="text-white text-sm font-lato">Pan Krzysztof</p>
+        </div>
+
         {/* Main heading and story */}
         <div className="text-center mb-12">
           <h2 className="font-montserrat text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8">
