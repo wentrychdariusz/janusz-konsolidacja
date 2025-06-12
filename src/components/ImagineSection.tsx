@@ -2,15 +2,6 @@
 import React from 'react';
 import { MapPin, Car, Award, Users } from 'lucide-react';
 
-// Declare custom element for TypeScript
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'wistia-player': any;
-    }
-  }
-}
-
 const ImagineSection = () => {
   const expertise = [
     {
@@ -36,22 +27,15 @@ const ImagineSection = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-16 md:py-24 overflow-hidden">
+    <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-16 md:py-24 overflow-hidden min-h-screen">
       {/* Background mosaic with Dariusz photos */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/75 via-navy-900/70 to-business-blue-700/75 z-10"></div>
         
-        {/* Photo mosaic grid - completely seamless */}
-        <div className="absolute inset-0" style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(16, 1fr)',
-          gridTemplateRows: 'repeat(8, 80px)',
-          gap: '0',
-          margin: '0',
-          padding: '0'
-        }}>
-          {/* Create seamless mosaic */}
-          {Array.from({ length: 128 }, (_, index) => {
+        {/* Photo mosaic grid - covering full height */}
+        <div className="absolute inset-0 grid grid-cols-16 auto-rows-[80px]">
+          {/* Create seamless mosaic - increased count for full coverage */}
+          {Array.from({ length: 256 }, (_, index) => {
             const images = [
               "/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png",
               "/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png",
@@ -68,17 +52,7 @@ const ImagineSection = () => {
                 key={index}
                 src={images[imageIndex]} 
                 alt="" 
-                style={{ 
-                  width: '100%', 
-                  height: '100%', 
-                  objectFit: 'cover',
-                  display: 'block',
-                  margin: '0',
-                  padding: '0',
-                  border: 'none',
-                  outline: 'none',
-                  verticalAlign: 'top'
-                }} 
+                className="w-full h-full object-cover block"
               />
             );
           })}
@@ -99,19 +73,16 @@ const ImagineSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-16">
           {/* Left side - Video */}
           <div className="flex justify-center">
-            <div className="w-full max-w-lg">
-              <div className="wistia_responsive_padding" style={{padding:'56.25% 0 0 0',position:'relative'}}>
-                <div className="wistia_responsive_wrapper" style={{height:'100%',left:'0',position:'absolute',top:'0',width:'100%'}}>
-                  <iframe 
-                    src="https://fast.wistia.net/embed/iframe/nlk4gmdg22?seo=true&videoFoam=false" 
-                    title="Video"
-                    allow="autoplay; fullscreen" 
-                    allowFullScreen 
-                    style={{height:'100%',left:'0',position:'absolute',top:'0',width:'100%'}}
-                  ></iframe>
-                </div>
+            <div className="w-full max-w-none">
+              <div className="relative w-full h-0 pb-[56.25%]">
+                <iframe 
+                  src="https://fast.wistia.net/embed/iframe/nlk4gmdg22?seo=true&videoFoam=true" 
+                  title="Video"
+                  allow="autoplay; fullscreen" 
+                  allowFullScreen 
+                  className="absolute top-0 left-0 w-full h-full rounded-lg"
+                ></iframe>
               </div>
-              <script src="https://fast.wistia.net/assets/external/E-v1.js" async></script>
             </div>
           </div>
 
