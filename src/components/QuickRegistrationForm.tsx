@@ -132,8 +132,8 @@ const QuickRegistrationForm = () => {
     <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
       <div>
         {/* Header with strong green background and simplified content */}
-        <div className="text-center mb-8">
-          <div className="bg-gradient-to-r from-success-600 to-success-500 p-6 rounded-xl mb-6">
+        <div className="text-center mb-6">
+          <div className="bg-gradient-to-r from-success-600 to-success-500 p-6 rounded-xl mb-4">
             <div className="flex justify-center items-center mb-4">
               <img 
                 src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
@@ -147,7 +147,7 @@ const QuickRegistrationForm = () => {
             </div>
           </div>
           
-          <h2 className="text-2xl font-bold text-navy-900 mb-3">
+          <h2 className="text-2xl font-bold text-navy-900 mb-2">
             Wypełnij formularz
           </h2>
           <p className="text-warm-neutral-600 text-base leading-relaxed">
@@ -156,7 +156,7 @@ const QuickRegistrationForm = () => {
         </div>
 
         {/* Info section */}
-        <div className="text-center bg-gradient-to-r from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 rounded-xl p-6 border border-warm-neutral-200 mb-8">
+        <div className="text-center bg-gradient-to-r from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 rounded-xl p-4 border border-warm-neutral-200 mb-6">
           <p className="text-base font-medium text-navy-800">
             Oddzwonimy do Ciebie najszybciej jak to będzie możliwe
           </p>
@@ -164,9 +164,9 @@ const QuickRegistrationForm = () => {
       </div>
 
       {/* Form with improved spacing */}
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="name" className="block text-base font-medium text-navy-800 mb-3">
+          <label htmlFor="name" className="block text-base font-medium text-navy-800 mb-2">
             Imię i nazwisko <span className="text-red-500">*</span>
           </label>
           <input
@@ -182,7 +182,7 @@ const QuickRegistrationForm = () => {
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-base font-medium text-navy-800 mb-3">
+          <label htmlFor="email" className="block text-base font-medium text-navy-800 mb-2">
             Email <span className="text-red-500">*</span>
           </label>
           <input
@@ -198,7 +198,7 @@ const QuickRegistrationForm = () => {
         </div>
 
         <div>
-          <label htmlFor="phone" className="block text-base font-medium text-navy-800 mb-3">
+          <label htmlFor="phone" className="block text-base font-medium text-navy-800 mb-2">
             Telefon <span className="text-red-500">*</span>
           </label>
           <input
@@ -216,7 +216,7 @@ const QuickRegistrationForm = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed mt-8"
+          className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
         >
           {isSubmitting ? "Wysyłanie..." : "Wyślij formularz"}
         </button>
