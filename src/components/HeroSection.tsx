@@ -119,10 +119,17 @@ const HeroSection = () => {
                 <span className="text-business-blue-400">jedną wygodną ratę</span>
               </h1>
               
-              <p className="text-warm-neutral-200 text-xl md:text-2xl text-center font-lato leading-relaxed font-medium">
-                Jestem Dariusz Wentrych i przez ostatnie 20 lat pomogłem ponad <span className="text-prestige-gold-400 font-bold">15.000 osób</span> całkowicie 
-                uwolnić się od długów. Moje sprawdzone metody są w <span className="text-business-blue-400 font-bold">100% skuteczne</span>.
-              </p>
+              <div className="text-warm-neutral-200 text-xl md:text-2xl text-center font-lato leading-relaxed font-medium space-y-4">
+                <p>
+                  <span className="text-prestige-gold-400 font-bold">Masz długi, chwilówki, komornika na karku?</span> Nie jesteś sam. Od 20 lat pomagamy tam, gdzie inni zawiedli.
+                </p>
+                <p className="text-business-blue-400 font-bold text-lg lg:text-xl uppercase tracking-wide">
+                  WSPIERAMY KLIENTÓW TAM, GDZIE INNI NIE POTRAFILI ZNALEŹĆ ROZWIĄZAŃ.
+                </p>
+                <p>
+                  <span className="text-prestige-gold-400 font-bold">Zamień chaos w jedną ratę</span> i odzyskaj kontrolę nad życiem.
+                </p>
+              </div>
               
               {/* Benefits Cards - Mobile */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
@@ -161,10 +168,17 @@ const HeroSection = () => {
                 <span className="text-business-blue-400">jedną wygodną ratę</span>
               </h1>
               
-              <p className="text-warm-neutral-200 text-xl lg:text-2xl text-left font-lato leading-relaxed font-medium">
-                Jestem Dariusz Wentrych i przez ostatnie 20 lat pomogłem ponad <span className="text-prestige-gold-400 font-bold">15.000 osób</span> całkowicie 
-                uwolnić się od długów. Moje sprawdzone metody są w <span className="text-business-blue-400 font-bold">100% skuteczne</span>.
-              </p>
+              <div className="text-warm-neutral-200 text-xl lg:text-2xl text-left font-lato leading-relaxed font-medium space-y-4">
+                <p>
+                  <span className="text-prestige-gold-400 font-bold">Masz długi, chwilówki, komornika na karku?</span> Nie jesteś sam. Od 20 lat pomagamy tam, gdzie inni zawiedli.
+                </p>
+                <p className="text-business-blue-400 font-bold text-lg lg:text-xl uppercase tracking-wide">
+                  WSPIERAMY KLIENTÓW TAM, GDZIE INNI NIE POTRAFILI ZNALEŹĆ ROZWIĄZAŃ.
+                </p>
+                <p>
+                  <span className="text-prestige-gold-400 font-bold">Zamień chaos w jedną ratę</span> i odzyskaj kontrolę nad życiem.
+                </p>
+              </div>
               
               {/* Benefits Cards - Desktop */}
               <div className="grid grid-cols-1 gap-6 mt-4">
