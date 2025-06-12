@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import DebtCalculator from './DebtCalculator';
 import { CheckCircle, Shield, Award, Users, Trophy, Target } from 'lucide-react';
@@ -100,8 +101,8 @@ const HeroSection = () => {
             <div className="font-montserrat text-prestige-gold-400 text-xl md:text-2xl lg:text-3xl font-black tracking-wide uppercase">
               Dariusz Wentrych nr 1 w Polsce w oddłużaniu osób fizycznych
             </div>
-            <div className="font-lato text-warm-neutral-200 text-lg md:text-xl lg:text-2xl font-normal mt-1 lg:mt-2">
-              Pożyczki inwestorskie, konsolidacja pożyczek i chwilówek
+            <div className="font-lato text-warm-neutral-200 text-lg md:text-xl lg:text-2xl font-normal mt-1 lg:mt-2 uppercase tracking-wide">
+              POŻYCZKI INWESTORSKIE, KONSOLIDACJA POŻYCZEK I CHWILÓWEK
             </div>
           </div>
 
