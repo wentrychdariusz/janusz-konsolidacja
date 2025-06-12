@@ -39,33 +39,33 @@ const QuickRegistrationForm = () => {
   // Thank you page after submission
   if (isSubmitted) {
     return (
-      <div className="bg-white shadow-xl border-0 w-full max-w-md mx-auto rounded-lg overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
         {/* Success header */}
-        <div className="text-center bg-gradient-to-r from-success-600 to-success-500 text-white p-6">
+        <div className="text-center mb-6">
           <div className="flex justify-center items-center mb-4">
-            <CheckCircle className="w-16 h-16 text-white" />
+            <CheckCircle className="w-16 h-16 text-success-600" />
           </div>
-          <h2 className="text-xl font-bold">Dziękujemy za rejestrację!</h2>
-          <p className="text-success-100 text-sm mt-2">Twoje zgłoszenie zostało pomyślnie wysłane</p>
+          <h2 className="text-xl lg:text-2xl font-bold text-success-600 mb-2">Dziękujemy za rejestrację!</h2>
+          <p className="text-warm-neutral-600 text-sm lg:text-base">Twoje zgłoszenie zostało pomyślnie wysłane</p>
         </div>
 
         {/* Dariusz and team section */}
-        <div className="text-center bg-gradient-to-r from-navy-900 to-business-blue-600 text-white p-6">
+        <div className="text-center bg-gradient-to-r from-success-600 to-success-500 text-white p-6 rounded-xl mb-6">
           <div className="flex justify-center items-center mb-4">
             <div className="flex items-center space-x-2">
               {/* Dariusz main photo */}
               <img 
                 src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
                 alt="Dariusz Wentrych"
-                className="w-16 h-16 rounded-full overflow-hidden border-3 border-prestige-gold-400 shadow-xl object-cover"
+                className="w-16 h-16 rounded-full overflow-hidden border-3 border-white shadow-xl object-cover"
               />
               
               {/* Plus icon */}
-              <Plus className="w-3 h-3 text-prestige-gold-300" />
+              <Plus className="w-3 h-3 text-white" />
               
               {/* Team members */}
               <div className="flex items-center space-x-1">
-                <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
+                <Avatar className="w-10 h-10 border-2 border-white">
                   <AvatarImage 
                     src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
                     alt="Członek zespołu"
@@ -73,7 +73,7 @@ const QuickRegistrationForm = () => {
                   />
                   <AvatarFallback className="text-xs">KZ</AvatarFallback>
                 </Avatar>
-                <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
+                <Avatar className="w-10 h-10 border-2 border-white">
                   <AvatarImage 
                     src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
                     alt="Członek zespołu"
@@ -81,7 +81,7 @@ const QuickRegistrationForm = () => {
                   />
                   <AvatarFallback className="text-xs">MK</AvatarFallback>
                 </Avatar>
-                <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
+                <Avatar className="w-10 h-10 border-2 border-white">
                   <AvatarImage 
                     src="/lovable-uploads/73083e2d-4631-4f25-abd0-a482d29bb838.png"
                     alt="Członek zespołu"
@@ -93,22 +93,22 @@ const QuickRegistrationForm = () => {
             </div>
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white">Dariusz Wentrych i Zespół</h3>
-            <p className="text-sm text-prestige-gold-300">Eksperci Oddłużenia - 20+ lat doświadczenia</p>
+            <h3 className="text-lg font-bold text-white">Zespół Ekspertów</h3>
+            <p className="text-sm text-success-100">Wstępna analiza jest pozytywna</p>
           </div>
         </div>
 
         {/* Call back message */}
-        <div className="text-center bg-gradient-to-r from-prestige-gold-50 via-warm-neutral-50 to-business-blue-50 p-6">
+        <div className="text-center flex-1 flex flex-col justify-center">
           <Phone className="w-12 h-12 text-navy-900 mx-auto mb-4" />
-          <h3 className="text-lg font-bold text-navy-900 mb-2">
+          <h3 className="text-lg lg:text-xl font-bold text-navy-900 mb-2">
             Oddzwonimy najszybciej jak to możliwe
           </h3>
-          <p className="text-sm text-navy-700 mb-4">
-            Nasz ekspert skontaktuje się z Tobą w ciągu 24 godzin, aby omówić Twoją sytuację i zaproponować najlepsze rozwiązanie.
+          <p className="text-sm lg:text-base text-navy-700 mb-4">
+            Skontaktujemy się z Tobą, aby przeanalizować Twoją sytuację i zaproponować najlepsze rozwiązanie.
           </p>
-          <div className="bg-white rounded-lg p-4 border border-warm-neutral-200">
-            <p className="text-xs text-warm-neutral-600">
+          <div className="bg-warm-neutral-50 rounded-lg p-4 border border-warm-neutral-200">
+            <p className="text-xs lg:text-sm text-warm-neutral-600">
               <strong>Twoje dane:</strong><br />
               Imię: {formData.name}<br />
               Email: {formData.email}<br />
@@ -118,7 +118,7 @@ const QuickRegistrationForm = () => {
         </div>
 
         {/* Footer */}
-        <div className="text-center p-4 bg-warm-neutral-100">
+        <div className="text-center mt-4">
           <p className="text-xs text-warm-neutral-500">
             Dziękujemy za zaufanie. Twoje dane są bezpieczne i nie będą udostępniane osobom trzecim.
           </p>
@@ -127,77 +127,46 @@ const QuickRegistrationForm = () => {
     );
   }
 
-  // Original form
+  // Original form with matching height structure
   return (
-    <div className="bg-white shadow-xl border-0 w-full max-w-md mx-auto rounded-lg overflow-hidden">
-      {/* Header with Dariusz's photo */}
-      <div className="text-center bg-gradient-to-r from-navy-900 to-business-blue-600 text-white p-6">
-        <div className="flex justify-center items-center mb-4">
-          <div className="flex items-center space-x-2">
-            {/* Dariusz main photo */}
-            <img 
-              src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-              alt="Dariusz Wentrych"
-              className="w-16 h-16 rounded-full overflow-hidden border-3 border-prestige-gold-400 shadow-xl object-cover"
-            />
-            
-            {/* Plus icon */}
-            <Plus className="w-3 h-3 text-prestige-gold-300" />
-            
-            {/* Team members */}
-            <div className="flex items-center space-x-1">
-              <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
-                <AvatarImage 
-                  src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
-                  alt="Członek zespołu"
-                  className="object-cover"
-                />
-                <AvatarFallback className="text-xs">KZ</AvatarFallback>
-              </Avatar>
-              <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
-                <AvatarImage 
-                  src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
-                  alt="Członek zespołu"
-                  className="object-cover"
-                />
-                <AvatarFallback className="text-xs">MK</AvatarFallback>
-              </Avatar>
-              <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
-                <AvatarImage 
-                  src="/lovable-uploads/73083e2d-4631-4f25-abd0-a482d29bb838.png"
-                  alt="Członek zespołu"
-                  className="object-cover"
-                />
-                <AvatarFallback className="text-xs">AS</AvatarFallback>
-              </Avatar>
+    <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
+      <div>
+        {/* Header with strong green background and simplified content */}
+        <div className="text-center mb-6 lg:mb-8">
+          <div className="bg-gradient-to-r from-success-600 to-success-500 p-4 lg:p-6 rounded-xl mb-4 lg:mb-6">
+            <div className="flex justify-center items-center mb-3 lg:mb-4">
+              <img 
+                src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                alt="Dariusz Wentrych"
+                className="w-12 h-12 lg:w-16 lg:h-16 rounded-full overflow-hidden border-2 border-white shadow-lg object-cover"
+              />
+            </div>
+            <div className="text-white">
+              <h3 className="text-lg lg:text-xl font-bold mb-1">Wstępna informacja pozytywna!</h3>
+              <p className="text-sm lg:text-base text-success-100">Możemy Ci pomóc</p>
             </div>
           </div>
-        </div>
-        <div>
-          <h3 className="text-lg font-bold text-white">Dariusz Wentrych</h3>
-          <p className="text-sm text-prestige-gold-300">Ekspert Oddłużenia - 20 lat doświadczenia</p>
-        </div>
-        <div className="mt-4">
-          <h2 className="text-lg font-bold">Bezpłatna konsultacja oddłużeniowa</h2>
+          
+          <h2 className="text-xl lg:text-2xl xl:text-3xl font-bold text-navy-900 mb-2 lg:mb-3">
+            Wypełnij formularz
+          </h2>
+          <p className="text-warm-neutral-600 text-sm lg:text-base xl:text-lg leading-relaxed">
+            Skontaktujemy się z Tobą, aby przeanalizować Twoją sytuację
+          </p>
         </div>
 
-        {/* Team info */}
-        <div className="mt-4">
-          <p className="text-xs text-prestige-gold-300">Profesjonalny zespół 3+ ekspertów</p>
+        {/* Info section */}
+        <div className="text-center bg-gradient-to-r from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 rounded-xl p-4 lg:p-6 border border-warm-neutral-200 mb-6 lg:mb-8">
+          <p className="text-sm lg:text-base font-medium text-navy-800">
+            📞 Oddzwonimy do Ciebie najszybciej jak to będzie możliwe
+          </p>
         </div>
-      </div>
-
-      {/* Info section with gradient background */}
-      <div className="text-center bg-gradient-to-r from-prestige-gold-50 via-warm-neutral-50 to-business-blue-50 p-4 border-y border-warm-neutral-200">
-        <p className="text-sm text-navy-800 font-medium">
-          📞 Oddzwonimy do Ciebie najszybciej jak to będzie możliwe
-        </p>
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="p-6 space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-6 xl:space-y-8">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-navy-800 mb-1">
+          <label htmlFor="name" className="block text-sm lg:text-base font-medium text-navy-800 mb-2 lg:mb-3">
             Imię i nazwisko <span className="text-red-500">*</span>
           </label>
           <input
@@ -208,12 +177,12 @@ const QuickRegistrationForm = () => {
             onChange={handleInputChange}
             placeholder="Wpisz swoje imię i nazwisko"
             required
-            className="w-full px-3 py-2 mt-1 border border-warm-neutral-300 rounded-lg focus:border-navy-600 focus:ring-1 focus:ring-navy-600 h-10 text-sm"
+            className="w-full px-3 lg:px-4 py-2 lg:py-3 border border-warm-neutral-300 rounded-lg focus:border-navy-600 focus:ring-1 focus:ring-navy-600 h-10 lg:h-12 text-sm lg:text-base"
           />
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-navy-800 mb-1">
+          <label htmlFor="email" className="block text-sm lg:text-base font-medium text-navy-800 mb-2 lg:mb-3">
             Email <span className="text-red-500">*</span>
           </label>
           <input
@@ -224,12 +193,12 @@ const QuickRegistrationForm = () => {
             onChange={handleInputChange}
             placeholder="twoj@email.com"
             required
-            className="w-full px-3 py-2 mt-1 border border-warm-neutral-300 rounded-lg focus:border-navy-600 focus:ring-1 focus:ring-navy-600 h-10 text-sm"
+            className="w-full px-3 lg:px-4 py-2 lg:py-3 border border-warm-neutral-300 rounded-lg focus:border-navy-600 focus:ring-1 focus:ring-navy-600 h-10 lg:h-12 text-sm lg:text-base"
           />
         </div>
 
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-navy-800 mb-1">
+          <label htmlFor="phone" className="block text-sm lg:text-base font-medium text-navy-800 mb-2 lg:mb-3">
             Telefon <span className="text-red-500">*</span>
           </label>
           <input
@@ -240,19 +209,19 @@ const QuickRegistrationForm = () => {
             onChange={handleInputChange}
             placeholder="+48 123 456 789"
             required
-            className="w-full px-3 py-2 mt-1 border border-warm-neutral-300 rounded-lg focus:border-navy-600 focus:ring-1 focus:ring-navy-600 h-10 text-sm"
+            className="w-full px-3 lg:px-4 py-2 lg:py-3 border border-warm-neutral-300 rounded-lg focus:border-navy-600 focus:ring-1 focus:ring-navy-600 h-10 lg:h-12 text-sm lg:text-base"
           />
         </div>
 
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-gradient-to-r from-navy-900 to-navy-700 hover:from-navy-800 hover:to-navy-600 text-white font-bold text-lg rounded-lg shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 h-14 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 lg:py-6 xl:py-8 text-base lg:text-lg xl:text-xl rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isSubmitting ? "Wysyłanie..." : "📞 Zarejestruj się"}
+          {isSubmitting ? "Wysyłanie..." : "📞 Wyślij formularz"}
         </button>
 
-        <p className="text-xs text-gray-500 text-center mt-3">
+        <p className="text-xs lg:text-sm text-gray-500 text-center">
           Twoje dane są bezpieczne. Nie wysyłamy spamu.
         </p>
       </form>
