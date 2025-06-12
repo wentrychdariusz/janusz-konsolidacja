@@ -34,11 +34,11 @@ const ImagineSection = () => {
 
   return (
     <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-16 md:py-20 lg:py-24 overflow-hidden min-h-[120vh] lg:min-h-[130vh]">
-      {/* Background mosaic with Dariusz photos */}
-      <div className="absolute inset-0">
+      {/* Background only for desktop - mosaic with Dariusz photos */}
+      <div className="hidden md:block absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/75 via-navy-900/70 to-business-blue-700/75 z-10"></div>
         
-        {/* Photo mosaic grid - better layout */}
+        {/* Photo mosaic grid - desktop only */}
         <div className="absolute inset-0 grid grid-cols-8 md:grid-cols-12 lg:grid-cols-16 gap-0">
           {Array.from({ length: 200 }, (_, index) => {
             const images = [
