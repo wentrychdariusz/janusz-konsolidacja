@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -132,33 +131,33 @@ const DebtCalculator = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="grid lg:grid-cols-2 gap-8 items-start">
+    <div className="w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
         {/* Kalkulator */}
-        <div className="bg-white rounded-2xl shadow-xl border-0 p-8">
-          <div className="text-center mb-8">
+        <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8">
+          <div className="text-center mb-6">
             <div className="flex justify-center items-center mb-4">
               <div className="bg-gradient-to-r from-navy-900 to-business-blue-600 p-3 rounded-full">
                 <Calculator className="w-8 h-8 text-white" />
               </div>
             </div>
-            <h2 className="text-2xl font-bold text-navy-900 mb-2">
+            <h2 className="text-xl lg:text-2xl font-bold text-navy-900 mb-2">
               Kalkulator Oddłużania
             </h2>
-            <p className="text-warm-neutral-600">
+            <p className="text-warm-neutral-600 text-sm lg:text-base">
               Sprawdź, czy możemy Ci pomóc w konsolidacji chwilówek
             </p>
           </div>
 
           {/* Sekcja z Dariuszem i zespołem - element budujący zaufanie */}
-          <div className="text-center mb-8 bg-gradient-to-r from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 rounded-xl p-4 border border-warm-neutral-200">
+          <div className="text-center mb-6 bg-gradient-to-r from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 rounded-xl p-4 border border-warm-neutral-200">
             <div className="flex justify-center items-center mb-3">
               <div className="flex items-center space-x-2">
                 {/* Dariusz main photo */}
                 <img 
                   src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
                   alt="Dariusz Wentrych"
-                  className="w-12 h-12 rounded-full overflow-hidden border-2 border-prestige-gold-400 shadow-md object-cover"
+                  className="w-10 h-10 lg:w-12 lg:h-12 rounded-full overflow-hidden border-2 border-prestige-gold-400 shadow-md object-cover"
                 />
                 
                 {/* Plus icon */}
@@ -166,7 +165,7 @@ const DebtCalculator = () => {
                 
                 {/* Team members */}
                 <div className="flex items-center space-x-1">
-                  <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
+                  <Avatar className="w-8 h-8 lg:w-10 lg:h-10 border-2 border-prestige-gold-400">
                     <AvatarImage 
                       src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
                       alt="Członek zespołu"
@@ -174,7 +173,7 @@ const DebtCalculator = () => {
                     />
                     <AvatarFallback className="text-xs">KZ</AvatarFallback>
                   </Avatar>
-                  <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
+                  <Avatar className="w-8 h-8 lg:w-10 lg:h-10 border-2 border-prestige-gold-400">
                     <AvatarImage 
                       src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
                       alt="Członek zespołu"
@@ -182,7 +181,7 @@ const DebtCalculator = () => {
                     />
                     <AvatarFallback className="text-xs">MK</AvatarFallback>
                   </Avatar>
-                  <Avatar className="w-10 h-10 border-2 border-prestige-gold-400">
+                  <Avatar className="w-8 h-8 lg:w-10 lg:h-10 border-2 border-prestige-gold-400">
                     <AvatarImage 
                       src="/lovable-uploads/73083e2d-4631-4f25-abd0-a482d29bb838.png"
                       alt="Członek zespołu"
@@ -199,7 +198,7 @@ const DebtCalculator = () => {
             </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4 lg:space-y-6">
             <div>
               <Label htmlFor="income" className="text-navy-800 font-medium">
                 Twój dochód netto
@@ -259,7 +258,7 @@ const DebtCalculator = () => {
 
             <Button
               onClick={calculate}
-              className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105"
+              className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 lg:py-6 text-base lg:text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105"
             >
               <Calculator className="w-5 h-5 mr-2" />
               Sprawdź czy Ci pomożemy
@@ -269,7 +268,7 @@ const DebtCalculator = () => {
               <div className={`p-4 rounded-xl border-2 ${getResultClasses()}`}>
                 <div className="flex items-start space-x-3">
                   {getResultIcon()}
-                  <p className="font-medium leading-relaxed">
+                  <p className="font-medium leading-relaxed text-sm lg:text-base">
                     {result.message}
                   </p>
                 </div>
