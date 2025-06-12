@@ -34,13 +34,12 @@ const ImagineSection = () => {
 
   return (
     <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-16 md:py-20 lg:py-24 overflow-hidden min-h-[120vh] lg:min-h-[130vh]">
-      {/* Background mosaic with better mobile handling */}
+      {/* Background mosaic with Dariusz photos */}
       <div className="absolute inset-0">
-        {/* Solid background for mobile, mosaic for larger screens */}
-        <div className="absolute inset-0 bg-gradient-to-br from-navy-900 via-business-blue-800 to-navy-900 md:hidden"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/75 via-navy-900/70 to-business-blue-700/75 z-10"></div>
         
-        {/* Photo mosaic - only visible on medium screens and up */}
-        <div className="absolute inset-0 hidden md:grid grid-cols-12 lg:grid-cols-16 gap-0">
+        {/* Photo mosaic grid - better layout */}
+        <div className="absolute inset-0 grid grid-cols-8 md:grid-cols-12 lg:grid-cols-16 gap-0">
           {Array.from({ length: 200 }, (_, index) => {
             const images = [
               "/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png",
@@ -54,7 +53,7 @@ const ImagineSection = () => {
             ];
             const imageIndex = index % images.length;
             return (
-              <div key={index} className="aspect-square overflow-hidden">
+              <div key={index} className="aspect-square">
                 <img 
                   src={images[imageIndex]} 
                   alt="" 
@@ -64,9 +63,6 @@ const ImagineSection = () => {
             );
           })}
         </div>
-        
-        {/* Gradient overlay that transitions from mosaic to solid color */}
-        <div className="absolute inset-0 bg-gradient-to-b from-business-blue-900/60 via-navy-900/80 to-business-blue-800/95 md:bg-gradient-to-br md:from-business-blue-900/75 md:via-navy-900/70 md:to-business-blue-700/75 z-10"></div>
       </div>
       
       <div className="relative z-20 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
@@ -93,7 +89,7 @@ const ImagineSection = () => {
 
         {/* Image and expertise section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-16 items-start">
-          {/* Left side - Dariusz Image */}
+          {/* Left side - Dariusz Image without any effects */}
           <div className="w-full">
             <div className="w-full h-[600px] lg:h-[700px] relative">
               <img 
