@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Calculator, CheckCircle, AlertCircle, XCircle, Plus } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import QuickRegistrationForm from './QuickRegistrationForm';
 
 const DebtCalculator = () => {
   const [income, setIncome] = useState('');
@@ -64,7 +65,7 @@ const DebtCalculator = () => {
 
     if (total <= baseLim) {
       setResult({
-        message: 'Świetna wiadomość! Możemy Ci pomóc – wypełnij formularz kontaktowy, a skontaktujemy się z Tobą.',
+        message: 'Jesteśmy w stanie Ci pomóc! Wypełnij dane kontaktowe, a nasz ekspert skontaktuje się z Tobą w ciągu 24 godzin.',
         type: 'positive',
         showForm: true
       });
@@ -73,7 +74,7 @@ const DebtCalculator = () => {
 
     if (total <= maxLim) {
       setResult({
-        message: 'Postaramy się pomóc – wypełnij formularz, a doradca omówi możliwe rozwiązania.',
+        message: 'Jesteśmy w stanie Ci pomóc! Wypełnij dane kontaktowe, a doradca omówi możliwe rozwiązania.',
         type: 'warning',
         showForm: true
       });
@@ -277,7 +278,7 @@ const DebtCalculator = () => {
           </div>
         </div>
 
-        {/* Formularz JotForm - pokazuje się tylko przy pozytywnym wyniku */}
+        {/* Formularz rejestracyjny - pokazuje się tylko przy pozytywnym wyniku */}
         {result.showForm && (
           <div className="animate-fade-in">
             <div className="mb-4 text-center">
@@ -289,27 +290,8 @@ const DebtCalculator = () => {
               </p>
             </div>
             
-            {/* JotForm iframe */}
-            <div className="bg-white rounded-2xl shadow-xl border-0 overflow-hidden">
-              <iframe
-                id="JotFormIFrame-251622180937053"
-                title="Rejestracja Leada"
-                onLoad={() => {
-                  window.parent.scrollTo(0,0);
-                }}
-                allowTransparency={true}
-                allow="geolocation; microphone; camera; fullscreen"
-                src="https://form.jotform.com/251622180937053"
-                frameBorder="0"
-                style={{
-                  minWidth: '100%',
-                  maxWidth: '100%',
-                  height: '539px',
-                  border: 'none'
-                }}
-                scrolling="no"
-              />
-            </div>
+            {/* QuickRegistrationForm zamiast iframe */}
+            <QuickRegistrationForm />
           </div>
         )}
       </div>
