@@ -67,8 +67,8 @@ const ImagineSection = () => {
           </div>
         </div>
         
-        {/* Gradient overlay that transitions from mosaic to solid color */}
-        <div className="absolute inset-0 bg-gradient-to-b from-business-blue-900/60 via-navy-900/80 to-business-blue-800/95 md:bg-gradient-to-br md:from-business-blue-900/75 md:via-navy-900/70 md:to-business-blue-700/75 z-10"></div>
+        {/* Gradient overlay that transitions from mosaic to solid color - reduced opacity */}
+        <div className="absolute inset-0 bg-gradient-to-b from-business-blue-900/40 via-navy-900/50 to-business-blue-800/70 md:bg-gradient-to-br md:from-business-blue-900/45 md:via-navy-900/40 md:to-business-blue-700/55 z-10"></div>
       </div>
       
       <div className="relative z-20 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
