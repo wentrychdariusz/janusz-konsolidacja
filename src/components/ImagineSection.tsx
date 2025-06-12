@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { MapPin, Car, Award, Users, Star } from 'lucide-react';
 
@@ -87,19 +88,16 @@ const ImagineSection = () => {
           </div>
         </div>
 
-        {/* Video and expertise section */}
+        {/* Image and expertise section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-16 items-start">
-          {/* Left side - Video */}
-          <div className="w-full">
-            <div className="w-full" style={{ aspectRatio: '16/9' }}>
-              <iframe 
-                src="https://fast.wistia.net/embed/iframe/nlk4gmdg22?seo=true&videoFoam=true" 
-                title="Video"
-                allow="autoplay; fullscreen" 
-                allowFullScreen 
-                className="w-full h-full rounded-lg border-0"
-                style={{ minHeight: '350px', height: '400px' }}
-              ></iframe>
+          {/* Left side - Dariusz Image */}
+          <div className="w-full flex justify-center lg:justify-start">
+            <div className="w-80 h-96">
+              <img 
+                src="/lovable-uploads/1dd377c3-2660-4397-b40b-65f29d9c4831.png" 
+                alt="Dariusz Wentrych"
+                className="w-full h-full object-cover rounded-2xl shadow-2xl"
+              />
             </div>
           </div>
 
@@ -137,3 +135,4 @@ const ImagineSection = () => {
 };
 
 export default ImagineSection;
+
