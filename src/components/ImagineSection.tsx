@@ -32,10 +32,9 @@ const ImagineSection = () => {
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/75 via-navy-900/70 to-business-blue-700/75 z-10"></div>
         
-        {/* Photo mosaic grid - covering full height */}
-        <div className="absolute inset-0 grid grid-cols-16 auto-rows-[80px]">
-          {/* Create seamless mosaic - increased count for full coverage */}
-          {Array.from({ length: 256 }, (_, index) => {
+        {/* Photo mosaic grid - better layout */}
+        <div className="absolute inset-0 grid grid-cols-8 md:grid-cols-12 lg:grid-cols-16 gap-0">
+          {Array.from({ length: 200 }, (_, index) => {
             const images = [
               "/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png",
               "/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png",
@@ -48,12 +47,13 @@ const ImagineSection = () => {
             ];
             const imageIndex = index % images.length;
             return (
-              <img 
-                key={index}
-                src={images[imageIndex]} 
-                alt="" 
-                className="w-full h-full object-cover block"
-              />
+              <div key={index} className="aspect-square">
+                <img 
+                  src={images[imageIndex]} 
+                  alt="" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
             );
           })}
         </div>
@@ -72,17 +72,15 @@ const ImagineSection = () => {
         {/* Video and expertise section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-16">
           {/* Left side - Video */}
-          <div className="flex justify-center">
-            <div className="w-full max-w-none">
-              <div className="relative w-full h-0 pb-[56.25%]">
-                <iframe 
-                  src="https://fast.wistia.net/embed/iframe/nlk4gmdg22?seo=true&videoFoam=true" 
-                  title="Video"
-                  allow="autoplay; fullscreen" 
-                  allowFullScreen 
-                  className="absolute top-0 left-0 w-full h-full rounded-lg"
-                ></iframe>
-              </div>
+          <div className="w-full">
+            <div className="relative w-full h-0 pb-[56.25%]">
+              <iframe 
+                src="https://fast.wistia.net/embed/iframe/nlk4gmdg22?seo=true&videoFoam=true" 
+                title="Video"
+                allow="autoplay; fullscreen" 
+                allowFullScreen 
+                className="absolute top-0 left-0 w-full h-full rounded-lg"
+              ></iframe>
             </div>
           </div>
 
