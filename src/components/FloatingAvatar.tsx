@@ -9,14 +9,14 @@ const FloatingAvatar = () => {
   const [showAvatar, setShowAvatar] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
 
-  // Sprawdzanie pozycji scroll i pokazywanie awatara po sekcji kalkulatora (również na mobile)
+  // Sprawdzanie pozycji scroll i pokazywanie awatara przy nagłówku "Mamy największe zaufanie klientów w Polsce"
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       setScrollPosition(scrollY);
       
-      // Pokazuj awatar dopiero po przewinięciu poza kalkulator - dla wszystkich urządzeń
-      setShowAvatar(scrollY > 800);
+      // Pokazuj awatar dopiero przy nagłówku "Mamy największe zaufanie klientów w Polsce" - około 1200px
+      setShowAvatar(scrollY > 1200);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -36,7 +36,7 @@ const FloatingAvatar = () => {
   // Naturalna pozycja awatara - płynne przesuwanie w dół z ograniczeniem
   const avatarStyle = {
     right: '20px',
-    top: `${Math.min(Math.max(20, 20 + (scrollPosition - 800) * 0.1), window.innerHeight - 150)}px`,
+    top: `${Math.min(Math.max(20, 20 + (scrollPosition - 1200) * 0.1), window.innerHeight - 150)}px`,
   };
 
   // Nie renderuj awatara, jeśli nie powinien być widoczny
