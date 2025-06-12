@@ -106,24 +106,34 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Enhanced Trust Section with More Client Images */}
-          <div className="w-full bg-gradient-to-r from-business-blue-400/20 via-business-blue-300/15 to-business-blue-400/20 border-t border-b border-business-blue-400/30 backdrop-blur-sm py-3 mb-3 rounded-xl">
+          {/* Enhanced Trust Section with Smaller Client Images */}
+          <div className="w-full bg-gradient-to-r from-business-blue-400/20 via-business-blue-300/15 to-business-blue-400/20 border-t border-b border-business-blue-400/30 backdrop-blur-sm py-4 mb-3 rounded-xl">
             <div className="text-center">
-              {/* Client photos grid - 8 photos */}
-              <div className="flex flex-wrap justify-center items-center gap-3 mb-2">
-                {clientImages.map((image, index) => (
-                  <div key={index} className="relative group">
-                    <img 
-                      src={image}
-                      alt={`Zadowolony klient ${index + 1}`}
-                      className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-prestige-gold-400 object-cover shadow-xl group-hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
-                ))}
-                
-                {/* Plus indicator for more clients */}
-                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-prestige-gold-400 bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 flex items-center justify-center shadow-xl">
-                  <span className="text-navy-900 font-black text-lg md:text-xl">+</span>
+              <div className="mb-3">
+                <h3 className="font-montserrat text-white text-lg md:text-xl font-bold mb-1">
+                  Ponad 15.000 zadowolonych klientów
+                </h3>
+                <p className="text-warm-neutral-300 text-sm md:text-base">
+                  Pożyczki inwestorskie, konsolidacja pożyczek i chwilówek
+                </p>
+              </div>
+              
+              {/* Client photos grid - 8 photos with smaller size and overlapping */}
+              <div className="flex justify-center items-center mb-3">
+                <div className="flex items-center">
+                  {clientImages.map((image, index) => (
+                    <div 
+                      key={index} 
+                      className="relative group -ml-2 first:ml-0"
+                      style={{ zIndex: clientImages.length - index }}
+                    >
+                      <img 
+                        src={image}
+                        alt={`Zadowolony klient ${index + 1}`}
+                        className="w-12 h-12 md:w-14 md:h-14 rounded-full border-3 border-prestige-gold-400 object-cover shadow-lg group-hover:scale-110 transition-transform duration-300"
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
               
