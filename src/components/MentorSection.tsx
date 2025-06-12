@@ -103,7 +103,7 @@ const MentorSection = () => {
         </div>
 
         {/* Two choices section */}
-        <div className="text-center">
+        <div className="text-center mb-16">
           <h3 className="font-playfair text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-8">
             Teraz masz dwa wyjścia:
           </h3>
@@ -119,6 +119,58 @@ const MentorSection = () => {
               <p className="text-white text-lg font-lato font-medium">
                 ✅ Powiedzieć STOP! Przejąć kontrolę. Zacząć od nowa.
               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Warning section about scammer companies */}
+        <div className="text-center">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-to-r from-red-600/30 via-red-500/25 to-red-700/30 border-2 border-red-400/50 rounded-2xl p-8 md:p-12 backdrop-blur-sm shadow-2xl">
+              <h3 className="text-white text-2xl md:text-3xl font-bold mb-6 font-montserrat">
+                ⚠️ Nie ryzykuj z firmami, które nie mają doświadczenia i chcą Cię tylko oszukać!
+              </h3>
+              
+              <div className="text-left space-y-4 mb-8">
+                <p className="text-white text-lg font-lato leading-relaxed">
+                  Jest tyle firm naciągaczy, że nawet jeśli masz wątpliwości i byłeś w tych firmach, jak najszybciej skontaktuj się z nami, aby porównać zapisy prawne z naszym zespołem ekspertów.
+                </p>
+                
+                <p className="text-red-300 text-xl font-bold font-montserrat">
+                  Jest dziś tyle firm-naciągaczy, że to się w głowie nie mieści!
+                </p>
+                
+                <div className="bg-white/10 rounded-xl p-6 my-6">
+                  <p className="text-white text-lg font-lato mb-4">
+                    <span className="text-prestige-gold-400 font-bold">Jeśli byłeś u nich – nawet tylko raz –</span><br/>
+                    <span className="text-prestige-gold-400 font-bold">Jeśli coś Ci nie pasuje albo masz cień wątpliwości –</span>
+                  </p>
+                  
+                  <div className="text-center bg-gradient-to-r from-red-500 to-red-600 rounded-xl p-6 my-6">
+                    <p className="text-white text-2xl md:text-3xl font-black font-montserrat uppercase tracking-wide">
+                      DZWOŃ DO NAS OD RAZU!
+                    </p>
+                    <p className="text-red-100 text-lg font-bold mt-2">
+                      Nie jutro. Nie za godzinę. TERAZ!
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="space-y-3">
+                  <p className="text-white text-lg font-lato">
+                    <span className="text-prestige-gold-400 font-bold">Nasz zespół ekspertów sprawdzi, co Ci wciskali</span> i pokaże, czy próbują Cię oszukać.
+                  </p>
+                  <p className="text-white text-lg font-lato">
+                    Porównamy wszystkie zapisy, rozbijemy ich sztuczki na kawałki.
+                  </p>
+                  <p className="text-white text-lg font-lato">
+                    <span className="text-prestige-gold-400 font-bold">Nie daj się wciągnąć w ich gierki.</span>
+                  </p>
+                  <p className="text-prestige-gold-400 text-xl font-bold font-montserrat text-center mt-6">
+                    Oni mają swoje paragrafy – Ty masz nas.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
