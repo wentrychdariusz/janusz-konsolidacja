@@ -47,14 +47,24 @@ const HeroSection = () => {
       
       <div className="relative z-10 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-8 md:py-16">
         
+        {/* Header Section - Full Width */}
+        <div className="w-full text-center mb-8 md:mb-12 animate-fade-in">
+          <div className="flex justify-center items-center mb-4 lg:mb-6">
+            <img 
+              src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+              alt="Dariusz Wentrych"
+              className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full border-4 border-prestige-gold-400 shadow-lg object-cover"
+            />
+          </div>
+          <div className="font-montserrat text-prestige-gold-400 text-xl md:text-2xl lg:text-3xl font-black tracking-wide uppercase">
+            Dariusz Wentrych - Ekspert Oddłużenia Nr 1 w Polsce
+          </div>
+        </div>
+
         {/* Mobile/Tablet Layout - Stacked */}
         <div className="block xl:hidden space-y-8">
           {/* Content Section */}
           <div className="space-y-6 md:space-y-8 animate-fade-in">
-            <div className="font-montserrat text-prestige-gold-400 text-lg sm:text-xl md:text-2xl text-center font-black tracking-wide uppercase">
-              Dariusz Wentrych - Ekspert Oddłużenia Nr 1 w Polsce
-            </div>
-            
             <h1 className="font-montserrat font-black text-3xl sm:text-4xl md:text-5xl text-center leading-tight">
               <span className="text-white">Uwolnij się od </span>
               <span className="text-business-blue-400">długów raz na zawsze</span>
@@ -98,10 +108,6 @@ const HeroSection = () => {
           
           {/* Left Content - 50% */}
           <div className="space-y-6 md:space-y-8 animate-fade-in">
-            <div className="font-montserrat text-prestige-gold-400 text-2xl lg:text-3xl text-left font-black tracking-wide uppercase">
-              Dariusz Wentrych - Ekspert Oddłużenia Nr 1 w Polsce
-            </div>
-            
             <h1 className="font-montserrat font-black text-4xl lg:text-5xl xl:text-6xl text-left leading-tight">
               <span className="text-white">Uwolnij się od </span>
               <span className="text-business-blue-400">długów raz na zawsze</span>
