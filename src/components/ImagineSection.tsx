@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 import { MapPin, Car, Award, Users, Star } from 'lucide-react';
 
@@ -90,9 +89,9 @@ const ImagineSection = () => {
 
         {/* Image and expertise section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-16 items-start">
-          {/* Left side - Dariusz Image */}
-          <div className="w-full flex justify-center lg:justify-start">
-            <div className="w-80 h-96">
+          {/* Left side - Dariusz Image - Full size */}
+          <div className="w-full">
+            <div className="w-full h-[500px] lg:h-[600px]">
               <img 
                 src="/lovable-uploads/1dd377c3-2660-4397-b40b-65f29d9c4831.png" 
                 alt="Dariusz Wentrych"
@@ -135,4 +134,3 @@ const ImagineSection = () => {
 };
 
 export default ImagineSection;
-
