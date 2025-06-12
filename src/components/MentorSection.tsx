@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Star } from 'lucide-react';
 
@@ -12,12 +11,12 @@ const MentorSection = () => {
     {
       name: "PANI ELŻBIETA I PAN PAWEŁ",
       text: "Pan Dariusz to człowiek, który naprawdę rozumie, co znaczy walczyć z długami. Nie oceniał, nie krytykował, tylko pomógł znaleźć rozwiązanie i dał nam nadzieję na lepsze jutro.",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+      avatar: "/lovable-uploads/c7d91c17-3e18-4197-8238-cf61fd882dd5.png"
     },
     {
       name: "PANI KATARZYNA",
       text: "Pan Dariusz Wentrych był pierwszą osobą, która naprawdę mnie wysłuchała i pokazała, że jest wyjście. Profesjonalny, cierpliwy i skuteczny.",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b77c?w=150&h=150&fit=crop&crop=face"
+      avatar: "/lovable-uploads/47a03bb7-de4c-4a31-87c2-1a15bb5c649d.png"
     }
   ];
 
@@ -91,7 +90,7 @@ const MentorSection = () => {
                 <img 
                   src={testimonial.avatar}
                   alt={testimonial.name}
-                  className="w-12 h-12 rounded-full mr-4 border-2 border-prestige-gold-400"
+                  className="w-12 h-12 rounded-full mr-4 border-2 border-prestige-gold-400 object-cover"
                 />
                 <h3 className="text-prestige-gold-400 font-semibold text-sm">{testimonial.name}</h3>
               </div>
