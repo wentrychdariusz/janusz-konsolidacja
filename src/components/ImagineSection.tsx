@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { Heart, Home, Plane, ShoppingBag } from 'lucide-react';
+import { Heart, Home, Plane, ShoppingBag, MapPin, Car, Award, Users } from 'lucide-react';
 
 const ImagineSection = () => {
   const benefits = [
@@ -22,6 +23,29 @@ const ImagineSection = () => {
       icon: Heart,
       title: "Spokój dla rodziny",
       description: "Zapewnij bliskim bezpieczeństwo finansowe"
+    }
+  ];
+
+  const expertise = [
+    {
+      icon: MapPin,
+      title: "Jesteśmy w Twoim mieście",
+      description: "Jesteśmy w 16 województwach"
+    },
+    {
+      icon: Car,
+      title: "Dojeżdzamy do Ciebie",
+      description: "Kwota dojazdów ustalana indywidualnie"
+    },
+    {
+      icon: Award,
+      title: "Najbardziej merytoryczni w Polsce",
+      description: "20 lat doświadczenia w branży"
+    },
+    {
+      icon: Users,
+      title: "Najbardziej profesjonalni",
+      description: "Kompleksowa obsługa klienta"
     }
   ];
 
@@ -146,11 +170,49 @@ const ImagineSection = () => {
       <div className="relative z-20 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6">
-            <span className="text-prestige-gold-400">Mamy największe zaufanie klientów</span>
+            <span className="text-prestige-gold-400">Mamy największe zaufanie klientów w Polsce</span>
           </h2>
           <p className="text-white text-lg md:text-xl max-w-3xl mx-auto font-lato mb-8">
             Klienci nas kochają!
           </p>
+        </div>
+
+        {/* Video and expertise section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-16">
+          {/* Left side - Video */}
+          <div className="flex justify-center">
+            <div className="w-full max-w-lg">
+              <script src="https://fast.wistia.com/player.js" async></script>
+              <script src="https://fast.wistia.com/embed/nlk4gmdg22.js" async type="module"></script>
+              <style>{`
+                wistia-player[media-id='nlk4gmdg22']:not(:defined) { 
+                  background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/nlk4gmdg22/swatch'); 
+                  display: block; 
+                  filter: blur(5px); 
+                  padding-top:177.78%; 
+                }
+              `}</style>
+              <wistia-player media-id="nlk4gmdg22" aspect="0.5625"></wistia-player>
+            </div>
+          </div>
+
+          {/* Right side - Expertise list */}
+          <div className="space-y-6">
+            {expertise.map((item, index) => (
+              <div 
+                key={index}
+                className="flex items-start space-x-4 bg-white/10 backdrop-blur-sm border border-prestige-gold-200/30 rounded-xl p-4 hover:bg-white/15 transition-all duration-300"
+              >
+                <div className="bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0">
+                  <item.icon className="w-6 h-6 text-navy-900" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-white font-semibold text-lg mb-1 font-montserrat">{item.title}</h3>
+                  <p className="text-warm-neutral-300 text-sm font-lato">{item.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
