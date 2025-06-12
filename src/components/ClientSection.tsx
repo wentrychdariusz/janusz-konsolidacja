@@ -38,8 +38,26 @@ const ClientSection = () => {
   ];
 
   const mediaLogos = [
-    "/lovable-uploads/a5da0aac-17bf-4549-94e1-f883378fffdf.png",
-    // Dodaj więcej logo mediów tutaj
+    {
+      src: "https://kredytstudio.pl/wp-content/uploads/2025/04/logos1-75x75.png",
+      alt: "Logo media outlet",
+      className: "h-12 md:h-16"
+    },
+    {
+      src: "https://kredytstudio.pl/wp-content/uploads/2025/04/logo_Fakt.svg",
+      alt: "Fakt - gazeta",
+      className: "h-8 md:h-12"
+    },
+    {
+      src: "https://kredytstudio.pl/wp-content/uploads/2025/04/TVP_HD_logo-150x75.png",
+      alt: "TVP HD",
+      className: "h-10 md:h-14"
+    },
+    {
+      src: "https://kredytstudio.pl/wp-content/uploads/2025/04/1200px-Dziennik_Polski_logo.svg-150x31.png",
+      alt: "Dziennik Polski",
+      className: "h-8 md:h-10"
+    }
   ];
 
   return (
@@ -106,12 +124,25 @@ const ClientSection = () => {
             Znany z
           </h3>
           
-          <div className="flex justify-center items-center">
-            <img 
-              src="/lovable-uploads/a5da0aac-17bf-4549-94e1-f883378fffdf.png"
-              alt="Nowe życie bez długów - książka Dariusza Wentrycha"
-              className="h-32 md:h-40 object-contain rounded-lg shadow-lg"
-            />
+          <div className="bg-white rounded-2xl p-8 shadow-lg border border-prestige-gold-200/30 max-w-4xl mx-auto">
+            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+              {mediaLogos.map((logo, index) => (
+                <div 
+                  key={index}
+                  className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
+                >
+                  <img 
+                    src={logo.src}
+                    alt={logo.alt}
+                    className={`object-contain ${logo.className}`}
+                  />
+                </div>
+              ))}
+            </div>
+            
+            <p className="text-warm-neutral-600 text-sm md:text-base mt-6 font-lato">
+              Dariusz Wentrych regularnie występuje w telewizji i mediach jako ekspert finansowy
+            </p>
           </div>
         </div>
 
