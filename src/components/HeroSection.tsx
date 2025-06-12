@@ -39,7 +39,8 @@ const HeroSection = () => {
         className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
         style={{
           backgroundImage: `url('/lovable-uploads/eb0658a9-c99a-4631-a61d-1543709a3efa.png')`,
-          backgroundPosition: 'left top',
+          backgroundPosition: 'center center',
+          backgroundSize: 'cover'
         }}
       ></div>
       
