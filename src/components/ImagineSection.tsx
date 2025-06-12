@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { MapPin, Car, Award, Users, Star } from 'lucide-react';
 
@@ -92,7 +93,7 @@ const ImagineSection = () => {
           <div className="w-full">
             <div className="w-full h-[500px] lg:h-[600px] relative">
               <img 
-                src="/lovable-uploads/1dd377c3-2660-4397-b40b-65f29d9c4831.png" 
+                src="/lovable-uploads/1d163c41-0a43-4bac-9b5b-9b1c90a3cad4.png" 
                 alt="Dariusz Wentrych"
                 className="w-full h-full object-cover rounded-2xl shadow-2xl"
                 style={{
