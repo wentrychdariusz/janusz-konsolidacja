@@ -42,7 +42,7 @@ const MentorSection = () => {
         
         {/* Main heading and story */}
         <div className="text-center mb-12">
-          <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8">
+          <h2 className="font-montserrat text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8">
             Jak przywróciliśmy klientowi <span className="text-prestige-gold-400">wiarygodność finansową</span> i pomogliśmy mu odzyskać kontrolę nad życiem?
           </h2>
           
@@ -55,10 +55,10 @@ const MentorSection = () => {
             </p>
             
             <div className="text-center mt-8 mb-12">
-              <p className="text-prestige-gold-400 text-xl font-bold font-montserrat">
+              <p className="text-prestige-gold-400 text-2xl md:text-3xl font-bold font-montserrat mb-4">
                 Dołącz do uśmiechniętych ludzi, którzy kiedyś mieli długi, ale dziś cieszą się wolnością finansową! 💪
               </p>
-              <p className="text-white text-lg mt-2 font-lato">
+              <p className="text-white text-xl md:text-2xl mt-2 font-lato font-semibold">
                 Nie miałeś wsparcia? Teraz masz! Pomogę Ci stanąć na nogi.
               </p>
             </div>
