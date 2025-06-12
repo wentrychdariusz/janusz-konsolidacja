@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import DebtCalculator from './DebtCalculator';
 import { CheckCircle, Shield, Award, Users, Trophy, Target } from 'lucide-react';
@@ -107,11 +106,11 @@ const HeroSection = () => {
           </div>
 
           {/* Enhanced Trust Section with Beautiful Background */}
-          <div className="w-full relative bg-gradient-to-r from-prestige-gold-500/10 via-prestige-gold-400/5 to-prestige-gold-500/10 border border-prestige-gold-400/20 backdrop-blur-sm py-4 mb-3 rounded-2xl shadow-lg">
+          <div className="w-full relative bg-white/10 border border-white/20 backdrop-blur-sm py-4 mb-3 rounded-2xl shadow-lg">
             {/* Decorative background elements */}
-            <div className="absolute inset-0 bg-gradient-to-br from-business-blue-400/5 via-transparent to-prestige-gold-400/5 rounded-2xl"></div>
-            <div className="absolute top-0 left-1/4 w-32 h-32 bg-prestige-gold-400/5 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-1/4 w-24 h-24 bg-business-blue-400/5 rounded-full blur-2xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/8 rounded-2xl"></div>
+            <div className="absolute top-0 left-1/4 w-32 h-32 bg-white/5 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 right-1/4 w-24 h-24 bg-white/3 rounded-full blur-2xl"></div>
             
             <div className="relative text-center">
               <div className="mb-3">
