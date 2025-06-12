@@ -27,7 +27,7 @@ const ImagineSection = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-8 md:py-12 overflow-hidden h-screen flex flex-col">
+    <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-16 md:py-24 overflow-hidden min-h-screen">
       {/* Background mosaic with Dariusz photos */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/75 via-navy-900/70 to-business-blue-700/75 z-10"></div>
@@ -59,36 +59,37 @@ const ImagineSection = () => {
         </div>
       </div>
       
-      <div className="relative z-20 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto h-full flex flex-col">
-        <div className="text-center mb-6 md:mb-8">
-          <h2 className="font-sans text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black mb-4">
+      <div className="relative z-20 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6">
             <span className="text-prestige-gold-400">Mamy największe zaufanie klientów w Polsce</span>
           </h2>
-          <p className="text-white text-lg md:text-xl max-w-3xl mx-auto font-lato mb-4">
+          <p className="text-white text-lg md:text-xl max-w-3xl mx-auto font-lato mb-8">
             Klienci nas kochają!
           </p>
         </div>
 
         {/* Video and expertise section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 flex-1 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-16 items-center">
           {/* Left side - Video */}
-          <div className="w-full h-full flex items-center">
-            <div className="w-full aspect-video">
+          <div className="w-full">
+            <div className="w-full" style={{ aspectRatio: '16/9' }}>
               <iframe 
                 src="https://fast.wistia.net/embed/iframe/nlk4gmdg22?seo=true&videoFoam=true" 
                 title="Video"
                 allow="autoplay; fullscreen" 
                 allowFullScreen 
                 className="w-full h-full rounded-lg border-0"
+                style={{ minHeight: '300px' }}
               ></iframe>
             </div>
           </div>
 
           {/* Right side - Expertise list */}
-          <div className="space-y-4 h-full flex flex-col justify-center">
+          <div className="space-y-6">
             {/* Text above icons */}
-            <div className="mb-6">
-              <h3 className="text-white text-2xl md:text-3xl font-bold mb-3 font-montserrat">
+            <div className="mb-8">
+              <h3 className="text-white text-2xl md:text-3xl font-bold mb-4 font-montserrat">
                 Dlaczego wybierają nas klienci?
               </h3>
               <p className="text-warm-neutral-300 text-lg font-lato">
