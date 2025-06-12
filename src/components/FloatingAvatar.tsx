@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
@@ -8,13 +9,13 @@ const FloatingAvatar = () => {
   const [showAvatar, setShowAvatar] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
 
-  // Sprawdzanie pozycji scroll i pokazywanie awatara po sekcji kalkulatora
+  // Sprawdzanie pozycji scroll i pokazywanie awatara po sekcji kalkulatora (również na mobile)
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       setScrollPosition(scrollY);
       
-      // Pokazuj awatar dopiero po przewinięciu poza pierwszą sekcję (około 800px)
+      // Pokazuj awatar dopiero po przewinięciu poza kalkulator - dla wszystkich urządzeń
       setShowAvatar(scrollY > 800);
     };
 

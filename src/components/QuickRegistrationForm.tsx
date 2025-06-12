@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Plus, CheckCircle, Phone } from 'lucide-react';
@@ -155,7 +156,7 @@ const QuickRegistrationForm = () => {
         </p>
       </div>
 
-      {/* Form with centered content */}
+      {/* Form with centered content and larger buttons */}
       <form onSubmit={handleSubmit} className="space-y-6 flex-1 flex flex-col justify-center">
         <div>
           <label htmlFor="name" className="block text-base font-medium text-navy-800 mb-2">
@@ -169,7 +170,7 @@ const QuickRegistrationForm = () => {
             onChange={handleInputChange}
             placeholder="Wpisz swoje imię i nazwisko"
             required
-            className="w-full px-4 py-3 border border-warm-neutral-300 rounded-lg focus:border-navy-600 focus:ring-1 focus:ring-navy-600 h-12 text-base"
+            className="w-full px-4 py-4 border border-warm-neutral-300 rounded-lg focus:border-navy-600 focus:ring-1 focus:ring-navy-600 h-14 lg:h-16 text-base"
           />
         </div>
 
@@ -185,7 +186,7 @@ const QuickRegistrationForm = () => {
             onChange={handleInputChange}
             placeholder="twoj@email.com"
             required
-            className="w-full px-4 py-3 border border-warm-neutral-300 rounded-lg focus:border-navy-600 focus:ring-1 focus:ring-navy-600 h-12 text-base"
+            className="w-full px-4 py-4 border border-warm-neutral-300 rounded-lg focus:border-navy-600 focus:ring-1 focus:ring-navy-600 h-14 lg:h-16 text-base"
           />
         </div>
 
@@ -201,7 +202,7 @@ const QuickRegistrationForm = () => {
             onChange={handleInputChange}
             placeholder="+48 123 456 789"
             required
-            className="w-full px-4 py-3 border border-warm-neutral-300 rounded-lg focus:border-navy-600 focus:ring-1 focus:ring-navy-600 h-12 text-base"
+            className="w-full px-4 py-4 border border-warm-neutral-300 rounded-lg focus:border-navy-600 focus:ring-1 focus:ring-navy-600 h-14 lg:h-16 text-base"
           />
         </div>
 
@@ -209,7 +210,7 @@ const QuickRegistrationForm = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-6 lg:py-7 text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed h-16 lg:h-18"
           >
             {isSubmitting ? "Wysyłanie..." : "Wyślij formularz"}
           </button>
