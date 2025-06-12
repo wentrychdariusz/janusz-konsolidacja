@@ -115,8 +115,8 @@ const HeroSection = () => {
             {/* Content Section */}
             <div className="space-y-3 md:space-y-4 animate-fade-in">
               <h1 className="font-montserrat font-black text-3xl sm:text-4xl md:text-5xl text-center leading-tight">
-                <span className="text-white">Uwolnij się od </span>
-                <span className="text-business-blue-400">długów raz na zawsze</span>
+                <span className="text-white">Zamień długi w </span>
+                <span className="text-business-blue-400">jedną wygodną ratę</span>
                 <span className="text-white"> - 20 lat doświadczenia</span>
               </h1>
               
@@ -158,8 +158,8 @@ const HeroSection = () => {
             {/* Left Content - 50% */}
             <div className="space-y-3 md:space-y-4 animate-fade-in">
               <h1 className="font-montserrat font-black text-4xl lg:text-5xl xl:text-6xl text-left leading-tight">
-                <span className="text-white">Uwolnij się od </span>
-                <span className="text-business-blue-400">długów raz na zawsze</span>
+                <span className="text-white">Zamień długi w </span>
+                <span className="text-business-blue-400">jedną wygodną ratę</span>
                 <span className="text-white"> - 20 lat doświadczenia</span>
               </h1>
               
