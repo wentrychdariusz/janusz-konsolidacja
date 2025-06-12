@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import DebtCalculator from './DebtCalculator';
 import { CheckCircle, Shield, Award, Users, Trophy, Target } from 'lucide-react';
@@ -107,19 +106,16 @@ const HeroSection = () => {
           </div>
 
           {/* Enhanced Trust Section with Smaller Client Images */}
-          <div className="w-full bg-gradient-to-r from-business-blue-400/20 via-business-blue-300/15 to-business-blue-400/20 border-t border-b border-business-blue-400/30 backdrop-blur-sm py-4 mb-3 rounded-xl">
+          <div className="w-full bg-gradient-to-r from-business-blue-400/20 via-business-blue-300/15 to-business-blue-400/20 border-t border-b border-business-blue-400/30 backdrop-blur-sm py-3 mb-3 rounded-xl">
             <div className="text-center">
-              <div className="mb-3">
-                <h3 className="font-montserrat text-white text-lg md:text-xl font-bold mb-1">
+              <div className="mb-2">
+                <h3 className="font-montserrat text-white text-lg md:text-xl font-bold">
                   Ponad 15.000 zadowolonych klientów
                 </h3>
-                <p className="text-warm-neutral-300 text-sm md:text-base">
-                  Pożyczki inwestorskie, konsolidacja pożyczek i chwilówek
-                </p>
               </div>
               
               {/* Client photos grid - 8 photos with smaller size and overlapping */}
-              <div className="flex justify-center items-center mb-3">
+              <div className="flex justify-center items-center mb-2">
                 <div className="flex items-center">
                   {clientImages.map((image, index) => (
                     <div 
@@ -138,7 +134,7 @@ const HeroSection = () => {
               </div>
               
               {/* Trust messaging */}
-              <div className="space-y-1">
+              <div>
                 <h3 className="font-montserrat text-white text-xl md:text-2xl font-bold">
                   Oni mi zaufali
                 </h3>
