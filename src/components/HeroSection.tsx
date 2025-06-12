@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import DebtCalculator from './DebtCalculator';
 import { CheckCircle, Shield, Award, Users, Trophy, Target } from 'lucide-react';
@@ -27,7 +26,10 @@ const HeroSection = () => {
     "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png",
     "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2f158ac8d8.png",
     "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png",
-    "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png"
+    "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png",
+    "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png",
+    "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png",
+    "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png"
   ];
 
   return (
@@ -73,37 +75,39 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Compact Trust Section with Client Images */}
-          <div className="w-full bg-gradient-to-r from-business-blue-400/20 via-business-blue-300/15 to-business-blue-400/20 border-t border-b border-business-blue-400/30 backdrop-blur-sm py-6 mb-8 rounded-xl">
+          {/* Enhanced Trust Section with More Client Images */}
+          <div className="w-full bg-gradient-to-r from-business-blue-400/20 via-business-blue-300/15 to-business-blue-400/20 border-t border-b border-business-blue-400/30 backdrop-blur-sm py-8 mb-8 rounded-xl">
             <div className="text-center">
-              <div className="flex justify-center items-center space-x-3 mb-4">
-                <Users className="w-6 h-6 text-business-blue-400" />
-                <h3 className="font-montserrat text-white text-lg md:text-xl font-bold">
-                  15.000 zadowolonych klientów w całej Polsce
-                </h3>
-              </div>
-              
-              {/* Client photos */}
-              <div className="flex flex-wrap justify-center items-center gap-2 mb-3">
+              {/* Client photos grid - 8 photos */}
+              <div className="flex flex-wrap justify-center items-center gap-3 mb-6">
                 {clientImages.map((image, index) => (
                   <div key={index} className="relative group">
                     <img 
                       src={image}
                       alt={`Zadowolony klient ${index + 1}`}
-                      className="w-12 h-12 md:w-14 md:h-14 rounded-full border-3 border-prestige-gold-400 object-cover shadow-lg group-hover:scale-110 transition-transform duration-300"
+                      className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-prestige-gold-400 object-cover shadow-xl group-hover:scale-110 transition-transform duration-300"
                     />
                   </div>
                 ))}
                 
                 {/* Plus indicator for more clients */}
-                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border-3 border-prestige-gold-400 bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 flex items-center justify-center shadow-lg">
-                  <span className="text-navy-900 font-black text-sm md:text-base">+</span>
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-prestige-gold-400 bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 flex items-center justify-center shadow-xl">
+                  <span className="text-navy-900 font-black text-lg md:text-xl">+</span>
                 </div>
               </div>
               
-              <p className="text-warm-neutral-300 text-sm md:text-base font-lato">
-                Oni mi zaufali - dołącz do nich już dziś!
-              </p>
+              {/* Trust messaging */}
+              <div className="space-y-2">
+                <h3 className="font-montserrat text-white text-xl md:text-2xl font-bold">
+                  Oni mi zaufali
+                </h3>
+                <p className="text-prestige-gold-400 text-lg md:text-xl font-bold">
+                  Ponad 15.000 zadowolonych klientów w całej Polsce
+                </p>
+                <p className="text-warm-neutral-300 text-base md:text-lg font-lato">
+                  Dołącz do nich już dziś!
+                </p>
+              </div>
             </div>
           </div>
         </div>
