@@ -103,7 +103,7 @@ const MentorSection = () => {
         </div>
 
         {/* Two choices section */}
-        <div className="text-center mb-12">
+        <div className="text-center">
           <h3 className="font-playfair text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-8">
             Teraz masz dwa wyjścia:
           </h3>
@@ -115,37 +115,11 @@ const MentorSection = () => {
               </p>
             </div>
             
-            <div className="bg-gradient-to-r from-green-400/25 via-green-300/20 to-lime-400/25 border border-green-300/50 rounded-2xl p-8 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
+            <div className="bg-gradient-to-r from-emerald-400/30 via-green-400/25 to-lime-400/30 border border-emerald-300/60 rounded-2xl p-8 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300">
               <p className="text-white text-lg font-lato font-medium">
                 ✅ Powiedzieć STOP! Przejąć kontrolę. Zacząć od nowa.
               </p>
             </div>
-          </div>
-        </div>
-
-        {/* Client images section */}
-        <div className="text-center">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
-            <img 
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face"
-              alt="Zadowolony klient"
-              className="w-full h-32 object-cover rounded-lg border-2 border-prestige-gold-400"
-            />
-            <img 
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face"
-              alt="Zadowolony klient"
-              className="w-full h-32 object-cover rounded-lg border-2 border-prestige-gold-400"
-            />
-            <img 
-              src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face"
-              alt="Zadowolona klientka"
-              className="w-full h-32 object-cover rounded-lg border-2 border-prestige-gold-400"
-            />
-            <img 
-              src="https://images.unsplash.com/photo-1494790108755-2616b612b77c?w=200&h=200&fit=crop&crop=face"
-              alt="Zadowolona klientka"
-              className="w-full h-32 object-cover rounded-lg border-2 border-prestige-gold-400"
-            />
           </div>
         </div>
       </div>
