@@ -27,7 +27,7 @@ const ImagineSection = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-16 md:py-24 overflow-hidden min-h-screen">
+    <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-24 md:py-32 lg:py-40 overflow-hidden min-h-[120vh] lg:min-h-[130vh]">
       {/* Background mosaic with Dariusz photos */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/75 via-navy-900/70 to-business-blue-700/75 z-10"></div>
@@ -60,7 +60,7 @@ const ImagineSection = () => {
       </div>
       
       <div className="relative z-20 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
-        <div className="text-center mb-12 md:mb-16">
+        <div className="text-center mb-12 md:mb-16 lg:mb-20">
           <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6">
             <span className="text-prestige-gold-400">Mamy największe zaufanie klientów w Polsce</span>
           </h2>
@@ -70,7 +70,7 @@ const ImagineSection = () => {
         </div>
 
         {/* Video and expertise section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mb-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-16 items-start">
           {/* Left side - Video */}
           <div className="w-full">
             <div className="w-full" style={{ aspectRatio: '16/9' }}>
@@ -80,7 +80,7 @@ const ImagineSection = () => {
                 allow="autoplay; fullscreen" 
                 allowFullScreen 
                 className="w-full h-full rounded-lg border-0"
-                style={{ minHeight: '300px' }}
+                style={{ minHeight: '350px', height: '400px' }}
               ></iframe>
             </div>
           </div>
