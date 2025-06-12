@@ -102,10 +102,7 @@ const HeroSection = () => {
                   Oni mi zaufali
                 </h3>
                 <p className="text-prestige-gold-400 text-lg md:text-xl font-bold">
-                  Ponad 15.000 zadowolonych klientów w całej Polsce
-                </p>
-                <p className="text-warm-neutral-300 text-base md:text-lg font-lato">
-                  Dołącz do nich już dziś!
+                  Teraz ty możesz wyjść z zadłużenia!
                 </p>
               </div>
             </div>
