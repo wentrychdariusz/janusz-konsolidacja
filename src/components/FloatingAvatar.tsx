@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
@@ -84,10 +83,10 @@ const FloatingAvatar = () => {
         </div>
       </div>
 
-      {/* Modal with Calculator - Zwiększony rozmiar i lepsze scroll */}
+      {/* Modal with Calculator - Bez headera z Dariuszem */}
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[95vh] overflow-hidden relative flex flex-col">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden relative">
             {/* Close Button */}
             <button
               onClick={handleClose}
@@ -96,23 +95,8 @@ const FloatingAvatar = () => {
               <X className="w-4 h-4 text-gray-600" />
             </button>
             
-            {/* Header with Dariusz - Fixed */}
-            <div className="bg-gradient-to-r from-navy-900 to-business-blue-600 text-white p-6 rounded-t-2xl flex-shrink-0">
-              <div className="flex items-center space-x-4">
-                <img 
-                  src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                  alt="Dariusz Wentrych"
-                  className="w-16 h-16 rounded-full border-4 border-prestige-gold-400 object-cover"
-                />
-                <div>
-                  <h2 className="text-2xl font-bold">Dariusz Wentrych</h2>
-                  <p className="text-blue-200">Ekspert ds. oddłużania</p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Calculator Content - Scrollable */}
-            <div className="flex-1 overflow-y-auto p-6">
+            {/* Calculator Content - Bez przewijania */}
+            <div className="p-6 h-full">
               <DebtCalculator />
             </div>
           </div>
