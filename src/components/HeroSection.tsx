@@ -170,13 +170,13 @@ const HeroSection = () => {
               
               <div className="text-warm-neutral-200 text-xl lg:text-2xl text-left font-lato leading-relaxed font-medium space-y-4">
                 <p>
-                  <span className="text-prestige-gold-400 font-bold">Masz długi, chwilówki, komornika na karku?</span> Nie jesteś sam. Od 20 lat pomagamy tam, gdzie inni zawiedli.
+                  <span className="text-white font-bold">Masz długi, chwilówki, komornika na karku?</span> Nie jesteś sam. Od 20 lat pomagamy tam, gdzie inni zawiedli.
                 </p>
-                <p className="text-business-blue-400 font-bold text-lg lg:text-xl uppercase tracking-wide">
+                <p className="text-white font-bold text-lg lg:text-xl uppercase tracking-wide">
                   WSPIERAMY KLIENTÓW TAM, GDZIE INNI NIE POTRAFILI ZNALEŹĆ ROZWIĄZAŃ.
                 </p>
                 <p>
-                  <span className="text-prestige-gold-400 font-bold">Zamień chaos w jedną ratę</span> i odzyskaj kontrolę nad życiem.
+                  <span className="text-white font-bold">Zamień chaos w jedną ratę</span> i odzyskaj kontrolę nad życiem.
                 </p>
               </div>
               
