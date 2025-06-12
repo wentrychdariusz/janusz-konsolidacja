@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Star } from 'lucide-react';
 
@@ -6,7 +7,7 @@ const MentorSection = () => {
     {
       name: "PANI BERNADETTA",
       text: "Pan Dariusz naprawdę pomaga. Polecam każdemu, kto ma problemy finansowe!",
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+      avatar: "https://cdn.lugc.link/21e2f3c9-7f50-4b39-9036-1a172089e0a2/-/crop/1432x1455/336,75/-/preview/250x250/-/quality/lighter/"
     },
     {
       name: "PANI ELŻBIETA I PAN PAWEŁ",
