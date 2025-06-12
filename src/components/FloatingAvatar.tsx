@@ -79,8 +79,8 @@ const FloatingAvatar = () => {
         onMouseDown={handleMouseDown}
         onClick={handleAvatarClick}
       >
-        {/* Avatar Container */}
-        <div className="relative group">
+        {/* Avatar Container z napisem */}
+        <div className="relative group flex items-center space-x-3">
           {/* Avatar Image */}
           <div className="w-20 h-20 rounded-full border-4 border-prestige-gold-400 shadow-xl bg-white overflow-hidden hover:scale-110 transition-transform duration-300">
             <img 
@@ -90,12 +90,12 @@ const FloatingAvatar = () => {
             />
           </div>
           
-          {/* Message Bubble */}
-          <div className="absolute -top-16 -left-8 bg-white rounded-xl shadow-lg p-3 border-2 border-prestige-gold-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+          {/* Napis po prawej stronie */}
+          <div className="bg-white rounded-xl shadow-lg p-3 border-2 border-prestige-gold-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
             <div className="text-navy-900 font-semibold text-sm">
-              Sprawdź czy mogę Ci pomóc!
+              Zobacz, czy Ci pomogę?
             </div>
-            <div className="absolute bottom-0 left-8 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-white transform translate-y-full"></div>
+            <div className="absolute left-0 top-1/2 w-0 h-0 border-t-4 border-b-4 border-r-4 border-t-transparent border-b-transparent border-r-white transform -translate-y-1/2 -translate-x-full"></div>
           </div>
           
           {/* Chat Icon Indicator */}
