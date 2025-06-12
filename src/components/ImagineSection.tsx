@@ -40,115 +40,115 @@ const ImagineSection = () => {
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/75 via-navy-900/70 to-business-blue-700/75 z-10"></div>
         
-        {/* Photo mosaic grid - seamless with no gaps */}
-        <div className="absolute inset-0 grid grid-cols-8 md:grid-cols-12 lg:grid-cols-16 opacity-50 -m-px">
+        {/* Photo mosaic grid - completely seamless */}
+        <div className="absolute inset-0 grid grid-cols-8 md:grid-cols-12 lg:grid-cols-16 opacity-50" style={{ gap: '0px', margin: '0px' }}>
           {/* Row 1 */}
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
           
           {/* Row 2 */}
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
           
           {/* Row 3 */}
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
           
           {/* Row 4 */}
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
           
           {/* Row 5 */}
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
           
           {/* Row 6 */}
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
-          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover -m-px" />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
+          <img src="/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" alt="" className="w-full h-20 md:h-24 lg:h-28 object-cover block" style={{ margin: '0px', padding: '0px', border: 'none', outline: 'none' }} />
         </div>
       </div>
       
