@@ -130,41 +130,32 @@ const QuickRegistrationForm = () => {
   // Original form with improved spacing
   return (
     <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
-      <div>
-        {/* Header with strong green background and simplified content */}
-        <div className="text-center mb-6">
-          <div className="bg-gradient-to-r from-success-600 to-success-500 p-6 rounded-xl mb-4">
-            <div className="flex justify-center items-center mb-4">
-              <img 
-                src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                alt="Dariusz Wentrych"
-                className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg object-cover"
-              />
-            </div>
-            <div className="text-white">
-              <h3 className="text-xl font-bold mb-2">Wstępna informacja pozytywna!</h3>
-              <p className="text-base text-success-100">Możemy Ci pomóc</p>
-            </div>
+      {/* Header with strong green background and simplified content */}
+      <div className="text-center mb-6">
+        <div className="bg-gradient-to-r from-success-600 to-success-500 p-6 rounded-xl mb-4">
+          <div className="flex justify-center items-center mb-4">
+            <img 
+              src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+              alt="Dariusz Wentrych"
+              className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg object-cover"
+            />
           </div>
-          
-          <h2 className="text-2xl font-bold text-navy-900 mb-2">
-            Wypełnij formularz
-          </h2>
-          <p className="text-warm-neutral-600 text-base leading-relaxed">
-            Skontaktujemy się z Tobą, aby przeanalizować Twoją sytuację
-          </p>
+          <div className="text-white">
+            <h3 className="text-xl font-bold mb-2">Wstępna informacja pozytywna!</h3>
+            <p className="text-base text-success-100">Możemy Ci pomóc</p>
+          </div>
         </div>
-
-        {/* Info section */}
-        <div className="text-center bg-gradient-to-r from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 rounded-xl p-4 border border-warm-neutral-200 mb-6">
-          <p className="text-base font-medium text-navy-800">
-            Oddzwonimy do Ciebie najszybciej jak to będzie możliwe
-          </p>
-        </div>
+        
+        <h2 className="text-2xl font-bold text-navy-900 mb-2">
+          Wypełnij formularz
+        </h2>
+        <p className="text-warm-neutral-600 text-base leading-relaxed">
+          Skontaktujemy się z Tobą, aby przeanalizować Twoją sytuację
+        </p>
       </div>
 
-      {/* Form with improved spacing */}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Form with improved spacing - moved up */}
+      <form onSubmit={handleSubmit} className="space-y-4 flex-1">
         <div>
           <label htmlFor="name" className="block text-base font-medium text-navy-800 mb-2">
             Imię i nazwisko <span className="text-red-500">*</span>
@@ -213,17 +204,19 @@ const QuickRegistrationForm = () => {
           />
         </div>
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed mt-6"
-        >
-          {isSubmitting ? "Wysyłanie..." : "Wyślij formularz"}
-        </button>
+        <div className="pt-4">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? "Wysyłanie..." : "Wyślij formularz"}
+          </button>
 
-        <p className="text-sm text-gray-500 text-center mt-4">
-          Twoje dane są bezpieczne. Nie wysyłamy spamu.
-        </p>
+          <p className="text-sm text-gray-500 text-center mt-4">
+            Twoje dane są bezpieczne. Nie wysyłamy spamu.
+          </p>
+        </div>
       </form>
     </div>
   );
