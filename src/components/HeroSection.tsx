@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import QuickRegistrationForm from './QuickRegistrationForm';
+import DebtCalculator from './DebtCalculator';
 import { CheckCircle, Shield, Award, Users, Trophy, Target } from 'lucide-react';
 
 const HeroSection = () => {
@@ -86,9 +86,9 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* Right Content - Form */}
+          {/* Right Content - DebtCalculator instead of Form */}
           <div className="flex justify-center lg:justify-end animate-fade-in">
-            <QuickRegistrationForm />
+            <DebtCalculator />
           </div>
         </div>
       </div>
