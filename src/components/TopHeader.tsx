@@ -3,7 +3,7 @@ import React from 'react';
 
 const TopHeader = () => {
   return (
-    <div className="lg:hidden bg-gradient-to-r from-business-blue-600 via-business-blue-500 to-navy-600 text-white py-3 px-4 relative overflow-hidden">
+    <div className="lg:hidden bg-gradient-to-r from-business-blue-600 via-business-blue-500 to-navy-600 text-white py-4 px-4 relative overflow-hidden">
       {/* Pieniądze jako tło */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15"
@@ -15,29 +15,42 @@ const TopHeader = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-prestige-gold-400/15 to-transparent"></div>
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
-          {/* Left side - Book promotion with book image */}
+          {/* Left side - Book promotion with modern design */}
           <div className="flex items-center justify-center md:justify-start">
-            <div className="bg-gradient-to-br from-business-blue-700 to-navy-700 rounded-lg p-4 shadow-xl border-2 border-prestige-gold-400/70 backdrop-blur-sm">
-              <div className="flex items-center space-x-4">
-                {/* Book image */}
-                <img 
-                  src="/lovable-uploads/68877fd7-1b70-47e9-b545-82e5e2b6e5e4.png" 
-                  alt="Książka Nowe Życie Bez Długów" 
-                  className="h-20 md:h-24 object-contain rounded shadow-2xl"
-                />
+            <div className="bg-gradient-to-br from-white/15 via-white/20 to-white/10 backdrop-blur-lg rounded-2xl p-6 shadow-2xl border border-white/30 hover:shadow-3xl transition-all duration-300">
+              <div className="flex items-center space-x-5">
+                {/* Book image with enhanced styling */}
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-prestige-gold-400/30 to-business-blue-400/30 rounded-lg blur-lg transform scale-110"></div>
+                  <img 
+                    src="/lovable-uploads/68877fd7-1b70-47e9-b545-82e5e2b6e5e4.png" 
+                    alt="Książka Nowe Życie Bez Długów" 
+                    className="relative h-24 md:h-28 object-contain rounded-lg shadow-2xl border-2 border-white/20"
+                  />
+                </div>
                 
-                {/* Text content */}
-                <div className="text-center">
-                  <div className="text-prestige-gold-400 font-bold text-xs mb-1">FIRMA AUTORA BESTSELLERA</div>
-                  <div className="text-white font-black text-sm leading-tight">"NOWE ŻYCIE BEZ DŁUGÓW"</div>
-                  <div className="text-prestige-gold-400 font-bold text-sm mt-1">DARIUSZA WENTRYCHA</div>
-                  <div className="flex justify-center mt-2">
+                {/* Text content with improved typography */}
+                <div className="text-left flex-1">
+                  <div className="bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-300 bg-clip-text text-transparent font-bold text-xs mb-2 uppercase tracking-wide">
+                    FIRMA AUTORA BESTSELLERA
+                  </div>
+                  <div className="text-white font-black text-base md:text-lg leading-tight mb-1">
+                    "NOWE ŻYCIE BEZ DŁUGÓW"
+                  </div>
+                  <div className="bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-300 bg-clip-text text-transparent font-bold text-sm mb-3 uppercase">
+                    DARIUSZA WENTRYCHA
+                  </div>
+                  
+                  {/* Enhanced rating section */}
+                  <div className="flex items-center space-x-2">
                     <div className="flex space-x-1">
                       {[...Array(5)].map((_, i) => (
-                        <span key={i} className="text-prestige-gold-400 text-xs">★</span>
+                        <span key={i} className="text-prestige-gold-400 text-sm drop-shadow-lg">★</span>
                       ))}
                     </div>
-                    <span className="text-white ml-2 text-xs font-bold">4.9</span>
+                    <div className="bg-gradient-to-r from-white to-warm-neutral-100 bg-clip-text text-transparent font-bold text-sm">
+                      4.9
+                    </div>
                   </div>
                 </div>
               </div>
