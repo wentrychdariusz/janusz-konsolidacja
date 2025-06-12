@@ -37,10 +37,10 @@ const HeroSection = () => {
     <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden">
       {/* Dariusz background image - desktop only */}
       <div 
-        className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+        className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
         style={{
           backgroundImage: `url('/lovable-uploads/eb0658a9-c99a-4631-a61d-1543709a3efa.png')`,
-          backgroundPosition: 'center center',
+          backgroundPosition: 'center top',
           backgroundSize: 'cover'
         }}
       ></div>
