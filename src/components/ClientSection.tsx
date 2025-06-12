@@ -27,14 +27,14 @@ const ClientSection = () => {
   ];
 
   const clientImages = [
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face",
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
-    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face",
-    "https://images.unsplash.com/photo-1494790108755-2616b612b77c?w=200&h=200&fit=crop&crop=face",
-    "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=face",
-    "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop&crop=face",
-    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&h=200&fit=crop&crop=face",
-    "https://images.unsplash.com/photo-1619946794135-5bc917a27793?w=200&h=200&fit=crop&crop=face"
+    "/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png",
+    "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png",
+    "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2f158ac8d8.png",
+    "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png",
+    "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png",
+    "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png",
+    "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png",
+    "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png"
   ];
 
   return (
