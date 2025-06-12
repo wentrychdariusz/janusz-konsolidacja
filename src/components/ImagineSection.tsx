@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MapPin, Car, Award, Users, Star } from 'lucide-react';
 
@@ -68,20 +67,17 @@ const ImagineSection = () => {
       <div className="relative z-20 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
         <div className="text-center mb-12 md:mb-16 lg:mb-20">
           <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-6">
-            <span className="text-prestige-gold-400">Mamy największe zaufanie klientów w Polsce</span>
+            <span className="text-prestige-gold-400 uppercase tracking-wider">KLIENCI NAS KOCHAJĄ!</span>
           </h2>
-          <p className="text-white text-lg md:text-xl max-w-3xl mx-auto font-lato mb-8">
-            Klienci nas kochają!
-          </p>
           
           {/* Rating section with white rounded background */}
-          <div className="bg-white rounded-2xl px-8 py-6 inline-block shadow-lg">
-            <div className="flex items-center justify-center gap-2 mb-2">
+          <div className="bg-white rounded-2xl px-8 py-6 inline-block shadow-xl">
+            <div className="flex items-center justify-center gap-2 mb-3">
               {renderStars()}
-              <span className="text-2xl font-bold text-navy-900 ml-2">4.9</span>
-              <span className="text-navy-700 font-medium">(383 OPINII)</span>
+              <span className="text-3xl font-bold text-navy-900 ml-3">4.9</span>
+              <span className="text-navy-700 font-semibold">(383 OPINII)</span>
             </div>
-            <p className="text-navy-600 text-sm font-medium">
+            <p className="text-navy-600 text-sm font-semibold">
               Zweryfikowane opinie Google i Oferteo
             </p>
           </div>
