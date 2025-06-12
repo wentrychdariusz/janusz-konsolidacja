@@ -34,21 +34,12 @@ const HeroSection = () => {
 
   return (
     <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden">
-      {/* Dariusz background image - desktop */}
+      {/* Dariusz background image - desktop only */}
       <div 
         className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
         style={{
           backgroundImage: `url('/lovable-uploads/eb0658a9-c99a-4631-a61d-1543709a3efa.png')`,
           backgroundPosition: 'left top',
-        }}
-      ></div>
-      
-      {/* Dariusz background image - mobile */}
-      <div 
-        className="block md:hidden absolute inset-0 bg-contain bg-center bg-no-repeat opacity-40"
-        style={{
-          backgroundImage: `url('/lovable-uploads/c432fd37-2b35-4462-9077-b3a0ad7fb614.png')`,
-          backgroundPosition: 'center center',
         }}
       ></div>
       
