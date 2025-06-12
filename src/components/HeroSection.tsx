@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import DebtCalculator from './DebtCalculator';
 import { CheckCircle, Shield, Award, Users, Trophy, Target } from 'lucide-react';
@@ -46,8 +45,11 @@ const HeroSection = () => {
         }}
       ></div>
       
-      {/* Enhanced dark overlay with gradient fade to black at bottom */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-gray-900/50 to-black"></div>
+      {/* Enhanced gradient overlay with smooth tonal transition */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black"></div>
+      
+      {/* Additional gradient for smoother bottom transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
       
       <div className="relative z-10">
         <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-4 md:py-8">
