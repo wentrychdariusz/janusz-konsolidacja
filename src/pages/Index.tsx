@@ -4,6 +4,7 @@ import TopHeader from '../components/TopHeader';
 import HeroSection from '../components/HeroSection';
 import ImagineSection from '../components/ImagineSection';
 import MentorSection from '../components/MentorSection';
+import ClientSection from '../components/ClientSection';
 import Testimonials from '../components/Testimonials';
 
 const Index = () => {
@@ -13,6 +14,7 @@ const Index = () => {
       <HeroSection />
       <ImagineSection />
       <MentorSection />
+      <ClientSection />
       <Testimonials />
     </div>
   );
