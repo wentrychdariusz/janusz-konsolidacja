@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Plus, CheckCircle, Phone } from 'lucide-react';
@@ -11,6 +10,7 @@ const QuickRegistrationForm = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [webhookUrl, setWebhookUrl] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -25,8 +25,32 @@ const QuickRegistrationForm = () => {
     setIsSubmitting(true);
     
     try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Wysyłanie danych do Make.com webhook
+      if (webhookUrl) {
+        console.log('Sending data to Make.com:', formData);
+        
+        const response = await fetch(webhookUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          mode: "no-cors",
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            timestamp: new Date().toISOString(),
+            source: "QuickRegistrationForm"
+          }),
+        });
+
+        console.log('Data sent to Make.com webhook');
+      } else {
+        console.log('No webhook URL provided, simulating form submission');
+      }
+      
+      // Simulate form submission delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
       console.log('Form submitted:', formData);
       setIsSubmitted(true);
     } catch (error) {
@@ -129,7 +153,7 @@ const QuickRegistrationForm = () => {
     );
   }
 
-  // Original form with improved spacing and height matching
+  // Original form with webhook URL input
   return (
     <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-center min-h-[600px] w-full mb-16">
       {/* Header with strong green background and simplified content */}
@@ -158,6 +182,24 @@ const QuickRegistrationForm = () => {
 
       {/* Form with centered content and larger buttons */}
       <form onSubmit={handleSubmit} className="space-y-6 flex-1 flex flex-col justify-center">
+        {/* Webhook URL field - can be hidden in production */}
+        <div>
+          <label htmlFor="webhook" className="block text-sm font-medium text-navy-800 mb-2">
+            Make.com Webhook URL (do testów)
+          </label>
+          <input
+            type="url"
+            id="webhook"
+            value={webhookUrl}
+            onChange={(e) => setWebhookUrl(e.target.value)}
+            placeholder="https://hook.eu2.make.com/..."
+            className="w-full px-4 py-3 border border-warm-neutral-300 rounded-lg focus:border-navy-600 focus:ring-1 focus:ring-navy-600 text-sm"
+          />
+          <p className="text-xs text-gray-500 mt-1">
+            Wklej URL webhook z Make.com scenariusza
+          </p>
+        </div>
+
         <div>
           <label htmlFor="name" className="block text-base font-medium text-navy-800 mb-2">
             Imię i nazwisko <span className="text-red-500">*</span>
