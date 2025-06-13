@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Plus, CheckCircle, Phone } from 'lucide-react';
@@ -242,9 +241,9 @@ const QuickRegistrationForm = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-6 lg:py-7 text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed h-16 lg:h-18"
+            className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 px-6 lg:py-5 lg:px-8 text-base lg:text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isSubmitting ? "Wysyłanie..." : "Wyślij formularz"}
+            {isSubmitting ? "Wysyłanie..." : "🚀 Umów bezpłatną konsultację"}
           </button>
 
           <p className="text-sm text-gray-500 text-center mt-4">
