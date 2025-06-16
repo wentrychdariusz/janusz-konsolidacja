@@ -81,11 +81,11 @@ const BookSection = () => {
           </div>
         </div>
 
-        {/* Main Audio Player - Less Rounded and Wider */}
+        {/* Main Audio Player - Less Rounded and Wider with Increased Height */}
         <div className="flex justify-center mb-12">
           <button
             onClick={handleAudioToggle}
-            className="w-96 md:w-[32rem] h-18 md:h-24 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-montserrat font-bold text-base md:text-xl shadow-xl transition-colors duration-300 flex items-center justify-center space-x-4 md:space-x-6 border-4 border-blue-200 hover:border-blue-300 px-6"
+            className="w-96 md:w-[32rem] h-24 md:h-28 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-montserrat font-bold text-base md:text-xl shadow-xl transition-colors duration-300 flex items-center justify-center space-x-4 md:space-x-6 border-4 border-blue-200 hover:border-blue-300 px-6"
           >
             <div className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center shadow-lg flex-shrink-0">
               {isPlaying ? (
