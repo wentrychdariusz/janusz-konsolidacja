@@ -115,11 +115,11 @@ const MentorSection = () => {
               </div>
               
               <div className="text-left space-y-4 mb-8">
-                <p className="text-white text-lg font-lato leading-relaxed">
+                <p className="text-white text-lg font-lato leading-relaxed text-center">
                   Jest tyle firm naciągaczy, że nawet jeśli masz wątpliwości i byłeś w tych firmach, jak najszybciej skontaktuj się z nami, aby porównać zapisy prawne z naszym zespołem ekspertów.
                 </p>
                 
-                <p className="text-red-300 text-xl font-bold font-montserrat">
+                <p className="text-red-300 text-xl font-bold font-montserrat text-center">
                   Jest dziś tyle firm-naciągaczy, że to się w głowie nie mieści!
                 </p>
                 
@@ -173,7 +173,7 @@ const MentorSection = () => {
                   
                   
                   <p className="text-white text-lg font-lato">
-                    <span className="text-prestige-gold-400 font-bold">Nie daj się wciągnąć w ich gierki.</span>
+                    
                   </p>
                   <p className="text-prestige-gold-400 text-xl font-bold font-montserrat text-center mt-6">
                     Oni mają swoje paragrafy – Ty masz nas.
