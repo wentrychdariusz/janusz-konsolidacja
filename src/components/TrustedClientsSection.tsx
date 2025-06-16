@@ -97,23 +97,6 @@ const TrustedClientsSection = () => {
         {/* Desktop Testimonials with Navigation */}
         <div className="hidden lg:block mb-16">
           <div className="bg-white rounded-3xl shadow-2xl overflow-hidden relative">
-            {/* Navigation Buttons - positioned over the image area */}
-            <div className="absolute top-1/2 left-4 right-4 flex justify-between z-20 transform -translate-y-1/2 pointer-events-none">
-              <button 
-                onClick={prevDesktopSet}
-                className="w-12 h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 pointer-events-auto hover:scale-110"
-              >
-                <ChevronLeft className="w-6 h-6 text-gray-700" />
-              </button>
-              
-              <button 
-                onClick={nextDesktopSet}
-                className="w-12 h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 pointer-events-auto hover:scale-110"
-              >
-                <ChevronRight className="w-6 h-6 text-gray-700" />
-              </button>
-            </div>
-
             {/* Header inside light section */}
             <div className="text-center py-12 px-8">
               <h3 className="font-montserrat text-3xl md:text-4xl font-bold text-slate-900 mb-4">
@@ -129,8 +112,8 @@ const TrustedClientsSection = () => {
               <div className="grid grid-cols-3 gap-8">
                 {getCurrentDesktopTestimonials().map((testimonial, index) => (
                   <div key={`${currentDesktopSet}-${index}`} className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
-                    {/* Large profile image taking full width */}
-                    <div className="w-full h-64 rounded-xl overflow-hidden mb-6 bg-gray-100">
+                    {/* Large profile image with navigation overlay */}
+                    <div className="relative w-full h-64 rounded-xl overflow-hidden mb-6 bg-gray-100 group">
                       <OptimizedImage 
                         src={testimonial.image} 
                         alt={testimonial.name} 
@@ -138,6 +121,25 @@ const TrustedClientsSection = () => {
                         width={300} 
                         height={256} 
                       />
+                      
+                      {/* Navigation buttons overlay - only show on first and last items */}
+                      {index === 0 && (
+                        <button 
+                          onClick={prevDesktopSet}
+                          className="absolute left-2 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100"
+                        >
+                          <ChevronLeft className="w-5 h-5 text-gray-700" />
+                        </button>
+                      )}
+                      
+                      {index === getCurrentDesktopTestimonials().length - 1 && (
+                        <button 
+                          onClick={nextDesktopSet}
+                          className="absolute right-2 top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 opacity-0 group-hover:opacity-100"
+                        >
+                          <ChevronRight className="w-5 h-5 text-gray-700" />
+                        </button>
+                      )}
                     </div>
                     
                     {/* Rating stars */}
@@ -191,19 +193,10 @@ const TrustedClientsSection = () => {
         {/* Mobile Testimonial Slider */}
         <div className="block lg:hidden mb-16">
           <div className="relative">
-            {/* Navigation buttons */}
-            <button onClick={prevTestimonial} className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-20">
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            
-            <button onClick={nextTestimonial} className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-20">
-              <ChevronRight className="w-6 h-6" />
-            </button>
-
             {/* Testimonial card */}
             <div className="bg-slate-800 rounded-3xl overflow-hidden shadow-2xl mx-4">
-              {/* Large profile image taking full width with rounded top corners */}
-              <div className="w-full h-80 bg-gray-100 rounded-t-3xl overflow-hidden">
+              {/* Large profile image with navigation overlay */}
+              <div className="relative w-full h-80 bg-gray-100 rounded-t-3xl overflow-hidden">
                 <OptimizedImage 
                   src={testimonials[currentTestimonial].image} 
                   alt={testimonials[currentTestimonial].name} 
@@ -211,6 +204,21 @@ const TrustedClientsSection = () => {
                   width={400} 
                   height={320} 
                 />
+                
+                {/* Navigation buttons overlay */}
+                <button 
+                  onClick={prevTestimonial} 
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300"
+                >
+                  <ChevronLeft className="w-6 h-6 text-gray-700" />
+                </button>
+                
+                <button 
+                  onClick={nextTestimonial} 
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300"
+                >
+                  <ChevronRight className="w-6 h-6 text-gray-700" />
+                </button>
               </div>
               
               {/* Content section */}
