@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { Smile, Phone, Heart, Shield, CheckCircle, XCircle } from 'lucide-react';
 
@@ -10,7 +8,7 @@ const BeforeAfterSection = () => {
       text: "Spłacasz kilka rat i nadal brakuje Ci na życie"
     },
     {
-      icon: <Phone className="w-6 h-6 text-red-500" />,
+      icon: <XCircle className="w-6 h-6 text-red-500" />,
       text: "Boisz się odbierać telefon – bo to znowu windykacja"
     },
     {
@@ -151,4 +149,3 @@ const BeforeAfterSection = () => {
 };
 
 export default BeforeAfterSection;
-
