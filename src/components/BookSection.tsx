@@ -1,5 +1,4 @@
-
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Book, Heart, Users, Play, Pause, Star } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
@@ -9,12 +8,13 @@ declare global {
   interface Window {
     Wistia: any;
     _wq: any;
+    wistiaAudio: any;
   }
 }
 
 const BookSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [wistiaPlayer, setWistiaPlayer] = useState<any>(null);
+  const [audioReady, setAudioReady] = useState(false);
 
   const bookImages = [
     "/lovable-uploads/cc2d25e5-05d2-41e1-a933-15662005a373.png",
@@ -23,99 +23,55 @@ const BookSection = () => {
   ];
 
   useEffect(() => {
-    console.log('BookSection: Initializing Wistia audio player');
+    console.log('BookSection: Checking for Wistia audio');
     
-    // Initialize Wistia player when component mounts
-    const initWistia = () => {
-      console.log('BookSection: Wistia object available:', !!window.Wistia);
-      
-      if (window.Wistia) {
-        try {
-          // Using the actual Wistia audio media ID
-          const player = window.Wistia.embed('u2ihwbwq21', {
-            version: 'v1',
-            videoFoam: true,
-            autoPlay: false,
-            playerColor: '#2563eb',
-            controls: false,
-            smallPlayButton: false,
-            bigPlayButton: false,
-            playbar: false,
-            volumeControl: false,
-            fullscreenButton: false,
-            settingsControl: false
-          });
-
-          console.log('BookSection: Wistia player created:', player);
-
-          if (player) {
-            player.bind('play', () => {
-              console.log('BookSection: Audio started playing');
-              setIsPlaying(true);
-            });
-            
-            player.bind('pause', () => {
-              console.log('BookSection: Audio paused');
-              setIsPlaying(false);
-            });
-            
-            player.bind('end', () => {
-              console.log('BookSection: Audio ended');
-              setIsPlaying(false);
-            });
-
-            setWistiaPlayer(player);
-          }
-        } catch (error) {
-          console.error('BookSection: Error creating Wistia player:', error);
-        }
+    const checkAudioReady = () => {
+      if (window.wistiaAudio) {
+        console.log('BookSection: Wistia audio found:', window.wistiaAudio);
+        setAudioReady(true);
+        
+        // Bind events
+        window.wistiaAudio.bind('play', () => {
+          console.log('BookSection: Audio playing');
+          setIsPlaying(true);
+        });
+        
+        window.wistiaAudio.bind('pause', () => {
+          console.log('BookSection: Audio paused');
+          setIsPlaying(false);
+        });
+        
+        window.wistiaAudio.bind('end', () => {
+          console.log('BookSection: Audio ended');
+          setIsPlaying(false);
+        });
       } else {
-        console.log('BookSection: Wistia not available, will retry');
+        console.log('BookSection: Wistia audio not ready yet, retrying...');
+        setTimeout(checkAudioReady, 500);
       }
     };
 
-    // Check if Wistia is already loaded
-    if (window.Wistia) {
-      initWistia();
-    } else {
-      // Wait for Wistia to load
-      const checkWistia = () => {
-        if (window.Wistia) {
-          initWistia();
-        } else {
-          setTimeout(checkWistia, 100);
-        }
-      };
-      checkWistia();
-    }
-
-    return () => {
-      if (wistiaPlayer) {
-        console.log('BookSection: Cleaning up Wistia player');
-        try {
-          wistiaPlayer.remove();
-        } catch (error) {
-          console.error('BookSection: Error removing Wistia player:', error);
-        }
-      }
-    };
+    // Start checking for audio
+    checkAudioReady();
   }, []);
 
   const handleAudioToggle = () => {
-    console.log('BookSection: Audio toggle clicked, player:', !!wistiaPlayer, 'isPlaying:', isPlaying);
+    console.log('BookSection: Toggle clicked, audioReady:', audioReady, 'isPlaying:', isPlaying);
     
-    if (wistiaPlayer) {
+    if (window.wistiaAudio && audioReady) {
       try {
         if (isPlaying) {
-          wistiaPlayer.pause();
+          console.log('BookSection: Pausing audio');
+          window.wistiaAudio.pause();
         } else {
-          wistiaPlayer.play();
+          console.log('BookSection: Playing audio');
+          window.wistiaAudio.play();
         }
       } catch (error) {
-        console.error('BookSection: Error toggling audio:', error);
+        console.error('BookSection: Error controlling audio:', error);
       }
     } else {
-      console.log('BookSection: No Wistia player available');
+      console.log('BookSection: Audio not ready yet');
     }
   };
 
@@ -123,9 +79,9 @@ const BookSection = () => {
     <section className="py-16 md:py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="px-4 md:px-8 max-w-7xl mx-auto">
         
-        {/* Hidden Wistia player */}
-        <div className="hidden">
-          <div id="wistia_u2ihwbwq21" className="wistia_embed" style={{height: '0px', width: '0px'}}>&nbsp;</div>
+        {/* Hidden Wistia container */}
+        <div style={{ position: 'absolute', left: '-9999px', top: '-9999px' }}>
+          <div className="wistia_embed wistia_async_u2ihwbwq21" style={{ height: '1px', width: '1px' }}>&nbsp;</div>
         </div>
 
         {/* Header Question */}
@@ -152,7 +108,12 @@ const BookSection = () => {
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
               <button
                 onClick={handleAudioToggle}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg px-6 py-4 font-montserrat font-bold text-sm md:text-base shadow-xl transition-colors duration-300 flex items-center space-x-3 border-2 border-blue-200 hover:border-blue-300 min-w-[200px] md:min-w-[240px]"
+                disabled={!audioReady}
+                className={`${
+                  audioReady 
+                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800' 
+                    : 'bg-gray-400 cursor-not-allowed'
+                } text-white rounded-lg px-6 py-4 font-montserrat font-bold text-sm md:text-base shadow-xl transition-colors duration-300 flex items-center space-x-3 border-2 border-blue-200 hover:border-blue-300 min-w-[200px] md:min-w-[240px]`}
               >
                 <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg flex-shrink-0">
                   {isPlaying ? (
@@ -161,17 +122,24 @@ const BookSection = () => {
                     <Play className="w-4 h-4 text-blue-600 ml-0.5" />
                   )}
                 </div>
-                <span className="text-center">Posłuchaj fragmentu</span>
+                <span className="text-center">
+                  {!audioReady ? 'Ładowanie...' : 'Posłuchaj fragmentu'}
+                </span>
               </button>
             </div>
           </div>
         </div>
 
-        {/* Main Audio Player - Less Rounded and Wider with Increased Height */}
+        {/* Main Audio Player */}
         <div className="flex justify-center mb-12">
           <button
             onClick={handleAudioToggle}
-            className="w-96 md:w-[32rem] h-24 md:h-28 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-xl font-montserrat font-bold text-base md:text-xl shadow-xl transition-colors duration-300 flex items-center justify-center space-x-4 md:space-x-6 border-4 border-blue-200 hover:border-blue-300 px-6"
+            disabled={!audioReady}
+            className={`w-96 md:w-[32rem] h-24 md:h-28 ${
+              audioReady 
+                ? 'bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800' 
+                : 'bg-gray-400 cursor-not-allowed'
+            } text-white rounded-xl font-montserrat font-bold text-base md:text-xl shadow-xl transition-colors duration-300 flex items-center justify-center space-x-4 md:space-x-6 border-4 border-blue-200 hover:border-blue-300 px-6`}
           >
             <div className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-full flex items-center justify-center shadow-lg flex-shrink-0">
               {isPlaying ? (
@@ -181,7 +149,8 @@ const BookSection = () => {
               )}
             </div>
             <span className="text-center leading-tight">
-              {isPlaying ? 'Zatrzymaj fragment' : 'Posłuchaj fragmentu mojej książki'}
+              {!audioReady ? 'Ładowanie audio...' : 
+               isPlaying ? 'Zatrzymaj fragment' : 'Posłuchaj fragmentu mojej książki'}
             </span>
           </button>
         </div>
@@ -240,7 +209,7 @@ const BookSection = () => {
                 </div>
               </div>
 
-              {/* Book Images Slider - After the text about clients */}
+              {/* Book Images Slider */}
               <div className="w-full max-w-4xl mx-auto mt-8">
                 <Carousel className="w-full">
                   <CarouselContent>

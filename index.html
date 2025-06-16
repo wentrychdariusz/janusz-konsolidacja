@@ -13,11 +13,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap">
 
-    <!-- Wistia Scripts -->
-    <script src="https://fast.wistia.com/embed/medias/izkrrw6teo.jsonp" async></script>
+    <!-- Wistia Scripts - Updated for proper audio playback -->
     <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
-    <script src="https://fast.wistia.com/player.js" async></script>
-    <script src="https://fast.wistia.com/embed/u2ihwbwq21.js" async type="module"></script>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -45,5 +42,18 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Wistia audio embed script -->
+    <script>
+      window._wq = window._wq || [];
+      _wq.push({
+        id: "u2ihwbwq21",
+        onReady: function(video) {
+          console.log("Wistia audio ready:", video);
+          window.wistiaAudio = video;
+        }
+      });
+    </script>
+    <script src="https://fast.wistia.com/embed/medias/u2ihwbwq21.jsonp" async></script>
   </body>
 </html>
