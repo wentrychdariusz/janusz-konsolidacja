@@ -123,55 +123,48 @@ const MentorSection = () => {
                   Jest dziś tyle firm-naciągaczy, że to się w głowie nie mieści!
                 </p>
                 
-                <div className="bg-white/10 rounded-xl p-6 my-6">
-                  {/* Comparison section */}
-                  <div className="grid md:grid-cols-2 gap-6 my-8">
-                    {/* Competitors */}
-                    <div className="bg-gradient-to-r from-red-600/40 via-red-500/30 to-red-700/40 rounded-xl p-6 border border-red-400/50">
-                      <h4 className="text-white text-lg font-bold font-montserrat mb-4 text-center">❌ Oni</h4>
-                      <div className="space-y-3">
-                        <div className="flex items-center space-x-2">
-                          <X className="w-4 h-4 text-red-400 flex-shrink-0" />
-                          <p className="text-red-200 text-base font-lato">Ukrywają koszty</p>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <X className="w-4 h-4 text-red-400 flex-shrink-0" />
-                          <p className="text-red-200 text-base font-lato">Poganiają do podpisu</p>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <X className="w-4 h-4 text-red-400 flex-shrink-0" />
-                          <p className="text-red-200 text-base font-lato">Zostawiają Cię z problemem</p>
-                        </div>
+                {/* Direct comparison grid without additional wrapper */}
+                <div className="grid md:grid-cols-2 gap-6 my-8">
+                  {/* Competitors */}
+                  <div className="bg-gradient-to-r from-red-600/40 via-red-500/30 to-red-700/40 rounded-xl p-6 border border-red-400/50">
+                    <h4 className="text-white text-lg font-bold font-montserrat mb-4 text-center">❌ Oni</h4>
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2">
+                        <X className="w-4 h-4 text-red-400 flex-shrink-0" />
+                        <p className="text-red-200 text-base font-lato">Ukrywają koszty</p>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <X className="w-4 h-4 text-red-400 flex-shrink-0" />
+                        <p className="text-red-200 text-base font-lato">Poganiają do podpisu</p>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <X className="w-4 h-4 text-red-400 flex-shrink-0" />
+                        <p className="text-red-200 text-base font-lato">Zostawiają Cię z problemem</p>
                       </div>
                     </div>
-                    
-                    {/* Your company */}
-                    <div className="bg-gradient-to-r from-emerald-500/40 via-green-500/30 to-lime-500/40 rounded-xl p-6 border border-emerald-400/50">
-                      <h4 className="text-white text-lg font-bold font-montserrat mb-4 text-center">✅ My</h4>
-                      <div className="space-y-3">
-                        <div className="flex items-center space-x-2">
-                          <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                          <p className="text-emerald-200 text-base font-lato">Pokazujemy, co naprawdę podpisujesz</p>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                          <p className="text-emerald-200 text-base font-lato">Tłumaczymy każdy punkt</p>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                          <p className="text-emerald-200 text-base font-lato">Bronimy Cię przed konsekwencjami</p>
-                        </div>
+                  </div>
+                  
+                  {/* Your company */}
+                  <div className="bg-gradient-to-r from-emerald-500/40 via-green-500/30 to-lime-500/40 rounded-xl p-6 border border-emerald-400/50">
+                    <h4 className="text-white text-lg font-bold font-montserrat mb-4 text-center">✅ My</h4>
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2">
+                        <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                        <p className="text-emerald-200 text-base font-lato">Pokazujemy, co naprawdę podpisujesz</p>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                        <p className="text-emerald-200 text-base font-lato">Tłumaczymy każdy punkt</p>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Check className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                        <p className="text-emerald-200 text-base font-lato">Bronimy Cię przed konsekwencjami</p>
                       </div>
                     </div>
                   </div>
                 </div>
                 
                 <div className="space-y-3">
-                  {/* Smaller font on white background sections */}
-                  
-                  
-                  
-                  
                   <p className="text-white text-lg font-lato">
                     
                   </p>
