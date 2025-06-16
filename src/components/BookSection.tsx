@@ -1,12 +1,19 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Book, Heart, Users, Play, Pause, Star } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 
+declare global {
+  interface Window {
+    Wistia: any;
+    _wq: any;
+  }
+}
+
 const BookSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
+  const [wistiaPlayer, setWistiaPlayer] = useState<any>(null);
 
   const bookImages = [
     "/lovable-uploads/cc2d25e5-05d2-41e1-a933-15662005a373.png",
@@ -14,34 +21,69 @@ const BookSection = () => {
     "/lovable-uploads/e3bdd03e-03a7-423a-9799-55e4a6d4e39a.png"
   ];
 
+  useEffect(() => {
+    // Initialize Wistia player when component mounts
+    const initWistia = () => {
+      if (window.Wistia) {
+        // Replace 'your-audio-id' with actual Wistia audio media ID
+        const player = window.Wistia.embed('your-audio-id', {
+          version: 'v1',
+          videoFoam: true,
+          autoPlay: false,
+          playerColor: '#2563eb',
+          controls: false, // We'll use custom controls
+          smallPlayButton: false,
+          bigPlayButton: false,
+          playbar: false,
+          volumeControl: false,
+          fullscreenButton: false,
+          settingsControl: false
+        });
+
+        player.bind('play', () => setIsPlaying(true));
+        player.bind('pause', () => setIsPlaying(false));
+        player.bind('end', () => setIsPlaying(false));
+
+        setWistiaPlayer(player);
+      }
+    };
+
+    // Load Wistia script if not already loaded
+    if (!window.Wistia) {
+      const script = document.createElement('script');
+      script.src = 'https://fast.wistia.com/assets/external/E-v1.js';
+      script.async = true;
+      script.onload = initWistia;
+      document.head.appendChild(script);
+    } else {
+      initWistia();
+    }
+
+    return () => {
+      if (wistiaPlayer) {
+        wistiaPlayer.remove();
+      }
+    };
+  }, []);
+
   const handleAudioToggle = () => {
-    if (audioRef.current) {
+    if (wistiaPlayer) {
       if (isPlaying) {
-        audioRef.current.pause();
-        setIsPlaying(false);
+        wistiaPlayer.pause();
       } else {
-        // Tutaj dodaj właściwy URL do pliku audio
-        // audioRef.current.src = "/path-to-your-audio-file.mp3";
-        audioRef.current.play();
-        setIsPlaying(true);
+        wistiaPlayer.play();
       }
     }
-  };
-
-  const handleAudioEnded = () => {
-    setIsPlaying(false);
   };
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="px-4 md:px-8 max-w-7xl mx-auto">
         
-        {/* Audio element for playback */}
-        <audio
-          ref={audioRef}
-          onEnded={handleAudioEnded}
-          preload="none"
-        />
+        {/* Hidden Wistia player */}
+        <div className="hidden">
+          <div id="wistia_your-audio-id" className="wistia_embed" style={{height: '0px', width: '0px'}}>&nbsp;</div>
+        </div>
 
         {/* Header Question */}
         <div className="text-center mb-12">
