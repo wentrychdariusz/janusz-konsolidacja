@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import OptimizedImage from './OptimizedImage';
-import { Star, ChevronLeft, ChevronRight, Users, Heart, CheckCircle } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, Users, Heart, CheckCircle, Quote } from 'lucide-react';
 
 const TrustedClientsSection = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -115,43 +115,49 @@ const TrustedClientsSection = () => {
                     key={index}
                     className="bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                   >
-                    {/* Large profile image */}
-                    <div className="flex justify-center mb-6">
-                      <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                    {/* Large profile image - much bigger like in reference */}
+                    <div className="flex justify-center mb-8">
+                      <div className="w-32 h-32 rounded-2xl overflow-hidden shadow-lg">
                         <OptimizedImage
                           src={testimonial.image}
                           alt={testimonial.name}
                           className="w-full h-full object-cover"
-                          width={80}
-                          height={80}
+                          width={128}
+                          height={128}
                         />
                       </div>
                     </div>
                     
-                    {/* Rating */}
-                    <div className="flex justify-center mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                      ))}
+                    {/* Quote icon */}
+                    <div className="flex justify-start mb-4">
+                      <Quote className="w-8 h-8 text-blue-500" />
                     </div>
                     
-                    {/* Testimonial text */}
-                    <p className="text-gray-700 text-lg font-lato mb-6 leading-relaxed text-center italic">
-                      "{testimonial.text}"
+                    {/* Testimonial text - left aligned like in reference */}
+                    <p className="text-gray-700 text-lg font-lato mb-8 leading-relaxed">
+                      {testimonial.text}
                     </p>
                     
-                    {/* Client info */}
-                    <div className="text-center">
-                      <p className="font-montserrat font-bold text-slate-900 text-lg mb-1">
+                    {/* Client info - left aligned */}
+                    <div className="text-left">
+                      <p className="font-montserrat font-bold text-slate-900 text-xl mb-1">
                         {testimonial.name}
                       </p>
-                      <p className="text-gray-600 text-sm mb-2">
+                      <p className="text-gray-600 text-base mb-4">
                         {testimonial.position}
                       </p>
+                      
+                      {/* Rating */}
+                      <div className="flex mb-2">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                        ))}
+                      </div>
+                      
                       {testimonial.verified && (
-                        <div className="flex items-center justify-center">
-                          <CheckCircle className="w-4 h-4 text-green-500 mr-1" />
-                          <span className="text-green-600 text-xs font-medium">Zweryfikowany klient</span>
+                        <div className="flex items-center">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
+                          <span className="text-green-600 text-sm font-medium">Zweryfikowany klient</span>
                         </div>
                       )}
                     </div>
@@ -181,41 +187,47 @@ const TrustedClientsSection = () => {
 
                   {/* Testimonial content */}
                   <div className="px-4">
-                    {/* Large profile image */}
-                    <div className="flex justify-center mb-6">
-                      <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                    {/* Large profile image - bigger for mobile too */}
+                    <div className="flex justify-center mb-8">
+                      <div className="w-24 h-24 rounded-2xl overflow-hidden shadow-lg">
                         <OptimizedImage
                           src={testimonials[currentTestimonial].image}
                           alt={testimonials[currentTestimonial].name}
                           className="w-full h-full object-cover"
-                          width={80}
-                          height={80}
+                          width={96}
+                          height={96}
                         />
                       </div>
                     </div>
                     
-                    {/* Rating */}
-                    <div className="flex justify-center mb-4">
-                      {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                      ))}
+                    {/* Quote icon */}
+                    <div className="flex justify-start mb-4">
+                      <Quote className="w-6 h-6 text-blue-500" />
                     </div>
                     
-                    {/* Testimonial text */}
-                    <p className="text-gray-700 text-lg font-lato mb-6 leading-relaxed text-center italic">
-                      "{testimonials[currentTestimonial].text}"
+                    {/* Testimonial text - left aligned */}
+                    <p className="text-gray-700 text-lg font-lato mb-6 leading-relaxed text-left">
+                      {testimonials[currentTestimonial].text}
                     </p>
                     
-                    {/* Client info */}
-                    <div className="text-center">
+                    {/* Client info - left aligned */}
+                    <div className="text-left">
                       <p className="font-montserrat font-bold text-slate-900 text-lg mb-1">
                         {testimonials[currentTestimonial].name}
                       </p>
-                      <p className="text-gray-600 text-sm mb-2">
+                      <p className="text-gray-600 text-sm mb-3">
                         {testimonials[currentTestimonial].position}
                       </p>
+                      
+                      {/* Rating */}
+                      <div className="flex mb-2">
+                        {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                        ))}
+                      </div>
+                      
                       {testimonials[currentTestimonial].verified && (
-                        <div className="flex items-center justify-center">
+                        <div className="flex items-center">
                           <CheckCircle className="w-4 h-4 text-green-500 mr-1" />
                           <span className="text-green-600 text-xs font-medium">Zweryfikowany klient</span>
                         </div>
