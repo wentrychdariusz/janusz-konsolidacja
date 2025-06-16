@@ -4,6 +4,7 @@ import TopHeader from '../components/TopHeader';
 import HeroSection from '../components/HeroSection';
 import ImagineSection from '../components/ImagineSection';
 import MentorSection from '../components/MentorSection';
+import BeforeAfterSection from '../components/BeforeAfterSection';
 import ClientSection from '../components/ClientSection';
 import TrustedClientsSection from '../components/TrustedClientsSection';
 import FloatingAvatar from '../components/FloatingAvatar';
@@ -15,6 +16,7 @@ const Index = () => {
       <HeroSection />
       <ImagineSection />
       <MentorSection />
+      <BeforeAfterSection />
       <ClientSection />
       <TrustedClientsSection />
       <FloatingAvatar />
