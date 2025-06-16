@@ -11,15 +11,26 @@ const FloatingAvatar = () => {
   // Sprawdzanie pozycji scroll i pokazywanie awatara dopiero w sekcji "Mamy największe zaufanie klientów w Polsce"
   useEffect(() => {
     const handleScroll = () => {
-      // Szukamy sekcji ImagineSection na podstawie jej zawartości
-      const imagineSectionElement = document.querySelector('h2') as HTMLElement;
-      if (imagineSectionElement && imagineSectionElement.textContent?.includes('Mamy największe zaufanie klientów w Polsce')) {
-        const sectionRect = imagineSectionElement.getBoundingClientRect();
+      // Szukamy konkretnego tekstu w sekcji ImagineSection
+      const headings = document.querySelectorAll('h2');
+      let targetSection: HTMLElement | null = null;
+      
+      headings.forEach((heading) => {
+        if (heading.textContent?.includes('Mamy największe zaufanie klientów w Polsce')) {
+          targetSection = heading as HTMLElement;
+        }
+      });
+      
+      if (targetSection) {
+        const sectionRect = targetSection.getBoundingClientRect();
         const scrollY = window.scrollY;
         const sectionTop = scrollY + sectionRect.top;
         
-        // Pokazuj awatar gdy użytkownik dotrze do tej sekcji
-        setShowAvatar(scrollY >= sectionTop - window.innerHeight / 2);
+        // Pokazuj awatar gdy użytkownik dotrze do tej sekcji (z małym marginesem)
+        setShowAvatar(scrollY >= sectionTop - 200);
+      } else {
+        // Fallback - jeśli nie znajdziemy sekcji, pokazuj po 1500px
+        setShowAvatar(window.scrollY > 1500);
       }
     };
 
