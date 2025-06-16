@@ -55,12 +55,11 @@ const TrustedClientsSection = () => {
   ];
 
   return (
-    <section className="relative bg-gradient-to-br from-warm-neutral-50 via-white to-warm-neutral-100 py-20 overflow-hidden">
-      {/* Professional background elements */}
+    <section className="relative bg-white py-20 overflow-hidden">
+      {/* Background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-business-blue-100/30 to-navy-100/30 rounded-full blur-3xl animate-gentle-float"></div>
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-r from-warm-neutral-100/40 to-business-blue-100/40 rounded-full blur-3xl animate-gentle-float" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-0 w-64 h-64 bg-gradient-to-r from-prestige-gold-100/20 to-navy-100/20 rounded-full blur-3xl animate-gentle-float" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-business-blue-100/30 to-navy-100/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-r from-warm-neutral-100/40 to-business-blue-100/40 rounded-full blur-3xl"></div>
       </div>
 
       <div className="relative z-10 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
@@ -85,7 +84,7 @@ const TrustedClientsSection = () => {
             {stats.map((stat, index) => (
               <div 
                 key={index}
-                className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-warm-neutral-200/50 hover:-translate-y-2"
+                className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all duration-300 border border-warm-neutral-200 hover:-translate-y-2"
               >
                 <div className={`bg-gradient-to-r ${stat.color} rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg`}>
                   <stat.icon className="w-8 h-8 text-white" />
@@ -123,10 +122,8 @@ const TrustedClientsSection = () => {
                     height={150}
                   />
                   
-                  {/* Professional overlay on hover */}
-                  <div className={`absolute inset-0 bg-gradient-to-br from-navy-600/10 via-business-blue-500/15 to-prestige-gold-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl`}></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-navy-600/10 via-business-blue-500/15 to-prestige-gold-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
                   
-                  {/* Star rating overlay */}
                   <div className="absolute bottom-2 left-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-3 h-3 text-prestige-gold-400 fill-current" />
@@ -134,7 +131,6 @@ const TrustedClientsSection = () => {
                   </div>
                 </div>
                 
-                {/* Professional animated border */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-navy-500 via-business-blue-500 to-prestige-gold-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm scale-105"></div>
               </div>
             ))}
@@ -153,7 +149,7 @@ const TrustedClientsSection = () => {
           {testimonials.map((testimonial, index) => (
             <div 
               key={index}
-              className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-warm-neutral-200/50 hover:-translate-y-2"
+              className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border border-warm-neutral-200 hover:-translate-y-2"
             >
               <div className="flex items-center justify-center mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
