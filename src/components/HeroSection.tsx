@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
-import { CheckCircle, Shield, Award, Users, Trophy, Target } from 'lucide-react';
+import { CheckCircle, Shield, Award, Users, Trophy, Target, Car } from 'lucide-react';
 
 const HeroSection = () => {
   const benefits = [
@@ -16,9 +17,9 @@ const HeroSection = () => {
       description: "Mojej firmie zaufało już 15.000 zadowolonych klientów"
     },
     {
-      icon: Shield,
-      title: "Konsultacja oddłużeniowa całkowicie za darmo",
-      description: "Pierwsza konsultacja oddłużeniowa całkowicie za darmo"
+      icon: Car,
+      title: "Dojeżdzamy do Ciebie",
+      description: "Koszt dojazdu ustalany indywidualnie"
     }
   ];
 
