@@ -1,3 +1,4 @@
+
 import React, { useState, useRef } from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Book, Heart, Users, Play, Pause } from 'lucide-react';
@@ -175,6 +176,42 @@ const BookSection = () => {
                   <CarouselPrevious className="left-2" />
                   <CarouselNext className="right-2" />
                 </Carousel>
+              </div>
+
+              {/* New Section: Why Read My Book */}
+              <div className="mt-12 bg-white rounded-2xl shadow-lg p-8">
+                <h3 className="font-montserrat text-2xl md:text-3xl font-bold text-slate-900 mb-6">
+                  Dlaczego warto przeczytać moją książkę?
+                </h3>
+                
+                <div className="space-y-4 text-slate-700 font-lato text-lg leading-relaxed">
+                  <p>
+                    Napisałem tę książkę, ponieważ przez ponad 20 lat pomagałem ludziom wychodzić z długów. Widziałem ich lęki, bezsenne noce, bezradność. Wiem, że każdy może się z tego wydostać, jeśli tylko dostanie konkretne narzędzia i wsparcie.
+                  </p>
+                  
+                  <p>
+                    To przewodnik dla osób, które chcą odzyskać kontrolę nad swoimi finansami. Nie znajdziesz tu teorii oderwanej od rzeczywistości, tylko sprawdzone metody, które działają. Pokazuję, jak dokładnie przeanalizować swoją sytuację, jak wybrać najlepszy sposób oddłużania i jak zacząć odbudowę finansowego bezpieczeństwa.
+                  </p>
+                  
+                  <p>
+                    Daję też wskazówki, jak nie wrócić do zadłużenia i jak budować finansową odporność na przyszłość. Dzielę się historiami ludzi, którym się udało, by pokazać, że zmiana jest możliwa.
+                  </p>
+                  
+                  <p className="font-semibold text-prestige-gold-600">
+                    Napisałem tę książkę, żeby pomóc Ci zacząć od nowa. Spokojnie, konkretnie i skutecznie.
+                  </p>
+                </div>
+
+                {/* Author image below the text */}
+                <div className="flex justify-center mt-8">
+                  <OptimizedImage
+                    src="/lovable-uploads/af0eb18f-2eb3-4c97-bd60-2bfb5e62373a.png"
+                    alt="Dariusz Wentrych - autor książki"
+                    className="w-64 h-80 md:w-80 md:h-96 object-cover rounded-2xl shadow-2xl"
+                    width={320}
+                    height={384}
+                  />
+                </div>
               </div>
             </div>
           </div>
