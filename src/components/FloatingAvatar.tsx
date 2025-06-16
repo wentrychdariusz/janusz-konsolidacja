@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
@@ -7,7 +8,7 @@ const FloatingAvatar = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [showAvatar, setShowAvatar] = useState(false);
 
-  // Sprawdzanie pozycji scroll i pokazywanie awatara dopiero w sekcji "Mamy największe zaufanie klientów w Polsce"
+  // Sprawdzanie pozycji scroll i pokazywanie awatara w sekcji "Mamy największe zaufanie klientów w Polsce"
   useEffect(() => {
     const handleScroll = () => {
       // Szukamy konkretnego tekstu w sekcji ImagineSection
@@ -22,14 +23,28 @@ const FloatingAvatar = () => {
       
       if (targetSection) {
         const sectionRect = targetSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
         const scrollY = window.scrollY;
         const sectionTop = scrollY + sectionRect.top;
         
-        // Pokazuj awatar 400px przed dotarciem do sekcji
-        setShowAvatar(scrollY >= sectionTop - 400);
+        // Na mobilnych - pokazuj awatar gdy sekcja wchodzi w viewport (górna część ekranu)
+        // Na desktop - pokazuj 400px wcześniej
+        const isMobile = window.innerWidth < 768;
+        const offset = isMobile ? windowHeight * 0.8 : 400; // Na mobile 80% wysokości ekranu
+        
+        setShowAvatar(scrollY >= sectionTop - offset);
+        
+        console.log('Avatar visibility check:', {
+          scrollY,
+          sectionTop,
+          offset,
+          isMobile,
+          shouldShow: scrollY >= sectionTop - offset
+        });
       } else {
-        // Fallback - jeśli nie znajdziemy sekcji, pokazuj po 1100px
-        setShowAvatar(window.scrollY > 1100);
+        // Fallback - jeśli nie znajdziemy sekcji
+        const fallbackPosition = window.innerWidth < 768 ? 800 : 1100;
+        setShowAvatar(window.scrollY > fallbackPosition);
       }
     };
 
