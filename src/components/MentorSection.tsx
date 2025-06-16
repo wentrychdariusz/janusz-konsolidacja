@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { Star, X, Check } from 'lucide-react';
 const MentorSection = () => {
@@ -34,7 +35,7 @@ const MentorSection = () => {
             <div className="flex justify-center mb-4">
               <img src="/lovable-uploads/b1beb685-d9f6-4c89-aadc-9f16c27fa4d7.png" alt="Pan Krzysztof" className="w-60 h-60 md:w-72 md:h-72 lg:w-84 lg:h-84 rounded-full border-3 border-prestige-gold-400 object-cover object-top" />
             </div>
-            <p className="text-white text-lg font-lato font-bold">Pan Krzysztof</p>
+            <p className="text-white text-2xl md:text-3xl font-lato font-bold uppercase tracking-wide">PAN KRZYSZTOF</p>
             <p className="text-warm-neutral-300 text-xs uppercase tracking-wide font-lato">KLIENT DARIUSZA WENTRYCHA</p>
           </div>
 
@@ -182,3 +183,4 @@ const MentorSection = () => {
     </>;
 };
 export default MentorSection;
+
