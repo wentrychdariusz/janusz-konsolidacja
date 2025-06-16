@@ -179,20 +179,20 @@ const TrustedClientsSection = () => {
 
         {/* Mobile Testimonial Slider - Full Width with rounded corners */}
         <div className="block lg:hidden mb-16">
-          <div className="relative">
-            {/* Navigation buttons */}
+          <div className="relative px-12">
+            {/* Navigation buttons - positioned outside the content area */}
             <button
               onClick={prevTestimonial}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-20"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-6 h-6" />
             </button>
             
             <button
               onClick={nextTestimonial}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-20"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-6 h-6" />
             </button>
 
             {/* Testimonial card - Full width with rounded corners */}
