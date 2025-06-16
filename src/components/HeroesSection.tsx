@@ -94,21 +94,21 @@ const HeroesSection = () => {
               </ul>
             </div>
           </div>
+          
+          {/* Added section after PO WSPÓŁPRACY ZE MNĄ */}
+          <div className="mt-8 text-center">
+            <p className="text-white text-lg md:text-xl font-lato leading-relaxed">
+              <span className="font-bold text-yellow-300">Pan Krzysztof trafił do nas w odpowiednim momencie.</span>
+              <br />
+              Gdyby zwlekał z podjęciem działań, <span className="text-red-300 font-bold">POMOC NIE BYŁABY MOŻLIWA</span>
+            </p>
+          </div>
         </div>
 
-        {/* Important Message */}
+        {/* Important Message - moved and modified */}
         <div className="bg-gradient-to-r from-yellow-500/20 via-orange-500/15 to-red-500/20 rounded-2xl p-8 border border-yellow-400/50 mb-12">
           <p className="text-white text-lg md:text-xl font-lato text-center leading-relaxed">
-            <span className="font-bold text-yellow-300">Pan Krzysztof trafił do nas w odpowiednim momencie.</span>
-            <br />
-            Gdyby zwlekał z podjęciem działań, <span className="text-red-300 font-bold">POMOC NIE BYŁABY MOŻLIWA</span>
-          </p>
-        </div>
-
-        {/* Call to Action */}
-        <div className="text-center">
-          <p className="text-white text-2xl md:text-3xl font-bold font-montserrat mb-8">
-            Dołącz do tysięcy zadowolonych klientów i raz na zawsze pozbądź się długów!
+            <span className="font-bold text-yellow-300">Dołącz do tysięcy zadowolonych klientów i raz na zawsze pozbądź się długów!</span>
           </p>
         </div>
       </div>
