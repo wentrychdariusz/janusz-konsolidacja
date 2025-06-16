@@ -1,6 +1,7 @@
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Users, Award, BookOpen, TrendingUp } from 'lucide-react';
+
 const ClientSection = () => {
   const achievements = [{
     icon: Users,
@@ -97,7 +98,7 @@ const ClientSection = () => {
         </div>
 
         {/* Media Section */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 md:mb-16">
           <h3 className="font-montserrat text-2xl md:text-3xl font-bold text-navy-900 mb-8">
             Znany z
           </h3>
@@ -127,4 +128,5 @@ const ClientSection = () => {
       </div>
     </section>;
 };
+
 export default ClientSection;
