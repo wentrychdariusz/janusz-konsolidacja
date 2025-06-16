@@ -23,35 +23,40 @@ const TrustedClientsSection = () => {
       position: "Właścicielka małej firmy",
       text: "Dzięki Dariuszowi udało mi się pozbyć długów o wartości 340 000 zł. Myślałam, że już nigdy nie wyjdę z tej sytuacji. Teraz moja firma działa lepiej niż kiedykolwiek.",
       rating: 5,
-      image: "/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png"
+      image: "/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png",
+      verified: true
     },
     {
       name: "Tomasz Nowak",
       position: "Przedsiębiorca",
       text: "Profesjonalne podejście i skuteczne rozwiązania. Redukcja zadłużenia o 60% w ciągu 8 miesięcy. Polecam każdemu, kto ma problemy finansowe.",
       rating: 5,
-      image: "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png"
+      image: "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png",
+      verified: true
     },
     {
       name: "Maria Wiśniewska",
       position: "Kierownik działu",
       text: "Wreszcie mogę spać spokojnie. Długi, które mnie męczyły przez lata, zostały uregulowane zgodnie z moimi możliwościami. Jestem bardzo wdzięczna.",
       rating: 5,
-      image: "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f601a69.png"
+      image: "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f601a69.png",
+      verified: true
     },
     {
       name: "Piotr Zieliński",
       position: "Dyrektor handlowy",
       text: "Skuteczne negocjacje z wierzycielami i plan spłat dopasowany do moich możliwości. Teraz mam kontrolę nad swoimi finansami.",
       rating: 5,
-      image: "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png"
+      image: "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png",
+      verified: true
     },
     {
       name: "Katarzyna Lewandowska",
       position: "Konsultantka",
       text: "Dzięki kompleksowemu podejściu Dariusza udało się rozwiązać problemy z ZUS i Urzędem Skarbowym. Polecam jego usługi.",
       rating: 5,
-      image: "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png"
+      image: "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png",
+      verified: true
     }
   ];
 
@@ -82,11 +87,11 @@ const TrustedClientsSection = () => {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-navy-900 via-navy-800 to-business-blue-900 py-20 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 py-20 overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-business-blue-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-navy-600/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-navy-600/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-navy-700/10 rounded-full blur-3xl"></div>
       </div>
 
       <div className="relative z-10 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
@@ -111,9 +116,9 @@ const TrustedClientsSection = () => {
             {stats.map((stat, index) => (
               <div 
                 key={index}
-                className="bg-navy-800/50 backdrop-blur-sm rounded-2xl p-6 border border-business-blue-700/30 hover:border-business-blue-500/50 transition-all duration-300 hover:-translate-y-2"
+                className="bg-navy-800/50 backdrop-blur-sm rounded-2xl p-6 border border-navy-700/30 hover:border-navy-600/50 transition-all duration-300 hover:-translate-y-2"
               >
-                <div className="bg-gradient-to-r from-business-blue-600 to-business-blue-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <div className="bg-gradient-to-r from-navy-600 to-navy-700 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <stat.icon className="w-8 h-8 text-white" />
                 </div>
                 <div className="text-3xl md:text-4xl font-black text-white mb-2 font-montserrat">
@@ -124,6 +129,145 @@ const TrustedClientsSection = () => {
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Testimonials Section with Light Background */}
+        <div className="mb-16">
+          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+            {/* Header inside light section */}
+            <div className="text-center py-12 px-8">
+              <h3 className="font-montserrat text-3xl md:text-4xl font-bold text-navy-900 mb-4">
+                Co mówią nasi klienci
+              </h3>
+              <p className="text-gray-600 text-lg font-lato">
+                Prawdziwe opinie od zadowolonych klientów
+              </p>
+            </div>
+
+            {/* Desktop Testimonials */}
+            <div className="hidden md:block px-8 pb-12">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {testimonials.slice(0, 3).map((testimonial, index) => (
+                  <div 
+                    key={index}
+                    className="bg-gray-50 rounded-2xl p-6 border border-gray-200 hover:shadow-lg transition-all duration-300"
+                  >
+                    <div className="flex items-center mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                      ))}
+                    </div>
+                    
+                    <p className="text-gray-700 text-lg font-lato mb-6 leading-relaxed">
+                      "{testimonial.text}"
+                    </p>
+                    
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200">
+                        <OptimizedImage
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          className="w-full h-full object-cover"
+                          width={48}
+                          height={48}
+                        />
+                      </div>
+                      <div>
+                        <p className="font-montserrat font-bold text-navy-900">
+                          {testimonial.name}
+                        </p>
+                        <p className="text-gray-600 text-sm">
+                          {testimonial.position}
+                        </p>
+                        {testimonial.verified && (
+                          <div className="flex items-center mt-1">
+                            <CheckCircle className="w-4 h-4 text-green-500 mr-1" />
+                            <span className="text-green-600 text-xs font-medium">Zweryfikowany klient</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile Testimonial Slider */}
+            <div className="block md:hidden px-4 pb-12">
+              <div className="relative">
+                <div className="bg-gray-50 rounded-2xl p-6 border border-gray-200 mx-4">
+                  {/* Navigation buttons */}
+                  <button
+                    onClick={prevTestimonial}
+                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white border-2 border-gray-200 hover:border-navy-500 text-navy-700 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  
+                  <button
+                    onClick={nextTestimonial}
+                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white border-2 border-gray-200 hover:border-navy-500 text-navy-700 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+
+                  {/* Testimonial content */}
+                  <div className="px-4">
+                    <div className="flex items-center mb-4">
+                      {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                      ))}
+                    </div>
+                    
+                    <p className="text-gray-700 text-lg font-lato mb-6 leading-relaxed">
+                      "{testimonials[currentTestimonial].text}"
+                    </p>
+                    
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200">
+                        <OptimizedImage
+                          src={testimonials[currentTestimonial].image}
+                          alt={testimonials[currentTestimonial].name}
+                          className="w-full h-full object-cover"
+                          width={48}
+                          height={48}
+                        />
+                      </div>
+                      <div>
+                        <p className="font-montserrat font-bold text-navy-900">
+                          {testimonials[currentTestimonial].name}
+                        </p>
+                        <p className="text-gray-600 text-sm">
+                          {testimonials[currentTestimonial].position}
+                        </p>
+                        {testimonials[currentTestimonial].verified && (
+                          <div className="flex items-center mt-1">
+                            <CheckCircle className="w-4 h-4 text-green-500 mr-1" />
+                            <span className="text-green-600 text-xs font-medium">Zweryfikowany klient</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Dots indicator for mobile */}
+                  <div className="flex justify-center mt-6 space-x-2">
+                    {testimonials.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentTestimonial(index)}
+                        className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                          index === currentTestimonial 
+                            ? 'bg-navy-600' 
+                            : 'bg-gray-300 hover:bg-gray-400'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -139,7 +283,7 @@ const TrustedClientsSection = () => {
                 key={index} 
                 className="relative group cursor-pointer"
               >
-                <div className="aspect-square relative overflow-hidden rounded-2xl shadow-lg border-2 border-business-blue-700/30 group-hover:border-prestige-gold-400/50 transition-all duration-300">
+                <div className="aspect-square relative overflow-hidden rounded-2xl shadow-lg border-2 border-navy-700/30 group-hover:border-prestige-gold-400/50 transition-all duration-300">
                   <OptimizedImage
                     src={image}
                     alt={`Zadowolony klient ${index + 1}`}
@@ -162,90 +306,16 @@ const TrustedClientsSection = () => {
           </div>
 
           <div className="text-center">
-            <div className="inline-flex items-center justify-center bg-gradient-to-r from-business-blue-700 to-business-blue-600 text-white rounded-full px-8 py-4 shadow-lg">
+            <div className="inline-flex items-center justify-center bg-gradient-to-r from-navy-700 to-navy-600 text-white rounded-full px-8 py-4 shadow-lg">
               <span className="font-bold text-lg mr-2">+</span>
               <span className="font-lato text-lg">Tysiące innych zadowolonych klientów</span>
             </div>
           </div>
         </div>
 
-        {/* Testimonials Slider */}
-        <div className="mb-16">
-          <h3 className="text-center font-montserrat text-2xl md:text-3xl font-bold text-white mb-12">
-            Co mówią nasi klienci
-          </h3>
-          
-          <div className="relative max-w-4xl mx-auto">
-            <div className="bg-navy-800/50 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-business-blue-700/30 shadow-2xl">
-              {/* Navigation buttons */}
-              <button
-                onClick={prevTestimonial}
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-business-blue-600 hover:bg-business-blue-500 text-white rounded-full p-3 shadow-lg transition-colors duration-300"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              
-              <button
-                onClick={nextTestimonial}
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-business-blue-600 hover:bg-business-blue-500 text-white rounded-full p-3 shadow-lg transition-colors duration-300"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
-
-              {/* Testimonial content */}
-              <div className="text-center px-8">
-                <div className="flex items-center justify-center mb-6">
-                  {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                    <Star key={i} className="w-8 h-8 text-prestige-gold-400 fill-current mx-1" />
-                  ))}
-                </div>
-                
-                <p className="text-white text-xl md:text-2xl font-lato text-center mb-8 leading-relaxed italic">
-                  "{testimonials[currentTestimonial].text}"
-                </p>
-                
-                <div className="flex items-center justify-center space-x-4">
-                  <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-prestige-gold-400/50">
-                    <OptimizedImage
-                      src={testimonials[currentTestimonial].image}
-                      alt={testimonials[currentTestimonial].name}
-                      className="w-full h-full object-cover"
-                      width={64}
-                      height={64}
-                    />
-                  </div>
-                  <div className="text-left">
-                    <p className="font-montserrat font-bold text-white text-lg">
-                      {testimonials[currentTestimonial].name}
-                    </p>
-                    <p className="text-blue-200 text-sm">
-                      {testimonials[currentTestimonial].position}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Dots indicator */}
-              <div className="flex justify-center mt-8 space-x-2">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentTestimonial(index)}
-                    className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                      index === currentTestimonial 
-                        ? 'bg-prestige-gold-400' 
-                        : 'bg-business-blue-600 hover:bg-business-blue-500'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Call to Action */}
         <div className="text-center">
-          <div className="bg-gradient-to-r from-business-blue-800 to-navy-800 rounded-3xl p-8 shadow-2xl border border-business-blue-700/30">
+          <div className="bg-gradient-to-r from-navy-800 to-navy-700 rounded-3xl p-8 shadow-2xl border border-navy-600/30">
             <h3 className="text-white font-montserrat text-2xl md:text-3xl font-bold mb-4">
               Dołącz do grona zadowolonych klientów
             </h3>
