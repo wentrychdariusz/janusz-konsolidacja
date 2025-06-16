@@ -3,10 +3,10 @@ import React from 'react';
 
 const VideoSection = () => {
   return (
-    <section className="md:hidden bg-gradient-to-b from-business-blue-800 to-navy-900 py-2">
+    <section className="md:hidden bg-gradient-to-b from-business-blue-800 to-navy-900 py-1">
       <div className="px-4 max-w-7xl mx-auto">
-        <div className="text-center mb-2">
-          <h2 className="font-montserrat text-lg font-bold text-white mb-1">
+        <div className="text-center mb-1">
+          <h2 className="font-montserrat text-base font-bold text-white mb-0.5">
             Zobacz jak pomagamy naszym klientom
           </h2>
           <p className="text-warm-neutral-300 text-xs">
