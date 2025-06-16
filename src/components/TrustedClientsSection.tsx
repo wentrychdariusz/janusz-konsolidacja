@@ -162,7 +162,7 @@ const TrustedClientsSection = () => {
         </div>
 
         {/* Mobile Testimonials Header */}
-        <div className="block lg:hidden text-center mb-8">
+        <div className="block lg:hidden text-center mb-8 px-4">
           <h3 className="font-montserrat text-3xl font-bold text-white mb-4">
             Co mówią nasi klienci
           </h3>
@@ -177,26 +177,26 @@ const TrustedClientsSection = () => {
           </div>
         </div>
 
-        {/* Mobile Testimonial Slider - Full Width with rounded corners */}
+        {/* Mobile Testimonial Slider - Full Width */}
         <div className="block lg:hidden mb-16">
-          <div className="relative px-12">
-            {/* Navigation buttons - positioned outside the content area */}
+          <div className="relative">
+            {/* Navigation buttons - positioned at the edges */}
             <button
               onClick={prevTestimonial}
-              className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-20"
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-20"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
             
             <button
               onClick={nextTestimonial}
-              className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-20"
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-20"
             >
               <ChevronRight className="w-6 h-6" />
             </button>
 
-            {/* Testimonial card - Full width with rounded corners */}
-            <div className="bg-white rounded-t-3xl rounded-b-3xl overflow-hidden shadow-2xl">
+            {/* Testimonial card - Full width */}
+            <div className="bg-slate-800 rounded-3xl overflow-hidden shadow-2xl mx-4">
               {/* Large profile image taking full width with rounded top corners */}
               <div className="w-full h-80 bg-gray-100 rounded-t-3xl overflow-hidden">
                 <OptimizedImage
@@ -218,23 +218,23 @@ const TrustedClientsSection = () => {
                 </div>
                 
                 {/* Testimonial text */}
-                <p className="text-gray-700 text-lg font-lato mb-8 leading-relaxed">
+                <p className="text-white text-lg font-lato mb-8 leading-relaxed">
                   "{testimonials[currentTestimonial].text}"
                 </p>
                 
                 {/* Client info */}
-                <div className="border-t border-gray-100 pt-6">
-                  <p className="font-montserrat font-bold text-slate-900 text-xl mb-2">
+                <div className="border-t border-gray-600 pt-6">
+                  <p className="font-montserrat font-bold text-white text-xl mb-2">
                     {testimonials[currentTestimonial].name}
                   </p>
-                  <p className="text-gray-600 text-base mb-4">
+                  <p className="text-gray-300 text-base mb-4">
                     {testimonials[currentTestimonial].position}
                   </p>
                   
                   {testimonials[currentTestimonial].verified && (
                     <div className="flex items-center">
                       <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
-                      <span className="text-green-600 text-sm font-medium">Zweryfikowany klient</span>
+                      <span className="text-green-400 text-sm font-medium">Zweryfikowany klient</span>
                     </div>
                   )}
                 </div>
