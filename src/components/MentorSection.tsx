@@ -71,7 +71,7 @@ const MentorSection = () => {
                   {renderStars()}
                 </div>
                 <div className="flex items-center mb-4">
-                  <img src={testimonial.avatar} alt={testimonial.name} className="w-12 h-12 rounded-full mr-4 border-2 border-prestige-gold-400 object-cover" />
+                  <img src={testimonial.avatar} alt={testimonial.name} className="w-24 h-24 rounded-full mr-4 border-2 border-prestige-gold-400 object-cover" />
                   <h3 className="text-prestige-gold-400 font-semibold text-sm">{testimonial.name}</h3>
                 </div>
                 <p className="text-white text-sm leading-relaxed font-lato">
