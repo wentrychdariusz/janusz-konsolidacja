@@ -1,8 +1,8 @@
-
 import React, { useState, useRef } from 'react';
 import OptimizedImage from './OptimizedImage';
-import { Book, Heart, Users, Play, Pause } from 'lucide-react';
+import { Book, Heart, Users, Play, Pause, Star } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 
 const BookSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -211,6 +211,31 @@ const BookSection = () => {
                     width={320}
                     height={384}
                   />
+                </div>
+
+                {/* Book Review Table */}
+                <div className="mt-8">
+                  <Table>
+                    <TableBody>
+                      <TableRow className="border-0">
+                        <TableCell className="p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                          <div className="space-y-4">
+                            {/* Star Rating */}
+                            <div className="flex justify-center space-x-1">
+                              {[...Array(5)].map((_, i) => (
+                                <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
+                              ))}
+                            </div>
+                            
+                            {/* Review Quote */}
+                            <blockquote className="text-slate-700 font-lato text-base md:text-lg leading-relaxed italic text-center">
+                              "Książka stanowi praktyczny przewodnik dla osób borykających się z problemami zadłużenia. Autor, znany ekspert finansowy, przedstawia czytelnikowi konkretne strategie radzenia sobie z długami, podkreślając znaczenie systematycznego podejścia do finansów. Tekst cechuje przystępny język, liczne przykłady i porady, które pomagają zrozumieć mechanizmy oddłużania. Publikacja może okazać się wartościowym narzędziem zarówno dla osób już zadłużonych, jak i tych, którzy chcą uniknąć podobnych problemów w przyszłości."
+                            </blockquote>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
                 </div>
               </div>
             </div>
