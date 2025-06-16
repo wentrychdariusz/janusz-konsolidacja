@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { CheckCircle } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
@@ -126,7 +127,7 @@ const DariuszLetterSection = () => {
               To życie jest na wyciągnięcie ręki.
             </p>
             <p className="text-lg md:text-lg font-lato leading-relaxed text-slate-700">
-              Jeśli nigdy nie miałeś wsparcia i pomocy od nikogo, to <strong>ja Ci pomogę</strong>. Nie czekaj, aż sytuacja wymknie się spod kontroli.
+              Jeśli nigdy nie miałeś wsparcia i pomocy od nikogo, to ja Ci pomogę. Nie czekaj, aż sytuacja wymknie się spod kontroli.
             </p>
             <p className="text-xl md:text-xl font-montserrat font-bold text-red-600">
               Zrób pierwszy krok.
@@ -136,12 +137,13 @@ const DariuszLetterSection = () => {
           {/* Signature with Avatar */}
           <div className="border-t border-gray-200 pt-6">
             <div className="flex items-center space-x-4">
-              <Avatar className="w-16 h-16 md:w-20 md:h-20">
+              <Avatar className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0">
                 <AvatarImage 
                   src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" 
-                  alt="Dariusz Wentrych" 
+                  alt="Dariusz Wentrych"
+                  className="object-cover w-full h-full"
                 />
-                <AvatarFallback>DW</AvatarFallback>
+                <AvatarFallback className="text-lg font-bold">DW</AvatarFallback>
               </Avatar>
               <div>
                 <p className="text-xl md:text-2xl font-montserrat font-bold text-slate-700 mb-2">
