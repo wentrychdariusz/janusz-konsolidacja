@@ -13,36 +13,31 @@ const TrustedClientsSection = () => {
   const clientImages = ["/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png", "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png", "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f601a69.png", "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png", "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png", "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png", "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png", "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png"];
   
   const testimonials = [{
-    name: "Anna Kowalska",
-    position: "Właścicielka małej firmy",
+    name: "Pani Anna",
     text: "Dzięki Dariuszowi udało mi się pozbyć długów o wartości 340 000 zł. Myślałam, że już nigdy nie wyjdę z tej sytuacji. Teraz moja firma działa lepiej niż kiedykolwiek.",
     rating: 5,
     image: "/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png",
     verified: true
   }, {
-    name: "Tomasz Nowak",
-    position: "Przedsiębiorca",
+    name: "Pan Tomasz",
     text: "Profesjonalne podejście i skuteczne rozwiązania. Redukcja zadłużenia o 60% w ciągu 8 miesięcy. Polecam każdemu, kto ma problemy finansowe.",
     rating: 5,
     image: "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png",
     verified: true
   }, {
-    name: "Maria Wiśniewska",
-    position: "Kierownik działu",
+    name: "Pani Maria",
     text: "Wreszcie mogę spać spokojnie. Długi, które mnie męczyły przez lata, zostały uregulowane zgodnie z moimi możliwościami. Jestem bardzo wdzięczna.",
     rating: 5,
     image: "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f601a69.png",
     verified: true
   }, {
-    name: "Piotr Zieliński",
-    position: "Dyrektor handlowy",
+    name: "Pan Piotr",
     text: "Skuteczne negocjacje z wierzycielami i plan spłat dopasowany do moich możliwości. Teraz mam kontrolę nad swoimi finansami.",
     rating: 5,
     image: "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png",
     verified: true
   }, {
-    name: "Katarzyna Lewandowska",
-    position: "Konsultantka",
+    name: "Pani Katarzyna",
     text: "Dzięki kompleksowemu podejściu Dariusza udało się rozwiązać problemy z ZUS i Urzędem Skarbowym. Polecam jego usługi.",
     rating: 5,
     image: "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png",
@@ -200,11 +195,8 @@ const TrustedClientsSection = () => {
                     
                     {/* Client info */}
                     <div className="border-t border-gray-100 pt-4">
-                      <p className="font-montserrat font-bold text-slate-900 text-lg mb-1">
+                      <p className="font-montserrat font-bold text-slate-900 text-lg mb-3">
                         {testimonial.name}
-                      </p>
-                      <p className="text-gray-600 text-sm mb-3">
-                        {testimonial.position}
                       </p>
                       
                       {testimonial.verified && (
@@ -293,11 +285,8 @@ const TrustedClientsSection = () => {
                 
                 {/* Client info */}
                 <div className="border-t border-gray-600 pt-6">
-                  <p className="font-montserrat font-bold text-white text-xl mb-2">
+                  <p className="font-montserrat font-bold text-white text-xl mb-4">
                     {testimonials[currentTestimonial].name}
-                  </p>
-                  <p className="text-gray-300 text-base mb-4">
-                    {testimonials[currentTestimonial].position}
                   </p>
                   
                   {testimonials[currentTestimonial].verified && (
