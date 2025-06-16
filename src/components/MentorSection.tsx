@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Star, X, Check } from 'lucide-react';
 const MentorSection = () => {
@@ -28,12 +29,13 @@ const MentorSection = () => {
         
         <div className="relative z-10 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
           
-          {/* Avatar section */}
+          {/* Avatar section - 3x larger */}
           <div className="text-center mb-8">
             <div className="flex justify-center mb-4">
-              <img src="/lovable-uploads/b1beb685-d9f6-4c89-aadc-9f16c27fa4d7.png" alt="Pan Krzysztof" className="w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full border-3 border-prestige-gold-400 object-cover object-top" />
+              <img src="/lovable-uploads/b1beb685-d9f6-4c89-aadc-9f16c27fa4d7.png" alt="Pan Krzysztof" className="w-60 h-60 md:w-72 md:h-72 lg:w-84 lg:h-84 rounded-full border-3 border-prestige-gold-400 object-cover object-top" />
             </div>
-            <p className="text-white text-sm font-lato">Pan Krzysztof</p>
+            <p className="text-white text-lg font-lato font-bold">Pan Krzysztof</p>
+            <p className="text-warm-neutral-300 text-xs uppercase tracking-wide font-lato">KLIENT DARIUSZA WENTRYCHA</p>
           </div>
 
           {/* Main heading and story */}
