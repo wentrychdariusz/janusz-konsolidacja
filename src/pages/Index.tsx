@@ -3,6 +3,7 @@ import React from 'react';
 import TopHeader from '../components/TopHeader';
 import HeroSection from '../components/HeroSection';
 import ImagineSection from '../components/ImagineSection';
+import VideoSection from '../components/VideoSection';
 import DariuszLetterSection from '../components/DariuszLetterSection';
 import MentorSection from '../components/MentorSection';
 import BeforeAfterSection from '../components/BeforeAfterSection';
@@ -17,6 +18,7 @@ const Index = () => {
       <TopHeader />
       <HeroSection />
       <ImagineSection />
+      <VideoSection />
       <DariuszLetterSection />
       <MentorSection />
       <BeforeAfterSection />
