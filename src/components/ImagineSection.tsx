@@ -1,3 +1,4 @@
+
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
 import { MapPin, Car, Award, Users, Star } from 'lucide-react';
@@ -12,7 +13,7 @@ const ImagineSection = () => {
     {
       icon: Car,
       title: "Dojeżdzamy do Ciebie",
-      description: "Umów się na bezpłatne spotkania w 16 miastach lub indywidualne spotkanie u Ciebie"
+      description: "Koszt dojazdu ustalany indywidualnie"
     },
     {
       icon: Award,
