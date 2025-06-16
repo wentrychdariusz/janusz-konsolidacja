@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ArrowDown, ArrowUp, Phone, Heart, Shield, CheckCircle, XCircle } from 'lucide-react';
 
@@ -76,63 +77,55 @@ const BeforeAfterSection = () => {
         </div>
 
         {/* Before and After Comparison */}
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
+        <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
           
           {/* Before Section */}
-          <div className="bg-white rounded-3xl shadow-lg border border-red-100 overflow-hidden">
-            <div className="bg-gradient-to-r from-red-50 to-red-100 p-8 border-b border-red-200">
-              <div className="flex items-center justify-center mb-4">
-                <div className="bg-red-500 rounded-full p-3">
-                  <ArrowDown className="w-8 h-8 text-white" />
-                </div>
+          <div className="space-y-4">
+            <div className="flex items-center justify-center mb-6">
+              <div className="bg-red-500 rounded-full p-3 mr-4">
+                <ArrowDown className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-montserrat text-2xl md:text-3xl font-bold text-red-800 text-center">
-                🔻 Przed oddłużaniem z Dariuszem Wentrychem…
+              <h3 className="font-montserrat text-xl md:text-2xl font-bold text-red-800">
+                Przed oddłużaniem z Dariuszem Wentrychem…
               </h3>
             </div>
             
-            <div className="p-8">
-              <div className="space-y-6">
-                {beforeItems.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-4 p-4 bg-red-50 rounded-xl border border-red-100">
-                    <div className="flex-shrink-0 mt-1">
-                      {item.icon}
-                    </div>
-                    <p className="text-slate-700 text-lg font-lato leading-relaxed">
-                      {item.text}
-                    </p>
+            <div className="space-y-3">
+              {beforeItems.map((item, index) => (
+                <div key={index} className="flex items-start space-x-4 p-4 bg-white rounded-xl border border-red-100 shadow-sm">
+                  <div className="flex-shrink-0 mt-1">
+                    {item.icon}
                   </div>
-                ))}
-              </div>
+                  <p className="text-slate-700 text-base font-lato leading-relaxed">
+                    {item.text}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* After Section */}
-          <div className="bg-white rounded-3xl shadow-lg border border-emerald-100 overflow-hidden">
-            <div className="bg-gradient-to-r from-emerald-50 to-green-100 p-8 border-b border-emerald-200">
-              <div className="flex items-center justify-center mb-4">
-                <div className="bg-emerald-500 rounded-full p-3">
-                  <ArrowUp className="w-8 h-8 text-white" />
-                </div>
+          <div className="space-y-4">
+            <div className="flex items-center justify-center mb-6">
+              <div className="bg-emerald-500 rounded-full p-3 mr-4">
+                <ArrowUp className="w-8 h-8 text-white" />
               </div>
-              <h3 className="font-montserrat text-2xl md:text-3xl font-bold text-emerald-800 text-center">
-                🔺 Po oddłużeniu z Dariuszem Wentrychem…
+              <h3 className="font-montserrat text-xl md:text-2xl font-bold text-emerald-800">
+                Po oddłużeniu z Dariuszem Wentrychem…
               </h3>
             </div>
             
-            <div className="p-8">
-              <div className="space-y-6">
-                {afterItems.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-4 p-4 bg-emerald-50 rounded-xl border border-emerald-100">
-                    <div className="flex-shrink-0 mt-1">
-                      {item.icon}
-                    </div>
-                    <p className="text-slate-700 text-lg font-lato leading-relaxed">
-                      {item.text}
-                    </p>
+            <div className="space-y-3">
+              {afterItems.map((item, index) => (
+                <div key={index} className="flex items-start space-x-4 p-4 bg-white rounded-xl border border-emerald-100 shadow-sm">
+                  <div className="flex-shrink-0 mt-1">
+                    {item.icon}
                   </div>
-                ))}
-              </div>
+                  <p className="text-slate-700 text-base font-lato leading-relaxed">
+                    {item.text}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
