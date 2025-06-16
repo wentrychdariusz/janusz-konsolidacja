@@ -16,7 +16,7 @@ const DariuszLetterSection = () => {
   ];
 
   return (
-    <section className="py-12 md:py-16 bg-white">
+    <section className="py-12 md:py-16 bg-gradient-to-b from-white to-gray-50">
       <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-4xl mx-auto">
         
         {/* Header */}
@@ -25,7 +25,7 @@ const DariuszLetterSection = () => {
             NAJWAŻNIEJSZY LIST!
           </div>
           <h2 className="font-montserrat text-2xl md:text-3xl lg:text-4xl font-bold mb-4 leading-tight text-slate-900">
-            To jest <span className="text-prestige-gold-600">Najważniejszy List</span>, jaki kiedykolwiek przeczytasz!
+            To jest <span className="text-slate-800">Najważniejszy List</span>, jaki kiedykolwiek przeczytasz!
           </h2>
           <p className="text-lg md:text-xl font-lato text-slate-700 mb-6">
             Czas zawalczyć o siebie, powstać, a potem wzrosnąć.
@@ -53,27 +53,27 @@ const DariuszLetterSection = () => {
           
           {/* Opening */}
           <div>
-            <h3 className="font-montserrat text-lg md:text-xl font-bold mb-4 text-prestige-gold-600">
+            <h3 className="font-montserrat text-lg md:text-xl font-bold mb-4 text-slate-800">
               Drogi Przyjacielu,
             </h3>
             <p className="text-base md:text-lg font-lato leading-relaxed mb-4">
-              Wyobraź sobie życie <strong className="text-prestige-gold-600">BEZ długu</strong>. Budzenie się rano bez strachu przed telefonem od windykatora. Cieszenie się spokojnym snem, wiedząc, że Twoje finanse są pod kontrolą. Wolność, jakiej dawno nie czułeś…
+              Wyobraź sobie życie <strong className="text-slate-900">BEZ długu</strong>. Budzenie się rano bez strachu przed telefonem od windykatora. Cieszenie się spokojnym snem, wiedząc, że Twoje finanse są pod kontrolą. Wolność, jakiej dawno nie czułeś…
             </p>
             <p className="text-base md:text-lg font-lato leading-relaxed">
-              To nie jest odległe marzenie – to <strong className="text-green-600">rzeczywistość, którą możemy dla Ciebie stworzyć</strong>. Nie ma znaczenia, jak głęboko wpadłeś w spiralę zadłużenia.
+              To nie jest odległe marzenie – to <strong className="text-slate-900">rzeczywistość, którą możemy dla Ciebie stworzyć</strong>. Nie ma znaczenia, jak głęboko wpadłeś w spiralę zadłużenia.
             </p>
           </div>
 
           {/* For Whom Section */}
           <div className="space-y-4">
-            <h4 className="font-montserrat text-xl md:text-2xl font-bold text-prestige-gold-600 mb-6">
+            <h4 className="font-montserrat text-xl md:text-2xl font-bold text-slate-800 mb-6">
               Oto dla kogo jest nasza oferta:
             </h4>
             <div className="space-y-4">
               {benefitsList.map((benefit, index) => (
                 <div key={index} className="flex items-start space-x-3">
                   <CheckCircle className="w-5 h-5 md:w-6 md:h-6 text-green-600 flex-shrink-0 mt-1" />
-                  <p className="text-sm md:text-base font-lato leading-relaxed">
+                  <p className="text-sm md:text-base font-lato leading-relaxed text-slate-700">
                     {benefit}
                   </p>
                 </div>
@@ -83,16 +83,16 @@ const DariuszLetterSection = () => {
 
           {/* Solutions Section */}
           <div>
-            <h4 className="font-montserrat text-xl md:text-2xl font-bold text-prestige-gold-600 mb-6">
+            <h4 className="font-montserrat text-xl md:text-2xl font-bold text-slate-800 mb-6">
               Przejdźmy do konkretów:
             </h4>
             <div className="space-y-4">
               {solutionPoints.map((point, index) => (
                 <div key={index} className="flex items-start space-x-3">
-                  <div className="w-5 h-5 md:w-6 md:h-6 bg-prestige-gold-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <div className="w-5 h-5 md:w-6 md:h-6 bg-slate-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
                     <CheckCircle className="w-3 h-3 md:w-4 md:h-4 text-white" />
                   </div>
-                  <p className="text-sm md:text-base font-lato leading-relaxed">
+                  <p className="text-sm md:text-base font-lato leading-relaxed text-slate-700">
                     {point}
                   </p>
                 </div>
@@ -100,33 +100,33 @@ const DariuszLetterSection = () => {
             </div>
           </div>
 
-          {/* Social Proof - uproszony styl */}
+          {/* Social Proof */}
           <div className="space-y-4">
-            <p className="text-base md:text-lg font-lato leading-relaxed">
-              <strong className="text-prestige-gold-600">Tysiące osób</strong> skorzystały już z naszej unikalnej metody oddłużeniowej i dziś cieszą się życiem <strong className="text-green-600">BEZ DŁUGÓW</strong>.
+            <p className="text-base md:text-lg font-lato leading-relaxed text-slate-700">
+              <strong className="text-slate-900">Tysiące osób</strong> skorzystały już z naszej unikalnej metody oddłużeniowej i dziś cieszą się życiem <strong className="text-slate-900">BEZ DŁUGÓW</strong>.
             </p>
-            <p className="text-lg md:text-xl font-montserrat font-bold text-prestige-gold-600">
+            <p className="text-lg md:text-xl font-montserrat font-bold text-slate-800">
               Teraz czas na Ciebie!
             </p>
           </div>
 
-          {/* Questions Section - uproszony styl */}
+          {/* Questions Section */}
           <div className="space-y-4">
-            <p className="text-base md:text-lg font-lato leading-relaxed">
-              Czy wyobrażasz sobie życie, w którym <strong className="text-slate-800">nie musisz bać się kolejnego telefonu</strong> od wierzycieli?
+            <p className="text-base md:text-lg font-lato leading-relaxed text-slate-700">
+              Czy wyobrażasz sobie życie, w którym <strong className="text-slate-900">nie musisz bać się kolejnego telefonu</strong> od wierzycieli?
             </p>
-            <p className="text-base md:text-lg font-lato leading-relaxed">
-              Życie, w którym <strong className="text-green-600">Twoje pieniądze należą do Ciebie</strong>, a nie do banku czy parabanku?
+            <p className="text-base md:text-lg font-lato leading-relaxed text-slate-700">
+              Życie, w którym <strong className="text-slate-900">Twoje pieniądze należą do Ciebie</strong>, a nie do banku czy parabanku?
             </p>
           </div>
 
-          {/* Call to Action - uproszony styl */}
+          {/* Call to Action */}
           <div className="space-y-4">
-            <p className="text-lg md:text-xl font-montserrat font-bold text-prestige-gold-600">
+            <p className="text-lg md:text-xl font-montserrat font-bold text-slate-800">
               To życie jest na wyciągnięcie ręki.
             </p>
-            <p className="text-base md:text-lg font-lato leading-relaxed">
-              Jeśli nigdy nie miałeś wsparcia i pomocy od nikogo, to <strong className="text-prestige-gold-600">ja Ci pomogę</strong>. Nie czekaj, aż sytuacja wymknie się spod kontroli.
+            <p className="text-base md:text-lg font-lato leading-relaxed text-slate-700">
+              Jeśli nigdy nie miałeś wsparcia i pomocy od nikogo, to <strong className="text-slate-900">ja Ci pomogę</strong>. Nie czekaj, aż sytuacja wymknie się spod kontroli.
             </p>
             <p className="text-lg md:text-xl font-montserrat font-bold text-red-600">
               Zrób pierwszy krok.
@@ -135,7 +135,7 @@ const DariuszLetterSection = () => {
 
           {/* Signature */}
           <div className="border-t border-gray-200 pt-6">
-            <p className="text-xl md:text-2xl font-montserrat font-bold text-prestige-gold-600 mb-2">
+            <p className="text-xl md:text-2xl font-montserrat font-bold text-slate-800 mb-2">
               Dariusz Wentrych
             </p>
             <p className="text-sm md:text-base font-lato text-slate-600">
