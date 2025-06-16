@@ -94,6 +94,15 @@ const BeforeAfterSection = () => {
               Chcesz w końcu wyjść z długów, ale nie wiesz od czego zacząć?
             </p>
             
+            {/* Dariusz's image */}
+            <div className="flex justify-center mb-8">
+              <img 
+                src="/lovable-uploads/85ea5843-0408-4e89-8f99-c694c9261fd3.png" 
+                alt="Dariusz Wentrych" 
+                className="w-64 h-80 md:w-72 md:h-96 lg:w-80 lg:h-[28rem] rounded-2xl border-4 border-prestige-gold-400 object-cover shadow-xl"
+              />
+            </div>
+            
             <p className="text-slate-600 text-lg md:text-xl font-lato max-w-3xl mx-auto">
               Zobacz, jak wygląda życie przed i po oddłużeniu z najlepszym ekspertem w Polsce 👇
             </p>
