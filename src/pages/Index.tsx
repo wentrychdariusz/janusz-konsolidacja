@@ -10,6 +10,7 @@ import BeforeAfterSection from '../components/BeforeAfterSection';
 import ClientSection from '../components/ClientSection';
 import TrustedClientsSection from '../components/TrustedClientsSection';
 import HeroesSection from '../components/HeroesSection';
+import BookSection from '../components/BookSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 
 const Index = () => {
@@ -25,6 +26,7 @@ const Index = () => {
       <ClientSection />
       <TrustedClientsSection />
       <HeroesSection />
+      <BookSection />
       <FloatingAvatar />
     </div>
   );
