@@ -17,10 +17,27 @@ const BookSection = () => {
           </h2>
         </div>
 
+        {/* Book Image - Right after the header */}
+        <div className="flex justify-center mb-12">
+          <div className="relative">
+            <OptimizedImage
+              src="/lovable-uploads/7c2c43a8-7d25-42ea-90c0-66c86e978e81.png"
+              alt="Książka 'Nowe życie bez długów' - 500 egzemplarzy rozdanych klientom"
+              className="w-80 h-96 md:w-96 md:h-[28rem] object-cover rounded-2xl shadow-2xl"
+              width={384}
+              height={448}
+            />
+            
+            {/* Decorative elements */}
+            <div className="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full animate-pulse"></div>
+            <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-blue-400 rounded-full animate-pulse delay-1000"></div>
+          </div>
+        </div>
+
         {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-1 gap-8 lg:gap-12">
           
-          {/* Left Content */}
+          {/* Content */}
           <div className="space-y-6">
             <div className="bg-gradient-to-r from-prestige-gold-500 to-yellow-400 text-white p-6 rounded-2xl shadow-lg">
               <h3 className="font-montserrat text-2xl md:text-3xl font-bold text-center mb-4">
@@ -82,23 +99,6 @@ const BookSection = () => {
                   Bo właśnie tak wygląda oddłużanie z Dariuszem Wentrychem.
                 </p>
               </div>
-            </div>
-          </div>
-
-          {/* Right Content - Book Image */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="relative">
-              <OptimizedImage
-                src="/lovable-uploads/7c2c43a8-7d25-42ea-90c0-66c86e978e81.png"
-                alt="Książka 'Nowe życie bez długów' - 500 egzemplarzy rozdanych klientom"
-                className="w-80 h-96 md:w-96 md:h-[28rem] object-cover rounded-2xl shadow-2xl"
-                width={384}
-                height={448}
-              />
-              
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full animate-pulse"></div>
-              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-blue-400 rounded-full animate-pulse delay-1000"></div>
             </div>
           </div>
         </div>
