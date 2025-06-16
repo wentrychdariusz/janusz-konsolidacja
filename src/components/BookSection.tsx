@@ -29,8 +29,8 @@ const BookSection = () => {
         </div>
 
         {/* Single Book Image with Hover Effect */}
-        <div className="flex justify-center mb-8 group cursor-pointer transition-all duration-500 hover:scale-105" onClick={handleAudioPlay}>
-          <div className="relative">
+        <div className="flex justify-center mb-8">
+          <div className="relative group cursor-pointer transition-all duration-500 hover:scale-105" onClick={handleAudioPlay}>
             <OptimizedImage
               src="/lovable-uploads/7c2c43a8-7d25-42ea-90c0-66c86e978e81.png"
               alt="Książka 'Nowe życie bez długów' - 500 egzemplarzy rozdanych klientom"
@@ -51,12 +51,12 @@ const BookSection = () => {
         <div className="flex justify-center mb-12">
           <button
             onClick={handleAudioPlay}
-            className="w-96 h-20 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-full font-montserrat font-bold text-lg md:text-xl shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center space-x-4 border-4 border-blue-200 hover:border-blue-300"
+            className="w-80 md:w-96 h-16 md:h-20 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-full font-montserrat font-bold text-base md:text-lg shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center space-x-3 md:space-x-4 border-4 border-blue-200 hover:border-blue-300"
           >
-            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
-              <Play className="w-6 h-6 text-blue-600 ml-1" />
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
+              <Play className="w-5 h-5 md:w-6 md:h-6 text-blue-600 ml-0.5 md:ml-1" />
             </div>
-            <span>Posłuchaj fragmentu mojej książki</span>
+            <span className="text-sm md:text-lg">Posłuchaj fragmentu mojej książki</span>
           </button>
         </div>
 
