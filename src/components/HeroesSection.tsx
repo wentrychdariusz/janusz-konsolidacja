@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const HeroesSection = () => {
@@ -22,7 +21,7 @@ const HeroesSection = () => {
           </p>
         </div>
 
-        {/* Video Section - Wistia Player z poprawnymi proporcjami */}
+        {/* Video Section - Wistia Player */}
         <div className="mb-12">
           <div className="max-w-full mx-auto">
             <div className="wistia_responsive_padding" style={{padding: '56.25% 0 0 0', position: 'relative'}}>
@@ -42,10 +41,6 @@ const HeroesSection = () => {
             </div>
           </div>
         </div>
-
-        {/* Wistia Scripts */}
-        <script src="https://fast.wistia.com/embed/medias/izkrrw6teo.jsonp" async></script>
-        <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
 
         {/* Story Content */}
         <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-6 md:p-8 mb-8">
