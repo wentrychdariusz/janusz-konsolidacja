@@ -1,4 +1,5 @@
 
+
 import React, { useState, useRef } from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Book, Heart, Users, Play, Pause } from 'lucide-react';
@@ -10,7 +11,9 @@ const BookSection = () => {
 
   const bookImages = [
     "/lovable-uploads/7c2c43a8-7d25-42ea-90c0-66c86e978e81.png",
-    // Dodaj więcej zdjęć książki tutaj gdy będą dostępne
+    "/lovable-uploads/cc2d25e5-05d2-41e1-a933-15662005a373.png",
+    "/lovable-uploads/61455e95-43aa-416c-aa0c-fe2c22acb9bc.png",
+    "/lovable-uploads/e3bdd03e-03a7-423a-9799-55e4a6d4e39a.png"
   ];
 
   const handleAudioToggle = () => {
@@ -155,18 +158,18 @@ const BookSection = () => {
               </div>
 
               {/* Book Images Slider - After the text about clients */}
-              <div className="w-full max-w-2xl mx-auto mt-8">
+              <div className="w-full max-w-4xl mx-auto mt-8">
                 <Carousel className="w-full">
                   <CarouselContent>
                     {bookImages.map((image, index) => (
-                      <CarouselItem key={index}>
-                        <div className="flex justify-center">
+                      <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                        <div className="flex justify-center p-2">
                           <OptimizedImage
                             src={image}
                             alt={`Książka 'Nowe życie bez długów' - zdjęcie ${index + 1}`}
-                            className="w-full max-w-md h-80 md:h-96 object-cover rounded-2xl shadow-2xl"
-                            width={400}
-                            height={384}
+                            className="w-full max-w-sm h-64 md:h-80 object-cover rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-300"
+                            width={320}
+                            height={320}
                           />
                         </div>
                       </CarouselItem>
@@ -185,3 +188,4 @@ const BookSection = () => {
 };
 
 export default BookSection;
+
