@@ -25,8 +25,8 @@ const BookSection = () => {
     // Initialize Wistia player when component mounts
     const initWistia = () => {
       if (window.Wistia) {
-        // Replace 'your-audio-id' with actual Wistia audio media ID
-        const player = window.Wistia.embed('your-audio-id', {
+        // Using the actual Wistia audio media ID
+        const player = window.Wistia.embed('u2ihwbwq21', {
           version: 'v1',
           videoFoam: true,
           autoPlay: false,
@@ -82,7 +82,7 @@ const BookSection = () => {
         
         {/* Hidden Wistia player */}
         <div className="hidden">
-          <div id="wistia_your-audio-id" className="wistia_embed" style={{height: '0px', width: '0px'}}>&nbsp;</div>
+          <div id="wistia_u2ihwbwq21" className="wistia_embed" style={{height: '0px', width: '0px'}}>&nbsp;</div>
         </div>
 
         {/* Header Question */}
