@@ -1,4 +1,3 @@
-
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Book, Heart, Users, Play } from 'lucide-react';
@@ -28,26 +27,20 @@ const BookSection = () => {
           </h2>
         </div>
 
-        {/* Single Book Image with Hover Effect */}
+        {/* Single Book Image - No Hover Effect */}
         <div className="flex justify-center mb-8">
-          <div className="relative group cursor-pointer transition-all duration-500 hover:scale-105" onClick={handleAudioPlay}>
+          <div className="relative">
             <OptimizedImage
               src="/lovable-uploads/7c2c43a8-7d25-42ea-90c0-66c86e978e81.png"
               alt="Książka 'Nowe życie bez długów' - 500 egzemplarzy rozdanych klientom"
-              className="w-80 h-96 md:w-96 md:h-[28rem] object-cover rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-500"
+              className="w-80 h-96 md:w-96 md:h-[28rem] object-cover rounded-2xl shadow-2xl"
               width={384}
               height={448}
             />
-            {/* Play overlay on hover */}
-            <div className="absolute inset-0 bg-black bg-opacity-20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-              <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">
-                <Play className="w-8 h-8 text-white ml-1" />
-              </div>
-            </div>
           </div>
         </div>
 
-        {/* Audio Player - Large Circular Design */}
+        {/* Audio Player - Only Interactive Element */}
         <div className="flex justify-center mb-12">
           <button
             onClick={handleAudioPlay}
