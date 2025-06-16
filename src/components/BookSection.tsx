@@ -28,26 +28,34 @@ const BookSection = () => {
           </h2>
         </div>
 
-        {/* Single Book Image */}
-        <div className="flex justify-center mb-8">
-          <div className="relative transition-transform duration-300 hover:scale-105">
+        {/* Single Book Image with Hover Effect */}
+        <div className="flex justify-center mb-8 group cursor-pointer transition-all duration-500 hover:scale-105" onClick={handleAudioPlay}>
+          <div className="relative">
             <OptimizedImage
               src="/lovable-uploads/7c2c43a8-7d25-42ea-90c0-66c86e978e81.png"
               alt="Książka 'Nowe życie bez długów' - 500 egzemplarzy rozdanych klientom"
-              className="w-80 h-96 md:w-96 md:h-[28rem] object-cover rounded-2xl shadow-2xl"
+              className="w-80 h-96 md:w-96 md:h-[28rem] object-cover rounded-2xl shadow-2xl group-hover:shadow-3xl transition-all duration-500"
               width={384}
               height={448}
             />
+            {/* Play overlay on hover */}
+            <div className="absolute inset-0 bg-black bg-opacity-20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+              <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center shadow-lg">
+                <Play className="w-8 h-8 text-white ml-1" />
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Audio Player */}
+        {/* Audio Player - Circular Design */}
         <div className="flex justify-center mb-12">
           <button
             onClick={handleAudioPlay}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-montserrat font-bold text-lg shadow-lg transition-all duration-300 hover:scale-105 flex items-center space-x-3"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full font-montserrat font-bold text-lg shadow-lg transition-all duration-300 hover:scale-105 flex items-center space-x-3 border-4 border-blue-200 hover:border-blue-300"
           >
-            <Play className="w-6 h-6" />
+            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+              <Play className="w-4 h-4 text-blue-600 ml-0.5" />
+            </div>
             <span>Posłuchaj fragmentu mojej książki</span>
           </button>
         </div>
