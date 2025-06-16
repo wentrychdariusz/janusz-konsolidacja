@@ -8,16 +8,25 @@ const FloatingAvatar = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [showAvatar, setShowAvatar] = useState(false);
 
-  // Sprawdzanie pozycji scroll i pokazywanie awatara dopiero po przewinięciu kalkulatora
+  // Sprawdzanie pozycji scroll i pokazywanie awatara dopiero w sekcji "Mamy największe zaufanie klientów w Polsce"
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      
-      // Pokazuj awatar dopiero po przewinięciu kalkulatora - około 2500px
-      setShowAvatar(scrollY > 2500);
+      // Szukamy sekcji ImagineSection na podstawie jej zawartości
+      const imagineSectionElement = document.querySelector('h2') as HTMLElement;
+      if (imagineSectionElement && imagineSectionElement.textContent?.includes('Mamy największe zaufanie klientów w Polsce')) {
+        const sectionRect = imagineSectionElement.getBoundingClientRect();
+        const scrollY = window.scrollY;
+        const sectionTop = scrollY + sectionRect.top;
+        
+        // Pokazuj awatar gdy użytkownik dotrze do tej sekcji
+        setShowAvatar(scrollY >= sectionTop - window.innerHeight / 2);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
+    // Sprawdź od razu przy załadowaniu
+    handleScroll();
+    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
