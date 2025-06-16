@@ -94,8 +94,8 @@ const TrustedClientsSection = () => {
           </p>
         </div>
 
-        {/* Testimonials Section with Light Background - instantly.ai style */}
-        <div className="mb-16">
+        {/* Testimonials Section - Desktop */}
+        <div className="hidden lg:block mb-16">
           <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
             {/* Header inside light section */}
             <div className="text-center py-12 px-8">
@@ -107,15 +107,15 @@ const TrustedClientsSection = () => {
               </p>
             </div>
 
-            {/* Desktop Testimonials - instantly.ai layout */}
-            <div className="hidden lg:block px-8 pb-12">
+            {/* Desktop Testimonials */}
+            <div className="px-8 pb-12">
               <div className="grid grid-cols-3 gap-8">
                 {testimonials.slice(0, 3).map((testimonial, index) => (
                   <div 
                     key={index}
                     className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
                   >
-                    {/* Large profile image taking full width - instantly.ai style */}
+                    {/* Large profile image taking full width */}
                     <div className="w-full h-64 rounded-xl overflow-hidden mb-6 bg-gray-100">
                       <OptimizedImage
                         src={testimonial.image}
@@ -158,83 +158,96 @@ const TrustedClientsSection = () => {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
 
-            {/* Mobile/Tablet Testimonial Slider - instantly.ai style */}
-            <div className="block lg:hidden px-4 pb-12">
-              <div className="relative max-w-sm mx-auto">
-                {/* Navigation buttons */}
-                <button
-                  onClick={prevTestimonial}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 bg-white border-2 border-gray-200 hover:border-gray-400 text-gray-700 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                
-                <button
-                  onClick={nextTestimonial}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 bg-white border-2 border-gray-200 hover:border-gray-400 text-gray-700 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
+        {/* Mobile Testimonials Header */}
+        <div className="block lg:hidden text-center mb-8">
+          <h3 className="font-montserrat text-3xl font-bold text-white mb-4">
+            Co mówią nasi klienci
+          </h3>
+          <p className="text-blue-200 text-lg font-lato">
+            Prawdziwe opinie od zadowolonych klientów
+          </p>
+        </div>
 
-                {/* Testimonial card */}
-                <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                  {/* Large profile image taking full width */}
-                  <div className="w-full h-48 rounded-xl overflow-hidden mb-6 bg-gray-100">
-                    <OptimizedImage
-                      src={testimonials[currentTestimonial].image}
-                      alt={testimonials[currentTestimonial].name}
-                      className="w-full h-full object-cover"
-                      width={280}
-                      height={192}
-                    />
-                  </div>
-                  
-                  {/* Rating stars */}
-                  <div className="flex mb-4">
-                    {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  
-                  {/* Testimonial text */}
-                  <p className="text-gray-700 text-base font-lato mb-6 leading-relaxed">
-                    "{testimonials[currentTestimonial].text}"
-                  </p>
-                  
-                  {/* Client info */}
-                  <div className="border-t border-gray-100 pt-4">
-                    <p className="font-montserrat font-bold text-slate-900 text-lg mb-1">
-                      {testimonials[currentTestimonial].name}
-                    </p>
-                    <p className="text-gray-600 text-sm mb-3">
-                      {testimonials[currentTestimonial].position}
-                    </p>
-                    
-                    {testimonials[currentTestimonial].verified && (
-                      <div className="flex items-center">
-                        <CheckCircle className="w-4 h-4 text-green-500 mr-1" />
-                        <span className="text-green-600 text-xs font-medium">Zweryfikowany klient</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
+        {/* Mobile Testimonial Slider - Full Width */}
+        <div className="block lg:hidden mb-16">
+          <div className="relative">
+            {/* Navigation buttons */}
+            <button
+              onClick={prevTestimonial}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            
+            <button
+              onClick={nextTestimonial}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
 
-                {/* Dots indicator */}
-                <div className="flex justify-center mt-6 space-x-2">
-                  {testimonials.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentTestimonial(index)}
-                      className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                        index === currentTestimonial 
-                          ? 'bg-slate-600' 
-                          : 'bg-gray-300 hover:bg-gray-400'
-                      }`}
-                    />
+            {/* Testimonial card - Full width without frame */}
+            <div className="bg-white">
+              {/* Large profile image taking full width */}
+              <div className="w-full h-80 bg-gray-100">
+                <OptimizedImage
+                  src={testimonials[currentTestimonial].image}
+                  alt={testimonials[currentTestimonial].name}
+                  className="w-full h-full object-cover"
+                  width={400}
+                  height={320}
+                />
+              </div>
+              
+              {/* Content section */}
+              <div className="p-8">
+                {/* Rating stars */}
+                <div className="flex mb-6">
+                  {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                   ))}
                 </div>
+                
+                {/* Testimonial text */}
+                <p className="text-gray-700 text-lg font-lato mb-8 leading-relaxed">
+                  "{testimonials[currentTestimonial].text}"
+                </p>
+                
+                {/* Client info */}
+                <div className="border-t border-gray-100 pt-6">
+                  <p className="font-montserrat font-bold text-slate-900 text-xl mb-2">
+                    {testimonials[currentTestimonial].name}
+                  </p>
+                  <p className="text-gray-600 text-base mb-4">
+                    {testimonials[currentTestimonial].position}
+                  </p>
+                  
+                  {testimonials[currentTestimonial].verified && (
+                    <div className="flex items-center">
+                      <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
+                      <span className="text-green-600 text-sm font-medium">Zweryfikowany klient</span>
+                    </div>
+                  )}
+                </div>
               </div>
+            </div>
+
+            {/* Dots indicator */}
+            <div className="flex justify-center mt-8 space-x-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonial(index)}
+                  className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                    index === currentTestimonial 
+                      ? 'bg-white' 
+                      : 'bg-white/40 hover:bg-white/60'
+                  }`}
+                />
+              ))}
             </div>
           </div>
         </div>
