@@ -9,12 +9,12 @@ const VideoSection = () => {
           <h2 className="font-montserrat text-2xl md:text-3xl font-bold text-white mb-1 relative z-50">
             Zobacz, co klienci mówią o Dariuszu Wentrychu!
           </h2>
-          <p className="text-warm-neutral-300 text-sm mb-4">
+          <p className="text-warm-neutral-300 text-sm mb-6">
             Film prezentujący nasze podejście do oddłużania
           </p>
         </div>
         
-        <div className="w-full">
+        <div className="w-full mb-4">
           <script src="https://fast.wistia.com/player.js" async></script>
           <script src="https://fast.wistia.com/embed/nlk4gmdg22.js" async type="module"></script>
           <style dangerouslySetInnerHTML={{
