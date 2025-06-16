@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ArrowDown, ArrowUp, Phone, Heart, Shield, CheckCircle, XCircle } from 'lucide-react';
 
@@ -26,7 +25,7 @@ const BeforeAfterSection = () => {
     },
     {
       icon: <XCircle className="w-6 h-6 text-red-500" />,
-      text: "Słyszysz „oddłużanie" i myślisz: „To pewnie kolejna ściema""
+      text: 'Słyszysz „oddłużanie" i myślisz: „To pewnie kolejna ściema"'
     }
   ];
 
