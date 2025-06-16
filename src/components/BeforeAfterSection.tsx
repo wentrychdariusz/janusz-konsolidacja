@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Smile, Phone, Heart, Shield, CheckCircle, XCircle, X } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
@@ -99,7 +98,7 @@ const BeforeAfterSection = () => {
               <img 
                 src="/lovable-uploads/85ea5843-0408-4e89-8f99-c694c9261fd3.png" 
                 alt="Dariusz Wentrych" 
-                className="w-64 h-80 md:w-72 md:h-96 lg:w-80 lg:h-[28rem] rounded-2xl border-4 border-prestige-gold-400 object-cover shadow-xl"
+                className="w-64 h-80 md:w-72 md:h-96 lg:w-80 lg:h-[28rem] rounded-2xl object-cover shadow-xl"
               />
             </div>
             
