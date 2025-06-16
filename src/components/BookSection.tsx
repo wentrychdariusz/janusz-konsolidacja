@@ -51,7 +51,7 @@ const BookSection = () => {
           </h2>
         </div>
 
-        {/* Single Book Image - No Hover Effect */}
+        {/* Book Image with Audio Player Overlay */}
         <div className="flex justify-center mb-8">
           <div className="relative">
             <OptimizedImage
@@ -61,14 +61,31 @@ const BookSection = () => {
               width={384}
               height={448}
             />
+            
+            {/* Audio Player Overlay on Book Image */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+              <button
+                onClick={handleAudioToggle}
+                className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg px-4 py-3 font-montserrat font-bold text-sm shadow-xl transition-colors duration-300 flex items-center space-x-2 border-2 border-blue-200 hover:border-blue-300"
+              >
+                <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg">
+                  {isPlaying ? (
+                    <Pause className="w-4 h-4 text-blue-600" />
+                  ) : (
+                    <Play className="w-4 h-4 text-blue-600 ml-0.5" />
+                  )}
+                </div>
+                <span>Posłuchaj fragmentu</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Audio Player - Only Interactive Element */}
+        {/* Main Audio Player - Less Rounded */}
         <div className="flex justify-center mb-12">
           <button
             onClick={handleAudioToggle}
-            className="w-80 md:w-96 h-16 md:h-20 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-full font-montserrat font-bold text-base md:text-lg shadow-xl transition-colors duration-300 flex items-center justify-center space-x-3 md:space-x-4 border-4 border-blue-200 hover:border-blue-300"
+            className="w-80 md:w-96 h-16 md:h-20 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg font-montserrat font-bold text-base md:text-lg shadow-xl transition-colors duration-300 flex items-center justify-center space-x-3 md:space-x-4 border-4 border-blue-200 hover:border-blue-300"
           >
             <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
               {isPlaying ? (
