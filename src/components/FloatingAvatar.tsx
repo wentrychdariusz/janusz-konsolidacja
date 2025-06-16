@@ -7,13 +7,11 @@ const FloatingAvatar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [showAvatar, setShowAvatar] = useState(false);
-  const [scrollPosition, setScrollPosition] = useState(0);
 
   // Sprawdzanie pozycji scroll i pokazywanie awatara dopiero po przewinięciu kalkulatora
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      setScrollPosition(scrollY);
       
       // Pokazuj awatar dopiero po przewinięciu kalkulatora - około 2500px
       setShowAvatar(scrollY > 2500);
@@ -33,12 +31,6 @@ const FloatingAvatar = () => {
     setIsOpen(false);
   };
 
-  // Naturalna pozycja awatara - płynne przesuwanie w dół z ograniczeniem
-  const avatarStyle = {
-    right: '20px',
-    top: `${Math.min(Math.max(20, 20 + (scrollPosition - 2500) * 0.1), window.innerHeight - 150)}px`,
-  };
-
   // Nie renderuj awatara, jeśli nie powinien być widoczny
   if (!showAvatar) {
     return null;
@@ -46,12 +38,11 @@ const FloatingAvatar = () => {
 
   return (
     <>
-      {/* Floating Avatar */}
+      {/* Floating Avatar - Fixed in bottom right corner */}
       <div
-        className={`fixed z-50 cursor-pointer transition-all duration-500 ease-out ${
+        className={`fixed bottom-6 right-6 z-50 cursor-pointer transition-all duration-500 ease-out ${
           isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
         }`}
-        style={avatarStyle}
         onClick={handleAvatarClick}
       >
         {/* Avatar Container z napisem */}
