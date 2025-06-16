@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { CheckCircle, Heart, Shield } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 
 const DariuszLetterSection = () => {
   const benefitsList = [
@@ -16,12 +16,12 @@ const DariuszLetterSection = () => {
   ];
 
   return (
-    <section className="py-12 md:py-16 bg-gradient-to-br from-gray-50 via-white to-blue-50">
-      <div className="relative px-4 md:px-8 lg:px-12 xl:px-16 max-w-4xl mx-auto">
+    <section className="py-12 md:py-16 bg-white">
+      <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-4xl mx-auto">
         
         {/* Header */}
         <div className="text-center mb-8 md:mb-12">
-          <div className="inline-block bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold mb-4 animate-pulse">
+          <div className="inline-block bg-red-600 text-white px-4 py-2 rounded-full text-sm font-bold mb-4">
             NAJWAŻNIEJSZY LIST!
           </div>
           <h2 className="font-montserrat text-2xl md:text-3xl lg:text-4xl font-bold mb-4 leading-tight text-slate-900">
@@ -30,11 +30,9 @@ const DariuszLetterSection = () => {
           <p className="text-lg md:text-xl font-lato text-slate-700 mb-6">
             Czas zawalczyć o siebie, powstać, a potem wzrosnąć.
           </p>
-          <div className="bg-slate-100 rounded-xl p-4 md:p-6">
-            <p className="text-base md:text-lg font-lato italic text-slate-800">
-              "Masz tylko dwa życia... drugie zaczyna się wtedy, gdy zdasz sobie sprawę, że masz tylko jedno."
-            </p>
-          </div>
+          <p className="text-base md:text-lg font-lato italic text-slate-600">
+            "Masz tylko dwa życia... drugie zaczyna się wtedy, gdy zdasz sobie sprawę, że masz tylko jedno."
+          </p>
         </div>
 
         {/* Letter Header */}
@@ -102,41 +100,41 @@ const DariuszLetterSection = () => {
             </div>
           </div>
 
-          {/* Social Proof */}
-          <div className="text-center py-6">
-            <p className="text-base md:text-lg font-lato mb-4">
+          {/* Social Proof - uproszony styl */}
+          <div className="space-y-4">
+            <p className="text-base md:text-lg font-lato leading-relaxed">
               <strong className="text-prestige-gold-600">Tysiące osób</strong> skorzystały już z naszej unikalnej metody oddłużeniowej i dziś cieszą się życiem <strong className="text-green-600">BEZ DŁUGÓW</strong>.
             </p>
-            <p className="text-xl md:text-2xl font-montserrat font-bold text-prestige-gold-600">
+            <p className="text-lg md:text-xl font-montserrat font-bold text-prestige-gold-600">
               Teraz czas na Ciebie!
             </p>
           </div>
 
-          {/* Questions Section */}
+          {/* Questions Section - uproszony styl */}
           <div className="space-y-4">
-            <p className="text-lg md:text-xl font-lato text-center leading-relaxed">
-              Czy wyobrażasz sobie życie, w którym <strong className="text-blue-600">nie musisz bać się kolejnego telefonu</strong> od wierzycieli?
+            <p className="text-base md:text-lg font-lato leading-relaxed">
+              Czy wyobrażasz sobie życie, w którym <strong className="text-slate-800">nie musisz bać się kolejnego telefonu</strong> od wierzycieli?
             </p>
-            <p className="text-lg md:text-xl font-lato text-center leading-relaxed">
+            <p className="text-base md:text-lg font-lato leading-relaxed">
               Życie, w którym <strong className="text-green-600">Twoje pieniądze należą do Ciebie</strong>, a nie do banku czy parabanku?
             </p>
           </div>
 
-          {/* Call to Action */}
-          <div className="text-center py-6">
-            <p className="text-xl md:text-2xl font-montserrat font-bold text-prestige-gold-600 mb-4">
+          {/* Call to Action - uproszony styl */}
+          <div className="space-y-4">
+            <p className="text-lg md:text-xl font-montserrat font-bold text-prestige-gold-600">
               To życie jest na wyciągnięcie ręki.
             </p>
-            <p className="text-base md:text-lg font-lato leading-relaxed mb-6">
+            <p className="text-base md:text-lg font-lato leading-relaxed">
               Jeśli nigdy nie miałeś wsparcia i pomocy od nikogo, to <strong className="text-prestige-gold-600">ja Ci pomogę</strong>. Nie czekaj, aż sytuacja wymknie się spod kontroli.
             </p>
-            <p className="text-lg md:text-xl font-montserrat font-bold text-red-600 mb-6">
+            <p className="text-lg md:text-xl font-montserrat font-bold text-red-600">
               Zrób pierwszy krok.
             </p>
           </div>
 
           {/* Signature */}
-          <div className="text-center border-t border-gray-200 pt-6">
+          <div className="border-t border-gray-200 pt-6">
             <p className="text-xl md:text-2xl font-montserrat font-bold text-prestige-gold-600 mb-2">
               Dariusz Wentrych
             </p>
