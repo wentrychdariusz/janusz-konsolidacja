@@ -52,48 +52,44 @@ const HeroesSection = () => {
           {/* Before/After Grid */}
           <div className="space-y-6">
             {/* Before */}
-            <div className="bg-gradient-to-r from-red-600/30 via-red-500/25 to-red-700/30 rounded-2xl p-4">
-              <h4 className="text-red-300 text-lg font-bold font-montserrat mb-3 text-center">
+            <div className="bg-white rounded-2xl p-4 border-2 border-gray-200">
+              <h4 className="text-red-600 text-lg font-bold font-montserrat mb-3 text-center">
                 PRZED WSPÓŁPRACĄ
               </h4>
-              <div className="border-2 border-white rounded-xl p-3 bg-black/20">
-                <ul className="space-y-2 text-white text-sm">
-                  <li className="flex items-start">
-                    <span className="text-red-400 mr-2 text-lg">❌</span>
-                    <span className="font-lato">Problem z bieżącą spłatą zobowiązań kredytowych</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-red-400 mr-2 text-lg">❌</span>
-                    <span className="font-lato">Egzekucja komornicza</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-red-400 mr-2 text-lg">❌</span>
-                    <span className="font-lato">Zajęcie pensji</span>
-                  </li>
-                </ul>
-              </div>
+              <ul className="space-y-2 text-gray-800 text-sm">
+                <li className="flex items-start">
+                  <span className="text-red-500 mr-2 text-lg">❌</span>
+                  <span className="font-lato">Problem z bieżącą spłatą zobowiązań kredytowych</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-red-500 mr-2 text-lg">❌</span>
+                  <span className="font-lato">Egzekucja komornicza</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-red-500 mr-2 text-lg">❌</span>
+                  <span className="font-lato">Zajęcie pensji</span>
+                </li>
+              </ul>
             </div>
             
             {/* After */}
-            <div className="bg-gradient-to-r from-emerald-500/30 via-green-500/25 to-lime-500/30 rounded-2xl p-4">
-              <h4 className="text-emerald-300 text-lg font-bold font-montserrat mb-3 text-center">
+            <div className="bg-white rounded-2xl p-4 border-2 border-gray-200">
+              <h4 className="text-green-600 text-lg font-bold font-montserrat mb-3 text-center">
                 PO WSPÓŁPRACY ZE MNĄ
               </h4>
-              <div className="border-2 border-white rounded-xl p-3 bg-black/20">
-                <ul className="space-y-2 text-white text-sm">
-                  <li className="flex items-start">
-                    <span className="text-emerald-400 mr-2 text-lg">✅</span>
-                    <span className="font-lato">Pan Krzysztof uwolnił się od komornika</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-emerald-400 mr-2 text-lg">✅</span>
-                    <span className="font-lato">Pan Krzysztof płaci jedną ratę kredytu w wysokości</span>
-                  </li>
-                  <li className="text-center mt-3">
-                    <span className="text-2xl md:text-3xl font-bold text-emerald-300 font-montserrat">600 ZŁ</span>
-                  </li>
-                </ul>
-              </div>
+              <ul className="space-y-2 text-gray-800 text-sm">
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2 text-lg">✅</span>
+                  <span className="font-lato">Pan Krzysztof uwolnił się od komornika</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-2 text-lg">✅</span>
+                  <span className="font-lato">Pan Krzysztof płaci jedną ratę kredytu w wysokości</span>
+                </li>
+                <li className="text-center mt-3">
+                  <span className="text-2xl md:text-3xl font-bold text-green-600 font-montserrat">600 ZŁ</span>
+                </li>
+              </ul>
             </div>
           </div>
           
