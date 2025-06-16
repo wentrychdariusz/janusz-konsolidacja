@@ -1,23 +1,47 @@
-import React from 'react';
+
+import React, { useState, useRef } from 'react';
 import OptimizedImage from './OptimizedImage';
-import { Book, Heart, Users, Play } from 'lucide-react';
+import { Book, Heart, Users, Play, Pause } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const BookSection = () => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
   const bookImages = [
     "/lovable-uploads/7c2c43a8-7d25-42ea-90c0-66c86e978e81.png",
     // Dodaj więcej zdjęć książki tutaj gdy będą dostępne
   ];
 
-  const handleAudioPlay = () => {
-    // Tutaj będzie logika odtwarzania audio
-    console.log("Odtwarzanie fragmentu książki...");
+  const handleAudioToggle = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        // Tutaj dodaj właściwy URL do pliku audio
+        // audioRef.current.src = "/path-to-your-audio-file.mp3";
+        audioRef.current.play();
+        setIsPlaying(true);
+      }
+    }
+  };
+
+  const handleAudioEnded = () => {
+    setIsPlaying(false);
   };
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="px-4 md:px-8 max-w-7xl mx-auto">
         
+        {/* Audio element for playback */}
+        <audio
+          ref={audioRef}
+          onEnded={handleAudioEnded}
+          preload="none"
+        />
+
         {/* Header Question */}
         <div className="text-center mb-12">
           <h2 className="font-montserrat text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-8 leading-tight">
@@ -43,13 +67,19 @@ const BookSection = () => {
         {/* Audio Player - Only Interactive Element */}
         <div className="flex justify-center mb-12">
           <button
-            onClick={handleAudioPlay}
-            className="w-80 md:w-96 h-16 md:h-20 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-full font-montserrat font-bold text-base md:text-lg shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center space-x-3 md:space-x-4 border-4 border-blue-200 hover:border-blue-300"
+            onClick={handleAudioToggle}
+            className="w-80 md:w-96 h-16 md:h-20 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-full font-montserrat font-bold text-base md:text-lg shadow-xl transition-colors duration-300 flex items-center justify-center space-x-3 md:space-x-4 border-4 border-blue-200 hover:border-blue-300"
           >
             <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
-              <Play className="w-5 h-5 md:w-6 md:h-6 text-blue-600 ml-0.5 md:ml-1" />
+              {isPlaying ? (
+                <Pause className="w-5 h-5 md:w-6 md:h-6 text-blue-600" />
+              ) : (
+                <Play className="w-5 h-5 md:w-6 md:h-6 text-blue-600 ml-0.5 md:ml-1" />
+              )}
             </div>
-            <span className="text-sm md:text-lg">Posłuchaj fragmentu mojej książki</span>
+            <span className="text-sm md:text-lg">
+              {isPlaying ? 'Zatrzymaj fragment' : 'Posłuchaj fragmentu mojej książki'}
+            </span>
           </button>
         </div>
 
