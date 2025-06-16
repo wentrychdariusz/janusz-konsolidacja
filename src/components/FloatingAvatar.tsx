@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
@@ -26,11 +25,11 @@ const FloatingAvatar = () => {
         const scrollY = window.scrollY;
         const sectionTop = scrollY + sectionRect.top;
         
-        // Pokazuj awatar gdy użytkownik dotrze do tej sekcji (z małym marginesem)
-        setShowAvatar(scrollY >= sectionTop - 200);
+        // Pokazuj awatar 400px przed dotarciem do sekcji
+        setShowAvatar(scrollY >= sectionTop - 400);
       } else {
-        // Fallback - jeśli nie znajdziemy sekcji, pokazuj po 1500px
-        setShowAvatar(window.scrollY > 1500);
+        // Fallback - jeśli nie znajdziemy sekcji, pokazuj po 1100px
+        setShowAvatar(window.scrollY > 1100);
       }
     };
 
