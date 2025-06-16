@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Book, Heart, Users, Play, Pause, Star } from 'lucide-react';
@@ -22,57 +23,99 @@ const BookSection = () => {
   ];
 
   useEffect(() => {
+    console.log('BookSection: Initializing Wistia audio player');
+    
     // Initialize Wistia player when component mounts
     const initWistia = () => {
+      console.log('BookSection: Wistia object available:', !!window.Wistia);
+      
       if (window.Wistia) {
-        // Using the actual Wistia audio media ID
-        const player = window.Wistia.embed('u2ihwbwq21', {
-          version: 'v1',
-          videoFoam: true,
-          autoPlay: false,
-          playerColor: '#2563eb',
-          controls: false, // We'll use custom controls
-          smallPlayButton: false,
-          bigPlayButton: false,
-          playbar: false,
-          volumeControl: false,
-          fullscreenButton: false,
-          settingsControl: false
-        });
+        try {
+          // Using the actual Wistia audio media ID
+          const player = window.Wistia.embed('u2ihwbwq21', {
+            version: 'v1',
+            videoFoam: true,
+            autoPlay: false,
+            playerColor: '#2563eb',
+            controls: false,
+            smallPlayButton: false,
+            bigPlayButton: false,
+            playbar: false,
+            volumeControl: false,
+            fullscreenButton: false,
+            settingsControl: false
+          });
 
-        player.bind('play', () => setIsPlaying(true));
-        player.bind('pause', () => setIsPlaying(false));
-        player.bind('end', () => setIsPlaying(false));
+          console.log('BookSection: Wistia player created:', player);
 
-        setWistiaPlayer(player);
+          if (player) {
+            player.bind('play', () => {
+              console.log('BookSection: Audio started playing');
+              setIsPlaying(true);
+            });
+            
+            player.bind('pause', () => {
+              console.log('BookSection: Audio paused');
+              setIsPlaying(false);
+            });
+            
+            player.bind('end', () => {
+              console.log('BookSection: Audio ended');
+              setIsPlaying(false);
+            });
+
+            setWistiaPlayer(player);
+          }
+        } catch (error) {
+          console.error('BookSection: Error creating Wistia player:', error);
+        }
+      } else {
+        console.log('BookSection: Wistia not available, will retry');
       }
     };
 
-    // Load Wistia script if not already loaded
-    if (!window.Wistia) {
-      const script = document.createElement('script');
-      script.src = 'https://fast.wistia.com/assets/external/E-v1.js';
-      script.async = true;
-      script.onload = initWistia;
-      document.head.appendChild(script);
-    } else {
+    // Check if Wistia is already loaded
+    if (window.Wistia) {
       initWistia();
+    } else {
+      // Wait for Wistia to load
+      const checkWistia = () => {
+        if (window.Wistia) {
+          initWistia();
+        } else {
+          setTimeout(checkWistia, 100);
+        }
+      };
+      checkWistia();
     }
 
     return () => {
       if (wistiaPlayer) {
-        wistiaPlayer.remove();
+        console.log('BookSection: Cleaning up Wistia player');
+        try {
+          wistiaPlayer.remove();
+        } catch (error) {
+          console.error('BookSection: Error removing Wistia player:', error);
+        }
       }
     };
   }, []);
 
   const handleAudioToggle = () => {
+    console.log('BookSection: Audio toggle clicked, player:', !!wistiaPlayer, 'isPlaying:', isPlaying);
+    
     if (wistiaPlayer) {
-      if (isPlaying) {
-        wistiaPlayer.pause();
-      } else {
-        wistiaPlayer.play();
+      try {
+        if (isPlaying) {
+          wistiaPlayer.pause();
+        } else {
+          wistiaPlayer.play();
+        }
+      } catch (error) {
+        console.error('BookSection: Error toggling audio:', error);
       }
+    } else {
+      console.log('BookSection: No Wistia player available');
     }
   };
 
