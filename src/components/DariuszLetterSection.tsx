@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { CheckCircle } from 'lucide-react';
+import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
 
 const DariuszLetterSection = () => {
   const benefitsList = [
@@ -57,10 +58,10 @@ const DariuszLetterSection = () => {
               Drogi Przyjacielu,
             </h3>
             <p className="text-lg md:text-lg font-lato leading-relaxed mb-4">
-              Wyobraź sobie życie <strong className="text-slate-800">BEZ długu</strong>. Budzenie się rano bez strachu przed telefonem od windykatora. Cieszenie się spokojnym snem, wiedząc, że Twoje finanse są pod kontrolą. Wolność, jakiej dawno nie czułeś…
+              Wyobraź sobie życie <strong>BEZ długu</strong>. Budzenie się rano bez strachu przed telefonem od windykatora. Cieszenie się spokojnym snem, wiedząc, że Twoje finanse są pod kontrolą. Wolność, jakiej dawno nie czułeś…
             </p>
             <p className="text-lg md:text-lg font-lato leading-relaxed">
-              To nie jest odległe marzenie – to <strong className="text-slate-800">rzeczywistość, którą możemy dla Ciebie stworzyć</strong>. Nie ma znaczenia, jak głęboko wpadłeś w spiralę zadłużenia.
+              To nie jest odległe marzenie – to <strong>rzeczywistość, którą możemy dla Ciebie stworzyć</strong>. Nie ma znaczenia, jak głęboko wpadłeś w spiralę zadłużenia.
             </p>
           </div>
 
@@ -103,7 +104,7 @@ const DariuszLetterSection = () => {
           {/* Social Proof */}
           <div className="space-y-4">
             <p className="text-lg md:text-lg font-lato leading-relaxed text-slate-700">
-              <strong className="text-slate-800">Tysiące osób</strong> skorzystały już z naszej unikalnej metody oddłużeniowej i dziś cieszą się życiem <strong className="text-slate-800">BEZ DŁUGÓW</strong>.
+              <strong>Tysiące osób</strong> skorzystały już z naszej unikalnej metody oddłużeniowej i dziś cieszą się życiem <strong>BEZ DŁUGÓW</strong>.
             </p>
             <p className="text-xl md:text-xl font-montserrat font-bold text-slate-700">
               Teraz czas na Ciebie!
@@ -113,10 +114,10 @@ const DariuszLetterSection = () => {
           {/* Questions Section */}
           <div className="space-y-4">
             <p className="text-lg md:text-lg font-lato leading-relaxed text-slate-700">
-              Czy wyobrażasz sobie życie, w którym <strong className="text-slate-800">nie musisz bać się kolejnego telefonu</strong> od wierzycieli?
+              Czy wyobrażasz sobie życie, w którym nie musisz bać się kolejnego telefonu od wierzycieli?
             </p>
             <p className="text-lg md:text-lg font-lato leading-relaxed text-slate-700">
-              Życie, w którym <strong className="text-slate-800">Twoje pieniądze należą do Ciebie</strong>, a nie do banku czy parabanku?
+              Życie, w którym Twoje pieniądze należą do Ciebie, a nie do banku czy parabanku?
             </p>
           </div>
 
@@ -126,21 +127,32 @@ const DariuszLetterSection = () => {
               To życie jest na wyciągnięcie ręki.
             </p>
             <p className="text-lg md:text-lg font-lato leading-relaxed text-slate-700">
-              Jeśli nigdy nie miałeś wsparcia i pomocy od nikogo, to <strong className="text-slate-800">ja Ci pomogę</strong>. Nie czekaj, aż sytuacja wymknie się spod kontroli.
+              Jeśli nigdy nie miałeś wsparcia i pomocy od nikogo, to <strong>ja Ci pomogę</strong>. Nie czekaj, aż sytuacja wymknie się spod kontroli.
             </p>
             <p className="text-xl md:text-xl font-montserrat font-bold text-red-600">
               Zrób pierwszy krok.
             </p>
           </div>
 
-          {/* Signature */}
+          {/* Signature with Avatar */}
           <div className="border-t border-gray-200 pt-6">
-            <p className="text-xl md:text-2xl font-montserrat font-bold text-slate-700 mb-2">
-              Dariusz Wentrych
-            </p>
-            <p className="text-base md:text-base font-lato text-slate-600">
-              Ekspert finansowy, ale przede wszystkim osoba, która chce Ci pomóc.
-            </p>
+            <div className="flex items-center space-x-4">
+              <Avatar className="w-16 h-16 md:w-20 md:h-20">
+                <AvatarImage 
+                  src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" 
+                  alt="Dariusz Wentrych" 
+                />
+                <AvatarFallback>DW</AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="text-xl md:text-2xl font-montserrat font-bold text-slate-700 mb-2">
+                  Dariusz Wentrych
+                </p>
+                <p className="text-base md:text-base font-lato text-slate-600">
+                  Ekspert finansowy, ale przede wszystkim osoba, która chce Ci pomóc.
+                </p>
+              </div>
+            </div>
           </div>
 
         </div>
