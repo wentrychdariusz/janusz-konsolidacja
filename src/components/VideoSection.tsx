@@ -3,9 +3,9 @@ import React from 'react';
 
 const VideoSection = () => {
   return (
-    <section className="md:hidden bg-gradient-to-b from-business-blue-800 to-navy-900 py-8">
+    <section className="md:hidden bg-gradient-to-b from-business-blue-800 to-navy-900 py-6">
       <div className="px-4 max-w-7xl mx-auto">
-        <div className="text-center mb-6">
+        <div className="text-center mb-4">
           <h2 className="font-montserrat text-2xl font-bold text-white mb-2">
             Zobacz jak pomagamy naszym klientom
           </h2>
@@ -27,7 +27,9 @@ const VideoSection = () => {
               }
             `
           }} />
-          <wistia-player media-id="nlk4gmdg22" aspect="0.5625"></wistia-player>
+          <div dangerouslySetInnerHTML={{
+            __html: '<wistia-player media-id="nlk4gmdg22" aspect="0.5625"></wistia-player>'
+          }} />
         </div>
       </div>
     </section>
