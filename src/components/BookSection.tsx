@@ -1,4 +1,3 @@
-
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Book, Heart, Users, Shield } from 'lucide-react';
@@ -19,7 +18,7 @@ const BookSection = () => {
 
         {/* Book Image - Right after the header */}
         <div className="flex justify-center mb-12">
-          <div className="relative">
+          <div className="relative transition-transform duration-300 hover:scale-105">
             <OptimizedImage
               src="/lovable-uploads/7c2c43a8-7d25-42ea-90c0-66c86e978e81.png"
               alt="Książka 'Nowe życie bez długów' - 500 egzemplarzy rozdanych klientom"
@@ -27,10 +26,6 @@ const BookSection = () => {
               width={384}
               height={448}
             />
-            
-            {/* Decorative elements */}
-            <div className="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full animate-pulse"></div>
-            <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-blue-400 rounded-full animate-pulse delay-1000"></div>
           </div>
         </div>
 
