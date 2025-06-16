@@ -3,7 +3,7 @@ import React from 'react';
 
 const HeroesSection = () => {
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 lg:hidden">
+    <section className="py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800">
       <div className="px-4 md:px-8 max-w-7xl mx-auto">
         
         {/* Header */}
@@ -22,8 +22,8 @@ const HeroesSection = () => {
           </p>
         </div>
 
-        {/* Video Section - Wistia Player */}
-        <div className="mb-12">
+        {/* Video Section - Wistia Player - Only Mobile */}
+        <div className="mb-12 lg:hidden">
           <div className="max-w-full mx-auto">
             <div className="wistia_responsive_padding" style={{padding: '56.25% 0 0 0', position: 'relative'}}>
               <div className="wistia_responsive_wrapper" style={{height: '100%', left: 0, position: 'absolute', top: 0, width: '100%'}}>
