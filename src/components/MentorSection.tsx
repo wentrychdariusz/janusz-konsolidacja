@@ -1,7 +1,7 @@
 
-
 import React from 'react';
 import { Star, X, Check } from 'lucide-react';
+
 const MentorSection = () => {
   const testimonials = [{
     name: "PANI BERNADETTA",
@@ -16,9 +16,11 @@ const MentorSection = () => {
     text: "Pan Dariusz Wentrych był pierwszą osobą, która naprawdę mnie wysłuchała i pokazała, że jest wyjście. Profesjonalny, cierpliwy i skuteczny.",
     avatar: "/lovable-uploads/47a03bb7-de4c-4a31-87c2-1a15bb5c649d.png"
   }];
+
   const renderStars = () => {
     return [...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 text-prestige-gold-400 fill-current" />);
   };
+
   return <>
       {/* Pan Krzysztof section */}
       <section className="py-16 md:py-24 relative" style={{
@@ -30,10 +32,10 @@ const MentorSection = () => {
         
         <div className="relative z-10 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
           
-          {/* Avatar section - 3x larger */}
+          {/* Avatar section - rectangular shape */}
           <div className="text-center mb-8">
             <div className="flex justify-center mb-4">
-              <img src="/lovable-uploads/b1beb685-d9f6-4c89-aadc-9f16c27fa4d7.png" alt="Pan Krzysztof" className="w-60 h-60 md:w-72 md:h-72 lg:w-84 lg:h-84 rounded-full border-3 border-prestige-gold-400 object-cover object-top" />
+              <img src="/lovable-uploads/b1beb685-d9f6-4c89-aadc-9f16c27fa4d7.png" alt="Pan Krzysztof" className="w-80 h-96 md:w-96 md:h-[28rem] lg:w-[28rem] lg:h-[32rem] rounded-2xl border-3 border-prestige-gold-400 object-cover object-top" />
             </div>
             <p className="text-white text-2xl md:text-3xl font-lato font-bold uppercase tracking-wide">PAN KRZYSZTOF</p>
             <p className="text-warm-neutral-300 text-xs uppercase tracking-wide font-lato">KLIENT DARIUSZA WENTRYCHA</p>
@@ -67,7 +69,7 @@ const MentorSection = () => {
           {/* Testimonials */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {testimonials.map((testimonial, index) => <div key={index} className="bg-white/10 backdrop-blur-sm border border-prestige-gold-200/30 rounded-xl p-6 hover:bg-white/15 transition-all duration-300">
-                <div className="flex justify-center mb-4">
+                <div className="flex justify-end mb-4">
                   {renderStars()}
                 </div>
                 <div className="flex items-center mb-4">
@@ -182,5 +184,5 @@ const MentorSection = () => {
       </section>
     </>;
 };
-export default MentorSection;
 
+export default MentorSection;
