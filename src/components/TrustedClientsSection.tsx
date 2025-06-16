@@ -1,75 +1,52 @@
-
 import React, { useState } from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Star, ChevronLeft, ChevronRight, Users, Heart, CheckCircle, Quote, ArrowLeftRight } from 'lucide-react';
-
 const TrustedClientsSection = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-
-  const clientImages = [
-    "/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png",
-    "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png",
-    "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f601a69.png",
-    "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png",
-    "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png",
-    "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png",
-    "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png",
-    "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png"
-  ];
-
-  const testimonials = [
-    {
-      name: "Anna Kowalska",
-      position: "Właścicielka małej firmy",
-      text: "Dzięki Dariuszowi udało mi się pozbyć długów o wartości 340 000 zł. Myślałam, że już nigdy nie wyjdę z tej sytuacji. Teraz moja firma działa lepiej niż kiedykolwiek.",
-      rating: 5,
-      image: "/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png",
-      verified: true
-    },
-    {
-      name: "Tomasz Nowak",
-      position: "Przedsiębiorca",
-      text: "Profesjonalne podejście i skuteczne rozwiązania. Redukcja zadłużenia o 60% w ciągu 8 miesięcy. Polecam każdemu, kto ma problemy finansowe.",
-      rating: 5,
-      image: "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png",
-      verified: true
-    },
-    {
-      name: "Maria Wiśniewska",
-      position: "Kierownik działu",
-      text: "Wreszcie mogę spać spokojnie. Długi, które mnie męczyły przez lata, zostały uregulowane zgodnie z moimi możliwościami. Jestem bardzo wdzięczna.",
-      rating: 5,
-      image: "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f601a69.png",
-      verified: true
-    },
-    {
-      name: "Piotr Zieliński",
-      position: "Dyrektor handlowy",
-      text: "Skuteczne negocjacje z wierzycielami i plan spłat dopasowany do moich możliwości. Teraz mam kontrolę nad swoimi finansami.",
-      rating: 5,
-      image: "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png",
-      verified: true
-    },
-    {
-      name: "Katarzyna Lewandowska",
-      position: "Konsultantka",
-      text: "Dzięki kompleksowemu podejściu Dariusza udało się rozwiązać problemy z ZUS i Urzędem Skarbowym. Polecam jego usługi.",
-      rating: 5,
-      image: "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png",
-      verified: true
-    }
-  ];
-
+  const clientImages = ["/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png", "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png", "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f601a69.png", "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png", "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png", "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png", "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png", "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png"];
+  const testimonials = [{
+    name: "Anna Kowalska",
+    position: "Właścicielka małej firmy",
+    text: "Dzięki Dariuszowi udało mi się pozbyć długów o wartości 340 000 zł. Myślałam, że już nigdy nie wyjdę z tej sytuacji. Teraz moja firma działa lepiej niż kiedykolwiek.",
+    rating: 5,
+    image: "/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png",
+    verified: true
+  }, {
+    name: "Tomasz Nowak",
+    position: "Przedsiębiorca",
+    text: "Profesjonalne podejście i skuteczne rozwiązania. Redukcja zadłużenia o 60% w ciągu 8 miesięcy. Polecam każdemu, kto ma problemy finansowe.",
+    rating: 5,
+    image: "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png",
+    verified: true
+  }, {
+    name: "Maria Wiśniewska",
+    position: "Kierownik działu",
+    text: "Wreszcie mogę spać spokojnie. Długi, które mnie męczyły przez lata, zostały uregulowane zgodnie z moimi możliwościami. Jestem bardzo wdzięczna.",
+    rating: 5,
+    image: "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f601a69.png",
+    verified: true
+  }, {
+    name: "Piotr Zieliński",
+    position: "Dyrektor handlowy",
+    text: "Skuteczne negocjacje z wierzycielami i plan spłat dopasowany do moich możliwości. Teraz mam kontrolę nad swoimi finansami.",
+    rating: 5,
+    image: "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png",
+    verified: true
+  }, {
+    name: "Katarzyna Lewandowska",
+    position: "Konsultantka",
+    text: "Dzięki kompleksowemu podejściu Dariusza udało się rozwiązać problemy z ZUS i Urzędem Skarbowym. Polecam jego usługi.",
+    rating: 5,
+    image: "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png",
+    verified: true
+  }];
   const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
+    setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
   };
-
   const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrentTestimonial(prev => (prev - 1 + testimonials.length) % testimonials.length);
   };
-
-  return (
-    <section className="relative bg-slate-900 py-20 overflow-hidden">
+  return <section className="relative bg-slate-900 py-20 overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-800/5 rounded-full blur-3xl"></div>
@@ -110,27 +87,15 @@ const TrustedClientsSection = () => {
             {/* Desktop Testimonials */}
             <div className="px-8 pb-12">
               <div className="grid grid-cols-3 gap-8">
-                {testimonials.slice(0, 3).map((testimonial, index) => (
-                  <div 
-                    key={index}
-                    className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
-                  >
+                {testimonials.slice(0, 3).map((testimonial, index) => <div key={index} className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
                     {/* Large profile image taking full width */}
                     <div className="w-full h-64 rounded-xl overflow-hidden mb-6 bg-gray-100">
-                      <OptimizedImage
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        className="w-full h-full object-cover"
-                        width={300}
-                        height={256}
-                      />
+                      <OptimizedImage src={testimonial.image} alt={testimonial.name} className="w-full h-full object-cover" width={300} height={256} />
                     </div>
                     
                     {/* Rating stars */}
                     <div className="flex mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                      ))}
+                      {[...Array(testimonial.rating)].map((_, i) => <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />)}
                     </div>
                     
                     {/* Testimonial text */}
@@ -147,15 +112,12 @@ const TrustedClientsSection = () => {
                         {testimonial.position}
                       </p>
                       
-                      {testimonial.verified && (
-                        <div className="flex items-center">
+                      {testimonial.verified && <div className="flex items-center">
                           <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
                           <span className="text-green-600 text-sm font-medium">Zweryfikowany klient</span>
-                        </div>
-                      )}
+                        </div>}
                     </div>
-                  </div>
-                ))}
+                  </div>)}
               </div>
             </div>
           </div>
@@ -163,35 +125,22 @@ const TrustedClientsSection = () => {
 
         {/* Mobile Testimonials Header */}
         <div className="block lg:hidden text-center mb-8 px-4">
-          <h3 className="font-montserrat text-3xl font-bold text-white mb-4">
-            Co mówią nasi klienci
-          </h3>
-          <p className="text-blue-200 text-lg font-lato">
-            Prawdziwe opinie od zadowolonych klientów
-          </p>
+          
+          
           
           {/* Swipe indicator */}
-          <div className="flex items-center justify-center mt-4 text-blue-300">
-            <ArrowLeftRight className="w-5 h-5 mr-2" />
-            <span className="text-sm font-lato">Przesuń palcem, aby zobaczyć więcej</span>
-          </div>
+          
         </div>
 
         {/* Mobile Testimonial Slider - Full Width */}
         <div className="block lg:hidden mb-16">
           <div className="relative">
             {/* Navigation buttons - positioned at the edges */}
-            <button
-              onClick={prevTestimonial}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-20"
-            >
+            <button onClick={prevTestimonial} className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-20">
               <ChevronLeft className="w-6 h-6" />
             </button>
             
-            <button
-              onClick={nextTestimonial}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-20"
-            >
+            <button onClick={nextTestimonial} className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white rounded-full p-3 shadow-lg transition-all duration-300 z-20">
               <ChevronRight className="w-6 h-6" />
             </button>
 
@@ -199,22 +148,14 @@ const TrustedClientsSection = () => {
             <div className="bg-slate-800 rounded-3xl overflow-hidden shadow-2xl mx-4">
               {/* Large profile image taking full width with rounded top corners */}
               <div className="w-full h-80 bg-gray-100 rounded-t-3xl overflow-hidden">
-                <OptimizedImage
-                  src={testimonials[currentTestimonial].image}
-                  alt={testimonials[currentTestimonial].name}
-                  className="w-full h-full object-cover"
-                  width={400}
-                  height={320}
-                />
+                <OptimizedImage src={testimonials[currentTestimonial].image} alt={testimonials[currentTestimonial].name} className="w-full h-full object-cover" width={400} height={320} />
               </div>
               
               {/* Content section */}
               <div className="p-8">
                 {/* Rating stars */}
                 <div className="flex mb-6">
-                  {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
+                  {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />)}
                 </div>
                 
                 {/* Testimonial text */}
@@ -231,29 +172,17 @@ const TrustedClientsSection = () => {
                     {testimonials[currentTestimonial].position}
                   </p>
                   
-                  {testimonials[currentTestimonial].verified && (
-                    <div className="flex items-center">
+                  {testimonials[currentTestimonial].verified && <div className="flex items-center">
                       <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
                       <span className="text-green-400 text-sm font-medium">Zweryfikowany klient</span>
-                    </div>
-                  )}
+                    </div>}
                 </div>
               </div>
             </div>
 
             {/* Dots indicator */}
             <div className="flex justify-center mt-8 space-x-2">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                    index === currentTestimonial 
-                      ? 'bg-white' 
-                      : 'bg-white/40 hover:bg-white/60'
-                  }`}
-                />
-              ))}
+              {testimonials.map((_, index) => <button key={index} onClick={() => setCurrentTestimonial(index)} className={`w-3 h-3 rounded-full transition-colors duration-300 ${index === currentTestimonial ? 'bg-white' : 'bg-white/40 hover:bg-white/60'}`} />)}
             </div>
           </div>
         </div>
@@ -273,8 +202,6 @@ const TrustedClientsSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default TrustedClientsSection;
