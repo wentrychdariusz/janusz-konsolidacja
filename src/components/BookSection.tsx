@@ -1,7 +1,7 @@
 
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
-import { Book, Heart, Users, Shield, BookAudio } from 'lucide-react';
+import { Book, Heart, Users, Play } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const BookSection = () => {
@@ -28,10 +28,9 @@ const BookSection = () => {
           </h2>
         </div>
 
-        {/* Book Images - Desktop single image, Mobile carousel */}
+        {/* Single Book Image */}
         <div className="flex justify-center mb-8">
-          {/* Desktop - pojedyncze zdjęcie */}
-          <div className="hidden md:block relative transition-transform duration-300 hover:scale-105">
+          <div className="relative transition-transform duration-300 hover:scale-105">
             <OptimizedImage
               src="/lovable-uploads/7c2c43a8-7d25-42ea-90c0-66c86e978e81.png"
               alt="Książka 'Nowe życie bez długów' - 500 egzemplarzy rozdanych klientom"
@@ -40,38 +39,15 @@ const BookSection = () => {
               height={448}
             />
           </div>
-
-          {/* Mobile - carousel */}
-          <div className="md:hidden w-full max-w-sm">
-            <Carousel className="w-full">
-              <CarouselContent>
-                {bookImages.map((image, index) => (
-                  <CarouselItem key={index}>
-                    <div className="flex justify-center">
-                      <OptimizedImage
-                        src={image}
-                        alt={`Książka 'Nowe życie bez długów' - zdjęcie ${index + 1}`}
-                        className="w-80 h-96 object-cover rounded-2xl shadow-2xl"
-                        width={320}
-                        height={384}
-                      />
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className="left-2" />
-              <CarouselNext className="right-2" />
-            </Carousel>
-          </div>
         </div>
 
-        {/* Audio Button */}
+        {/* Audio Player */}
         <div className="flex justify-center mb-12">
           <button
             onClick={handleAudioPlay}
-            className="bg-prestige-gold-500 hover:bg-prestige-gold-600 text-white px-8 py-4 rounded-2xl font-montserrat font-bold text-lg shadow-lg transition-all duration-300 hover:scale-105 flex items-center space-x-3"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl font-montserrat font-bold text-lg shadow-lg transition-all duration-300 hover:scale-105 flex items-center space-x-3"
           >
-            <BookAudio className="w-6 h-6" />
+            <Play className="w-6 h-6" />
             <span>Posłuchaj fragmentu mojej książki</span>
           </button>
         </div>
@@ -128,6 +104,29 @@ const BookSection = () => {
                     Każdemu, kto też walczy z długami i potrzebuje nadziei.
                   </p>
                 </div>
+              </div>
+
+              {/* Book Images Slider - After the text about clients */}
+              <div className="w-full max-w-2xl mx-auto mt-8">
+                <Carousel className="w-full">
+                  <CarouselContent>
+                    {bookImages.map((image, index) => (
+                      <CarouselItem key={index}>
+                        <div className="flex justify-center">
+                          <OptimizedImage
+                            src={image}
+                            alt={`Książka 'Nowe życie bez długów' - zdjęcie ${index + 1}`}
+                            className="w-full max-w-md h-80 md:h-96 object-cover rounded-2xl shadow-2xl"
+                            width={400}
+                            height={384}
+                          />
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="left-2" />
+                  <CarouselNext className="right-2" />
+                </Carousel>
               </div>
             </div>
           </div>
