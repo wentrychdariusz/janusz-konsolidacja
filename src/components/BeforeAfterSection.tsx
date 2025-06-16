@@ -1,8 +1,11 @@
 
-import React from 'react';
-import { Smile, Phone, Heart, Shield, CheckCircle, XCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { Smile, Phone, Heart, Shield, CheckCircle, XCircle, X } from 'lucide-react';
+import DebtCalculator from './DebtCalculator';
 
 const BeforeAfterSection = () => {
+  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
+
   const beforeItems = [
     {
       icon: <XCircle className="w-6 h-6 text-red-500" />,
@@ -68,107 +71,140 @@ const BeforeAfterSection = () => {
     "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png"
   ];
 
+  const handleCalculatorOpen = () => {
+    setIsCalculatorOpen(true);
+  };
+
+  const handleCalculatorClose = () => {
+    setIsCalculatorOpen(false);
+  };
+
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50">
-      <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
-        
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="font-montserrat text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-            Dołącz do <span className="text-prestige-gold-600">„Wyzwania Oddłużeniowego"</span> z Dariuszem Wentrychem!
-          </h2>
+    <>
+      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 via-blue-50 to-indigo-50">
+        <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
           
-          <p className="text-slate-700 text-xl md:text-2xl font-lato max-w-4xl mx-auto mb-8 leading-relaxed">
-            Chcesz w końcu wyjść z długów, ale nie wiesz od czego zacząć?
-          </p>
-          
-          <p className="text-slate-600 text-lg md:text-xl font-lato max-w-3xl mx-auto">
-            Zobacz, jak wygląda życie przed i po oddłużeniu z najlepszym ekspertem w Polsce 👇
-          </p>
-        </div>
-
-        {/* Before and After Comparison */}
-        <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
-          
-          {/* Before Section */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-center mb-6">
-              <XCircle className="w-10 h-10 text-red-500 mr-4" />
-              <h3 className="font-montserrat text-xl md:text-2xl font-bold text-red-800">
-                Przed oddłużaniem z Dariuszem Wentrychem…
-              </h3>
-            </div>
+          {/* Header */}
+          <div className="text-center mb-16">
+            <h2 className="font-montserrat text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+              Dołącz do <span className="text-prestige-gold-600">„Wyzwania Oddłużeniowego"</span> z Dariuszem Wentrychem!
+            </h2>
             
-            <div className="space-y-3">
-              {beforeItems.map((item, index) => (
-                <div key={index} className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm">
-                  <div className="flex-shrink-0 mt-1">
-                    {item.icon}
+            <p className="text-slate-700 text-xl md:text-2xl font-lato max-w-4xl mx-auto mb-8 leading-relaxed">
+              Chcesz w końcu wyjść z długów, ale nie wiesz od czego zacząć?
+            </p>
+            
+            <p className="text-slate-600 text-lg md:text-xl font-lato max-w-3xl mx-auto">
+              Zobacz, jak wygląda życie przed i po oddłużeniu z najlepszym ekspertem w Polsce 👇
+            </p>
+          </div>
+
+          {/* Before and After Comparison */}
+          <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
+            
+            {/* Before Section */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-center mb-6">
+                <XCircle className="w-10 h-10 text-red-500 mr-4" />
+                <h3 className="font-montserrat text-xl md:text-2xl font-bold text-red-800">
+                  Przed oddłużaniem z Dariuszem Wentrychem…
+                </h3>
+              </div>
+              
+              <div className="space-y-3">
+                {beforeItems.map((item, index) => (
+                  <div key={index} className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm">
+                    <div className="flex-shrink-0 mt-1">
+                      {item.icon}
+                    </div>
+                    <p className="text-slate-700 text-base font-lato leading-relaxed">
+                      {item.text}
+                    </p>
                   </div>
-                  <p className="text-slate-700 text-base font-lato leading-relaxed">
-                    {item.text}
-                  </p>
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+
+            {/* After Section */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-center mb-6">
+                <Smile className="w-10 h-10 text-emerald-500 mr-4" />
+                <h3 className="font-montserrat text-xl md:text-2xl font-bold text-emerald-800">
+                  Po oddłużeniu z Dariuszem Wentrychem…
+                </h3>
+              </div>
+              
+              <div className="space-y-3">
+                {afterItems.map((item, index) => (
+                  <div key={index} className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm">
+                    <div className="flex-shrink-0 mt-1">
+                      {item.icon}
+                    </div>
+                    <p className="text-slate-700 text-base font-lato leading-relaxed">
+                      {item.text}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* After Section */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-center mb-6">
-              <Smile className="w-10 h-10 text-emerald-500 mr-4" />
-              <h3 className="font-montserrat text-xl md:text-2xl font-bold text-emerald-800">
-                Po oddłużeniu z Dariuszem Wentrychem…
-              </h3>
-            </div>
-            
-            <div className="space-y-3">
-              {afterItems.map((item, index) => (
-                <div key={index} className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm">
-                  <div className="flex-shrink-0 mt-1">
-                    {item.icon}
+          {/* Call to Action with Client Photos */}
+          <div className="text-center mt-16">
+            <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-gray-200">
+              <div className="mb-8">
+                <h3 className="font-montserrat text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                  <span className="text-prestige-gold-600">15.000</span> osób mi zaufało
+                </h3>
+                <p className="text-slate-600 text-lg font-lato mb-8 max-w-2xl mx-auto">
+                  Dołącz do grona zadowolonych klientów, którzy odzyskali kontrolę nad swoim życiem finansowym
+                </p>
+              </div>
+
+              {/* Client Photos in Circles */}
+              <div className="flex flex-wrap justify-center items-center gap-4 mb-8">
+                {clientImages.slice(0, 8).map((image, index) => (
+                  <div key={index} className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-4 border-prestige-gold-200 shadow-lg hover:scale-110 transition-transform duration-300">
+                    <img 
+                      src={image} 
+                      alt={`Zadowolony klient ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <p className="text-slate-700 text-base font-lato leading-relaxed">
-                    {item.text}
-                  </p>
-                </div>
-              ))}
+                ))}
+              </div>
+
+              <button 
+                onClick={handleCalculatorOpen}
+                className="bg-gradient-to-r from-prestige-gold-500 to-yellow-400 text-slate-900 font-bold px-10 py-4 rounded-full hover:from-prestige-gold-600 hover:to-yellow-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg"
+              >
+                Dołącz do Wyzwania Oddłużeniowego
+              </button>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Call to Action with Client Photos */}
-        <div className="text-center mt-16">
-          <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-gray-200">
-            <div className="mb-8">
-              <h3 className="font-montserrat text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                <span className="text-prestige-gold-600">15.000</span> osób mi zaufało
-              </h3>
-              <p className="text-slate-600 text-lg font-lato mb-8 max-w-2xl mx-auto">
-                Dołącz do grona zadowolonych klientów, którzy odzyskali kontrolę nad swoim życiem finansowym
-              </p>
-            </div>
-
-            {/* Client Photos in Circles */}
-            <div className="flex flex-wrap justify-center items-center gap-4 mb-8">
-              {clientImages.slice(0, 8).map((image, index) => (
-                <div key={index} className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-4 border-prestige-gold-200 shadow-lg hover:scale-110 transition-transform duration-300">
-                  <img 
-                    src={image} 
-                    alt={`Zadowolony klient ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <button className="bg-gradient-to-r from-prestige-gold-500 to-yellow-400 text-slate-900 font-bold px-10 py-4 rounded-full hover:from-prestige-gold-600 hover:to-yellow-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg">
-              Dołącz do Wyzwania Oddłużeniowego
+      {/* Modal with Calculator */}
+      {isCalculatorOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden relative">
+            {/* Close Button */}
+            <button
+              onClick={handleCalculatorClose}
+              className="absolute top-4 right-4 z-10 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors duration-200"
+            >
+              <X className="w-4 h-4 text-gray-600" />
             </button>
+            
+            {/* Calculator Content */}
+            <div className="p-6 h-full">
+              <DebtCalculator />
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      )}
+    </>
   );
 };
 
