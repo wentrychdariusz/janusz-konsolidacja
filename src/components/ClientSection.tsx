@@ -117,26 +117,12 @@ const ClientSection = () => {
 
         {/* Client Photos Section */}
         <div className="text-center">
-          <h3 className="font-montserrat text-2xl md:text-3xl font-bold text-navy-900 mb-8">
-            Oni mi <span className="text-prestige-gold-600">zaufali</span>
-          </h3>
+          
           
           {/* Client photos grid z lazy loading */}
-          <div className="flex flex-wrap justify-center items-center gap-4 mb-8">
-            {clientImages.map((image, index) => <div key={index} className="relative group">
-                <OptimizedImage src={image} alt={`Zadowolony klient ${index + 1}`} className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-prestige-gold-400 object-cover shadow-lg group-hover:scale-110 transition-transform duration-300" priority={index < 4} width={80} height={80} />
-                <div className="absolute inset-0 bg-prestige-gold-400/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>)}
-            
-            {/* Plus indicator for more clients */}
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-prestige-gold-400 bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 flex items-center justify-center shadow-lg">
-              <span className="text-navy-900 font-black text-xl md:text-2xl">+</span>
-            </div>
-          </div>
           
-          <p className="text-warm-neutral-600 text-lg font-lato">
-            I tysiące innych zadowolonych klientów w całej Polsce
-          </p>
+          
+          
         </div>
       </div>
     </section>;
