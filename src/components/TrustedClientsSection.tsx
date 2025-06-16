@@ -94,7 +94,7 @@ const TrustedClientsSection = () => {
           </p>
         </div>
 
-        {/* Testimonials Section with Light Background */}
+        {/* Testimonials Section with Light Background - instantly.ai style */}
         <div className="mb-16">
           <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
             {/* Header inside light section */}
@@ -107,52 +107,45 @@ const TrustedClientsSection = () => {
               </p>
             </div>
 
-            {/* Desktop Testimonials */}
-            <div className="hidden md:block px-8 pb-12">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Desktop Testimonials - instantly.ai layout */}
+            <div className="hidden lg:block px-8 pb-12">
+              <div className="grid grid-cols-3 gap-8">
                 {testimonials.slice(0, 3).map((testimonial, index) => (
                   <div 
                     key={index}
-                    className="bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                    className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
                   >
-                    {/* Large profile image - much bigger like in reference */}
-                    <div className="flex justify-center mb-8">
-                      <div className="w-32 h-32 rounded-2xl overflow-hidden shadow-lg">
-                        <OptimizedImage
-                          src={testimonial.image}
-                          alt={testimonial.name}
-                          className="w-full h-full object-cover"
-                          width={128}
-                          height={128}
-                        />
-                      </div>
+                    {/* Large profile image taking full width - instantly.ai style */}
+                    <div className="w-full h-64 rounded-xl overflow-hidden mb-6 bg-gray-100">
+                      <OptimizedImage
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        className="w-full h-full object-cover"
+                        width={300}
+                        height={256}
+                      />
                     </div>
                     
-                    {/* Quote icon */}
-                    <div className="flex justify-start mb-4">
-                      <Quote className="w-8 h-8 text-blue-500" />
+                    {/* Rating stars */}
+                    <div className="flex mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                      ))}
                     </div>
                     
-                    {/* Testimonial text - left aligned like in reference */}
-                    <p className="text-gray-700 text-lg font-lato mb-8 leading-relaxed">
-                      {testimonial.text}
+                    {/* Testimonial text */}
+                    <p className="text-gray-700 text-lg font-lato mb-6 leading-relaxed">
+                      "{testimonial.text}"
                     </p>
                     
-                    {/* Client info - left aligned */}
-                    <div className="text-left">
-                      <p className="font-montserrat font-bold text-slate-900 text-xl mb-1">
+                    {/* Client info */}
+                    <div className="border-t border-gray-100 pt-4">
+                      <p className="font-montserrat font-bold text-slate-900 text-lg mb-1">
                         {testimonial.name}
                       </p>
-                      <p className="text-gray-600 text-base mb-4">
+                      <p className="text-gray-600 text-sm mb-3">
                         {testimonial.position}
                       </p>
-                      
-                      {/* Rating */}
-                      <div className="flex mb-2">
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                        ))}
-                      </div>
                       
                       {testimonial.verified && (
                         <div className="flex items-center">
@@ -166,89 +159,80 @@ const TrustedClientsSection = () => {
               </div>
             </div>
 
-            {/* Mobile Testimonial Slider */}
-            <div className="block md:hidden px-4 pb-12">
-              <div className="relative max-w-md mx-auto">
-                <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100 mx-4">
-                  {/* Navigation buttons */}
-                  <button
-                    onClick={prevTestimonial}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 bg-white border-2 border-gray-200 hover:border-slate-500 text-slate-700 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-                  
-                  <button
-                    onClick={nextTestimonial}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 bg-white border-2 border-gray-200 hover:border-slate-500 text-slate-700 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
+            {/* Mobile/Tablet Testimonial Slider - instantly.ai style */}
+            <div className="block lg:hidden px-4 pb-12">
+              <div className="relative max-w-sm mx-auto">
+                {/* Navigation buttons */}
+                <button
+                  onClick={prevTestimonial}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 bg-white border-2 border-gray-200 hover:border-gray-400 text-gray-700 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                
+                <button
+                  onClick={nextTestimonial}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 bg-white border-2 border-gray-200 hover:border-gray-400 text-gray-700 rounded-full p-3 shadow-lg transition-all duration-300 z-10"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
 
-                  {/* Testimonial content */}
-                  <div className="px-4">
-                    {/* Large profile image - bigger for mobile too */}
-                    <div className="flex justify-center mb-8">
-                      <div className="w-24 h-24 rounded-2xl overflow-hidden shadow-lg">
-                        <OptimizedImage
-                          src={testimonials[currentTestimonial].image}
-                          alt={testimonials[currentTestimonial].name}
-                          className="w-full h-full object-cover"
-                          width={96}
-                          height={96}
-                        />
-                      </div>
-                    </div>
-                    
-                    {/* Quote icon */}
-                    <div className="flex justify-start mb-4">
-                      <Quote className="w-6 h-6 text-blue-500" />
-                    </div>
-                    
-                    {/* Testimonial text - left aligned */}
-                    <p className="text-gray-700 text-lg font-lato mb-6 leading-relaxed text-left">
-                      {testimonials[currentTestimonial].text}
-                    </p>
-                    
-                    {/* Client info - left aligned */}
-                    <div className="text-left">
-                      <p className="font-montserrat font-bold text-slate-900 text-lg mb-1">
-                        {testimonials[currentTestimonial].name}
-                      </p>
-                      <p className="text-gray-600 text-sm mb-3">
-                        {testimonials[currentTestimonial].position}
-                      </p>
-                      
-                      {/* Rating */}
-                      <div className="flex mb-2">
-                        {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                        ))}
-                      </div>
-                      
-                      {testimonials[currentTestimonial].verified && (
-                        <div className="flex items-center">
-                          <CheckCircle className="w-4 h-4 text-green-500 mr-1" />
-                          <span className="text-green-600 text-xs font-medium">Zweryfikowany klient</span>
-                        </div>
-                      )}
-                    </div>
+                {/* Testimonial card */}
+                <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                  {/* Large profile image taking full width */}
+                  <div className="w-full h-48 rounded-xl overflow-hidden mb-6 bg-gray-100">
+                    <OptimizedImage
+                      src={testimonials[currentTestimonial].image}
+                      alt={testimonials[currentTestimonial].name}
+                      className="w-full h-full object-cover"
+                      width={280}
+                      height={192}
+                    />
                   </div>
-
-                  {/* Dots indicator for mobile */}
-                  <div className="flex justify-center mt-6 space-x-2">
-                    {testimonials.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentTestimonial(index)}
-                        className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                          index === currentTestimonial 
-                            ? 'bg-slate-600' 
-                            : 'bg-gray-300 hover:bg-gray-400'
-                        }`}
-                      />
+                  
+                  {/* Rating stars */}
+                  <div className="flex mb-4">
+                    {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
                     ))}
                   </div>
+                  
+                  {/* Testimonial text */}
+                  <p className="text-gray-700 text-base font-lato mb-6 leading-relaxed">
+                    "{testimonials[currentTestimonial].text}"
+                  </p>
+                  
+                  {/* Client info */}
+                  <div className="border-t border-gray-100 pt-4">
+                    <p className="font-montserrat font-bold text-slate-900 text-lg mb-1">
+                      {testimonials[currentTestimonial].name}
+                    </p>
+                    <p className="text-gray-600 text-sm mb-3">
+                      {testimonials[currentTestimonial].position}
+                    </p>
+                    
+                    {testimonials[currentTestimonial].verified && (
+                      <div className="flex items-center">
+                        <CheckCircle className="w-4 h-4 text-green-500 mr-1" />
+                        <span className="text-green-600 text-xs font-medium">Zweryfikowany klient</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Dots indicator */}
+                <div className="flex justify-center mt-6 space-x-2">
+                  {testimonials.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentTestimonial(index)}
+                      className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                        index === currentTestimonial 
+                          ? 'bg-slate-600' 
+                          : 'bg-gray-300 hover:bg-gray-400'
+                      }`}
+                    />
+                  ))}
                 </div>
               </div>
             </div>
