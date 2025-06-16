@@ -1,8 +1,20 @@
+
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
-import { Book, Heart, Users, Shield } from 'lucide-react';
+import { Book, Heart, Users, Shield, BookAudio } from 'lucide-react';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 const BookSection = () => {
+  const bookImages = [
+    "/lovable-uploads/7c2c43a8-7d25-42ea-90c0-66c86e978e81.png",
+    // Dodaj więcej zdjęć książki tutaj gdy będą dostępne
+  ];
+
+  const handleAudioPlay = () => {
+    // Tutaj będzie logika odtwarzania audio
+    console.log("Odtwarzanie fragmentu książki...");
+  };
+
   return (
     <section className="py-16 md:py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <div className="px-4 md:px-8 max-w-7xl mx-auto">
@@ -16,9 +28,10 @@ const BookSection = () => {
           </h2>
         </div>
 
-        {/* Book Image - Right after the header */}
-        <div className="flex justify-center mb-12">
-          <div className="relative transition-transform duration-300 hover:scale-105">
+        {/* Book Images - Desktop single image, Mobile carousel */}
+        <div className="flex justify-center mb-8">
+          {/* Desktop - pojedyncze zdjęcie */}
+          <div className="hidden md:block relative transition-transform duration-300 hover:scale-105">
             <OptimizedImage
               src="/lovable-uploads/7c2c43a8-7d25-42ea-90c0-66c86e978e81.png"
               alt="Książka 'Nowe życie bez długów' - 500 egzemplarzy rozdanych klientom"
@@ -27,6 +40,40 @@ const BookSection = () => {
               height={448}
             />
           </div>
+
+          {/* Mobile - carousel */}
+          <div className="md:hidden w-full max-w-sm">
+            <Carousel className="w-full">
+              <CarouselContent>
+                {bookImages.map((image, index) => (
+                  <CarouselItem key={index}>
+                    <div className="flex justify-center">
+                      <OptimizedImage
+                        src={image}
+                        alt={`Książka 'Nowe życie bez długów' - zdjęcie ${index + 1}`}
+                        className="w-80 h-96 object-cover rounded-2xl shadow-2xl"
+                        width={320}
+                        height={384}
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-2" />
+              <CarouselNext className="right-2" />
+            </Carousel>
+          </div>
+        </div>
+
+        {/* Audio Button */}
+        <div className="flex justify-center mb-12">
+          <button
+            onClick={handleAudioPlay}
+            className="bg-prestige-gold-500 hover:bg-prestige-gold-600 text-white px-8 py-4 rounded-2xl font-montserrat font-bold text-lg shadow-lg transition-all duration-300 hover:scale-105 flex items-center space-x-3"
+          >
+            <BookAudio className="w-6 h-6" />
+            <span>Posłuchaj fragmentu mojej książki</span>
+          </button>
         </div>
 
         {/* Main Content Grid */}
@@ -81,18 +128,6 @@ const BookSection = () => {
                     Każdemu, kto też walczy z długami i potrzebuje nadziei.
                   </p>
                 </div>
-              </div>
-
-              <div className="bg-white rounded-2xl p-6 border-2 border-prestige-gold-200 shadow-lg">
-                <div className="flex items-center space-x-3 mb-4">
-                  <Shield className="w-8 h-8 text-prestige-gold-600" />
-                  <h4 className="font-montserrat text-xl font-bold text-slate-900">
-                    To nie akcja promocyjna. To konkretna pomoc.
-                  </h4>
-                </div>
-                <p className="text-slate-700 font-lato text-lg font-semibold">
-                  Bo właśnie tak wygląda oddłużanie z Dariuszem Wentrychem.
-                </p>
               </div>
             </div>
           </div>
