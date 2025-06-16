@@ -38,29 +38,29 @@ const TrustedClientsSection = () => {
       icon: Users,
       number: "15,000+",
       text: "Zadowolonych klientów",
-      color: "from-blue-500 to-purple-600"
+      color: "from-business-blue-600 to-navy-700"
     },
     {
       icon: Heart,
       number: "98%",
       text: "Pozytywnych opinii",
-      color: "from-pink-500 to-red-500"
+      color: "from-navy-600 to-business-blue-700"
     },
     {
       icon: CheckCircle,
       number: "20",
       text: "Lat doświadczenia",
-      color: "from-green-500 to-emerald-600"
+      color: "from-prestige-gold-600 to-prestige-gold-700"
     }
   ];
 
   return (
-    <section className="relative bg-gradient-to-br from-indigo-50 via-white to-purple-50 py-20 overflow-hidden">
-      {/* Animated background elements */}
+    <section className="relative bg-gradient-to-br from-warm-neutral-50 via-white to-warm-neutral-100 py-20 overflow-hidden">
+      {/* Professional background elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl animate-gentle-float"></div>
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-r from-pink-400/10 to-orange-400/10 rounded-full blur-3xl animate-gentle-float" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-0 w-64 h-64 bg-gradient-to-r from-green-400/10 to-blue-400/10 rounded-full blur-3xl animate-gentle-float" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-business-blue-100/30 to-navy-100/30 rounded-full blur-3xl animate-gentle-float"></div>
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-r from-warm-neutral-100/40 to-business-blue-100/40 rounded-full blur-3xl animate-gentle-float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 left-0 w-64 h-64 bg-gradient-to-r from-prestige-gold-100/20 to-navy-100/20 rounded-full blur-3xl animate-gentle-float" style={{ animationDelay: '4s' }}></div>
       </div>
 
       <div className="relative z-10 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
@@ -68,10 +68,10 @@ const TrustedClientsSection = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="font-montserrat text-4xl md:text-5xl lg:text-6xl font-black mb-6">
-            <span className="text-transparent bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text">
+            <span className="text-transparent bg-gradient-to-r from-navy-700 via-business-blue-600 to-navy-800 bg-clip-text">
               Oni mi
             </span>
-            <span className="text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-orange-500 bg-clip-text">
+            <span className="text-transparent bg-gradient-to-r from-prestige-gold-600 via-prestige-gold-500 to-prestige-gold-700 bg-clip-text">
               {" "}zaufali
             </span>
           </h2>
@@ -85,7 +85,7 @@ const TrustedClientsSection = () => {
             {stats.map((stat, index) => (
               <div 
                 key={index}
-                className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/50 hover:-translate-y-2"
+                className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-warm-neutral-200/50 hover:-translate-y-2"
               >
                 <div className={`bg-gradient-to-r ${stat.color} rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 shadow-lg`}>
                   <stat.icon className="w-8 h-8 text-white" />
@@ -123,25 +123,25 @@ const TrustedClientsSection = () => {
                     height={150}
                   />
                   
-                  {/* Colorful overlay on hover */}
-                  <div className={`absolute inset-0 bg-gradient-to-br from-purple-500/20 via-blue-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl`}></div>
+                  {/* Professional overlay on hover */}
+                  <div className={`absolute inset-0 bg-gradient-to-br from-navy-600/10 via-business-blue-500/15 to-prestige-gold-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl`}></div>
                   
                   {/* Star rating overlay */}
                   <div className="absolute bottom-2 left-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 text-yellow-400 fill-current" />
+                      <Star key={i} className="w-3 h-3 text-prestige-gold-400 fill-current" />
                     ))}
                   </div>
                 </div>
                 
-                {/* Animated border */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm scale-105"></div>
+                {/* Professional animated border */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-navy-500 via-business-blue-500 to-prestige-gold-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm scale-105"></div>
               </div>
             ))}
           </div>
 
           <div className="text-center">
-            <div className="inline-flex items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full px-8 py-4 shadow-lg">
+            <div className="inline-flex items-center justify-center bg-gradient-to-r from-navy-700 to-business-blue-600 text-white rounded-full px-8 py-4 shadow-lg">
               <span className="font-bold text-lg mr-2">+</span>
               <span className="font-lato text-lg">Tysiące innych zadowolonych klientów</span>
             </div>
@@ -153,11 +153,11 @@ const TrustedClientsSection = () => {
           {testimonials.map((testimonial, index) => (
             <div 
               key={index}
-              className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-white/50 hover:-translate-y-2"
+              className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-warm-neutral-200/50 hover:-translate-y-2"
             >
               <div className="flex items-center justify-center mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
+                  <Star key={i} className="w-6 h-6 text-prestige-gold-400 fill-current" />
                 ))}
               </div>
               
@@ -179,14 +179,14 @@ const TrustedClientsSection = () => {
 
         {/* Call to Action */}
         <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 rounded-3xl p-8 shadow-2xl">
+          <div className="bg-gradient-to-r from-navy-700 via-business-blue-600 to-navy-800 rounded-3xl p-8 shadow-2xl">
             <h3 className="text-white font-montserrat text-2xl md:text-3xl font-bold mb-4">
               Dołącz do grona zadowolonych klientów
             </h3>
-            <p className="text-purple-100 text-lg font-lato mb-6">
+            <p className="text-business-blue-100 text-lg font-lato mb-6">
               Twoja historia sukcesu może być następna
             </p>
-            <button className="bg-white text-purple-600 font-bold px-8 py-4 rounded-full hover:bg-purple-50 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            <button className="bg-prestige-gold-500 text-navy-900 font-bold px-8 py-4 rounded-full hover:bg-prestige-gold-400 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
               Rozpocznij swoją zmianę
             </button>
           </div>
