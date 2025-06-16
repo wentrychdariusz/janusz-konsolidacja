@@ -1,5 +1,6 @@
 
 import React from 'react';
+import OptimizedImage from './OptimizedImage';
 import { Users, Award, BookOpen, TrendingUp } from 'lucide-react';
 
 const ClientSection = () => {
@@ -29,7 +30,7 @@ const ClientSection = () => {
   const clientImages = [
     "/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png",
     "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png",
-    "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2f158ac8d8.png",
+    "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f158ac8d8.png",
     "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png",
     "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png",
     "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png",
@@ -71,12 +72,15 @@ const ClientSection = () => {
           </h2>
           
           <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12 max-w-6xl mx-auto">
-            {/* Zdjęcie Dariusza po lewej */}
+            {/* Zdjęcie Dariusza po lewej z optymalizacją */}
             <div className="flex-shrink-0">
-              <img 
+              <OptimizedImage
                 src="/lovable-uploads/334d50e2-cfc0-48be-97b0-4521fb97af10.png"
                 alt="Dariusz Wentrych - Doradca finansowy"
                 className="w-64 h-80 lg:w-72 lg:h-96 object-cover rounded-2xl shadow-xl border-4 border-prestige-gold-200"
+                priority={true}
+                width={288}
+                height={384}
               />
             </div>
             
@@ -165,17 +169,20 @@ const ClientSection = () => {
             Oni mi <span className="text-prestige-gold-600">zaufali</span>
           </h3>
           
-          {/* Client photos grid */}
+          {/* Client photos grid z lazy loading */}
           <div className="flex flex-wrap justify-center items-center gap-4 mb-8">
             {clientImages.map((image, index) => (
               <div 
                 key={index}
                 className="relative group"
               >
-                <img 
+                <OptimizedImage
                   src={image}
                   alt={`Zadowolony klient ${index + 1}`}
                   className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-prestige-gold-400 object-cover shadow-lg group-hover:scale-110 transition-transform duration-300"
+                  priority={index < 4}
+                  width={80}
+                  height={80}
                 />
                 <div className="absolute inset-0 bg-prestige-gold-400/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>

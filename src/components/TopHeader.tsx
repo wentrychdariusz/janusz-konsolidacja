@@ -1,4 +1,5 @@
 import React from 'react';
+import OptimizedImage from './OptimizedImage';
 
 const TopHeader = () => {
   return (
@@ -23,12 +24,15 @@ const TopHeader = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/10 rounded-xl"></div>
               
               <div className="relative flex items-center space-x-4">
-                {/* Book image with clean styling */}
+                {/* Book image with optimization */}
                 <div className="relative flex-shrink-0">
-                  <img 
-                    src="/lovable-uploads/68877fd7-1b70-47e9-b545-82e5e2b6e5e4.png" 
-                    alt="Książka Nowe Życie Bez Długów" 
+                  <OptimizedImage
+                    src="/lovable-uploads/68877fd7-1b70-47e9-b545-82e5e2b6e5e4.png"
+                    alt="Książka Nowe Życie Bez Długów"
                     className="relative h-16 md:h-18 object-contain rounded-lg shadow-lg border border-white/30"
+                    priority={true}
+                    width={64}
+                    height={72}
                   />
                 </div>
                 

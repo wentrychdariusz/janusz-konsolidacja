@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DebtCalculator from './DebtCalculator';
+import OptimizedImage from './OptimizedImage';
 import { CheckCircle, Shield, Award, Users, Trophy, Target } from 'lucide-react';
 
 const HeroSection = () => {
@@ -24,7 +25,7 @@ const HeroSection = () => {
   const clientImages = [
     "/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png",
     "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png",
-    "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2f158ac8d8.png",
+    "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f601a69.png",
     "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png",
     "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png",
     "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png",
@@ -46,7 +47,7 @@ const HeroSection = () => {
 
   return (
     <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden">
-      {/* Desktop background - Dariusz image */}
+      {/* Desktop background - Dariusz image z lazy loading */}
       <div 
         className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
         style={{
@@ -57,17 +58,18 @@ const HeroSection = () => {
         }}
       ></div>
       
-      {/* Mobile background - mozaika bez odstępów */}
+      {/* Mobile background - mozaika z lazy loading */}
       <div className="md:hidden absolute inset-0">
         <div className="absolute inset-0 grid grid-cols-4 gap-0">
           {Array.from({ length: 80 }, (_, index) => {
             const imageIndex = index % mobileBackgroundImages.length;
             return (
               <div key={index} className="aspect-square">
-                <img 
-                  src={mobileBackgroundImages[imageIndex]} 
-                  alt="" 
+                <OptimizedImage
+                  src={mobileBackgroundImages[imageIndex]}
+                  alt=""
                   className="w-full h-full object-cover opacity-40"
+                  priority={index < 16} // Pierwsze 16 obrazów ładuj od razu
                 />
               </div>
             );
@@ -91,10 +93,13 @@ const HeroSection = () => {
           {/* Header Section - Full Width */}
           <div className="w-full text-center mb-2 md:mb-3 animate-fade-in">
             <div className="flex justify-center items-center mb-3 lg:mb-4">
-              <img 
+              <OptimizedImage
                 src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
                 alt="Dariusz Wentrych"
                 className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full border-4 border-prestige-gold-400 shadow-lg object-cover"
+                priority={true}
+                width={96}
+                height={96}
               />
             </div>
             <div className="font-montserrat text-prestige-gold-400 text-xl md:text-2xl lg:text-3xl font-black tracking-wide uppercase">
@@ -105,7 +110,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Enhanced Trust Section with Beautiful Background - bez ramki */}
+          {/* Enhanced Trust Section */}
           <div className="w-full relative bg-gradient-to-br from-white/5 via-white/10 to-white/5 backdrop-blur-md py-6 mb-3 rounded-2xl shadow-2xl">
             {/* Decorative background elements */}
             <div className="absolute inset-0 bg-gradient-to-br from-prestige-gold-400/5 via-transparent to-business-blue-400/5 rounded-2xl"></div>
@@ -119,7 +124,7 @@ const HeroSection = () => {
                 </h3>
               </div>
               
-              {/* Client photos grid - 8 photos with smaller size and overlapping */}
+              {/* Client photos grid z lazy loading */}
               <div className="flex justify-center items-center mb-4">
                 <div className="flex items-center">
                   {clientImages.map((image, index) => (
@@ -128,10 +133,13 @@ const HeroSection = () => {
                       className="relative group -ml-2 first:ml-0"
                       style={{ zIndex: clientImages.length - index }}
                     >
-                      <img 
+                      <OptimizedImage
                         src={image}
                         alt={`Zadowolony klient ${index + 1}`}
                         className="w-12 h-12 md:w-14 md:h-14 rounded-full border-3 border-prestige-gold-400 object-cover shadow-lg group-hover:scale-110 transition-transform duration-300"
+                        priority={index < 4}
+                        width={56}
+                        height={56}
                       />
                     </div>
                   ))}

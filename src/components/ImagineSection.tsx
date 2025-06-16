@@ -1,5 +1,6 @@
 
 import React from 'react';
+import OptimizedImage from './OptimizedImage';
 import { MapPin, Car, Award, Users, Star } from 'lucide-react';
 
 const ImagineSection = () => {
@@ -38,7 +39,7 @@ const ImagineSection = () => {
       <div className="hidden md:block absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/75 via-navy-900/70 to-business-blue-700/75 z-10"></div>
         
-        {/* Photo mosaic grid - desktop only */}
+        {/* Photo mosaic grid - desktop only z lazy loading */}
         <div className="absolute inset-0 grid grid-cols-8 md:grid-cols-12 lg:grid-cols-16 gap-0">
           {Array.from({ length: 200 }, (_, index) => {
             const images = [
@@ -54,10 +55,11 @@ const ImagineSection = () => {
             const imageIndex = index % images.length;
             return (
               <div key={index} className="aspect-square">
-                <img 
-                  src={images[imageIndex]} 
-                  alt="" 
+                <OptimizedImage
+                  src={images[imageIndex]}
+                  alt=""
                   className="w-full h-full object-cover"
+                  priority={index < 32}
                 />
               </div>
             );
@@ -89,13 +91,16 @@ const ImagineSection = () => {
 
         {/* Image and expertise section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-16 items-start">
-          {/* Left side - Dariusz Image without any effects */}
+          {/* Left side - Dariusz Image z optymalizacją */}
           <div className="w-full">
             <div className="w-full h-[600px] lg:h-[700px] relative">
-              <img 
-                src="/lovable-uploads/13f2bb30-b521-4709-8d23-16bcbfcc4eb8.png" 
+              <OptimizedImage
+                src="/lovable-uploads/13f2bb30-b521-4709-8d23-16bcbfcc4eb8.png"
                 alt="Dariusz Wentrych"
                 className="w-full h-full object-cover rounded-2xl shadow-2xl"
+                priority={true}
+                width={600}
+                height={700}
               />
             </div>
           </div>
