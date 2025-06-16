@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { CheckCircle } from 'lucide-react';
-import { Avatar, AvatarImage, AvatarFallback } from '../ui/avatar';
+import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
 
 const DariuszLetterSection = () => {
   const benefitsList = [
