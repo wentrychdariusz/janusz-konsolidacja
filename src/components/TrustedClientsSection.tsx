@@ -113,7 +113,7 @@ const TrustedClientsSection = () => {
     return testimonials.slice(startIndex, startIndex + 3);
   };
 
-  return <section className="relative bg-slate-900 py-20 overflow-hidden">
+  return <section className="relative bg-slate-900 py-12 overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-800/5 rounded-full blur-3xl"></div>
@@ -139,7 +139,7 @@ const TrustedClientsSection = () => {
         </div>
 
         {/* Desktop Testimonials with Navigation */}
-        <div className="hidden lg:block mb-16">
+        <div className="hidden lg:block mb-8">
           <div className="bg-white rounded-3xl shadow-2xl overflow-hidden relative">
             {/* Header inside light section */}
             <div className="text-center py-12 px-8">
@@ -235,7 +235,7 @@ const TrustedClientsSection = () => {
         </div>
 
         {/* Mobile Testimonial Slider with Swipe Support */}
-        <div className="block lg:hidden mb-16">
+        <div className="block lg:hidden mb-8">
           <div className="relative">
             {/* Testimonial card with touch events */}
             <div 
