@@ -8,44 +8,55 @@ const FloatingAvatar = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [showAvatar, setShowAvatar] = useState(false);
 
-  // Sprawdzanie pozycji scroll i pokazywanie awatara w sekcji "Mamy największe zaufanie klientów w Polsce"
+  // Sprawdzanie pozycji scroll - pokazuj awatar od sekcji "Mamy największe zaufanie", ukrywaj w sekcji kalkulatora
   useEffect(() => {
     const handleScroll = () => {
-      // Szukamy konkretnego tekstu w sekcji ImagineSection
+      // Szukamy sekcji "Mamy największe zaufanie klientów w Polsce"
       const headings = document.querySelectorAll('h2');
-      let targetSection: HTMLElement | null = null;
+      let trustSection: HTMLElement | null = null;
+      let calculatorSection: HTMLElement | null = null;
       
       headings.forEach((heading) => {
         if (heading.textContent?.includes('Mamy największe zaufanie klientów w Polsce')) {
-          targetSection = heading as HTMLElement;
+          trustSection = heading as HTMLElement;
+        }
+        if (heading.textContent?.includes('SPRAWDŹ CZY MOŻEMY CI POMÓC')) {
+          calculatorSection = heading as HTMLElement;
         }
       });
       
-      if (targetSection) {
-        const sectionRect = targetSection.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const scrollY = window.scrollY;
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // Pokazuj awatar od sekcji zaufania
+      let shouldShowFromTrust = false;
+      if (trustSection) {
+        const sectionRect = trustSection.getBoundingClientRect();
         const sectionTop = scrollY + sectionRect.top;
-        
-        // Na mobilnych - pokazuj awatar gdy sekcja wchodzi w viewport (górna część ekranu)
-        // Na desktop - pokazuj 400px wcześniej
         const isMobile = window.innerWidth < 768;
-        const offset = isMobile ? windowHeight * 0.8 : 400; // Na mobile 80% wysokości ekranu
-        
-        setShowAvatar(scrollY >= sectionTop - offset);
-        
-        console.log('Avatar visibility check:', {
-          scrollY,
-          sectionTop,
-          offset,
-          isMobile,
-          shouldShow: scrollY >= sectionTop - offset
-        });
-      } else {
-        // Fallback - jeśli nie znajdziemy sekcji
-        const fallbackPosition = window.innerWidth < 768 ? 800 : 1100;
-        setShowAvatar(window.scrollY > fallbackPosition);
+        const offset = isMobile ? windowHeight * 0.8 : 400;
+        shouldShowFromTrust = scrollY >= sectionTop - offset;
       }
+      
+      // Ukrywaj awatar w sekcji kalkulatora
+      let shouldHideInCalculator = false;
+      if (calculatorSection) {
+        const sectionRect = calculatorSection.getBoundingClientRect();
+        const sectionTop = scrollY + sectionRect.top;
+        const offset = 200; // Ukrywaj 200px przed sekcją kalkulatora
+        shouldHideInCalculator = scrollY >= sectionTop - offset;
+      }
+      
+      // Logika końcowa: pokaż jeśli jesteśmy po sekcji zaufania, ale ukryj w sekcji kalkulatora
+      setShowAvatar(shouldShowFromTrust && !shouldHideInCalculator);
+      
+      console.log('Avatar visibility check:', {
+        scrollY,
+        shouldShowFromTrust,
+        shouldHideInCalculator,
+        finalShow: shouldShowFromTrust && !shouldHideInCalculator
+      });
     };
 
     window.addEventListener('scroll', handleScroll);
