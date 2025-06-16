@@ -1,6 +1,7 @@
 
+
 import React from 'react';
-import { ArrowDown, ArrowUp, Phone, Heart, Shield, CheckCircle, XCircle } from 'lucide-react';
+import { Smile, Phone, Heart, Shield, CheckCircle, XCircle } from 'lucide-react';
 
 const BeforeAfterSection = () => {
   const beforeItems = [
@@ -83,7 +84,7 @@ const BeforeAfterSection = () => {
           <div className="space-y-4">
             <div className="flex items-center justify-center mb-6">
               <div className="bg-red-500 rounded-full p-3 mr-4">
-                <ArrowDown className="w-8 h-8 text-white" />
+                <XCircle className="w-8 h-8 text-white" />
               </div>
               <h3 className="font-montserrat text-xl md:text-2xl font-bold text-red-800">
                 Przed oddłużaniem z Dariuszem Wentrychem…
@@ -108,7 +109,7 @@ const BeforeAfterSection = () => {
           <div className="space-y-4">
             <div className="flex items-center justify-center mb-6">
               <div className="bg-emerald-500 rounded-full p-3 mr-4">
-                <ArrowUp className="w-8 h-8 text-white" />
+                <Smile className="w-8 h-8 text-white" />
               </div>
               <h3 className="font-montserrat text-xl md:text-2xl font-bold text-emerald-800">
                 Po oddłużeniu z Dariuszem Wentrychem…
@@ -150,3 +151,4 @@ const BeforeAfterSection = () => {
 };
 
 export default BeforeAfterSection;
+
