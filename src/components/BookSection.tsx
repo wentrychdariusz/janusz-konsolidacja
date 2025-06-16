@@ -1,5 +1,3 @@
-
-
 import React, { useState, useRef } from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Book, Heart, Users, Play, Pause } from 'lucide-react';
@@ -10,7 +8,6 @@ const BookSection = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const bookImages = [
-    "/lovable-uploads/7c2c43a8-7d25-42ea-90c0-66c86e978e81.png",
     "/lovable-uploads/cc2d25e5-05d2-41e1-a933-15662005a373.png",
     "/lovable-uploads/61455e95-43aa-416c-aa0c-fe2c22acb9bc.png",
     "/lovable-uploads/e3bdd03e-03a7-423a-9799-55e4a6d4e39a.png"
@@ -188,4 +185,3 @@ const BookSection = () => {
 };
 
 export default BookSection;
-
