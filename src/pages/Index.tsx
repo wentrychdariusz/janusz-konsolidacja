@@ -8,6 +8,7 @@ import MentorSection from '../components/MentorSection';
 import BeforeAfterSection from '../components/BeforeAfterSection';
 import ClientSection from '../components/ClientSection';
 import TrustedClientsSection from '../components/TrustedClientsSection';
+import HeroesSection from '../components/HeroesSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 
 const Index = () => {
@@ -21,6 +22,7 @@ const Index = () => {
       <BeforeAfterSection />
       <ClientSection />
       <TrustedClientsSection />
+      <HeroesSection />
       <FloatingAvatar />
     </div>
   );
