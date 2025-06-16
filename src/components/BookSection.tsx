@@ -88,21 +88,13 @@ const BookSection = () => {
           {/* Right Content - Book Image */}
           <div className="flex justify-center lg:justify-end">
             <div className="relative">
-              {/* Placeholder for book image - można zastąpić prawdziwym zdjęciem książek */}
-              <div className="w-80 h-96 md:w-96 md:h-[28rem] bg-gradient-to-br from-prestige-gold-100 to-yellow-100 rounded-2xl shadow-2xl border-4 border-prestige-gold-200 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <Book className="w-20 h-20 text-prestige-gold-600 mx-auto mb-4" />
-                  <h3 className="font-montserrat text-2xl font-bold text-prestige-gold-800 mb-2">
-                    "Nowe życie bez długów"
-                  </h3>
-                  <p className="text-prestige-gold-700 font-lato">
-                    500 egzemplarzy rozdanych klientom
-                  </p>
-                  <div className="mt-4 text-sm text-prestige-gold-600 font-semibold">
-                    [Miejsce na zdjęcie książek]
-                  </div>
-                </div>
-              </div>
+              <OptimizedImage
+                src="/lovable-uploads/7c2c43a8-7d25-42ea-90c0-66c86e978e81.png"
+                alt="Książka 'Nowe życie bez długów' - 500 egzemplarzy rozdanych klientom"
+                className="w-80 h-96 md:w-96 md:h-[28rem] object-cover rounded-2xl shadow-2xl"
+                width={384}
+                height={448}
+              />
               
               {/* Decorative elements */}
               <div className="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full animate-pulse"></div>
