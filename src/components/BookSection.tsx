@@ -47,14 +47,14 @@ const BookSection = () => {
           </div>
         </div>
 
-        {/* Audio Player - Circular Design */}
+        {/* Audio Player - Large Circular Design */}
         <div className="flex justify-center mb-12">
           <button
             onClick={handleAudioPlay}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-full font-montserrat font-bold text-lg shadow-lg transition-all duration-300 hover:scale-105 flex items-center space-x-3 border-4 border-blue-200 hover:border-blue-300"
+            className="w-96 h-20 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-full font-montserrat font-bold text-lg md:text-xl shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center space-x-4 border-4 border-blue-200 hover:border-blue-300"
           >
-            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-              <Play className="w-4 h-4 text-blue-600 ml-0.5" />
+            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
+              <Play className="w-6 h-6 text-blue-600 ml-1" />
             </div>
             <span>Posłuchaj fragmentu mojej książki</span>
           </button>
