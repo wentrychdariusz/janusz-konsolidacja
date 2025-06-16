@@ -1,3 +1,4 @@
+
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
 import { MapPin, Car, Award, Users, Star } from 'lucide-react';
@@ -67,7 +68,7 @@ const ImagineSection = () => {
       </div>
       
       <div className="relative z-20 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
-        <div className="text-center mb-8 md:mb-12 lg:mb-16">
+        <div className="text-center mb-4">
           <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-4">
             <span className="text-prestige-gold-400">Mamy największe zaufanie klientów w Polsce</span>
           </h2>
