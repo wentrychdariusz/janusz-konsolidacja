@@ -1,4 +1,3 @@
-
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
 import { MapPin, Car, Award, Users, Star } from 'lucide-react';
@@ -34,7 +33,7 @@ const ImagineSection = () => {
   };
 
   return (
-    <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-16 md:py-20 lg:py-24 overflow-hidden">
+    <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-8 md:py-12 lg:py-16 overflow-hidden">
       {/* Background only for desktop - mosaic with Dariusz photos */}
       <div className="hidden md:block absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/75 via-navy-900/70 to-business-blue-700/75 z-10"></div>
@@ -90,7 +89,7 @@ const ImagineSection = () => {
         </div>
 
         {/* Image and expertise section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-8 items-start">
           {/* Left side - Dariusz Image z optymalizacją */}
           <div className="w-full">
             <div className="w-full h-[600px] lg:h-[700px] relative">
