@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 const HeroesSection = () => {
@@ -51,7 +52,7 @@ const HeroesSection = () => {
           {/* Before/After Grid */}
           <div className="space-y-6">
             {/* Before */}
-            <div className="bg-gradient-to-r from-red-600/30 via-red-500/25 to-red-700/30 rounded-2xl p-4 border border-red-400/50">
+            <div className="bg-gradient-to-r from-red-600/30 via-red-500/25 to-red-700/30 rounded-2xl p-4 border-2 border-white">
               <h4 className="text-red-300 text-lg font-bold font-montserrat mb-3 text-center">
                 PRZED WSPÓŁPRACĄ
               </h4>
@@ -72,7 +73,7 @@ const HeroesSection = () => {
             </div>
             
             {/* After */}
-            <div className="bg-gradient-to-r from-emerald-500/30 via-green-500/25 to-lime-500/30 rounded-2xl p-4 border border-emerald-400/50">
+            <div className="bg-gradient-to-r from-emerald-500/30 via-green-500/25 to-lime-500/30 rounded-2xl p-4 border-2 border-white">
               <h4 className="text-emerald-300 text-lg font-bold font-montserrat mb-3 text-center">
                 PO WSPÓŁPRACY ZE MNĄ
               </h4>
@@ -114,3 +115,4 @@ const HeroesSection = () => {
 };
 
 export default HeroesSection;
+
