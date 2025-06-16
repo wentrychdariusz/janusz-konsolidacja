@@ -189,17 +189,7 @@ const TrustedClientsSection = () => {
 
         {/* Call to Action */}
         <div className="text-center">
-          <div className="bg-gradient-to-r from-slate-800 to-slate-700 rounded-3xl p-8 shadow-2xl border border-slate-600/30">
-            <h3 className="text-white font-montserrat text-2xl md:text-3xl font-bold mb-4">
-              Dołącz do grona zadowolonych klientów
-            </h3>
-            <p className="text-blue-200 text-lg font-lato mb-6">
-              Twoja historia sukcesu może być następna
-            </p>
-            <button className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-slate-900 font-bold px-8 py-4 rounded-full hover:from-yellow-400 hover:to-yellow-300 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-              Rozpocznij swoją zmianę
-            </button>
-          </div>
+          
         </div>
       </div>
     </section>;
