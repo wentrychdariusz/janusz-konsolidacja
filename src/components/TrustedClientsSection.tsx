@@ -1,11 +1,14 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Star, ChevronLeft, ChevronRight, Users, Heart, CheckCircle, Quote, ArrowLeftRight } from 'lucide-react';
 
 const TrustedClientsSection = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [currentDesktopSet, setCurrentDesktopSet] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+  const autoPlayInterval = useRef<NodeJS.Timeout | null>(null);
   
   const clientImages = ["/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png", "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png", "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f601a69.png", "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png", "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png", "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png", "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png", "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png"];
   
@@ -46,11 +49,52 @@ const TrustedClientsSection = () => {
     verified: true
   }];
 
+  // Auto-play functionality
+  useEffect(() => {
+    if (isAutoPlaying) {
+      autoPlayInterval.current = setInterval(() => {
+        setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
+      }, 4000); // 4 seconds interval
+    }
+
+    return () => {
+      if (autoPlayInterval.current) {
+        clearInterval(autoPlayInterval.current);
+      }
+    };
+  }, [isAutoPlaying, testimonials.length]);
+
+  // Touch event handlers for swipe functionality
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextTestimonial();
+    }
+    if (isRightSwipe) {
+      prevTestimonial();
+    }
+  };
+
   const nextTestimonial = () => {
+    setIsAutoPlaying(false); // Stop autoplay when user interacts
     setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
   };
   
   const prevTestimonial = () => {
+    setIsAutoPlaying(false); // Stop autoplay when user interacts
     setCurrentTestimonial(prev => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
@@ -190,11 +234,16 @@ const TrustedClientsSection = () => {
           </div>
         </div>
 
-        {/* Mobile Testimonial Slider */}
+        {/* Mobile Testimonial Slider with Swipe Support */}
         <div className="block lg:hidden mb-16">
           <div className="relative">
-            {/* Testimonial card */}
-            <div className="bg-slate-800 rounded-3xl overflow-hidden shadow-2xl mx-4">
+            {/* Testimonial card with touch events */}
+            <div 
+              className="bg-slate-800 rounded-3xl overflow-hidden shadow-2xl mx-4 select-none"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
               {/* Large profile image with navigation overlay */}
               <div className="relative w-full h-80 bg-gray-100 rounded-t-3xl overflow-hidden">
                 <OptimizedImage 
@@ -219,6 +268,13 @@ const TrustedClientsSection = () => {
                 >
                   <ChevronRight className="w-6 h-6 text-gray-700" />
                 </button>
+
+                {/* Swipe hint indicator */}
+                {isAutoPlaying && (
+                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/50 text-white text-xs px-3 py-1 rounded-full animate-pulse">
+                    Przesuń palcem →
+                  </div>
+                )}
               </div>
               
               {/* Content section */}
@@ -254,17 +310,30 @@ const TrustedClientsSection = () => {
               </div>
             </div>
 
-            {/* Dots indicator */}
+            {/* Dots indicator with autoplay status */}
             <div className="flex justify-center mt-8 space-x-2">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentTestimonial(index)}
+                  onClick={() => {
+                    setCurrentTestimonial(index);
+                    setIsAutoPlaying(false);
+                  }}
                   className={`w-3 h-3 rounded-full transition-colors duration-300 ${
                     index === currentTestimonial ? 'bg-white' : 'bg-white/40 hover:bg-white/60'
                   }`}
                 />
               ))}
+            </div>
+
+            {/* Autoplay control */}
+            <div className="flex justify-center mt-4">
+              <button
+                onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+                className="text-white/60 hover:text-white text-sm transition-colors duration-300"
+              >
+                {isAutoPlaying ? 'Zatrzymaj automatyczne przewijanie' : 'Włącz automatyczne przewijanie'}
+              </button>
             </div>
           </div>
         </div>
