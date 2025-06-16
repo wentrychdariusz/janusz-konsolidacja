@@ -13,7 +13,7 @@ const ImagineSection = () => {
     {
       icon: Car,
       title: "Dojeżdzamy do Ciebie",
-      description: "Koszt dojazdu ustalany indywidualnie"
+      description: "Umów się na bezpłatne spotkania w 16 miastach lub indywidualne spotkanie u Ciebie (kwestia dojazdu ustalana indywidualnie)"
     },
     {
       icon: Award,
