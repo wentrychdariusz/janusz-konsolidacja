@@ -2,7 +2,7 @@ import React from 'react';
 
 const HeroesSection = () => {
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-slate-800 via-slate-900 to-gray-900 lg:hidden">
+    <section className="py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 lg:hidden">
       <div className="px-4 md:px-8 max-w-7xl mx-auto">
         
         {/* Header */}
