@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import OptimizedImage from './OptimizedImage';
-import { Star, ChevronLeft, ChevronRight, Users, Heart, CheckCircle, Quote } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, Users, Heart, CheckCircle, Quote, ArrowLeftRight } from 'lucide-react';
 
 const TrustedClientsSection = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -169,9 +169,15 @@ const TrustedClientsSection = () => {
           <p className="text-blue-200 text-lg font-lato">
             Prawdziwe opinie od zadowolonych klientów
           </p>
+          
+          {/* Swipe indicator */}
+          <div className="flex items-center justify-center mt-4 text-blue-300">
+            <ArrowLeftRight className="w-5 h-5 mr-2" />
+            <span className="text-sm font-lato">Przesuń palcem, aby zobaczyć więcej</span>
+          </div>
         </div>
 
-        {/* Mobile Testimonial Slider - Full Width */}
+        {/* Mobile Testimonial Slider - Full Width with rounded corners */}
         <div className="block lg:hidden mb-16">
           <div className="relative">
             {/* Navigation buttons */}
@@ -189,10 +195,10 @@ const TrustedClientsSection = () => {
               <ChevronRight className="w-5 h-5" />
             </button>
 
-            {/* Testimonial card - Full width without frame */}
-            <div className="bg-white">
-              {/* Large profile image taking full width */}
-              <div className="w-full h-80 bg-gray-100">
+            {/* Testimonial card - Full width with rounded corners */}
+            <div className="bg-white rounded-t-3xl rounded-b-3xl overflow-hidden shadow-2xl">
+              {/* Large profile image taking full width with rounded top corners */}
+              <div className="w-full h-80 bg-gray-100 rounded-t-3xl overflow-hidden">
                 <OptimizedImage
                   src={testimonials[currentTestimonial].image}
                   alt={testimonials[currentTestimonial].name}
