@@ -43,6 +43,14 @@ const HeroSection = () => {
     "/lovable-uploads/fd5a99a1-5cfe-4ed4-9f16-b9ff7764b433.png"
   ];
 
+  // Obrazy z pieniędzmi dla mobilnego tła
+  const moneyBackgroundImages = [
+    "/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png",
+    "/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png",
+    "/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png",
+    "/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png"
+  ];
+
   return (
     <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden">
       {/* Preload kluczowych obrazów */}
@@ -60,19 +68,31 @@ const HeroSection = () => {
         }}
       ></div>
       
-      {/* Mobile background - jeden zoptymalizowany obraz zamiast mozaiki */}
-      <div 
-        className="md:hidden absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
-        style={{
-          backgroundImage: `url('/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png')`,
-          backgroundSize: 'cover',
-          height: '100%'
-        }}
-      >
-        {/* Gradient overlay dla mobilnego tła */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black"></div>
+      {/* Mobile background - subtelne tło z pieniędzmi */}
+      <div className="md:hidden absolute inset-0">
+        <div className="absolute inset-0 grid grid-cols-4 gap-0">
+          {Array.from({ length: 12 }, (_, index) => {
+            const imageIndex = index % moneyBackgroundImages.length;
+            return (
+              <div key={index} className="aspect-square">
+                <OptimizedImage
+                  src={moneyBackgroundImages[imageIndex]}
+                  alt=""
+                  className="w-full h-full object-cover opacity-15"
+                  priority={index < 4}
+                  mobileOptimized={true}
+                  width={80}
+                  height={80}
+                  quality={60}
+                />
+              </div>
+            );
+          })}
+        </div>
+        {/* Gradient overlay dla mobilnego tła z pieniędzmi */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/75 to-black/90"></div>
         {/* Dodatkowy gradient na dole dla płynnego przejścia */}
-        <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black via-black/90 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black via-black/95 to-transparent"></div>
       </div>
       
       {/* Enhanced gradient overlay with smooth tonal transition - desktop */}
