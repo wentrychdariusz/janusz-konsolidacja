@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Shield, CheckCircle } from 'lucide-react';
+import OptimizedImage from './OptimizedImage';
 
 const GuaranteeSection = () => {
   return (
@@ -50,12 +51,25 @@ const GuaranteeSection = () => {
               </div>
             </div>
             
-            {/* Stopka z podpisem eksperta */}
-            <div className="text-center pt-6 border-t border-prestige-gold-400/30">
-              <p className="text-warm-neutral-300 text-sm md:text-base">
-                <span className="font-semibold text-prestige-gold-400">Dariusz Wentrych</span> - ekspert nr 1 w oddłużniu osób fizycznych w Polsce.<br />
-                Twoja satysfakcja to nasz priorytet.
-              </p>
+            {/* Stopka z podpisem eksperta i miniaturą zdjęcia */}
+            <div className="pt-6 border-t border-prestige-gold-400/30">
+              <div className="flex items-center justify-center space-x-4">
+                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-prestige-gold-400 shadow-lg">
+                  <OptimizedImage
+                    src="/lovable-uploads/47e41288-8e02-4e8b-8618-cba00ccf58ce.png"
+                    alt="Dariusz Wentrych"
+                    className="w-full h-full object-cover"
+                    width={64}
+                    height={64}
+                  />
+                </div>
+                <div className="text-center">
+                  <p className="text-warm-neutral-300 text-sm md:text-base">
+                    <span className="font-semibold text-prestige-gold-400">Dariusz Wentrych</span> - ekspert nr 1 w oddłużniu osób fizycznych w Polsce.<br />
+                    Twoja satysfakcja to nasz priorytet.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
