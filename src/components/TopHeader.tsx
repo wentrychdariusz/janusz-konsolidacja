@@ -1,4 +1,3 @@
-
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
 
@@ -26,7 +25,7 @@ const TopHeader = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-white/8 to-prestige-gold-500/5 rounded-2xl"></div>
               
               <div className="relative flex items-center space-x-4">
-                {/* Książka z nowoczesnym cieniem */}
+                {/* Książka z mobilną kompresją JPG */}
                 <div className="relative flex-shrink-0">
                   <OptimizedImage
                     src="/lovable-uploads/68877fd7-1b70-47e9-b545-82e5e2b6e5e4.png"
@@ -35,6 +34,9 @@ const TopHeader = () => {
                     priority={true}
                     width={64}
                     height={72}
+                    mobileFormat="jpg"
+                    mobileQuality={80}
+                    sizes="(max-width: 768px) 64px, 72px"
                   />
                   {/* Nowoczesny efekt świetlny */}
                   <div className="absolute -inset-1 bg-gradient-to-r from-prestige-gold-400/20 to-prestige-gold-500/20 rounded-xl blur-sm -z-10"></div>
