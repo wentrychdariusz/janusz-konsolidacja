@@ -91,17 +91,16 @@ const ImagineSection = () => {
 
         {/* Image and expertise section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-8 items-start">
-          {/* Left side - Dariusz Image z optymalizacją dla mobile */}
+          {/* Left side - Dariusz Image z optymalizacją */}
           <div className="w-full">
             <div className="w-full h-[600px] lg:h-[700px] relative">
               <OptimizedImage
                 src="/lovable-uploads/13f2bb30-b521-4709-8d23-16bcbfcc4eb8.png"
                 alt="Dariusz Wentrych"
                 className="w-full h-full object-cover rounded-2xl shadow-2xl"
-                priority={false}
+                priority={true}
                 width={600}
                 height={700}
-                sizes="(max-width: 640px) 320px, (max-width: 768px) 480px, (max-width: 1024px) 600px, 700px"
               />
             </div>
           </div>
