@@ -33,9 +33,9 @@ const TopHeader = () => {
                     alt="Książka Nowe Życie Bez Długów"
                     className="relative h-12 w-8 sm:h-16 sm:w-10 md:h-18 md:w-12 object-contain rounded-xl shadow-2xl border border-white/20"
                     priority={true}
-                    width={48}
-                    height={60}
-                    sizes="(max-width: 640px) 32px, (max-width: 768px) 40px, 48px"
+                    width={64}
+                    height={72}
+                    sizes="(max-width: 640px) 48px, (max-width: 768px) 64px, 72px"
                   />
                   {/* Nowoczesny efekt świetlny */}
                   <div className="absolute -inset-1 bg-gradient-to-r from-prestige-gold-400/20 to-prestige-gold-500/20 rounded-xl blur-sm -z-10"></div>
