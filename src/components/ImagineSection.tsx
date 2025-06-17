@@ -1,69 +1,43 @@
-
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
 import { MapPin, Car, Award, Users, Star } from 'lucide-react';
-
 const ImagineSection = () => {
-  const expertise = [
-    {
-      icon: MapPin,
-      title: "Jesteśmy w Twoim mieście",
-      description: "Jesteśmy w 16 województwach"
-    },
-    {
-      icon: Car,
-      title: "Dojeżdzamy do Ciebie",
-      description: "Umów się na bezpłatne spotkania w 16 miastach lub indywidualne spotkanie u Ciebie (kwestia dojazdu ustalana indywidualnie)"
-    },
-    {
-      icon: Award,
-      title: "Najbardziej merytoryczni w Polsce",
-      description: "20 lat doświadczenia w branży"
-    },
-    {
-      icon: Users,
-      title: "Najbardziej profesjonalni",
-      description: "Kompleksowa obsługa klienta"
-    }
-  ];
-
+  const expertise = [{
+    icon: MapPin,
+    title: "Jesteśmy w Twoim mieście",
+    description: "Jesteśmy w 16 województwach"
+  }, {
+    icon: Car,
+    title: "Dojeżdzamy do Ciebie",
+    description: "Umów się na bezpłatne spotkania w 16 miastach lub indywidualne spotkanie u Ciebie (kwestia dojazdu ustalana indywidualnie)"
+  }, {
+    icon: Award,
+    title: "Najbardziej merytoryczni w Polsce",
+    description: "20 lat doświadczenia w branży"
+  }, {
+    icon: Users,
+    title: "Najbardziej profesjonalni",
+    description: "Kompleksowa obsługa klienta"
+  }];
   const renderStars = () => {
-    return [...Array(5)].map((_, i) => (
-      <Star key={i} className="w-5 h-5 text-prestige-gold-400 fill-current" />
-    ));
+    return [...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 text-prestige-gold-400 fill-current" />);
   };
-
-  return (
-    <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-8 md:py-12 lg:py-16 overflow-hidden z-10">
+  return <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-8 md:py-12 lg:py-16 overflow-hidden z-10">
       {/* Background only for desktop - mosaic with Dariusz photos */}
       <div className="hidden md:block absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/75 via-navy-900/70 to-business-blue-700/75 z-10"></div>
         
         {/* Photo mosaic grid - desktop only z lazy loading */}
         <div className="absolute inset-0 grid grid-cols-8 md:grid-cols-12 lg:grid-cols-16 gap-0">
-          {Array.from({ length: 200 }, (_, index) => {
-            const images = [
-              "/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png",
-              "/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png",
-              "/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png",
-              "/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png",
-              "/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png",
-              "/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png",
-              "/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png",
-              "/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png"
-            ];
-            const imageIndex = index % images.length;
-            return (
-              <div key={index} className="aspect-square">
-                <OptimizedImage
-                  src={images[imageIndex]}
-                  alt=""
-                  className="w-full h-full object-cover"
-                  priority={index < 32}
-                />
-              </div>
-            );
-          })}
+          {Array.from({
+          length: 200
+        }, (_, index) => {
+          const images = ["/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png", "/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png", "/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png", "/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png", "/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png", "/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png", "/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png", "/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png"];
+          const imageIndex = index % images.length;
+          return <div key={index} className="aspect-square">
+                <OptimizedImage src={images[imageIndex]} alt="" className="w-full h-full object-cover" priority={index < 32} />
+              </div>;
+        })}
         </div>
       </div>
       
@@ -94,14 +68,7 @@ const ImagineSection = () => {
           {/* Left side - Dariusz Image z optymalizacją */}
           <div className="w-full">
             <div className="w-full h-[600px] lg:h-[700px] relative">
-              <OptimizedImage
-                src="/lovable-uploads/55fb8ed1-6014-4e4b-8be6-fb3390b3ad6f.png"
-                alt="Dariusz Wentrych"
-                className="w-full h-full object-cover rounded-2xl shadow-2xl"
-                priority={true}
-                width={400}
-                height={533}
-              />
+              <OptimizedImage src="/lovable-uploads/55fb8ed1-6014-4e4b-8be6-fb3390b3ad6f.png" alt="Dariusz Wentrych" className="w-full h-full object-cover rounded-2xl shadow-2xl" priority={true} width={400} height={533} />
             </div>
           </div>
 
@@ -112,17 +79,10 @@ const ImagineSection = () => {
               <h3 className="text-white text-2xl md:text-3xl font-bold mb-4 font-montserrat">
                 Dlaczego wybierają nas klienci?
               </h3>
-              <p className="text-warm-neutral-300 text-lg font-lato">
-                W świecie, gdzie inni widzą w Tobie tylko numer, my widzimy człowieka.
-                Dla większości liczy się szybka sprzedaż i prowizja. U nas liczy się rozmowa, zrozumienie i realna pomoc. Nie działamy schematami, nie składamy pustych obietnic i nie wciskamy rozwiązań na siłę. Zamiast tego dajemy Ci czas, wsparcie i skuteczny plan działania. Klienci wracają do nas, bo wiedzą, że tu liczy się człowiek, nie target. To nasza przewaga nad całą resztą.
-              </p>
+              <p className="text-warm-neutral-300 text-lg font-lato">W świecie, gdzie inni widzą w Tobie tylko numer, my widzimy człowieka. Dla większości liczy się szybka sprzedaż i prowizja. U nas liczy się rozmowa, zrozumienie i realna pomoc. Nie działamy schematami, nie składamy pustych obietnic i nie wciskamy rozwiązań na siłę. Zamiast tego dajemy Ci czas, wsparcie i skuteczny plan działania. Klienci wracają do nas, bo wiedzą, że tu liczy się człowiek. To nasza przewaga nad całą resztą.</p>
             </div>
             
-            {expertise.map((item, index) => (
-              <div 
-                key={index}
-                className="flex items-start space-x-4 bg-white/10 backdrop-blur-sm border border-prestige-gold-200/30 rounded-xl p-4 hover:bg-white/15 transition-all duration-300"
-              >
+            {expertise.map((item, index) => <div key={index} className="flex items-start space-x-4 bg-white/10 backdrop-blur-sm border border-prestige-gold-200/30 rounded-xl p-4 hover:bg-white/15 transition-all duration-300">
                 <div className="bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 rounded-full w-12 h-12 flex items-center justify-center flex-shrink-0">
                   <item.icon className="w-6 h-6 text-navy-900" />
                 </div>
@@ -130,13 +90,10 @@ const ImagineSection = () => {
                   <h3 className="text-white font-semibold text-lg mb-1 font-montserrat">{item.title}</h3>
                   <p className="text-warm-neutral-300 text-sm font-lato">{item.description}</p>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default ImagineSection;
