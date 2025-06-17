@@ -84,7 +84,7 @@ const TeamSection = () => {
           <div className="flex justify-center lg:justify-end">
             <div className="relative">
               <OptimizedImage
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="
+                src="/lovable-uploads/ff0d4c86-c286-489b-ab02-bd9f3dc0c5b2.png"
                 alt="Zespół ekspertów Dariusza Wentrycha - doradcy finansowi"
                 className="w-full max-w-lg h-auto object-cover rounded-2xl shadow-2xl border-4 border-prestige-gold-400/30"
                 width={500}
