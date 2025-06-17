@@ -31,10 +31,10 @@ const TopHeader = () => {
                   <OptimizedImage
                     src="/lovable-uploads/81ac88cf-4584-494b-8086-41d8e28c65f2.png"
                     alt="Książka Nowe Życie Bez Długów"
-                    className="relative h-16 md:h-18 object-contain rounded-xl shadow-2xl border border-white/20"
+                    className="relative h-20 md:h-24 object-contain rounded-xl shadow-2xl border border-white/20"
                     priority={true}
                     width={64}
-                    height={72}
+                    height={96}
                   />
                   {/* Nowoczesny efekt świetlny */}
                   <div className="absolute -inset-1 bg-gradient-to-r from-prestige-gold-400/20 to-prestige-gold-500/20 rounded-xl blur-sm -z-10"></div>
