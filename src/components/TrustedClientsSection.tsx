@@ -129,9 +129,7 @@ const TrustedClientsSection = () => {
             Dołącz do grona zadowolonych klientów, którzy odzyskali kontrolę nad swoim życiem finansowym
           </p>
 
-          <p className="text-white/80 text-lg font-lato max-w-3xl mx-auto">
-            Poznaj historie ludzi, którzy odzyskali kontrolę nad swoim życiem finansowym
-          </p>
+          
         </div>
 
         {/* Desktop Testimonials with Navigation */}
