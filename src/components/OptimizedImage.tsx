@@ -9,6 +9,8 @@ interface OptimizedImageProps {
   sizes?: string;
   width?: number;
   height?: number;
+  mobileFormat?: 'jpg' | 'webp';
+  mobileQuality?: number;
 }
 
 const OptimizedImage: React.FC<OptimizedImageProps> = ({
@@ -18,51 +20,44 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   priority = false,
   sizes,
   width,
-  height
+  height,
+  mobileFormat = 'jpg',
+  mobileQuality = 75
 }) => {
-  // Function to convert PNG to JPG on mobile devices
+  // Function to convert PNG to JPG for mobile optimization
   const getOptimizedSrc = (originalSrc: string) => {
-    // Check if it's a PNG file and if we're on mobile
-    if (originalSrc.includes('.png')) {
-      // Use CSS media query approach - browser will choose appropriate format
-      const jpgSrc = originalSrc.replace('.png', '.jpg');
-      return jpgSrc;
+    // For mobile devices, convert PNG to JPG for better compression
+    if (window.innerWidth <= 768 && originalSrc.includes('.png')) {
+      return originalSrc.replace('.png', '.jpg');
     }
     return originalSrc;
   };
 
-  // Create srcSet for responsive images
-  const createSrcSet = (originalSrc: string) => {
-    if (originalSrc.includes('.png')) {
-      const jpgSrc = originalSrc.replace('.png', '.jpg');
-      // Mobile: use JPG, Desktop: use PNG
-      return `${jpgSrc} 768w, ${originalSrc} 1024w`;
-    }
-    return undefined;
-  };
-
   const optimizedSrc = getOptimizedSrc(src);
-  const srcSet = createSrcSet(src);
 
   return (
     <picture>
-      {/* Mobile: JPG with good compression */}
-      {src.includes('.png') && (
-        <source 
-          media="(max-width: 768px)" 
-          srcSet={src.replace('.png', '.jpg')}
-          type="image/jpeg"
-        />
-      )}
-      {/* Desktop: Original PNG */}
+      {/* Mobile version - JPG for better compression */}
+      <source 
+        media="(max-width: 768px)" 
+        srcSet={optimizedSrc}
+        type="image/jpeg"
+      />
+      
+      {/* Desktop version - original format */}
+      <source 
+        media="(min-width: 769px)" 
+        srcSet={src}
+        type={src.includes('.png') ? 'image/png' : 'image/jpeg'}
+      />
+      
       <img
-        src={src}
-        srcSet={srcSet}
-        sizes={sizes || "(max-width: 768px) 100vw, 50vw"}
+        src={optimizedSrc}
         alt={alt}
         className={className}
         loading={priority ? "eager" : "lazy"}
         decoding="async"
+        sizes={sizes}
         width={width}
         height={height}
         style={{
