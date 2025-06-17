@@ -20,7 +20,7 @@ const ClientSection = () => {
     number: "Nr 1",
     text: "w Polsce w oddłużaniu"
   }];
-  const clientImages = ["/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png", "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png", "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f158ac8d8.png", "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png", "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png", "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png", "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png", "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png"];
+  const clientImages = ["/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png", "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png", "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f158ac8d8.png", "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png", "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png", "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png", "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png", "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png", "/lovable-uploads/ce402ba0-a1c6-47f9-b872-3b17a07691f3.png", "/lovable-uploads/e1583163-e7e1-453a-8a37-a5b927cc224e.png", "/lovable-uploads/fd5a99a1-5cfe-4ed4-9f16-b9ff7764b433.png"];
   const mediaLogos = [{
     src: "https://kredytstudio.pl/wp-content/uploads/2025/04/logos1-75x75.png",
     alt: "Logo media outlet",
@@ -63,8 +63,6 @@ const ClientSection = () => {
                 <p>
                   Dariusz Wentrych to doradca finansowy z ponad 20-letnim doświadczeniem, który pomaga klientom podejmować świadome decyzje dotyczące ich pieniędzy. Łączy ekspercką wiedzę z umiejętnością tłumaczenia złożonych kwestii w prosty i zrozumiały sposób.
                 </p>
-                
-                
                 
                 <p>
                   Jest autorem książki „Nowe życie bez długów", w której dzieli się praktycznymi narzędziami do odzyskania kontroli nad finansami. Jej przesłanie koncentruje się na tym, co najważniejsze — spokoju, bezpieczeństwie i wolności wyboru.

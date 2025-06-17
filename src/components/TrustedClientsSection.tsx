@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef } from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Star, ChevronLeft, ChevronRight, Users, Heart, CheckCircle, Quote, ArrowLeftRight } from 'lucide-react';
@@ -11,43 +12,43 @@ const TrustedClientsSection = () => {
   const touchEndX = useRef(0);
   const autoPlayInterval = useRef<NodeJS.Timeout | null>(null);
   
-  const clientImages = ["/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png", "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png", "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f601a69.png", "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png", "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png", "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png", "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png", "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png"];
+  const clientImages = ["/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png", "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png", "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f601a69.png", "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png", "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png", "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png", "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png", "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png", "/lovable-uploads/ce402ba0-a1c6-47f9-b872-3b17a07691f3.png", "/lovable-uploads/e1583163-e7e1-453a-8a37-a5b927cc224e.png", "/lovable-uploads/fd5a99a1-5cfe-4ed4-9f16-b9ff7764b433.png"];
   
   const testimonials = [{
     name: "Pani Anna",
     text: "Pan Dariusz to porządny człowiek. Wszystko mi wytłumaczył spokojnie i bez pośpiechu. Wiedziałam, że mogę mu zaufać. Pomógł mi jak rodzinie.",
     rating: 5,
-    image: "/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png",
+    image: "/lovable-uploads/ce402ba0-a1c6-47f9-b872-3b17a07691f3.png",
     verified: true
   }, {
     name: "Pan Tomasz",
     text: "Na początku myślałem, że to będzie kolejna firma, co tylko gada. Ale Dariusz to inna liga. Konkretny gość, zero ściemy. Szacunek.",
     rating: 5,
-    image: "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png",
+    image: "/lovable-uploads/e1583163-e7e1-453a-8a37-a5b927cc224e.png",
     verified: true
   }, {
     name: "Pani Maria",
     text: "Współpraca z Panem Dariuszem przebiegała bardzo profesjonalnie. Wszystko jasno przedstawione, bez zbędnych obietnic. To osoba, której naprawdę można powierzyć swoją sprawę.",
     rating: 5,
-    image: "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f601a69.png",
+    image: "/lovable-uploads/fd5a99a1-5cfe-4ed4-9f16-b9ff7764b433.png",
     verified: true
   }, {
     name: "Pani Katarzyna",
     text: "Byłam załamana, nie wiedziałam, co dalej. Dariusz potraktował mnie z empatią i szacunkiem. Dał mi poczucie, że nie jestem sama. Tego się nie zapomina.",
     rating: 5,
-    image: "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png",
+    image: "/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png",
     verified: true
   }, {
     name: "Pan Piotr",
     text: "Chłop jak trzeba. Przyjechał, porozmawiał normalnie, bez wywyższania się. Zrobił porządek z tymi kredytami i wreszcie mogę spać spokojnie.",
     rating: 5,
-    image: "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png",
+    image: "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png",
     verified: true
   }, {
     name: "Pan Marek",
     text: "Zaufałem, bo widziałem, jak wielu osobom już pomógł. To ekspert z ogromnym doświadczeniem, a przy tym człowiek, który naprawdę rozumie, przez co przechodzisz.",
     rating: 5,
-    image: "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png",
+    image: "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f601a69.png",
     verified: true
   }];
 
