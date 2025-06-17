@@ -120,10 +120,10 @@ const FloatingAvatar = () => {
         </div>
       </div>
 
-      {/* Modal with Calculator - Bez headera z Dariuszem */}
+      {/* Modal z kalkulatorem - poprawione wymiary i przewijanie */}
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden relative">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[95vh] overflow-hidden relative flex flex-col">
             {/* Close Button */}
             <button
               onClick={handleClose}
@@ -132,8 +132,8 @@ const FloatingAvatar = () => {
               <X className="w-4 h-4 text-gray-600" />
             </button>
             
-            {/* Calculator Content - Bez przewijania */}
-            <div className="p-6 h-full">
+            {/* Calculator Content z przewijaniem */}
+            <div className="flex-1 overflow-y-auto p-6">
               <DebtCalculator />
             </div>
           </div>
