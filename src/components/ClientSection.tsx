@@ -1,3 +1,4 @@
+
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Users, Award, BookOpen, TrendingUp } from 'lucide-react';
@@ -20,7 +21,21 @@ const ClientSection = () => {
     number: "Nr 1",
     text: "w Polsce w oddłużaniu"
   }];
-  const clientImages = ["/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png", "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png", "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f158ac8d8.png", "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png", "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png", "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png", "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png", "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png", "/lovable-uploads/ce402ba0-a1c6-47f9-b872-3b17a07691f3.png", "/lovable-uploads/e1583163-e7e1-453a-8a37-a5b927cc224e.png", "/lovable-uploads/fd5a99a1-5cfe-4ed4-9f16-b9ff7764b433.png"];
+
+  const clientImages = [
+    "/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png",
+    "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png", 
+    "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f158ac8d8.png",
+    "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png",
+    "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png",
+    "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png",
+    "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png",
+    "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png",
+    "/lovable-uploads/ce402ba0-a1c6-47f9-b872-3b17a07691f3.png",
+    "/lovable-uploads/e1583163-e7e1-453a-8a37-a5b927cc224e.png",
+    "/lovable-uploads/fd5a99a1-5cfe-4ed4-9f16-b9ff7764b433.png"
+  ];
+
   const mediaLogos = [{
     src: "https://kredytstudio.pl/wp-content/uploads/2025/04/logos1-75x75.png",
     alt: "Logo media outlet",
@@ -38,7 +53,9 @@ const ClientSection = () => {
     alt: "Dziennik Polski",
     className: "h-8 md:h-10"
   }];
-  return <section className="bg-gradient-to-br from-warm-neutral-50 to-white py-16 md:py-24">
+
+  return (
+    <section className="bg-gradient-to-br from-warm-neutral-50 to-white py-16 md:py-24">
       <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
         
         {/* Header */}
@@ -50,7 +67,14 @@ const ClientSection = () => {
           <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-12 max-w-6xl mx-auto">
             {/* Zdjęcie Dariusza po lewej z optymalizacją */}
             <div className="flex-shrink-0">
-              <OptimizedImage src="/lovable-uploads/334d50e2-cfc0-48be-97b0-4521fb97af10.png" alt="Dariusz Wentrych - Doradca finansowy" className="w-64 h-80 lg:w-72 lg:h-96 object-cover rounded-2xl shadow-xl border-4 border-prestige-gold-200" priority={true} width={288} height={384} />
+              <OptimizedImage 
+                src="/lovable-uploads/334d50e2-cfc0-48be-97b0-4521fb97af10.png" 
+                alt="Dariusz Wentrych - Doradca finansowy" 
+                className="w-64 h-80 lg:w-72 lg:h-96 object-cover rounded-2xl shadow-xl border-4 border-prestige-gold-200" 
+                priority={true} 
+                width={288} 
+                height={384} 
+              />
             </div>
             
             {/* Tekst po prawej */}
@@ -82,7 +106,8 @@ const ClientSection = () => {
 
         {/* Achievements Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {achievements.map((achievement, index) => <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-prestige-gold-200/30 text-center group hover:-translate-y-2">
+          {achievements.map((achievement, index) => (
+            <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-prestige-gold-200/30 text-center group hover:-translate-y-2">
               <div className="bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                 <achievement.icon className="w-8 h-8 text-navy-900" />
               </div>
@@ -92,7 +117,8 @@ const ClientSection = () => {
               <p className="text-warm-neutral-600 font-lato font-medium">
                 {achievement.text}
               </p>
-            </div>)}
+            </div>
+          ))}
         </div>
 
         {/* Media Section */}
@@ -103,9 +129,11 @@ const ClientSection = () => {
           
           <div className="bg-white rounded-2xl p-8 shadow-lg border border-prestige-gold-200/30 max-w-4xl mx-auto">
             <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
-              {mediaLogos.map((logo, index) => <div key={index} className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
+              {mediaLogos.map((logo, index) => (
+                <div key={index} className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100">
                   <img src={logo.src} alt={logo.alt} className={`object-contain ${logo.className}`} />
-                </div>)}
+                </div>
+              ))}
             </div>
             
             <p className="text-warm-neutral-600 text-sm md:text-base mt-6 font-lato">
@@ -116,15 +144,33 @@ const ClientSection = () => {
 
         {/* Client Photos Section */}
         <div className="text-center">
-          
+          <h3 className="font-montserrat text-2xl md:text-3xl font-bold text-navy-900 mb-8">
+            15.000 zadowolonych klientów
+          </h3>
           
           {/* Client photos grid z lazy loading */}
+          <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+            {clientImages.map((image, index) => (
+              <div key={index} className="relative group">
+                <OptimizedImage 
+                  src={image} 
+                  alt={`Zadowolony klient ${index + 1}`}
+                  className="w-full h-24 md:h-28 lg:h-32 object-cover rounded-xl shadow-md group-hover:shadow-lg transition-all duration-300 border-2 border-prestige-gold-200/50 group-hover:border-prestige-gold-400"
+                  width={120}
+                  height={120}
+                />
+                <div className="absolute inset-0 bg-prestige-gold-400/0 group-hover:bg-prestige-gold-400/10 rounded-xl transition-all duration-300"></div>
+              </div>
+            ))}
+          </div>
           
-          
-          
+          <p className="text-warm-neutral-600 text-lg font-lato">
+            Oni mi zaufali • Teraz ty możesz wyjść z zadłużenia!
+          </p>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
 
 export default ClientSection;
