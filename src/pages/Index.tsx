@@ -13,6 +13,7 @@ import HeroesSection from '../components/HeroesSection';
 import BookSection from '../components/BookSection';
 import TeamSection from '../components/TeamSection';
 import CalculatorSection from '../components/CalculatorSection';
+import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 
 const Index = () => {
@@ -31,6 +32,7 @@ const Index = () => {
       <BookSection />
       <TeamSection />
       <CalculatorSection />
+      <GuaranteeSection />
       <FloatingAvatar />
     </div>
   );
