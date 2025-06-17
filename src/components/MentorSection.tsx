@@ -1,7 +1,5 @@
-
 import React from 'react';
 import { Star, X, Check } from 'lucide-react';
-
 const MentorSection = () => {
   const testimonials = [{
     name: "PANI BERNADETTA",
@@ -16,11 +14,9 @@ const MentorSection = () => {
     text: "Pan Dariusz Wentrych był pierwszą osobą, która naprawdę mnie wysłuchała i pokazała, że jest wyjście. Profesjonalny, cierpliwy i skuteczny.",
     avatar: "/lovable-uploads/47a03bb7-de4c-4a31-87c2-1a15bb5c649d.png"
   }];
-
   const renderStars = () => {
     return [...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 text-prestige-gold-400 fill-current" />);
   };
-
   return <>
       {/* Pan Krzysztof section */}
       <section className="py-16 md:py-24 relative" style={{
@@ -124,9 +120,8 @@ const MentorSection = () => {
                   Jest tyle firm naciągaczy, że nawet jeśli masz wątpliwości i byłeś w tych firmach, jak najszybciej skontaktuj się z nami, aby porównać zapisy prawne z naszym zespołem ekspertów.
                 </p>
                 
-                <p className="text-red-300 text-xl font-bold font-montserrat text-center">
-                  Jest dziś tyle firm-naciągaczy, że to się w głowie nie mieści!
-                </p>
+                <p className="text-red-300 text-xl font-bold font-montserrat text-center">Codziennie słyszymy o ludziach, którzy padli ofiarą fałszywych firm. 
+Nie pozwól, by Ciebie to spotkało.</p>
                 
                 {/* Direct comparison grid without additional wrapper */}
                 <div className="grid md:grid-cols-2 gap-6 my-8">
@@ -173,9 +168,7 @@ const MentorSection = () => {
                   <p className="text-white text-lg font-lato">
                     
                   </p>
-                  <p className="text-prestige-gold-400 text-xl font-bold font-montserrat text-center mt-6">
-                    Oni mają swoje paragrafy – Ty masz nas.
-                  </p>
+                  <p className="text-prestige-gold-400 text-xl font-bold font-montserrat text-center mt-6">Tam gdzie oni komplikują, my wyjaśniamy i działamy.</p>
                 </div>
               </div>
             </div>
@@ -184,5 +177,4 @@ const MentorSection = () => {
       </section>
     </>;
 };
-
 export default MentorSection;
