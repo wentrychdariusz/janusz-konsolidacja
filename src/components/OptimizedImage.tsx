@@ -34,8 +34,6 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         objectFit: 'cover',
         objectPosition: 'center'
       }}
-      // Dodatkowe optymalizacje dla mobile
-      fetchPriority={priority ? "high" : "low"}
     />
   );
 };
