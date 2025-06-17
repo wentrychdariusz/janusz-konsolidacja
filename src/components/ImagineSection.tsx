@@ -1,3 +1,4 @@
+
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
 import { MapPin, Car, Award, Users, Star } from 'lucide-react';
@@ -90,7 +91,7 @@ const ImagineSection = () => {
 
         {/* Image and expertise section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-8 items-start">
-          {/* Left side - Zdjęcie Dariusza z kompresją JPG dla mobile */}
+          {/* Left side - Dariusz Image z optymalizacją */}
           <div className="w-full">
             <div className="w-full h-[600px] lg:h-[700px] relative">
               <OptimizedImage
@@ -100,9 +101,6 @@ const ImagineSection = () => {
                 priority={true}
                 width={600}
                 height={700}
-                mobileFormat="jpg"
-                mobileQuality={75}
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
               />
             </div>
           </div>
