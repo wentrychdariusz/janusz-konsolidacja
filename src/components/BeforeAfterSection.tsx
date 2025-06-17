@@ -60,20 +60,6 @@ const BeforeAfterSection = () => {
     }
   ];
 
-  const clientImages = [
-    "/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png",
-    "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png", 
-    "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f158ac8d8.png",
-    "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png",
-    "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png",
-    "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png",
-    "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png",
-    "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png",
-    "/lovable-uploads/ce402ba0-a1c6-47f9-b872-3b17a07691f3.png",
-    "/lovable-uploads/e1583163-e7e1-453a-8a37-a5b927cc224e.png",
-    "/lovable-uploads/fd5a99a1-5cfe-4ed4-9f16-b9ff7764b433.png"
-  ];
-
   const handleCalculatorOpen = () => {
     setIsCalculatorOpen(true);
   };
@@ -161,31 +147,9 @@ const BeforeAfterSection = () => {
             </div>
           </div>
 
-          {/* Call to Action with Client Photos */}
+          {/* Call to Action */}
           <div className="text-center mt-16">
             <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12 border border-gray-200">
-              <div className="mb-8">
-                <h3 className="font-montserrat text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                  <span className="text-prestige-gold-600">15.000</span> osób mi zaufało
-                </h3>
-                <p className="text-slate-600 text-lg font-lato mb-8 max-w-2xl mx-auto">
-                  Dołącz do grona zadowolonych klientów, którzy odzyskali kontrolę nad swoim życiem finansowym
-                </p>
-              </div>
-
-              {/* Client Photos in Circles */}
-              <div className="flex flex-wrap justify-center items-center gap-4 mb-8">
-                {clientImages.slice(0, 11).map((image, index) => (
-                  <div key={index} className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-4 border-prestige-gold-200 shadow-lg hover:scale-110 transition-transform duration-300">
-                    <img 
-                      src={image} 
-                      alt={`Zadowolony klient ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-
               <button 
                 onClick={handleCalculatorOpen}
                 className="bg-gradient-to-r from-prestige-gold-500 to-yellow-400 text-slate-900 font-bold px-10 py-4 rounded-full hover:from-prestige-gold-600 hover:to-yellow-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg"
