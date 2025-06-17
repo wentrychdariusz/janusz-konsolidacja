@@ -95,12 +95,12 @@ const ImagineSection = () => {
           <div className="w-full">
             <div className="w-full h-[600px] lg:h-[700px] relative">
               <OptimizedImage
-                src="/lovable-uploads/13f2bb30-b521-4709-8d23-16bcbfcc4eb8.png"
+                src="/lovable-uploads/55fb8ed1-6014-4e4b-8be6-fb3390b3ad6f.png"
                 alt="Dariusz Wentrych"
                 className="w-full h-full object-cover rounded-2xl shadow-2xl"
                 priority={true}
-                width={600}
-                height={700}
+                width={400}
+                height={533}
               />
             </div>
           </div>
