@@ -1,20 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
 import { CheckCircle, Shield, Award, Users, Trophy, Target, Car } from 'lucide-react';
 
 const HeroSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    // Opóźnienie 1 sekundy przed pokazaniem contentu
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const benefits = [
     {
       icon: Trophy,
@@ -41,23 +30,24 @@ const HeroSection = () => {
     "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png",
     "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png",
     "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png",
-    "/lovable-uploads/ce402ba0-a1c6-47f9-b872-3b17a07691f3.png",
-    "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2f158ac8d8.png",
-    "/lovable-uploads/e1583163-e7e1-453a-8a37-a5b927cc224e.png",
-    "/lovable-uploads/fd5a99a1-5cfe-4ed4-9f16-b9ff7764b433.png"
+    "/lovable-uploads/ce402ba0-a1c6-47f9-b872-3b17a07691f3.png"
   ];
 
-  // Zoptymalizowane obrazy dla mozaiki mobilnej (mniejsze rozmiary)
+  // Dodatkowe zdjęcia dla mozaiki mobilnej
   const mobileBackgroundImages = [
     "/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png",
     "/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png",
     "/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png",
-    "/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png"
+    "/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png",
+    "/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png",
+    "/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png",
+    "/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png",
+    "/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png"
   ];
 
   return (
     <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden">
-      {/* Desktop background - lazy loading */}
+      {/* Desktop background - Dariusz image z lazy loading */}
       <div 
         className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
         style={{
@@ -68,29 +58,25 @@ const HeroSection = () => {
         }}
       ></div>
       
-      {/* Mobile background - zoptymalizowana mozaika */}
+      {/* Mobile background - mozaika z lazy loading */}
       <div className="md:hidden absolute inset-0">
         <div className="absolute inset-0 grid grid-cols-4 gap-0">
-          {Array.from({ length: 32 }, (_, index) => {
+          {Array.from({ length: 80 }, (_, index) => {
             const imageIndex = index % mobileBackgroundImages.length;
             return (
               <div key={index} className="aspect-square">
                 <OptimizedImage
                   src={mobileBackgroundImages[imageIndex]}
                   alt=""
-                  className="w-full h-full object-cover opacity-30"
-                  priority={index < 8}
-                  mobileOptimized={true}
-                  width={80}
-                  height={80}
-                  quality={60}
+                  className="w-full h-full object-cover opacity-40"
+                  priority={index < 16} // Pierwsze 16 obrazów ładuj od razu
                 />
               </div>
             );
           })}
         </div>
         {/* Gradient overlay dla mobilnej mozaiki */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black"></div>
         {/* Dodatkowy gradient na dole dla płynnego przejścia */}
         <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black via-black/90 to-transparent"></div>
       </div>
@@ -101,11 +87,11 @@ const HeroSection = () => {
       {/* Additional gradient for smoother bottom transition - desktop */}
       <div className="hidden md:block absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
       
-      <div className={`relative z-10 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <div className="relative z-10">
         <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-4 md:py-8">
           
           {/* Header Section - Full Width */}
-          <div className="w-full text-center mb-2 md:mb-3">
+          <div className="w-full text-center mb-2 md:mb-3 animate-fade-in">
             <div className="flex justify-center items-center mb-3 lg:mb-4">
               <OptimizedImage
                 src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
@@ -114,8 +100,6 @@ const HeroSection = () => {
                 priority={true}
                 width={96}
                 height={96}
-                mobileOptimized={true}
-                quality={85}
               />
             </div>
             <div className="font-montserrat text-prestige-gold-400 text-xl md:text-2xl lg:text-3xl font-black tracking-wide uppercase">
@@ -140,10 +124,10 @@ const HeroSection = () => {
                 </h3>
               </div>
               
-              {/* Client photos grid z lazy loading i kompresją */}
+              {/* Client photos grid z lazy loading */}
               <div className="flex justify-center items-center mb-4">
                 <div className="flex items-center">
-                  {clientImages.slice(0, 8).map((image, index) => (
+                  {clientImages.map((image, index) => (
                     <div 
                       key={index} 
                       className="relative group -ml-2 first:ml-0"
@@ -156,8 +140,6 @@ const HeroSection = () => {
                         priority={index < 4}
                         width={56}
                         height={56}
-                        mobileOptimized={true}
-                        quality={70}
                       />
                     </div>
                   ))}
@@ -178,7 +160,7 @@ const HeroSection = () => {
           {/* Mobile/Tablet Layout - Stacked */}
           <div className="block xl:hidden space-y-4">
             {/* Content Section */}
-            <div className="space-y-3 md:space-y-4">
+            <div className="space-y-3 md:space-y-4 animate-fade-in">
               <h1 className="font-montserrat font-black text-3xl sm:text-4xl md:text-5xl text-center leading-tight">
                 <span className="text-white">Zamień długi w </span>
                 <span className="text-business-blue-400">jedną wygodną ratę</span>
@@ -218,7 +200,7 @@ const HeroSection = () => {
             </div>
             
             {/* Calculator Section - Mobile */}
-            <div>
+            <div className="animate-fade-in">
               <DebtCalculator />
             </div>
           </div>
@@ -227,7 +209,7 @@ const HeroSection = () => {
           <div className="hidden xl:grid xl:grid-cols-2 gap-12 items-start">
             
             {/* Left Content - 50% */}
-            <div className="space-y-3 md:space-y-4">
+            <div className="space-y-3 md:space-y-4 animate-fade-in">
               <h1 className="font-montserrat font-black text-4xl lg:text-5xl xl:text-6xl text-left leading-tight">
                 <span className="text-white">Zamień długi w </span>
                 <span className="text-business-blue-400">jedną wygodną ratę</span>
@@ -267,7 +249,7 @@ const HeroSection = () => {
             </div>
             
             {/* Right Content - 50% */}
-            <div className="flex justify-center">
+            <div className="flex justify-center animate-fade-in">
               <div className="w-full">
                 <DebtCalculator />
               </div>
