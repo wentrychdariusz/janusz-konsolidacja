@@ -4,11 +4,15 @@ import OptimizedImage from './OptimizedImage';
 import { CheckCircle, Shield, Award, Users, Trophy, Target, Car } from 'lucide-react';
 
 const HeroSection = () => {
-  const [isVisible, setIsVisible] = useState(true); // Natychmiast widoczny
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Usunięte opóźnienie - content pokazuje się od razu
   useEffect(() => {
-    setIsVisible(true);
+    // Opóźnienie 1 sekundy przed pokazaniem contentu
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const benefits = [
@@ -43,8 +47,8 @@ const HeroSection = () => {
     "/lovable-uploads/fd5a99a1-5cfe-4ed4-9f16-b9ff7764b433.png"
   ];
 
-  // Obrazy z pieniędzmi dla mobilnego tła
-  const moneyBackgroundImages = [
+  // Zoptymalizowane obrazy dla mozaiki mobilnej (mniejsze rozmiary)
+  const mobileBackgroundImages = [
     "/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png",
     "/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png",
     "/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png",
@@ -53,11 +57,7 @@ const HeroSection = () => {
 
   return (
     <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden">
-      {/* Preload kluczowych obrazów */}
-      <link rel="preload" as="image" href="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" />
-      <link rel="preload" as="image" href="/lovable-uploads/eb0658a9-c99a-4631-a61d-1543709a3efa.png" />
-      
-      {/* Desktop background - z lepszą optymalizacją */}
+      {/* Desktop background - lazy loading */}
       <div 
         className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
         style={{
@@ -68,18 +68,18 @@ const HeroSection = () => {
         }}
       ></div>
       
-      {/* Mobile background - subtelne tło z pieniędzmi */}
+      {/* Mobile background - zoptymalizowana mozaika */}
       <div className="md:hidden absolute inset-0">
         <div className="absolute inset-0 grid grid-cols-4 gap-0">
-          {Array.from({ length: 12 }, (_, index) => {
-            const imageIndex = index % moneyBackgroundImages.length;
+          {Array.from({ length: 32 }, (_, index) => {
+            const imageIndex = index % mobileBackgroundImages.length;
             return (
               <div key={index} className="aspect-square">
                 <OptimizedImage
-                  src={moneyBackgroundImages[imageIndex]}
+                  src={mobileBackgroundImages[imageIndex]}
                   alt=""
-                  className="w-full h-full object-cover opacity-15"
-                  priority={index < 4}
+                  className="w-full h-full object-cover opacity-30"
+                  priority={index < 8}
                   mobileOptimized={true}
                   width={80}
                   height={80}
@@ -89,10 +89,10 @@ const HeroSection = () => {
             );
           })}
         </div>
-        {/* Gradient overlay dla mobilnego tła z pieniędzmi */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/75 to-black/90"></div>
+        {/* Gradient overlay dla mobilnej mozaiki */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/70 to-black"></div>
         {/* Dodatkowy gradient na dole dla płynnego przejścia */}
-        <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black via-black/95 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black via-black/90 to-transparent"></div>
       </div>
       
       {/* Enhanced gradient overlay with smooth tonal transition - desktop */}
@@ -101,7 +101,7 @@ const HeroSection = () => {
       {/* Additional gradient for smoother bottom transition - desktop */}
       <div className="hidden md:block absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
       
-      <div className={`relative z-10 transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+      <div className={`relative z-10 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-4 md:py-8">
           
           {/* Header Section - Full Width */}
@@ -115,7 +115,7 @@ const HeroSection = () => {
                 width={96}
                 height={96}
                 mobileOptimized={true}
-                quality={90} // Zwiększone dla głównego zdjęcia
+                quality={85}
               />
             </div>
             <div className="font-montserrat text-prestige-gold-400 text-xl md:text-2xl lg:text-3xl font-black tracking-wide uppercase">
@@ -140,10 +140,10 @@ const HeroSection = () => {
                 </h3>
               </div>
               
-              {/* Client photos grid z lepszą optymalizacją */}
+              {/* Client photos grid z lazy loading i kompresją */}
               <div className="flex justify-center items-center mb-4">
                 <div className="flex items-center">
-                  {clientImages.slice(0, 6).map((image, index) => ( // Zmniejszone z 8 do 6
+                  {clientImages.slice(0, 8).map((image, index) => (
                     <div 
                       key={index} 
                       className="relative group -ml-2 first:ml-0"
@@ -153,11 +153,11 @@ const HeroSection = () => {
                         src={image}
                         alt={`Zadowolony klient ${index + 1}`}
                         className="w-12 h-12 md:w-14 md:h-14 rounded-full border-3 border-prestige-gold-400 object-cover shadow-lg group-hover:scale-110 transition-transform duration-300"
-                        priority={index < 3} // Tylko pierwsze 3 z priority
+                        priority={index < 4}
                         width={56}
                         height={56}
                         mobileOptimized={true}
-                        quality={75} // Zwiększone dla lepszej jakości twarzy
+                        quality={70}
                       />
                     </div>
                   ))}
