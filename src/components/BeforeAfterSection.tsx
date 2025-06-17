@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Smile, Phone, Heart, Shield, CheckCircle, XCircle, X } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
-import OptimizedImage from './OptimizedImage';
 
 const BeforeAfterSection = () => {
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
@@ -84,18 +83,12 @@ const BeforeAfterSection = () => {
               Chcesz w końcu wyjść z długów, ale nie wiesz od czego zacząć?
             </p>
             
-            {/* Dariusz's image z optymalizacją JPG */}
+            {/* Dariusz's image */}
             <div className="flex justify-center mb-8">
-              <OptimizedImage
-                src="/lovable-uploads/85ea5843-0408-4e89-8f99-c694c9261fd3.png"
-                alt="Dariusz Wentrych"
+              <img 
+                src="/lovable-uploads/85ea5843-0408-4e89-8f99-c694c9261fd3.png" 
+                alt="Dariusz Wentrych" 
                 className="w-64 h-80 md:w-72 md:h-96 lg:w-80 lg:h-[28rem] rounded-2xl object-cover shadow-xl"
-                priority={true}
-                width={320}
-                height={448}
-                mobileFormat="jpg"
-                mobileQuality={80}
-                sizes="(max-width: 768px) 256px, (max-width: 1024px) 288px, 320px"
               />
             </div>
             

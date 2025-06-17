@@ -80,7 +80,7 @@ const TeamSection = () => {
             </div>
           </div>
 
-          {/* Right Content - Team Image z optymalizacją JPG */}
+          {/* Right Content - Team Image */}
           <div className="flex justify-center lg:justify-end">
             <div className="relative">
               <OptimizedImage
@@ -89,9 +89,6 @@ const TeamSection = () => {
                 className="w-full max-w-lg h-auto object-cover rounded-2xl shadow-2xl border-4 border-prestige-gold-400/30"
                 width={500}
                 height={400}
-                mobileFormat="jpg"
-                mobileQuality={80}
-                sizes="(max-width: 768px) 100vw, 500px"
               />
               
               {/* Overlay Badge */}
