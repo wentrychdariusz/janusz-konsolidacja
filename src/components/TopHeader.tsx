@@ -29,7 +29,7 @@ const TopHeader = () => {
                 {/* Książka z nowoczesnym cieniem */}
                 <div className="relative flex-shrink-0">
                   <OptimizedImage
-                    src="/lovable-uploads/68877fd7-1b70-47e9-b545-82e5e2b6e5e4.png"
+                    src="/lovable-uploads/81ac88cf-4584-494b-8086-41d8e28c65f2.png"
                     alt="Książka Nowe Życie Bez Długów"
                     className="relative h-16 md:h-18 object-contain rounded-xl shadow-2xl border border-white/20"
                     priority={true}
