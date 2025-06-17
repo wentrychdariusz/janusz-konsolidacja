@@ -4,15 +4,11 @@ import OptimizedImage from './OptimizedImage';
 import { CheckCircle, Shield, Award, Users, Trophy, Target, Car } from 'lucide-react';
 
 const HeroSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true); // Natychmiast widoczny
 
+  // Usunięte opóźnienie - content pokazuje się od razu
   useEffect(() => {
-    // Opóźnienie 1 sekundy przed pokazaniem contentu
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 1000);
-
-    return () => clearTimeout(timer);
+    setIsVisible(true);
   }, []);
 
   const benefits = [
@@ -47,7 +43,7 @@ const HeroSection = () => {
     "/lovable-uploads/fd5a99a1-5cfe-4ed4-9f16-b9ff7764b433.png"
   ];
 
-  // Zoptymalizowane obrazy dla mozaiki mobilnej (mniejsze rozmiary)
+  // Zoptymalizowane obrazy dla mozaiki mobilnej - ładowane z opóźnieniem
   const mobileBackgroundImages = [
     "/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png",
     "/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png",
@@ -57,7 +53,11 @@ const HeroSection = () => {
 
   return (
     <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden">
-      {/* Desktop background - lazy loading */}
+      {/* Preload kluczowych obrazów */}
+      <link rel="preload" as="image" href="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" />
+      <link rel="preload" as="image" href="/lovable-uploads/eb0658a9-c99a-4631-a61d-1543709a3efa.png" />
+      
+      {/* Desktop background - z lepszą optymalizacją */}
       <div 
         className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
         style={{
@@ -68,22 +68,22 @@ const HeroSection = () => {
         }}
       ></div>
       
-      {/* Mobile background - zoptymalizowana mozaika */}
+      {/* Mobile background - zoptymalizowana mozaika z lazy loading */}
       <div className="md:hidden absolute inset-0">
         <div className="absolute inset-0 grid grid-cols-4 gap-0">
-          {Array.from({ length: 32 }, (_, index) => {
+          {Array.from({ length: 16 }, (_, index) => { // Zmniejszone z 32 do 16
             const imageIndex = index % mobileBackgroundImages.length;
             return (
               <div key={index} className="aspect-square">
                 <OptimizedImage
                   src={mobileBackgroundImages[imageIndex]}
                   alt=""
-                  className="w-full h-full object-cover opacity-30"
-                  priority={index < 8}
+                  className="w-full h-full object-cover opacity-20" // Zmniejszona opacity dla lepszej wydajności
+                  priority={index < 4} // Tylko pierwsze 4 z priority
                   mobileOptimized={true}
-                  width={80}
-                  height={80}
-                  quality={60}
+                  width={60} // Zmniejszone z 80
+                  height={60} // Zmniejszone z 80
+                  quality={50} // Zmniejszone z 60
                 />
               </div>
             );
@@ -101,7 +101,7 @@ const HeroSection = () => {
       {/* Additional gradient for smoother bottom transition - desktop */}
       <div className="hidden md:block absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
       
-      <div className={`relative z-10 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <div className={`relative z-10 transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
         <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-4 md:py-8">
           
           {/* Header Section - Full Width */}
@@ -115,7 +115,7 @@ const HeroSection = () => {
                 width={96}
                 height={96}
                 mobileOptimized={true}
-                quality={85}
+                quality={90} // Zwiększone dla głównego zdjęcia
               />
             </div>
             <div className="font-montserrat text-prestige-gold-400 text-xl md:text-2xl lg:text-3xl font-black tracking-wide uppercase">
@@ -140,10 +140,10 @@ const HeroSection = () => {
                 </h3>
               </div>
               
-              {/* Client photos grid z lazy loading i kompresją */}
+              {/* Client photos grid z lepszą optymalizacją */}
               <div className="flex justify-center items-center mb-4">
                 <div className="flex items-center">
-                  {clientImages.slice(0, 8).map((image, index) => (
+                  {clientImages.slice(0, 6).map((image, index) => ( // Zmniejszone z 8 do 6
                     <div 
                       key={index} 
                       className="relative group -ml-2 first:ml-0"
@@ -153,11 +153,11 @@ const HeroSection = () => {
                         src={image}
                         alt={`Zadowolony klient ${index + 1}`}
                         className="w-12 h-12 md:w-14 md:h-14 rounded-full border-3 border-prestige-gold-400 object-cover shadow-lg group-hover:scale-110 transition-transform duration-300"
-                        priority={index < 4}
+                        priority={index < 3} // Tylko pierwsze 3 z priority
                         width={56}
                         height={56}
                         mobileOptimized={true}
-                        quality={70}
+                        quality={75} // Zwiększone dla lepszej jakości twarzy
                       />
                     </div>
                   ))}
