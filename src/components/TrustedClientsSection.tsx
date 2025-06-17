@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect, useRef } from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Star, ChevronLeft, ChevronRight, Users, Heart, CheckCircle, Quote, ArrowLeftRight } from 'lucide-react';
@@ -125,8 +123,28 @@ const TrustedClientsSection = () => {
 
       <div className="relative z-10 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
         
-        {/* Header */}
+        {/* Header with enhanced messaging */}
         <div className="text-center mb-16">
+          {/* Main stat */}
+          <div className="mb-8">
+            <div className="bg-gradient-to-r from-yellow-400/20 to-yellow-300/20 rounded-2xl p-6 mb-6 border border-yellow-400/30">
+              <div className="flex items-center justify-center mb-4">
+                <Users className="w-12 h-12 text-yellow-400 mr-4" />
+                <div className="text-left">
+                  <div className="text-5xl md:text-6xl lg:text-7xl font-black text-yellow-400 font-montserrat">
+                    15.000
+                  </div>
+                  <div className="text-white text-xl md:text-2xl font-bold font-montserrat">
+                    zadowolonych klientów
+                  </div>
+                </div>
+              </div>
+              <p className="text-yellow-200 text-lg md:text-xl font-lato">
+                Oni mi zaufali • Teraz ty możesz wyjść z zadłużenia!
+              </p>
+            </div>
+          </div>
+
           <h2 className="font-montserrat text-4xl md:text-5xl lg:text-6xl font-black mb-6">
             <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
               Oni mi
@@ -136,7 +154,11 @@ const TrustedClientsSection = () => {
             </span>
           </h2>
           
-          <p className="text-blue-200 text-xl md:text-2xl font-lato max-w-3xl mx-auto mb-12">
+          <p className="text-blue-200 text-xl md:text-2xl font-lato max-w-4xl mx-auto mb-8">
+            Dołącz do grona zadowolonych klientów, którzy odzyskali kontrolę nad swoim życiem finansowym
+          </p>
+
+          <p className="text-white/80 text-lg font-lato max-w-3xl mx-auto">
             Poznaj historie ludzi, którzy odzyskali kontrolę nad swoim życiem finansowym
           </p>
         </div>
@@ -147,7 +169,7 @@ const TrustedClientsSection = () => {
             {/* Header inside light section */}
             <div className="text-center py-12 px-8">
               <h3 className="font-montserrat text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Co mówią nasi klienci
+                Ponad 15.000 zadowolonych klientów
               </h3>
               <p className="text-gray-600 text-lg font-lato">
                 Prawdziwe opinie od zadowolonych klientów
