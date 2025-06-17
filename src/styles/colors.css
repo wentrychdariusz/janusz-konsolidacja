@@ -1,0 +1,14 @@
+
+.text-navy-900 { color: #1e293b; }
+.text-navy-800 { color: #334155; }
+.bg-navy-900 { background-color: #1e293b; }
+.bg-navy-800 { background-color: #334155; }
+.text-prestige-gold-500 { color: #f59e0b; }
+.text-prestige-gold-600 { color: #d97706; }
+.text-prestige-gold-400 { color: #fbbf24; }
+.bg-prestige-gold-500 { background-color: #f59e0b; }
+.bg-prestige-gold-600 { background-color: #d97706; }
+.bg-prestige-gold-400 { background-color: #fbbf24; }
+.from-prestige-gold-500 { --tw-gradient-from: #f59e0b; }
+.to-prestige-gold-600 { --tw-gradient-to: #d97706; }
+.hover\:bg-prestige-gold-600:hover { background-color: #d97706; }
