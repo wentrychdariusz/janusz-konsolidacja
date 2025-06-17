@@ -26,15 +26,16 @@ const TopHeader = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-white/8 to-prestige-gold-500/5 rounded-2xl"></div>
               
               <div className="relative flex items-center space-x-4">
-                {/* Książka z nowoczesnym cieniem */}
+                {/* Książka z nowoczesnym cieniem - optymalizacja dla mobile */}
                 <div className="relative flex-shrink-0">
                   <OptimizedImage
                     src="/lovable-uploads/68877fd7-1b70-47e9-b545-82e5e2b6e5e4.png"
                     alt="Książka Nowe Życie Bez Długów"
-                    className="relative h-16 md:h-18 object-contain rounded-xl shadow-2xl border border-white/20"
+                    className="relative h-12 w-8 sm:h-16 sm:w-10 md:h-18 md:w-12 object-contain rounded-xl shadow-2xl border border-white/20"
                     priority={true}
-                    width={64}
-                    height={72}
+                    width={48}
+                    height={60}
+                    sizes="(max-width: 640px) 32px, (max-width: 768px) 40px, 48px"
                   />
                   {/* Nowoczesny efekt świetlny */}
                   <div className="absolute -inset-1 bg-gradient-to-r from-prestige-gold-400/20 to-prestige-gold-500/20 rounded-xl blur-sm -z-10"></div>
