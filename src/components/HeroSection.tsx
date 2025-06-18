@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
@@ -142,8 +143,8 @@ const HeroSection = () => {
 
           {/* Enhanced Trust Section z pojedynczą ramką na jasnym tle */}
           <div className="w-full relative mb-3">
-            {/* Jasne tło gradientowe z czarną ramką */}
-            <div className="mx-4 md:mx-6 lg:mx-8 bg-gradient-to-br from-white/20 via-white/15 to-white/10 backdrop-blur-md border-2 border-black/80 rounded-xl shadow-2xl py-6">
+            {/* Szersza szara ramka z jasnym tłem gradientowym i czarną ramką */}
+            <div className="mx-2 md:mx-6 lg:mx-8 bg-gradient-to-br from-white/20 via-white/15 to-white/10 backdrop-blur-md border-2 border-black/80 rounded-xl shadow-2xl py-6">
               <div className="relative text-center">
                 <div className="mb-6">
                   <h3 className="font-montserrat text-white text-lg md:text-xl font-bold mb-2">
@@ -190,9 +191,9 @@ const HeroSection = () => {
                   </div>
                 </div>
                 
-                {/* Animated mini testimonial - stała ramka */}
-                <div className="mb-4 px-8 md:px-16 lg:px-20">
-                  <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl border border-white/30 h-24 flex items-center">
+                {/* Animated mini testimonial - stała ramka, delikatnie szersza */}
+                <div className="mb-4 px-6 md:px-16 lg:px-20">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl border border-white/30 h-24 flex items-center relative">
                     <div className="flex items-center space-x-3 w-full">
                       <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
                         <OptimizedImage
@@ -212,19 +213,19 @@ const HeroSection = () => {
                         </p>
                       </div>
                     </div>
-                    
-                    {/* Mini dots indicator - absolutnie pozycjonowane na dole */}
-                    <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
-                      {miniTestimonials.map((_, index) => (
-                        <div
-                          key={index}
-                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                            index === currentMiniTestimonial ? 'bg-prestige-gold-500' : 'bg-gray-300'
-                          }`}
-                        />
-                      ))}
-                    </div>
                   </div>
+                </div>
+                
+                {/* Mini dots indicator - pod ramką */}
+                <div className="flex justify-center space-x-1 mb-4">
+                  {miniTestimonials.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        index === currentMiniTestimonial ? 'bg-prestige-gold-500' : 'bg-gray-400'
+                      }`}
+                    />
+                  ))}
                 </div>
                 
                 {/* Nagłówek po testimonialach - mniejsza, niepogrubiona czcionka */}
