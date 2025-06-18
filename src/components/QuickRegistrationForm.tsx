@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Plus, CheckCircle, Phone } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 // Rozszerzenie obiektu window o fbq
 declare global {
@@ -11,13 +12,13 @@ declare global {
 }
 
 const QuickRegistrationForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   
   // Webhook URL bezpośrednio w kodzie
   const webhookUrl = "https://hook.eu2.make.com/yusy3i37uoiv14b2dx1zv6wro898d9q5";
@@ -86,10 +87,18 @@ const QuickRegistrationForm = () => {
         });
       }
       
-      setIsSubmitted(true);
+      // Przekierowanie na stronę podziękowania z parametrami
+      const params = new URLSearchParams({
+        success: 'true',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone
+      });
+      navigate(`/formularz?${params.toString()}`);
+      
     } catch (error) {
       console.error('❌ Form submission error:', error);
-      // Still show success to user since webhook might work even with CORS error
+      // Still redirect to success page since webhook might work even with CORS error
       
       // Facebook Pixel - track lead even on error (since webhook might still work)
       if (typeof window !== 'undefined' && window.fbq) {
@@ -101,118 +110,20 @@ const QuickRegistrationForm = () => {
         });
       }
       
-      setIsSubmitted(true);
+      // Przekierowanie na stronę podziękowania nawet przy błędzie
+      const params = new URLSearchParams({
+        success: 'true',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone
+      });
+      navigate(`/formularz?${params.toString()}`);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Thank you page after submission
-  if (isSubmitted) {
-    // Facebook Pixel - track thank you page view
-    React.useEffect(() => {
-      if (typeof window !== 'undefined' && window.fbq) {
-        window.fbq('track', 'CompleteRegistration', {
-          content_name: 'Thank You Page',
-          content_category: 'Lead Generation',
-          value: 1,
-          currency: 'PLN'
-        });
-      }
-    }, []);
-
-    return (
-      <div className="mb-16">
-        <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
-          {/* Success header */}
-          <div className="text-center mb-8">
-            <div className="flex justify-center items-center mb-6">
-              <CheckCircle className="w-16 h-16 text-success-600" />
-            </div>
-            <h2 className="text-xl lg:text-2xl font-bold text-success-600 mb-3">Dziękujemy za rejestrację!</h2>
-            <p className="text-warm-neutral-600 text-sm lg:text-base">Twoje zgłoszenie zostało pomyślnie wysłane</p>
-          </div>
-
-          {/* Dariusz and team section */}
-          <div className="text-center bg-gradient-to-r from-success-600 to-success-500 text-white p-6 rounded-xl mb-8">
-            <div className="flex justify-center items-center mb-4">
-              <div className="flex items-center space-x-2">
-                {/* Dariusz main photo */}
-                <img 
-                  src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                  alt="Dariusz Wentrych"
-                  className="w-16 h-16 rounded-full overflow-hidden border-3 border-white shadow-xl object-cover"
-                />
-                
-                {/* Plus icon */}
-                <Plus className="w-3 h-3 text-white" />
-                
-                {/* Team members */}
-                <div className="flex items-center space-x-1">
-                  <Avatar className="w-10 h-10 border-2 border-white">
-                    <AvatarImage 
-                      src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
-                      alt="Członek zespołu"
-                      className="object-cover"
-                    />
-                    <AvatarFallback className="text-xs">KZ</AvatarFallback>
-                  </Avatar>
-                  <Avatar className="w-10 h-10 border-2 border-white">
-                    <AvatarImage 
-                      src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
-                      alt="Członek zespołu"
-                      className="object-cover"
-                    />
-                    <AvatarFallback className="text-xs">MK</AvatarFallback>
-                  </Avatar>
-                  <Avatar className="w-10 h-10 border-2 border-white">
-                    <AvatarImage 
-                      src="/lovable-uploads/73083e2d-4631-4f25-abd0-a482d29bb838.png"
-                      alt="Członek zespołu"
-                      className="object-cover"
-                    />
-                    <AvatarFallback className="text-xs">AS</AvatarFallback>
-                  </Avatar>
-                </div>
-              </div>
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-white">Zespół Ekspertów</h3>
-              <p className="text-sm text-success-100">Wstępna analiza jest pozytywna</p>
-            </div>
-          </div>
-
-          {/* Call back message */}
-          <div className="text-center flex-1 flex flex-col justify-center">
-            <Phone className="w-12 h-12 text-navy-900 mx-auto mb-4" />
-            <h3 className="text-lg lg:text-xl font-bold text-navy-900 mb-3">
-              Oddzwonimy najszybciej jak to możliwe
-            </h3>
-            <p className="text-sm lg:text-base text-navy-700 mb-6">
-              Skontaktujemy się z Tobą, aby przeanalizować Twoją sytuację i zaproponować najlepsze rozwiązanie.
-            </p>
-            <div className="bg-warm-neutral-50 rounded-lg p-4 border border-warm-neutral-200">
-              <p className="text-xs lg:text-sm text-warm-neutral-600">
-                <strong>Twoje dane:</strong><br />
-                Imię: {formData.name}<br />
-                Email: {formData.email}<br />
-                Telefon: {formData.phone}
-              </p>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="text-center mt-6">
-            <p className="text-xs text-warm-neutral-500">
-              Dziękujemy za zaufanie. Twoje dane są bezpieczne i nie będą udostępniane osobom trzecim.
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // Original form without webhook URL input
+  // Oryginalny formularz - usunięta logika pokazywania strony podziękowania
   return (
     <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-center min-h-[600px] w-full mb-16">
       {/* Header with strong green background and simplified content */}
