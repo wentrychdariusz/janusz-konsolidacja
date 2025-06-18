@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
@@ -176,46 +177,46 @@ const HeroSection = () => {
                 </div>
               </div>
               
-              {/* Enhanced trust messaging with animated testimonial */}
-              <div className="space-y-4">
-                <p className="text-prestige-gold-400 text-xl md:text-2xl font-bold font-montserrat">
-                  Oni mi zaufali • Teraz ty możesz wyjść z zadłużenia!
-                </p>
-                
-                {/* Animated mini testimonial */}
-                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 max-w-md mx-auto border border-white/20">
-                  <div className="flex items-center space-x-3">
-                    <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
-                      <OptimizedImage
-                        src={miniTestimonials[currentMiniTestimonial].image}
-                        alt={miniTestimonials[currentMiniTestimonial].name}
-                        className="w-full h-full object-cover transition-all duration-500"
-                        width={48}
-                        height={48}
-                      />
-                    </div>
-                    <div className="min-w-0 flex-1 text-left">
-                      <p className="text-white font-semibold text-sm mb-1">
-                        {miniTestimonials[currentMiniTestimonial].name}
-                      </p>
-                      <p className="text-prestige-gold-200 text-sm italic">
-                        "{miniTestimonials[currentMiniTestimonial].text}"
-                      </p>
-                    </div>
+              {/* Animated mini testimonial - bez ramki, przed nagłówkiem */}
+              <div className="mb-4">
+                <div className="flex items-center justify-center space-x-3 max-w-md mx-auto">
+                  <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                    <OptimizedImage
+                      src={miniTestimonials[currentMiniTestimonial].image}
+                      alt={miniTestimonials[currentMiniTestimonial].name}
+                      className="w-full h-full object-cover transition-all duration-500"
+                      width={40}
+                      height={40}
+                    />
                   </div>
-                  
-                  {/* Mini dots indicator */}
-                  <div className="flex justify-center space-x-1 mt-3">
-                    {miniTestimonials.map((_, index) => (
-                      <div
-                        key={index}
-                        className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                          index === currentMiniTestimonial ? 'bg-prestige-gold-400 scale-110' : 'bg-white/40'
-                        }`}
-                      />
-                    ))}
+                  <div className="min-w-0 flex-1 text-left">
+                    <p className="text-white font-semibold text-xs mb-1">
+                      {miniTestimonials[currentMiniTestimonial].name}
+                    </p>
+                    <p className="text-prestige-gold-200 text-xs italic">
+                      "{miniTestimonials[currentMiniTestimonial].text}"
+                    </p>
                   </div>
                 </div>
+                
+                {/* Mini dots indicator */}
+                <div className="flex justify-center space-x-1 mt-2">
+                  {miniTestimonials.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                        index === currentMiniTestimonial ? 'bg-prestige-gold-400 scale-110' : 'bg-white/40'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+              
+              {/* Zmieniony nagłówek - mniejszy i inny kolor */}
+              <div>
+                <p className="text-warm-neutral-300 text-lg md:text-xl font-semibold font-montserrat">
+                  Oni mi zaufali • Teraz ty możesz wyjść z zadłużenia!
+                </p>
               </div>
             </div>
           </div>
