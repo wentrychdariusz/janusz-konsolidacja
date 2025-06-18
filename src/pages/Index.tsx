@@ -15,6 +15,7 @@ import TeamSection from '../components/TeamSection';
 import CalculatorSection from '../components/CalculatorSection';
 import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
+import Footer from '../components/Footer';
 
 const Index = () => {
   return (
@@ -34,6 +35,7 @@ const Index = () => {
       <CalculatorSection />
       <GuaranteeSection />
       <FloatingAvatar />
+      <Footer />
     </div>
   );
 };
