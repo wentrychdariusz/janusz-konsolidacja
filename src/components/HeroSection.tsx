@@ -177,42 +177,44 @@ const HeroSection = () => {
                 </div>
               </div>
               
-              {/* Animated mini testimonial - bez ramki, przed nagłówkiem */}
-              <div className="mb-4">
-                <div className="flex items-center justify-center space-x-3 max-w-md mx-auto">
-                  <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
-                    <OptimizedImage
-                      src={miniTestimonials[currentMiniTestimonial].image}
-                      alt={miniTestimonials[currentMiniTestimonial].name}
-                      className="w-full h-full object-cover transition-all duration-500"
-                      width={40}
-                      height={40}
-                    />
+              {/* Animated mini testimonial - w białej ramce na środku */}
+              <div className="mb-4 flex justify-center">
+                <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 max-w-sm mx-auto shadow-xl border border-white/30">
+                  <div className="flex items-center space-x-3">
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                      <OptimizedImage
+                        src={miniTestimonials[currentMiniTestimonial].image}
+                        alt={miniTestimonials[currentMiniTestimonial].name}
+                        className="w-full h-full object-cover transition-all duration-500"
+                        width={48}
+                        height={48}
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1 text-left">
+                      <p className="text-gray-800 font-semibold text-sm mb-1">
+                        {miniTestimonials[currentMiniTestimonial].name}
+                      </p>
+                      <p className="text-gray-600 text-sm italic">
+                        "{miniTestimonials[currentMiniTestimonial].text}"
+                      </p>
+                    </div>
                   </div>
-                  <div className="min-w-0 flex-1 text-left">
-                    <p className="text-white font-semibold text-xs mb-1">
-                      {miniTestimonials[currentMiniTestimonial].name}
-                    </p>
-                    <p className="text-prestige-gold-200 text-xs italic">
-                      "{miniTestimonials[currentMiniTestimonial].text}"
-                    </p>
+                  
+                  {/* Mini dots indicator */}
+                  <div className="flex justify-center space-x-1 mt-3">
+                    {miniTestimonials.map((_, index) => (
+                      <div
+                        key={index}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                          index === currentMiniTestimonial ? 'bg-prestige-gold-500 scale-110' : 'bg-gray-300'
+                        }`}
+                      />
+                    ))}
                   </div>
-                </div>
-                
-                {/* Mini dots indicator */}
-                <div className="flex justify-center space-x-1 mt-2">
-                  {miniTestimonials.map((_, index) => (
-                    <div
-                      key={index}
-                      className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                        index === currentMiniTestimonial ? 'bg-prestige-gold-400 scale-110' : 'bg-white/40'
-                      }`}
-                    />
-                  ))}
                 </div>
               </div>
               
-              {/* Zmieniony nagłówek - mniejszy i inny kolor */}
+              {/* Nagłówek po testimonialach */}
               <div>
                 <p className="text-warm-neutral-300 text-lg md:text-xl font-semibold font-montserrat">
                   Oni mi zaufali • Teraz ty możesz wyjść z zadłużenia!
