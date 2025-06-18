@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
@@ -228,9 +227,9 @@ const HeroSection = () => {
                   ))}
                 </div>
                 
-                {/* Nagłówek po testimonialach - mniejsza, niepogrubiona czcionka */}
-                <div>
-                  <p className="text-warm-neutral-300 text-base md:text-lg font-normal font-montserrat">
+                {/* Nagłówek po testimonialach - mniejsza, niepogrubiona czcionka z marginesem */}
+                <div className="mx-4">
+                  <p className="text-warm-neutral-300 text-sm md:text-base font-normal font-montserrat">
                     Oni mi zaufali • Teraz ty możesz wyjść z zadłużenia!
                   </p>
                 </div>
