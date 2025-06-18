@@ -5,10 +5,12 @@ import { Star, ChevronLeft, ChevronRight, Users, Heart, CheckCircle, Quote, Arro
 const TrustedClientsSection = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [currentDesktopSet, setCurrentDesktopSet] = useState(0);
+  const [currentMiniTestimonial, setCurrentMiniTestimonial] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
   const autoPlayInterval = useRef<NodeJS.Timeout | null>(null);
+  const miniAutoPlayInterval = useRef<NodeJS.Timeout | null>(null);
 
   const testimonials = [
     {
@@ -55,12 +57,30 @@ const TrustedClientsSection = () => {
     }
   ];
 
-  // Auto-play functionality
+  const miniTestimonials = [
+    {
+      name: "Pan Marian",
+      text: "Spokojny, kompetentny, godny zaufania.",
+      image: "/lovable-uploads/2d738ba1-2073-46e7-8756-b5c6adad4638.png"
+    },
+    {
+      name: "Pani Agnieszka",
+      text: "Życzliwy, cierpliwy, nie ocenia.",
+      image: "/lovable-uploads/1c4d6794-37c2-40ad-874e-39424cab8376.png"
+    },
+    {
+      name: "Pan Krzysztof",
+      text: "Skuteczny, ludzki, potrafi czynić cuda.",
+      image: "/lovable-uploads/45c6e51f-e867-4285-8a55-98087f2d6314.png"
+    }
+  ];
+
+  // Auto-play functionality for main testimonials
   useEffect(() => {
     if (isAutoPlaying) {
       autoPlayInterval.current = setInterval(() => {
         setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
-      }, 4000); // 4 seconds interval
+      }, 4000);
     }
     return () => {
       if (autoPlayInterval.current) {
@@ -68,6 +88,19 @@ const TrustedClientsSection = () => {
       }
     };
   }, [isAutoPlaying, testimonials.length]);
+
+  // Auto-play functionality for mini testimonials
+  useEffect(() => {
+    miniAutoPlayInterval.current = setInterval(() => {
+      setCurrentMiniTestimonial(prev => (prev + 1) % miniTestimonials.length);
+    }, 2500);
+    
+    return () => {
+      if (miniAutoPlayInterval.current) {
+        clearInterval(miniAutoPlayInterval.current);
+      }
+    };
+  }, [miniTestimonials.length]);
 
   // Touch event handlers for swipe functionality
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -120,10 +153,77 @@ const TrustedClientsSection = () => {
       <div className="relative z-10 px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto">
         
         {/* Header with enhanced messaging */}
-        <div className="text-center mb-16">
-          {/* Main stat */}
+        <div className="text-center mb-8">
+          {/* Trust Badge Section */}
           <div className="mb-8">
+            <div className="inline-flex items-center bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-full shadow-lg mb-4">
+              <Heart className="w-5 h-5 mr-2 text-red-300" />
+              <span className="font-bold text-lg">Mamy największe zaufanie klientów w Polsce</span>
+            </div>
             
+            <h3 className="font-montserrat text-2xl md:text-3xl font-bold text-yellow-400 mb-6">
+              KLIENCI NAS KOCHAJĄ!
+            </h3>
+
+            {/* Compact Rating Section with Mini Testimonials */}
+            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 max-w-4xl mx-auto shadow-xl">
+              <div className="grid md:grid-cols-2 gap-6 items-center">
+                {/* Rating Section */}
+                <div className="text-center md:text-left">
+                  <div className="flex items-center justify-center md:justify-start mb-2">
+                    <div className="text-5xl font-black text-slate-900 mr-3">4.9</div>
+                    <div className="flex flex-col">
+                      <div className="flex">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
+                        ))}
+                      </div>
+                      <span className="text-slate-600 font-medium text-sm">(383 OPINII)</span>
+                    </div>
+                  </div>
+                  <p className="text-slate-700 font-medium">
+                    Zweryfikowane opinie Google i Oferteo
+                  </p>
+                </div>
+
+                {/* Mini Testimonial with Auto-rotate */}
+                <div className="relative">
+                  <div className="bg-slate-50 rounded-xl p-4 shadow-inner">
+                    <div className="flex items-center space-x-3">
+                      <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                        <OptimizedImage
+                          src={miniTestimonials[currentMiniTestimonial].image}
+                          alt={miniTestimonials[currentMiniTestimonial].name}
+                          className="w-full h-full object-cover"
+                          width={48}
+                          height={48}
+                        />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-slate-900 font-semibold text-sm">
+                          {miniTestimonials[currentMiniTestimonial].name}
+                        </p>
+                        <p className="text-slate-600 text-sm italic">
+                          "{miniTestimonials[currentMiniTestimonial].text}"
+                        </p>
+                      </div>
+                    </div>
+                    
+                    {/* Mini dots indicator */}
+                    <div className="flex justify-center space-x-1 mt-3">
+                      {miniTestimonials.map((_, index) => (
+                        <div
+                          key={index}
+                          className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${
+                            index === currentMiniTestimonial ? 'bg-blue-600' : 'bg-gray-300'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <h2 className="font-montserrat text-4xl md:text-5xl lg:text-6xl font-black mb-6">
@@ -138,8 +238,6 @@ const TrustedClientsSection = () => {
           <p className="text-blue-200 text-xl md:text-2xl font-lato max-w-4xl mx-auto mb-8">
             Dołącz do grona zadowolonych klientów, którzy odzyskali kontrolę nad swoim życiem finansowym
           </p>
-
-          
         </div>
 
         {/* Desktop Testimonials with Navigation */}
