@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
 import { CheckCircle, Shield, Award, Users, Trophy, Target, Car } from 'lucide-react';
 
 const HeroSection = () => {
+  const [currentMiniTestimonial, setCurrentMiniTestimonial] = useState(0);
+
   const benefits = [
     {
       icon: Trophy,
@@ -33,7 +35,35 @@ const HeroSection = () => {
     "/lovable-uploads/ce402ba0-a1c6-47f9-b872-3b17a07691f3.png"
   ];
 
-  // Dodatkowe zdjęcia dla mozaiki mobilnej
+  const miniTestimonials = [
+    {
+      name: "Pan Marian",
+      text: "Spokojny, kompetentny, godny zaufania.",
+      image: "/lovable-uploads/2d738ba1-2073-46e7-8756-b5c6adad4638.png"
+    },
+    {
+      name: "Pani Agnieszka",
+      text: "Życzliwy, cierpliwy, nie ocenia.",
+      image: "/lovable-uploads/1c4d6794-37c2-40ad-874e-39424cab8376.png"
+    },
+    {
+      name: "Pan Krzysztof",
+      text: "Skuteczny, ludzki, potrafi czynić cuda.",
+      image: "/lovable-uploads/45c6e51f-e867-4285-8a55-98087f2d6314.png"
+    }
+  ];
+
+  // Auto-play functionality for mini testimonials
+  useEffect(() => {
+    const miniAutoPlayInterval = setInterval(() => {
+      setCurrentMiniTestimonial(prev => (prev + 1) % miniTestimonials.length);
+    }, 2500);
+    
+    return () => {
+      clearInterval(miniAutoPlayInterval);
+    };
+  }, [miniTestimonials.length]);
+
   const mobileBackgroundImages = [
     "/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png",
     "/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png",
@@ -110,7 +140,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Enhanced Trust Section */}
+          {/* Enhanced Trust Section with animated testimonials */}
           <div className="w-full relative bg-gradient-to-br from-white/5 via-white/10 to-white/5 backdrop-blur-md py-6 mb-3 rounded-2xl shadow-2xl">
             {/* Decorative background elements */}
             <div className="absolute inset-0 bg-gradient-to-br from-prestige-gold-400/5 via-transparent to-business-blue-400/5 rounded-2xl"></div>
@@ -124,7 +154,7 @@ const HeroSection = () => {
                 </h3>
               </div>
               
-              {/* Client photos grid z lazy loading */}
+              {/* Client photos grid */}
               <div className="flex justify-center items-center mb-4">
                 <div className="flex items-center">
                   {clientImages.map((image, index) => (
@@ -146,11 +176,46 @@ const HeroSection = () => {
                 </div>
               </div>
               
-              {/* Trust messaging - Combined in one line */}
-              <div>
+              {/* Enhanced trust messaging with animated testimonial */}
+              <div className="space-y-4">
                 <p className="text-prestige-gold-400 text-xl md:text-2xl font-bold font-montserrat">
                   Oni mi zaufali • Teraz ty możesz wyjść z zadłużenia!
                 </p>
+                
+                {/* Animated mini testimonial */}
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 max-w-md mx-auto border border-white/20">
+                  <div className="flex items-center space-x-3">
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                      <OptimizedImage
+                        src={miniTestimonials[currentMiniTestimonial].image}
+                        alt={miniTestimonials[currentMiniTestimonial].name}
+                        className="w-full h-full object-cover transition-all duration-500"
+                        width={48}
+                        height={48}
+                      />
+                    </div>
+                    <div className="min-w-0 flex-1 text-left">
+                      <p className="text-white font-semibold text-sm mb-1">
+                        {miniTestimonials[currentMiniTestimonial].name}
+                      </p>
+                      <p className="text-prestige-gold-200 text-sm italic">
+                        "{miniTestimonials[currentMiniTestimonial].text}"
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {/* Mini dots indicator */}
+                  <div className="flex justify-center space-x-1 mt-3">
+                    {miniTestimonials.map((_, index) => (
+                      <div
+                        key={index}
+                        className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                          index === currentMiniTestimonial ? 'bg-prestige-gold-400 scale-110' : 'bg-white/40'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
