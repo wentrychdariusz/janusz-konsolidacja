@@ -140,102 +140,98 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Enhanced Trust Section z czarną ramką na jasnym tle */}
+          {/* Enhanced Trust Section z pojedynczą ramką na jasnym tle */}
           <div className="w-full relative mb-3">
-            {/* Jasne tło gradientowe */}
-            <div className="bg-gradient-to-br from-white/20 via-white/15 to-white/10 backdrop-blur-md py-8 rounded-2xl shadow-2xl">
-              {/* Czarna ramka wewnętrzna */}
-              <div className="mx-4 md:mx-6 lg:mx-8 border-2 border-black/80 rounded-xl bg-gradient-to-br from-black/5 via-black/10 to-black/15 backdrop-blur-sm py-6">
-                
-                <div className="relative text-center">
-                  <div className="mb-6">
-                    <h3 className="font-montserrat text-white text-lg md:text-xl font-bold mb-2">
-                      Ponad 15.000 zadowolonych klientów
-                    </h3>
-                    
-                    {/* Ocena gwiazdkami */}
-                    <div className="flex justify-center items-center space-x-2 mb-3">
-                      <div className="flex items-center space-x-1">
-                        {[1, 2, 3, 4].map((star) => (
-                          <Star key={star} className="w-5 h-5 fill-prestige-gold-400 text-prestige-gold-400" />
-                        ))}
-                        <div className="relative">
-                          <Star className="w-5 h-5 text-gray-300" />
-                          <div className="absolute top-0 left-0 w-4/5 overflow-hidden">
-                            <Star className="w-5 h-5 fill-prestige-gold-400 text-prestige-gold-400" />
-                          </div>
+            {/* Jasne tło gradientowe z czarną ramką */}
+            <div className="mx-4 md:mx-6 lg:mx-8 bg-gradient-to-br from-white/20 via-white/15 to-white/10 backdrop-blur-md border-2 border-black/80 rounded-xl shadow-2xl py-6">
+              <div className="relative text-center">
+                <div className="mb-6">
+                  <h3 className="font-montserrat text-white text-lg md:text-xl font-bold mb-2">
+                    Ponad 15.000 zadowolonych klientów
+                  </h3>
+                  
+                  {/* Ocena gwiazdkami */}
+                  <div className="flex justify-center items-center space-x-2 mb-3">
+                    <div className="flex items-center space-x-1">
+                      {[1, 2, 3, 4].map((star) => (
+                        <Star key={star} className="w-5 h-5 fill-prestige-gold-400 text-prestige-gold-400" />
+                      ))}
+                      <div className="relative">
+                        <Star className="w-5 h-5 text-gray-300" />
+                        <div className="absolute top-0 left-0 w-4/5 overflow-hidden">
+                          <Star className="w-5 h-5 fill-prestige-gold-400 text-prestige-gold-400" />
                         </div>
                       </div>
-                      <span className="text-white font-semibold text-lg">4.9</span>
-                      <span className="text-warm-neutral-300 text-sm">(ocena klientów)</span>
                     </div>
+                    <span className="text-white font-semibold text-lg">4.9</span>
+                    <span className="text-warm-neutral-300 text-sm">(ocena klientów)</span>
                   </div>
-                  
-                  {/* Client photos grid z konturami */}
-                  <div className="flex justify-center items-center mb-6">
-                    <div className="flex items-center">
-                      {clientImages.map((image, index) => (
-                        <div 
-                          key={index} 
-                          className="relative group -ml-2 first:ml-0"
-                          style={{ zIndex: clientImages.length - index }}
-                        >
-                          <OptimizedImage
-                            src={image}
-                            alt={`Zadowolony klient ${index + 1}`}
-                            className="w-12 h-12 md:w-14 md:h-14 rounded-full border-3 border-white shadow-lg group-hover:scale-110 transition-transform duration-300 object-cover"
-                            priority={index < 4}
-                            width={56}
-                            height={56}
-                          />
-                        </div>
+                </div>
+                
+                {/* Client photos grid z konturami */}
+                <div className="flex justify-center items-center mb-6">
+                  <div className="flex items-center">
+                    {clientImages.map((image, index) => (
+                      <div 
+                        key={index} 
+                        className="relative group -ml-2 first:ml-0"
+                        style={{ zIndex: clientImages.length - index }}
+                      >
+                        <OptimizedImage
+                          src={image}
+                          alt={`Zadowolony klient ${index + 1}`}
+                          className="w-12 h-12 md:w-14 md:h-14 rounded-full border-3 border-white shadow-lg group-hover:scale-110 transition-transform duration-300 object-cover"
+                          priority={index < 4}
+                          width={56}
+                          height={56}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Animated mini testimonial - stała ramka */}
+                <div className="mb-4 px-8 md:px-16 lg:px-20">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl border border-white/30 h-24 flex items-center">
+                    <div className="flex items-center space-x-3 w-full">
+                      <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                        <OptimizedImage
+                          src={miniTestimonials[currentMiniTestimonial].image}
+                          alt={miniTestimonials[currentMiniTestimonial].name}
+                          className="w-full h-full object-cover"
+                          width={48}
+                          height={48}
+                        />
+                      </div>
+                      <div className="min-w-0 flex-1 text-left">
+                        <p className="text-gray-800 font-semibold text-sm mb-1">
+                          {miniTestimonials[currentMiniTestimonial].name}
+                        </p>
+                        <p className="text-gray-600 text-sm italic">
+                          "{miniTestimonials[currentMiniTestimonial].text}"
+                        </p>
+                      </div>
+                    </div>
+                    
+                    {/* Mini dots indicator - absolutnie pozycjonowane na dole */}
+                    <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-1">
+                      {miniTestimonials.map((_, index) => (
+                        <div
+                          key={index}
+                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                            index === currentMiniTestimonial ? 'bg-prestige-gold-500' : 'bg-gray-300'
+                          }`}
+                        />
                       ))}
                     </div>
                   </div>
-                  
-                  {/* Animated mini testimonial */}
-                  <div className="mb-4 px-8 md:px-16 lg:px-20">
-                    <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl border border-white/30">
-                      <div className="flex items-center space-x-3">
-                        <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
-                          <OptimizedImage
-                            src={miniTestimonials[currentMiniTestimonial].image}
-                            alt={miniTestimonials[currentMiniTestimonial].name}
-                            className="w-full h-full object-cover"
-                            width={48}
-                            height={48}
-                          />
-                        </div>
-                        <div className="min-w-0 flex-1 text-left">
-                          <p className="text-gray-800 font-semibold text-sm mb-1">
-                            {miniTestimonials[currentMiniTestimonial].name}
-                          </p>
-                          <p className="text-gray-600 text-sm italic">
-                            "{miniTestimonials[currentMiniTestimonial].text}"
-                          </p>
-                        </div>
-                      </div>
-                      
-                      {/* Mini dots indicator */}
-                      <div className="flex justify-center space-x-1 mt-3">
-                        {miniTestimonials.map((_, index) => (
-                          <div
-                            key={index}
-                            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                              index === currentMiniTestimonial ? 'bg-prestige-gold-500' : 'bg-gray-300'
-                            }`}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Nagłówek po testimonialach */}
-                  <div>
-                    <p className="text-warm-neutral-300 text-lg md:text-xl font-semibold font-montserrat">
-                      Oni mi zaufali • Teraz ty możesz wyjść z zadłużenia!
-                    </p>
-                  </div>
+                </div>
+                
+                {/* Nagłówek po testimonialach - mniejsza, niepogrubiona czcionka */}
+                <div>
+                  <p className="text-warm-neutral-300 text-base md:text-lg font-normal font-montserrat">
+                    Oni mi zaufali • Teraz ty możesz wyjść z zadłużenia!
+                  </p>
                 </div>
               </div>
             </div>
