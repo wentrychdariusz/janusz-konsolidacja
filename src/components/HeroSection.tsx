@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
@@ -140,8 +141,8 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Enhanced Trust Section z pojedynczą ramką na jasnym tle */}
-          <div className="w-full relative mb-3">
+          {/* Enhanced Trust Section z pojedynczą ramką na jasnym tle - HIDDEN ON DESKTOP */}
+          <div className="w-full relative mb-3 xl:hidden">
             {/* Szersza szara ramka z jasnym tłem gradientowym i czarną ramką */}
             <div className="mx-2 md:mx-6 lg:mx-8 bg-gradient-to-br from-white/20 via-white/15 to-white/10 backdrop-blur-md border-2 border-black/80 rounded-xl shadow-2xl py-6">
               <div className="relative text-center">
