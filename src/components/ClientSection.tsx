@@ -1,3 +1,4 @@
+
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Users, Award, BookOpen, TrendingUp } from 'lucide-react';
@@ -79,8 +80,8 @@ const ClientSection = () => {
           </div>
         </div>
 
-        {/* Achievements Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        {/* Achievements Grid - Hidden on mobile */}
+        <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {achievements.map((achievement, index) => <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-prestige-gold-200/30 text-center group hover:-translate-y-2">
               <div className="bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                 <achievement.icon className="w-8 h-8 text-navy-900" />
