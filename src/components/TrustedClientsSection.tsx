@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import OptimizedImage from './OptimizedImage';
 import { Star, ChevronLeft, ChevronRight, Users, Heart, CheckCircle, Quote, ArrowLeftRight } from 'lucide-react';
@@ -51,6 +52,27 @@ const TrustedClientsSection = () => {
       text: "Byłam w ciężkiej sytuacji. Pan Dariusz wszystko wytłumaczył, zajął się formalnościami. Uczciwy i cierpliwy. Pomógł mi stanąć na nogi.",
       rating: 5,
       image: "/lovable-uploads/27d11bb3-7edd-4f2a-b2d5-24d1db72940d.png",
+      verified: true
+    },
+    {
+      name: "Pan Marian",
+      text: "Spokojny, kompetentny, godny zaufania.",
+      rating: 5,
+      image: "/lovable-uploads/51bad2e2-b145-4845-b89d-2238da499d84.png",
+      verified: true
+    },
+    {
+      name: "Pani Agnieszka",
+      text: "Życzliwy, cierpliwy, nie ocenia.",
+      rating: 5,
+      image: "/lovable-uploads/627c6dee-822a-4d65-a34c-0f2b14d033f7.png",
+      verified: true
+    },
+    {
+      name: "Pan Krzysztof",
+      text: "Skuteczny, ludzki, potrafi czynić cuda.",
+      rating: 5,
+      image: "/lovable-uploads/223eeef0-42c8-4730-9fe1-c80089f58a45.png",
       verified: true
     }
   ];
@@ -121,9 +143,22 @@ const TrustedClientsSection = () => {
         
         {/* Header with enhanced messaging */}
         <div className="text-center mb-16">
-          {/* Main stat */}
+          {/* Google/Oferteo rating */}
           <div className="mb-8">
-            
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="flex items-center gap-2">
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                <span className="text-white text-2xl font-bold">4.9</span>
+              </div>
+              <span className="text-blue-200 text-lg">(383 OPINII)</span>
+            </div>
+            <p className="text-blue-200 text-lg font-medium">
+              Zweryfikowane opinie Google i Oferteo
+            </p>
           </div>
 
           <h2 className="font-montserrat text-4xl md:text-5xl lg:text-6xl font-black mb-6">
@@ -138,8 +173,6 @@ const TrustedClientsSection = () => {
           <p className="text-blue-200 text-xl md:text-2xl font-lato max-w-4xl mx-auto mb-8">
             Dołącz do grona zadowolonych klientów, którzy odzyskali kontrolę nad swoim życiem finansowym
           </p>
-
-          
         </div>
 
         {/* Desktop Testimonials with Navigation */}
