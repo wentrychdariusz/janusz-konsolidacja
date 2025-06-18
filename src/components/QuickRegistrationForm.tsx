@@ -1,6 +1,14 @@
+
 import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Plus, CheckCircle, Phone } from 'lucide-react';
+
+// Rozszerzenie obiektu window o fbq
+declare global {
+  interface Window {
+    fbq: (action: string, event: string, params?: any) => void;
+  }
+}
 
 const QuickRegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -28,6 +36,16 @@ const QuickRegistrationForm = () => {
     console.log('🚀 Form submission started');
     console.log('📝 Form data:', formData);
     console.log('🔗 Webhook URL:', webhookUrl);
+    
+    // Facebook Pixel - track form submission start
+    if (typeof window !== 'undefined' && window.fbq) {
+      window.fbq('track', 'InitiateCheckout', {
+        content_name: 'Quick Registration Form',
+        content_category: 'Lead Generation',
+        value: 1,
+        currency: 'PLN'
+      });
+    }
     
     setIsSubmitting(true);
     
@@ -57,10 +75,32 @@ const QuickRegistrationForm = () => {
       // Simulate form submission delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log('✅ Form submitted successfully');
+      
+      // Facebook Pixel - track successful lead
+      if (typeof window !== 'undefined' && window.fbq) {
+        window.fbq('track', 'Lead', {
+          content_name: 'Quick Registration Form',
+          content_category: 'Lead Generation',
+          value: 1,
+          currency: 'PLN'
+        });
+      }
+      
       setIsSubmitted(true);
     } catch (error) {
       console.error('❌ Form submission error:', error);
       // Still show success to user since webhook might work even with CORS error
+      
+      // Facebook Pixel - track lead even on error (since webhook might still work)
+      if (typeof window !== 'undefined' && window.fbq) {
+        window.fbq('track', 'Lead', {
+          content_name: 'Quick Registration Form',
+          content_category: 'Lead Generation',
+          value: 1,
+          currency: 'PLN'
+        });
+      }
+      
       setIsSubmitted(true);
     } finally {
       setIsSubmitting(false);
@@ -69,6 +109,18 @@ const QuickRegistrationForm = () => {
 
   // Thank you page after submission
   if (isSubmitted) {
+    // Facebook Pixel - track thank you page view
+    React.useEffect(() => {
+      if (typeof window !== 'undefined' && window.fbq) {
+        window.fbq('track', 'CompleteRegistration', {
+          content_name: 'Thank You Page',
+          content_category: 'Lead Generation',
+          value: 1,
+          currency: 'PLN'
+        });
+      }
+    }, []);
+
     return (
       <div className="mb-16">
         <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
