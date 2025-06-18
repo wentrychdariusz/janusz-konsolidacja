@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Smile, Phone, Heart, Shield, CheckCircle, XCircle, X } from 'lucide-react';
+import { Smile, Phone, Heart, Shield, CheckCircle, XCircle, X, Frown } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
 
 const BeforeAfterSection = () => {
@@ -105,7 +105,7 @@ const BeforeAfterSection = () => {
               {/* Header Section */}
               <div className="bg-gradient-to-r from-red-50 to-red-100 border-b border-red-200 p-6">
                 <div className="flex items-center justify-center">
-                  <XCircle className="w-10 h-10 text-red-500 mr-4" />
+                  <Frown className="w-12 h-12 text-red-500 mr-4" />
                   <h3 className="font-montserrat text-xl md:text-2xl font-bold text-red-800 text-center">
                     Przed oddłużaniem z Dariuszem Wentrychem…
                   </h3>
@@ -134,7 +134,7 @@ const BeforeAfterSection = () => {
               {/* Header Section */}
               <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 border-b border-emerald-200 p-6">
                 <div className="flex items-center justify-center">
-                  <Smile className="w-10 h-10 text-emerald-500 mr-4" />
+                  <Smile className="w-12 h-12 text-emerald-500 mr-4" />
                   <h3 className="font-montserrat text-xl md:text-2xl font-bold text-emerald-800 text-center">
                     Po oddłużeniu z Dariuszem Wentrychem…
                   </h3>
