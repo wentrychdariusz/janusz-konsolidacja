@@ -100,49 +100,61 @@ const BeforeAfterSection = () => {
           {/* Before and After Comparison */}
           <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
             
-            {/* Before Section */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-center mb-6">
-                <XCircle className="w-10 h-10 text-red-500 mr-4" />
-                <h3 className="font-montserrat text-xl md:text-2xl font-bold text-red-800">
-                  Przed oddłużaniem z Dariuszem Wentrychem…
-                </h3>
+            {/* Before Section - Unified Card */}
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+              {/* Header Section */}
+              <div className="bg-gradient-to-r from-red-50 to-red-100 border-b border-red-200 p-6">
+                <div className="flex items-center justify-center">
+                  <XCircle className="w-10 h-10 text-red-500 mr-4" />
+                  <h3 className="font-montserrat text-xl md:text-2xl font-bold text-red-800 text-center">
+                    Przed oddłużaniem z Dariuszem Wentrychem…
+                  </h3>
+                </div>
               </div>
               
-              <div className="space-y-3">
-                {beforeItems.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm">
-                    <div className="flex-shrink-0 mt-1">
-                      {item.icon}
+              {/* Content Section */}
+              <div className="p-6">
+                <div className="space-y-4">
+                  {beforeItems.map((item, index) => (
+                    <div key={index} className="flex items-start space-x-4 py-3 border-b border-gray-100 last:border-b-0">
+                      <div className="flex-shrink-0 mt-1">
+                        {item.icon}
+                      </div>
+                      <p className="text-slate-700 text-base font-lato leading-relaxed">
+                        {item.text}
+                      </p>
                     </div>
-                    <p className="text-slate-700 text-base font-lato leading-relaxed">
-                      {item.text}
-                    </p>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* After Section */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-center mb-6">
-                <Smile className="w-10 h-10 text-emerald-500 mr-4" />
-                <h3 className="font-montserrat text-xl md:text-2xl font-bold text-emerald-800">
-                  Po oddłużeniu z Dariuszem Wentrychem…
-                </h3>
+            {/* After Section - Unified Card */}
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+              {/* Header Section */}
+              <div className="bg-gradient-to-r from-emerald-50 to-emerald-100 border-b border-emerald-200 p-6">
+                <div className="flex items-center justify-center">
+                  <Smile className="w-10 h-10 text-emerald-500 mr-4" />
+                  <h3 className="font-montserrat text-xl md:text-2xl font-bold text-emerald-800 text-center">
+                    Po oddłużeniu z Dariuszem Wentrychem…
+                  </h3>
+                </div>
               </div>
               
-              <div className="space-y-3">
-                {afterItems.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-4 p-4 bg-white rounded-xl shadow-sm">
-                    <div className="flex-shrink-0 mt-1">
-                      {item.icon}
+              {/* Content Section */}
+              <div className="p-6">
+                <div className="space-y-4">
+                  {afterItems.map((item, index) => (
+                    <div key={index} className="flex items-start space-x-4 py-3 border-b border-gray-100 last:border-b-0">
+                      <div className="flex-shrink-0 mt-1">
+                        {item.icon}
+                      </div>
+                      <p className="text-slate-700 text-base font-lato leading-relaxed">
+                        {item.text}
+                      </p>
                     </div>
-                    <p className="text-slate-700 text-base font-lato leading-relaxed">
-                      {item.text}
-                    </p>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
