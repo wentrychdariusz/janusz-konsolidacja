@@ -90,26 +90,26 @@ const FloatingAvatar = () => {
         }`}
         onClick={handleAvatarClick}
       >
-        {/* Avatar Container z napisem i większym obszarem kliknięcia */}
+        {/* Avatar Container z napisem i znacznie większym obszarem kliknięcia */}
         <div className="relative group flex items-center space-x-3">
-          {/* Niewidoczny większy obszar dotykowy dla całego komponentu */}
-          <div className="absolute inset-0 -m-4 z-10" />
+          {/* Bardzo duży niewidoczny obszar dotykowy dla całego komponentu - 60px margines */}
+          <div className="absolute inset-0 -m-[60px] z-20" />
           
-          {/* Napis po lewej stronie awatara - z większym obszarem dotykowym */}
+          {/* Napis po lewej stronie awatara - z własnym dużym obszarem dotykowym */}
           <div className="bg-white rounded-xl shadow-lg p-3 border-2 border-prestige-gold-400 transition-all duration-300 whitespace-nowrap animate-fade-in relative">
-            {/* Dodatkowy obszar dotykowy dla napisu */}
-            <div className="absolute inset-0 -m-2" />
-            <div className="text-navy-900 font-semibold text-sm relative z-10">
+            {/* Duży obszar dotykowy dla napisu - 40px margines */}
+            <div className="absolute inset-0 -m-[40px] z-10" />
+            <div className="text-navy-900 font-semibold text-sm relative z-0">
               Zobacz, czy Ci pomogę?
             </div>
             {/* Strzałka wskazująca na awatar */}
-            <div className="absolute right-0 top-1/2 w-0 h-0 border-t-4 border-b-4 border-l-4 border-t-transparent border-b-transparent border-l-white transform -translate-y-1/2 translate-x-full"></div>
+            <div className="absolute right-0 top-1/2 w-0 h-0 border-t-4 border-b-4 border-l-4 border-t-transparent border-b-transparent border-l-white transform -translate-y-1/2 translate-x-full z-0"></div>
           </div>
           
           {/* Avatar Image z większym obszarem dotykowym */}
           <div className="relative">
-            {/* Niewidoczny większy obszar dotykowy dla awatara */}
-            <div className="absolute inset-0 -m-4 z-10" />
+            {/* Duży niewidoczny obszar dotykowy dla awatara - 50px margines */}
+            <div className="absolute inset-0 -m-[50px] z-10" />
             
             <div className="w-20 h-20 rounded-full border-4 border-prestige-gold-400 shadow-xl bg-white overflow-hidden hover:scale-110 transition-transform duration-300 relative z-0">
               <img 
@@ -121,8 +121,8 @@ const FloatingAvatar = () => {
             
             {/* Chat Icon Indicator z większym obszarem dotykowym */}
             <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-success-500 rounded-full flex items-center justify-center border-2 border-white z-0">
-              {/* Dodatkowy obszar dotykowy dla ikony */}
-              <div className="absolute inset-0 -m-2" />
+              {/* Duży obszar dotykowy dla ikony - 20px margines */}
+              <div className="absolute inset-0 -m-[20px]" />
               <MessageCircle className="w-3 h-3 text-white relative z-10" />
             </div>
             
@@ -136,15 +136,18 @@ const FloatingAvatar = () => {
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[95vh] overflow-hidden relative flex flex-col">
-            {/* Close Button z większym obszarem dotykowym */}
+            {/* Close Button z bardzo dużym obszarem dotykowym */}
             <div className="absolute top-4 right-4 z-10">
-              {/* Niewidoczny większy obszar dotykowy */}
-              <div className="absolute inset-0 -m-3" />
+              {/* Bardzo duży niewidoczny obszar dotykowy - 30px margines */}
+              <div 
+                className="absolute inset-0 -m-[30px] cursor-pointer" 
+                onClick={handleClose}
+              />
               <button
                 onClick={handleClose}
-                className="relative w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors duration-200"
+                className="relative w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors duration-200"
               >
-                <X className="w-4 h-4 text-gray-600" />
+                <X className="w-5 h-5 text-gray-600" />
               </button>
             </div>
             
