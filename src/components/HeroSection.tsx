@@ -177,15 +177,15 @@ const HeroSection = () => {
                 </div>
               </div>
               
-              {/* Animated mini testimonial - w białej ramce na środku */}
-              <div className="mb-4 flex justify-center">
-                <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 max-w-sm mx-auto shadow-xl border border-white/30">
+              {/* Animated mini testimonial - z marginami jak przy Pani Agnieszce */}
+              <div className="mb-4 px-8 md:px-16 lg:px-20">
+                <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl border border-white/30">
                   <div className="flex items-center space-x-3">
                     <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
                       <OptimizedImage
                         src={miniTestimonials[currentMiniTestimonial].image}
                         alt={miniTestimonials[currentMiniTestimonial].name}
-                        className="w-full h-full object-cover transition-all duration-500"
+                        className="w-full h-full object-cover"
                         width={48}
                         height={48}
                       />
@@ -206,7 +206,7 @@ const HeroSection = () => {
                       <div
                         key={index}
                         className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                          index === currentMiniTestimonial ? 'bg-prestige-gold-500 scale-110' : 'bg-gray-300'
+                          index === currentMiniTestimonial ? 'bg-prestige-gold-500' : 'bg-gray-300'
                         }`}
                       />
                     ))}
