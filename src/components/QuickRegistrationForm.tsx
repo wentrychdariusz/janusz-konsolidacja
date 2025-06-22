@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Plus, CheckCircle, Phone } from 'lucide-react';
@@ -21,7 +20,7 @@ const QuickRegistrationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   // Webhook URL bezpośrednio w kodzie
-  const webhookUrl = "https://hook.eu2.make.com/yusy3i37uoiv14b2dx1zv6wro898d9q5";
+  const webhookUrl = "https://hook.eu2.make.com/7necdpy3hfmdqd2ybn4gmqwcjb8r8nve";
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
