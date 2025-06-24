@@ -29,6 +29,13 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   
+  // Edytowalne dane z kalkulatora
+  const [editableCalculatorData, setEditableCalculatorData] = useState({
+    income: calculatorData?.income || "",
+    paydayDebt: calculatorData?.paydayDebt || "",
+    bankDebt: calculatorData?.bankDebt || "0"
+  });
+  
   // Webhook URL bezpośrednio w kodzie
   const webhookUrl = "https://hook.eu2.make.com/7necdpy3hfmdqd2ybn4gmqwcjb8r8nve";
 
@@ -37,6 +44,13 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
     setFormData(prev => ({
       ...prev,
       [name]: value
+    }));
+  };
+
+  const handleCalculatorDataChange = (field: string, value: string) => {
+    setEditableCalculatorData(prev => ({
+      ...prev,
+      [field]: value
     }));
   };
 
@@ -55,7 +69,7 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
     
     console.log('🚀 Form submission started');
     console.log('📝 Form data:', formData);
-    console.log('📊 Calculator data:', calculatorData);
+    console.log('📊 Calculator data:', editableCalculatorData);
     console.log('🔗 Webhook URL:', webhookUrl);
     
     // Facebook Pixel - track form submission start
@@ -77,7 +91,7 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
         phone: formData.phone,
         timestamp: new Date().toISOString(),
         source: "QuickRegistrationForm",
-        calculatorData: calculatorData || null
+        calculatorData: editableCalculatorData
       };
       
       console.log('📤 Sending data to Make.com:', dataToSend);
@@ -256,12 +270,12 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
           </div>
           <div className="text-white">
             <h3 className="text-xl font-bold mb-2">Sprawdź swoje dane</h3>
-            <p className="text-base text-success-100">Krok 2z 2</p>
+            <p className="text-base text-success-100">Krok 2 z 2</p>
           </div>
         </div>
         
         <h2 className="text-2xl font-bold text-navy-900 mb-3">
-          Potwierdź dane kontaktowe
+          Potwierdź dane kontaktowe i finansowe
         </h2>
         <p className="text-warm-neutral-600 text-base leading-relaxed">
           Sprawdź, czy wszystkie dane są poprawne przed wysłaniem
@@ -271,21 +285,65 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
       {/* Podsumowanie danych */}
       <div className="space-y-6 flex-1 flex flex-col justify-center">
         {/* Dane z kalkulatora jeśli są dostępne */}
-        {calculatorData && (
+        {(calculatorData || editableCalculatorData.income) && (
           <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-            <h3 className="font-semibold text-navy-800 mb-3">Twoja sytuacja finansowa:</h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span>Dochód netto:</span>
-                <span className="font-medium">{calculatorData.income} PLN</span>
+            <h3 className="font-semibold text-navy-800 mb-4">Twoja sytuacja finansowa:</h3>
+            <div className="space-y-4">
+              {/* Dochód */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <span className="font-medium text-sm">Czy to są Twoje zarobki na rękę za pracę?</span>
+                    <p className="text-xs text-gray-600">Podaj kwotę netto, którą otrzymujesz miesięcznie</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      value={editableCalculatorData.income}
+                      onChange={(e) => handleCalculatorDataChange('income', e.target.value)}
+                      className="w-24 px-2 py-1 text-sm border border-gray-300 rounded text-right"
+                    />
+                    <span className="text-sm font-medium">PLN</span>
+                  </div>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span>Chwilówki/parabanki:</span>
-                <span className="font-medium">{calculatorData.paydayDebt} PLN</span>
+
+              {/* Chwilówki */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <span className="font-medium text-sm">Czy to jest poprawna suma Twoich chwilówek?</span>
+                    <p className="text-xs text-gray-600">Łączna kwota zadłużenia w parabankach i chwilówkach</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      value={editableCalculatorData.paydayDebt}
+                      onChange={(e) => handleCalculatorDataChange('paydayDebt', e.target.value)}
+                      className="w-24 px-2 py-1 text-sm border border-gray-300 rounded text-right"
+                    />
+                    <span className="text-sm font-medium">PLN</span>
+                  </div>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span>Kredyty bankowe:</span>
-                <span className="font-medium">{calculatorData.bankDebt || '0'} PLN</span>
+
+              {/* Kredyty bankowe */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <span className="font-medium text-sm">Czy to jest poprawna suma kredytów bankowych?</span>
+                    <p className="text-xs text-gray-600">Łączna kwota zadłużenia w bankach (kredyty, karty, limity)</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      value={editableCalculatorData.bankDebt}
+                      onChange={(e) => handleCalculatorDataChange('bankDebt', e.target.value)}
+                      className="w-24 px-2 py-1 text-sm border border-gray-300 rounded text-right"
+                    />
+                    <span className="text-sm font-medium">PLN</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
