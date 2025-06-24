@@ -38,72 +38,53 @@ const FloatingAvatar = () => {
       // Sprawdź aktualny stan kalkulatora
       const isCalculatorUsed = checkCalculatorUsage();
       
-      // Szukamy sekcji "Mamy największe zaufanie" - szukamy różnych wariantów tekstu
-      const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-      let trustSection: HTMLElement | null = null;
-      let calculatorSection: HTMLElement | null = null;
-      
-      headings.forEach((heading) => {
-        const text = heading.textContent?.toLowerCase() || '';
-        
-        // Szukamy sekcji zaufania - różne warianty
-        if (text.includes('zaufanie') || text.includes('trust') || text.includes('klient') || text.includes('mamy największe')) {
-          trustSection = heading as HTMLElement;
-          console.log('Found trust section:', heading.textContent);
-        }
-        
-        // Szukamy sekcji kalkulatora - rozszerzone wyszukiwanie dla sekcji na dole strony
-        if (text.includes('sprawdź') || text.includes('kalkulator') || text.includes('pomóc') || 
-            text.includes('czy możemy ci') || text.includes('jesteśmy tu')) {
-          calculatorSection = heading as HTMLElement;
-          console.log('Found calculator section:', heading.textContent);
-        }
-      });
-      
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       const isMobile = window.innerWidth < 768;
-      
-      // Pokazuj awatar od sekcji zaufania lub od znacznie niższego progu na mobile
-      let shouldShowFromTrust = false;
-      if (trustSection) {
-        const sectionRect = trustSection.getBoundingClientRect();
-        const sectionTop = scrollY + sectionRect.top;
-        const offset = isMobile ? windowHeight * 0.3 : 400; // Jeszcze mniejszy offset na mobile
-        shouldShowFromTrust = scrollY >= sectionTop - offset;
-      } else {
-        // Fallback - znacznie niższy próg na mobile
-        const fallbackOffset = isMobile ? 800 : 2000; // Zmniejszone z 1500 na 800 dla mobile
-        shouldShowFromTrust = scrollY >= fallbackOffset;
-      }
-      
-      // Ukrywaj awatar w sekcji kalkulatora - tylko jeśli nie jesteśmy na stronie /kalkulator
-      let shouldHideInCalculator = false;
       const currentPath = window.location.pathname;
       
+      console.log('Scroll check:', {
+        scrollY,
+        windowHeight,
+        isMobile,
+        currentPath,
+        hasUsedCalculator: isCalculatorUsed
+      });
+      
+      // Uproszczona logika - pokazuj awatar po przescrollowaniu określonej odległości
+      // Na mobile od 500px, na desktop od 1200px
+      const showThreshold = isMobile ? 500 : 1200;
+      let shouldShow = scrollY >= showThreshold;
+      
+      // Szukamy sekcji kalkulatora żeby go ukryć przed nią
+      const calculatorSection = document.querySelector('[data-section="calculator"]') || 
+                               document.querySelector('h2, h3, h4')?.closest('section');
+      
+      let shouldHideBeforeCalculator = false;
       if (currentPath !== '/kalkulator' && calculatorSection) {
         const sectionRect = calculatorSection.getBoundingClientRect();
         const sectionTop = scrollY + sectionRect.top;
-        const offset = isMobile ? 200 : 300; // Większy offset żeby wcześniej ukryć
-        shouldHideInCalculator = scrollY >= sectionTop - offset;
+        const hideOffset = isMobile ? 300 : 400;
+        shouldHideBeforeCalculator = scrollY >= sectionTop - hideOffset;
+        
+        console.log('Calculator section check:', {
+          sectionTop,
+          hideOffset,
+          shouldHideBeforeCalculator
+        });
       }
       
-      // Logika końcowa: pokaż jeśli jesteśmy po sekcji zaufania, ale ukryj w sekcji kalkulatora
-      // Dodatkowo ukryj jeśli kalkulator był już używany
-      const finalShow = shouldShowFromTrust && !shouldHideInCalculator && !isCalculatorUsed;
-      setShowAvatar(finalShow);
+      // Finalna decyzja - pokaż jeśli przescrollowano wystarczająco, ale ukryj przed kalkulatorem i jeśli był używany
+      const finalShow = shouldShow && !shouldHideBeforeCalculator && !isCalculatorUsed;
       
-      console.log('Avatar visibility check:', {
-        scrollY,
-        isMobile,
-        currentPath,
-        shouldShowFromTrust,
-        shouldHideInCalculator,
+      console.log('Final avatar decision:', {
+        shouldShow,
+        shouldHideBeforeCalculator,
         hasUsedCalculator: isCalculatorUsed,
-        finalShow,
-        trustSectionFound: !!trustSection,
-        calculatorSectionFound: !!calculatorSection
+        finalShow
       });
+      
+      setShowAvatar(finalShow);
     };
 
     // Event listeners
@@ -112,7 +93,7 @@ const FloatingAvatar = () => {
     window.addEventListener('calculatorUsed', handleCalculatorUsed);
     
     // Sprawdź od razu przy załadowaniu z opóźnieniem
-    setTimeout(handleScroll, 100);
+    setTimeout(handleScroll, 500);
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -133,8 +114,11 @@ const FloatingAvatar = () => {
 
   // Nie renderuj awatara, jeśli nie powinien być widoczny
   if (!showAvatar) {
+    console.log('Avatar hidden, showAvatar:', showAvatar);
     return null;
   }
+
+  console.log('Avatar rendering, showAvatar:', showAvatar);
 
   return (
     <>
