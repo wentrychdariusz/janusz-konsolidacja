@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
@@ -13,10 +14,11 @@ const FloatingAvatar = () => {
 
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
       
-      // Znajdź sekcję "Mamy największe zaufanie" (ImagineSection)
-      const imagineSection = document.querySelector('section h2')?.closest('section');
+      // Znajdź sekcję "Dlaczego wybierają nas klienci?" (TrustedClientsSection)
+      const trustedClientsSection = Array.from(document.querySelectorAll('h2')).find(h2 => 
+        h2.textContent?.includes('Dlaczego wybierają nas klienci')
+      )?.closest('section');
       
       // Znajdź sekcję kalkulatora "SPRAWDŹ CZY MOŻEMY CI POMÓC"
       const calculatorSection = document.querySelector('[data-section="calculator"]') || 
@@ -27,37 +29,34 @@ const FloatingAvatar = () => {
       
       let shouldShow = false;
       
-      if (imagineSection && calculatorSection) {
-        const imagineSectionRect = imagineSection.getBoundingClientRect();
-        const imagineSectionTop = scrollY + imagineSectionRect.top;
+      if (trustedClientsSection && calculatorSection) {
+        const trustedClientsSectionRect = trustedClientsSection.getBoundingClientRect();
+        const trustedClientsSectionTop = scrollY + trustedClientsSectionRect.top;
+        const trustedClientsSectionBottom = trustedClientsSectionTop + trustedClientsSectionRect.height;
         
         const calculatorSectionRect = calculatorSection.getBoundingClientRect();
         const calculatorSectionTop = scrollY + calculatorSectionRect.top;
         const calculatorSectionBottom = calculatorSectionTop + calculatorSectionRect.height;
         
-        // Pokaż awatar 40px przed sekcją "Mamy największe zaufanie"
-        const showFromImagine = imagineSectionTop - 40;
-        
-        // Ukryj awatar 40px przed kalkulatorem
-        const hideBeforeCalculator = calculatorSectionTop - 40;
+        // Ukryj awatar 40px po sekcji "Dlaczego wybierają nas klienci?"
+        const hideAfterTrustedClients = trustedClientsSectionBottom + 40;
         
         // Pokaż awatar ponownie 40px po kalkulatorze
         const showAfterCalculator = calculatorSectionBottom + 40;
         
         console.log('Avatar visibility check:', {
           scrollY,
-          showFromImagine,
-          hideBeforeCalculator,
-          showAfterCalculator
+          hideAfterTrustedClients,
+          showAfterCalculator,
+          calculatorSectionTop,
+          calculatorSectionBottom
         });
         
-        // Logika: pokaż awatar między sekcjami
-        if (scrollY >= showFromImagine && scrollY < hideBeforeCalculator) {
-          shouldShow = true;
-        } else if (scrollY >= showAfterCalculator) {
-          shouldShow = true;
-        } else {
+        // Logika: ukryj awatar po sekcji "Dlaczego wybierają nas klienci?" aż do 40px po kalkulatorze
+        if (scrollY >= hideAfterTrustedClients && scrollY < showAfterCalculator) {
           shouldShow = false;
+        } else {
+          shouldShow = true;
         }
       }
       
@@ -171,3 +170,4 @@ const FloatingAvatar = () => {
 };
 
 export default FloatingAvatar;
+
