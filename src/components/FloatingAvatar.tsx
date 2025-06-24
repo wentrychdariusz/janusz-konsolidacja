@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
@@ -38,24 +37,31 @@ const FloatingAvatar = () => {
       // Sprawdź aktualny stan kalkulatora
       const isCalculatorUsed = checkCalculatorUsage();
       
-      // Szukamy sekcji "Mamy największe zaufanie klientów w Polsce"
-      const headings = document.querySelectorAll('h2');
+      // Szukamy sekcji "Mamy największe zaufanie" - szukamy różnych wariantów tekstu
+      const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
       let trustSection: HTMLElement | null = null;
       let calculatorSection: HTMLElement | null = null;
       
       headings.forEach((heading) => {
-        if (heading.textContent?.includes('Mamy największe zaufanie klientów w Polsce')) {
+        const text = heading.textContent?.toLowerCase() || '';
+        
+        // Szukamy sekcji zaufania - różne warianty
+        if (text.includes('zaufanie') || text.includes('trust') || text.includes('klient')) {
           trustSection = heading as HTMLElement;
+          console.log('Found trust section:', heading.textContent);
         }
-        if (heading.textContent?.includes('SPRAWDŹ CZY MOŻEMY CI POMÓC')) {
+        
+        // Szukamy sekcji kalkulatora
+        if (text.includes('sprawdź') || text.includes('kalkulator') || text.includes('pomóc')) {
           calculatorSection = heading as HTMLElement;
+          console.log('Found calculator section:', heading.textContent);
         }
       });
       
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       
-      // Pokazuj awatar od sekcji zaufania
+      // Pokazuj awatar od sekcji zaufania lub od 2000px jeśli nie znajdziemy sekcji
       let shouldShowFromTrust = false;
       if (trustSection) {
         const sectionRect = trustSection.getBoundingClientRect();
@@ -63,6 +69,9 @@ const FloatingAvatar = () => {
         const isMobile = window.innerWidth < 768;
         const offset = isMobile ? windowHeight * 0.8 : 400;
         shouldShowFromTrust = scrollY >= sectionTop - offset;
+      } else {
+        // Fallback - pokaż awatar po przescrollowaniu 2000px
+        shouldShowFromTrust = scrollY >= 2000;
       }
       
       // Ukrywaj awatar w sekcji kalkulatora
@@ -84,7 +93,9 @@ const FloatingAvatar = () => {
         shouldShowFromTrust,
         shouldHideInCalculator,
         hasUsedCalculator: isCalculatorUsed,
-        finalShow
+        finalShow,
+        trustSectionFound: !!trustSection,
+        calculatorSectionFound: !!calculatorSection
       });
     };
 
