@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
@@ -14,15 +15,10 @@ const FloatingAvatar = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       
-      console.log('Scroll event:', {
-        scrollY,
-        windowHeight
-      });
-      
-      // Szukaj sekcji "Mamy największe zaufanie" (ImagineSection)
+      // Znajdź sekcję "Mamy największe zaufanie" (ImagineSection)
       const imagineSection = document.querySelector('section h2')?.closest('section');
       
-      // Szukaj sekcji kalkulatora "SPRAWDŹ CZY MOŻEMY CI POMÓC"
+      // Znajdź sekcję kalkulatora "SPRAWDŹ CZY MOŻEMY CI POMÓC"
       const calculatorSection = document.querySelector('[data-section="calculator"]') || 
                                document.getElementById('calculator') ||
                                Array.from(document.querySelectorAll('h2')).find(h2 => 
@@ -31,55 +27,37 @@ const FloatingAvatar = () => {
       
       let shouldShow = false;
       
-      if (imagineSection) {
+      if (imagineSection && calculatorSection) {
         const imagineSectionRect = imagineSection.getBoundingClientRect();
         const imagineSectionTop = scrollY + imagineSectionRect.top;
-        const startShowingAt = imagineSectionTop - 200; // Pokaż 200px przed sekcją
         
-        console.log('Imagine section found:', {
-          imagineSectionTop,
-          startShowingAt,
-          scrollY
-        });
-        
-        shouldShow = scrollY >= startShowingAt;
-      }
-      
-      // Sprawdź czy nie jesteśmy w obszarze kalkulatora - ukryj awatar zawsze przed kalkulatorem
-      if (calculatorSection) {
         const calculatorSectionRect = calculatorSection.getBoundingClientRect();
         const calculatorSectionTop = scrollY + calculatorSectionRect.top;
         const calculatorSectionBottom = calculatorSectionTop + calculatorSectionRect.height;
-        const hideBeforeCalculator = calculatorSectionTop - 300; // Ukryj 300px przed kalkulatorem
-        const showAfterCalculator = calculatorSectionBottom + 100; // Pokaż 100px po kalkulatorze
         
-        console.log('Calculator section found:', {
-          calculatorSectionTop,
-          calculatorSectionBottom,
+        // Pokaż awatar 40px przed sekcją "Mamy największe zaufanie"
+        const showFromImagine = imagineSectionTop - 40;
+        
+        // Ukryj awatar 40px przed kalkulatorem
+        const hideBeforeCalculator = calculatorSectionTop - 40;
+        
+        // Pokaż awatar ponownie 40px po kalkulatorze
+        const showAfterCalculator = calculatorSectionBottom + 40;
+        
+        console.log('Avatar visibility check:', {
+          scrollY,
+          showFromImagine,
           hideBeforeCalculator,
-          showAfterCalculator,
-          scrollY
+          showAfterCalculator
         });
         
-        // Ukryj awatar w obszarze kalkulatora (niezależnie od kierunku przewijania)
-        if (scrollY >= hideBeforeCalculator && scrollY < showAfterCalculator) {
+        // Logika: pokaż awatar między sekcjami
+        if (scrollY >= showFromImagine && scrollY < hideBeforeCalculator) {
+          shouldShow = true;
+        } else if (scrollY >= showAfterCalculator) {
+          shouldShow = true;
+        } else {
           shouldShow = false;
-        }
-        
-        // Jeśli jesteśmy przed sekcją imagine, ale blisko kalkulatora - też ukryj
-        if (shouldShow && scrollY >= hideBeforeCalculator) {
-          shouldShow = false;
-        }
-        
-        // Pokaż awatar ponownie po kalkulatorze tylko jeśli już minęliśmy sekcję imagine
-        if (scrollY >= showAfterCalculator && imagineSection) {
-          const imagineSectionRect = imagineSection.getBoundingClientRect();
-          const imagineSectionTop = scrollY + imagineSectionRect.top;
-          const startShowingAt = imagineSectionTop - 200;
-          
-          if (scrollY >= startShowingAt) {
-            shouldShow = true;
-          }
         }
       }
       
