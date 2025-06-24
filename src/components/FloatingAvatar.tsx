@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
@@ -46,8 +45,8 @@ const FloatingAvatar = () => {
         shouldShow = scrollY >= startShowingAt;
       }
       
-      // Sprawdź czy nie jesteśmy w obszarze kalkulatora - ukryj awatar
-      if (calculatorSection && shouldShow) {
+      // Sprawdź czy nie jesteśmy w obszarze kalkulatora - ukryj awatar zawsze przed kalkulatorem
+      if (calculatorSection) {
         const calculatorSectionRect = calculatorSection.getBoundingClientRect();
         const calculatorSectionTop = scrollY + calculatorSectionRect.top;
         const calculatorSectionBottom = calculatorSectionTop + calculatorSectionRect.height;
@@ -62,14 +61,25 @@ const FloatingAvatar = () => {
           scrollY
         });
         
-        // Ukryj awatar w obszarze kalkulatora
+        // Ukryj awatar w obszarze kalkulatora (niezależnie od kierunku przewijania)
         if (scrollY >= hideBeforeCalculator && scrollY < showAfterCalculator) {
           shouldShow = false;
         }
         
-        // Pokaż awatar ponownie po kalkulatorze
-        if (scrollY >= showAfterCalculator) {
-          shouldShow = true;
+        // Jeśli jesteśmy przed sekcją imagine, ale blisko kalkulatora - też ukryj
+        if (shouldShow && scrollY >= hideBeforeCalculator) {
+          shouldShow = false;
+        }
+        
+        // Pokaż awatar ponownie po kalkulatorze tylko jeśli już minęliśmy sekcję imagine
+        if (scrollY >= showAfterCalculator && imagineSection) {
+          const imagineSectionRect = imagineSection.getBoundingClientRect();
+          const imagineSectionTop = scrollY + imagineSectionRect.top;
+          const startShowingAt = imagineSectionTop - 200;
+          
+          if (scrollY >= startShowingAt) {
+            shouldShow = true;
+          }
         }
       }
       
