@@ -46,20 +46,30 @@ const FloatingAvatar = () => {
         shouldShow = scrollY >= startShowingAt;
       }
       
-      // Sprawdź czy nie jesteśmy już przy sekcji kalkulatora
+      // Sprawdź czy nie jesteśmy w obszarze kalkulatora - ukryj awatar
       if (calculatorSection && shouldShow) {
         const calculatorSectionRect = calculatorSection.getBoundingClientRect();
         const calculatorSectionTop = scrollY + calculatorSectionRect.top;
+        const calculatorSectionBottom = calculatorSectionTop + calculatorSectionRect.height;
         const hideBeforeCalculator = calculatorSectionTop - 300; // Ukryj 300px przed kalkulatorem
+        const showAfterCalculator = calculatorSectionBottom + 100; // Pokaż 100px po kalkulatorze
         
         console.log('Calculator section found:', {
           calculatorSectionTop,
+          calculatorSectionBottom,
           hideBeforeCalculator,
+          showAfterCalculator,
           scrollY
         });
         
-        if (scrollY >= hideBeforeCalculator) {
+        // Ukryj awatar w obszarze kalkulatora
+        if (scrollY >= hideBeforeCalculator && scrollY < showAfterCalculator) {
           shouldShow = false;
+        }
+        
+        // Pokaż awatar ponownie po kalkulatorze
+        if (scrollY >= showAfterCalculator) {
+          shouldShow = true;
         }
       }
       
