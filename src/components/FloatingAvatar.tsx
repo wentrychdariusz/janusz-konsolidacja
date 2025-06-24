@@ -52,8 +52,9 @@ const FloatingAvatar = () => {
           console.log('Found trust section:', heading.textContent);
         }
         
-        // Szukamy sekcji kalkulatora - rozszerzone wyszukiwanie
-        if (text.includes('sprawdź') || text.includes('kalkulator') || text.includes('pomóc') || text.includes('czy możemy ci')) {
+        // Szukamy sekcji kalkulatora - rozszerzone wyszukiwanie dla sekcji na dole strony
+        if (text.includes('sprawdź') || text.includes('kalkulator') || text.includes('pomóc') || 
+            text.includes('czy możemy ci') || text.includes('jesteśmy tu')) {
           calculatorSection = heading as HTMLElement;
           console.log('Found calculator section:', heading.textContent);
         }
@@ -63,16 +64,16 @@ const FloatingAvatar = () => {
       const windowHeight = window.innerHeight;
       const isMobile = window.innerWidth < 768;
       
-      // Pokazuj awatar od sekcji zaufania lub od 1500px na mobile, 2000px na desktop
+      // Pokazuj awatar od sekcji zaufania lub od znacznie niższego progu na mobile
       let shouldShowFromTrust = false;
       if (trustSection) {
         const sectionRect = trustSection.getBoundingClientRect();
         const sectionTop = scrollY + sectionRect.top;
-        const offset = isMobile ? windowHeight * 0.5 : 400; // Mniejszy offset na mobile
+        const offset = isMobile ? windowHeight * 0.3 : 400; // Jeszcze mniejszy offset na mobile
         shouldShowFromTrust = scrollY >= sectionTop - offset;
       } else {
-        // Fallback - pokaż awatar wcześniej na mobile
-        const fallbackOffset = isMobile ? 1500 : 2000;
+        // Fallback - znacznie niższy próg na mobile
+        const fallbackOffset = isMobile ? 800 : 2000; // Zmniejszone z 1500 na 800 dla mobile
         shouldShowFromTrust = scrollY >= fallbackOffset;
       }
       
@@ -83,7 +84,7 @@ const FloatingAvatar = () => {
       if (currentPath !== '/kalkulator' && calculatorSection) {
         const sectionRect = calculatorSection.getBoundingClientRect();
         const sectionTop = scrollY + sectionRect.top;
-        const offset = isMobile ? 100 : 200; // Mniejszy offset na mobile
+        const offset = isMobile ? 200 : 300; // Większy offset żeby wcześniej ukryć
         shouldHideInCalculator = scrollY >= sectionTop - offset;
       }
       
