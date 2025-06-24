@@ -54,22 +54,11 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
     }));
   };
 
-  const goToConfirmation = () => {
-    if (formData.name && formData.email && formData.phone) {
-      setCurrentStep(2);
-    }
-  };
-
-  const goBackToForm = () => {
-    setCurrentStep(1);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleContactFormSubmit = async () => {
+    if (!formData.name || !formData.email || !formData.phone) return;
     
-    console.log('🚀 Form submission started');
-    console.log('📝 Form data:', formData);
-    console.log('📊 Calculator data:', editableCalculatorData);
+    console.log('🚀 Contact form submission started');
+    console.log('📝 Contact data:', formData);
     console.log('🔗 Webhook URL:', webhookUrl);
     
     // Facebook Pixel - track form submission start
@@ -94,7 +83,7 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
         calculatorData: editableCalculatorData
       };
       
-      console.log('📤 Sending data to Make.com:', dataToSend);
+      console.log('📤 Sending contact data to Make.com:', dataToSend);
       
       const response = await fetch(webhookUrl, {
         method: "POST",
@@ -104,13 +93,9 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
         body: JSON.stringify(dataToSend),
       });
 
-      console.log('✅ Response received from Make.com');
+      console.log('✅ Contact data sent to Make.com');
       console.log('📊 Response status:', response.status);
       console.log('📊 Response ok:', response.ok);
-      
-      // Simulate form submission delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log('✅ Form submitted successfully');
       
       // Facebook Pixel - track successful lead
       if (typeof window !== 'undefined' && window.fbq) {
@@ -122,20 +107,14 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
         });
       }
       
-      // Przekierowanie na stronę podziękowania z parametrami
-      const params = new URLSearchParams({
-        success: 'true',
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone
-      });
-      navigate(`/formularz?${params.toString()}`);
+      // Przejdź do kroku 3 (potwierdzenie danych finansowych)
+      setCurrentStep(3);
       
     } catch (error) {
-      console.error('❌ Form submission error:', error);
-      // Still redirect to success page since webhook might work even with CORS error
+      console.error('❌ Contact form submission error:', error);
+      // Przejdź do kroku 3 nawet przy błędzie (webhook może działać mimo CORS)
       
-      // Facebook Pixel - track lead even on error (since webhook might still work)
+      // Facebook Pixel - track lead even on error
       if (typeof window !== 'undefined' && window.fbq) {
         window.fbq('track', 'Lead', {
           content_name: 'Quick Registration Form',
@@ -145,20 +124,33 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
         });
       }
       
-      // Przekierowanie na stronę podziękowania nawet przy błędzie
-      const params = new URLSearchParams({
-        success: 'true',
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone
-      });
-      navigate(`/formularz?${params.toString()}`);
+      setCurrentStep(3);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Krok 1: Formularz danych
+  const goBackToForm = () => {
+    setCurrentStep(1);
+  };
+
+  const handleFinalSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    console.log('🚀 Final form submission started');
+    console.log('📝 Final data:', { formData, editableCalculatorData });
+    
+    // Przekierowanie na stronę podziękowania z parametrami
+    const params = new URLSearchParams({
+      success: 'true',
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone
+    });
+    navigate(`/formularz?${params.toString()}`);
+  };
+
+  // Krok 1: Formularz danych kontaktowych
   if (currentStep === 1) {
     return (
       <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-center min-h-[600px] w-full mb-16">
@@ -179,7 +171,7 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
           </div>
           
           <h2 className="text-2xl font-bold text-navy-900 mb-3">
-            Krok 1 z 2: Podaj swoje dane
+            Krok 1 z 3: Podaj swoje dane
           </h2>
           <p className="text-warm-neutral-600 text-base leading-relaxed">
             Wypełnij formularz, a następnie sprawdź i potwierdź swoje dane
@@ -239,11 +231,11 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
           <div className="pt-6">
             <button
               type="button"
-              onClick={goToConfirmation}
-              disabled={!formData.name || !formData.email || !formData.phone}
+              onClick={handleContactFormSubmit}
+              disabled={!formData.name || !formData.email || !formData.phone || isSubmitting}
               className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 px-6 lg:py-5 lg:px-8 text-base lg:text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Dalej - sprawdź dane ➡️
+              {isSubmitting ? "Wysyłanie..." : "Wyślij dane i przejdź dalej ➡️"}
             </button>
 
             <p className="text-sm text-gray-500 text-center mt-4">
@@ -255,7 +247,7 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
     );
   }
 
-  // Krok 2: Potwierdzenie danych
+  // Krok 3: Potwierdzenie danych finansowych
   return (
     <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-center min-h-[600px] w-full mb-16">
       {/* Header */}
@@ -269,16 +261,16 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
             />
           </div>
           <div className="text-white">
-            <h3 className="text-xl font-bold mb-2">Sprawdź swoje dane</h3>
-            <p className="text-base text-success-100">Krok 2 z 2</p>
+            <h3 className="text-xl font-bold mb-2">Sprawdź dane finansowe</h3>
+            <p className="text-base text-success-100">Krok 3 z 3</p>
           </div>
         </div>
         
         <h2 className="text-2xl font-bold text-navy-900 mb-3">
-          Potwierdź dane kontaktowe i finansowe
+          Potwierdź swoje dane finansowe
         </h2>
         <p className="text-warm-neutral-600 text-base leading-relaxed">
-          Sprawdź, czy wszystkie dane są poprawne przed wysłaniem
+          Sprawdź, czy dane z kalkulatora są poprawne
         </p>
       </div>
 
@@ -349,18 +341,9 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
           </div>
         )}
 
-        {/* Dane kontaktowe */}
+        {/* Podsumowanie danych kontaktowych */}
         <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="font-semibold text-navy-800">Twoje dane kontaktowe:</h3>
-            <button
-              onClick={goBackToForm}
-              className="text-business-blue-600 hover:text-business-blue-700 flex items-center gap-1 text-sm"
-            >
-              <Edit className="w-4 h-4" />
-              Edytuj
-            </button>
-          </div>
+          <h3 className="font-semibold text-navy-800 mb-3">Twoje dane kontaktowe zostały wysłane:</h3>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span>Imię i nazwisko:</span>
@@ -379,13 +362,12 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
 
         {/* Przyciski */}
         <div className="pt-6 space-y-3">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleFinalSubmit}>
             <button
               type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-success-600 to-success-500 hover:from-success-700 hover:to-success-600 text-white font-bold py-4 px-6 lg:py-5 lg:px-8 text-base lg:text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-success-600 to-success-500 hover:from-success-700 hover:to-success-600 text-white font-bold py-4 px-6 lg:py-5 lg:px-8 text-base lg:text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105"
             >
-              {isSubmitting ? "Wysyłanie..." : "✅ Potwierdź i wyślij"}
+              ✅ Zakończ i przejdź do podziękowania
             </button>
           </form>
 
@@ -395,11 +377,11 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
             className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 px-6 text-base rounded-xl transition-all duration-300 flex items-center justify-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
-            Wróć do edycji danych
+            Wróć do edycji danych kontaktowych
           </button>
 
           <p className="text-sm text-gray-500 text-center mt-4">
-            Klikając "Potwierdź" wyrażasz zgodę na kontakt w sprawie oddłużenia
+            Dane kontaktowe zostały już wysłane. Ten krok służy tylko do sprawdzenia danych finansowych.
           </p>
         </div>
       </div>
