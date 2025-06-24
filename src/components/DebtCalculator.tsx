@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,11 +11,20 @@ const DebtCalculator = () => {
   const [income, setIncome] = useState('');
   const [paydayDebt, setPaydayDebt] = useState('');
   const [bankDebt, setBankDebt] = useState('');
+  const [hasUsedCalculator, setHasUsedCalculator] = useState(false);
   const [result, setResult] = useState<{
     message: string;
     type: 'positive' | 'warning' | 'negative' | null;
     showForm: boolean;
   }>({ message: '', type: null, showForm: false });
+
+  // Sprawdź czy kalkulator był już używany
+  useEffect(() => {
+    const calculatorUsed = localStorage.getItem('debt_calculator_used');
+    if (calculatorUsed === 'true') {
+      setHasUsedCalculator(true);
+    }
+  }, []);
 
   // Stałe z oryginalnego kalkulatora
   const MARGIN = 10000;
@@ -34,6 +43,11 @@ const DebtCalculator = () => {
   const postCostLimit = (income: number) => income * 30;
 
   const calculate = () => {
+    // Blokada ponownego użycia
+    if (hasUsedCalculator) {
+      return;
+    }
+
     const incomeVal = parsePLN(income);
     const paydayVal = parsePLN(paydayDebt);
     const bankVal = parsePLN(bankDebt);
@@ -46,6 +60,10 @@ const DebtCalculator = () => {
       });
       return;
     }
+
+    // Oznacz kalkulator jako użyty
+    localStorage.setItem('debt_calculator_used', 'true');
+    setHasUsedCalculator(true);
 
     // Limity z marginesem
     const nbLim = nonBankLimit(incomeVal) + MARGIN;
@@ -94,15 +112,21 @@ const DebtCalculator = () => {
   };
 
   const handleIncomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIncome(formatNumber(e.target.value));
+    if (!hasUsedCalculator) {
+      setIncome(formatNumber(e.target.value));
+    }
   };
 
   const handlePaydayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPaydayDebt(formatNumber(e.target.value));
+    if (!hasUsedCalculator) {
+      setPaydayDebt(formatNumber(e.target.value));
+    }
   };
 
   const handleBankChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBankDebt(formatNumber(e.target.value));
+    if (!hasUsedCalculator) {
+      setBankDebt(formatNumber(e.target.value));
+    }
   };
 
   const getResultIcon = () => {
@@ -137,11 +161,11 @@ const DebtCalculator = () => {
         {/* Formularz rejestracyjny - pokazuje się automatycznie po pozytywnym wyniku */}
         {result.showForm ? (
           <div className="animate-fade-in h-full">
-            <QuickRegistrationForm />
+            <QuickRegistrationForm calculatorData={{ income, paydayDebt, bankDebt }} />
           </div>
         ) : (
           <>
-            {/* Kalkulator - oryginalny widok */}
+            {/* Kalkulator - oryginalny widok z blokadą */}
             <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
               <div>
                 <div className="text-center mb-3 lg:mb-4">
@@ -154,7 +178,10 @@ const DebtCalculator = () => {
                     Kalkulator Oddłużania
                   </h2>
                   <p className="text-warm-neutral-600 text-sm lg:text-base leading-relaxed">
-                    Sprawdź, czy możemy Ci pomóc w konsolidacji chwilówek
+                    {hasUsedCalculator ? 
+                      "Kalkulator został już wykorzystany" : 
+                      "Sprawdź, czy możemy Ci pomóc w konsolidacji chwilówek"
+                    }
                   </p>
                 </div>
 
@@ -220,7 +247,8 @@ const DebtCalculator = () => {
                       value={income}
                       onChange={handleIncomeChange}
                       placeholder="4 000"
-                      className="pr-12 text-right h-12 lg:h-14 text-base lg:text-lg"
+                      disabled={hasUsedCalculator}
+                      className={`pr-12 text-right h-12 lg:h-14 text-base lg:text-lg ${hasUsedCalculator ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                     />
                     <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-sm lg:text-base">
                       PLN
@@ -239,7 +267,8 @@ const DebtCalculator = () => {
                       value={paydayDebt}
                       onChange={handlePaydayChange}
                       placeholder="70 000"
-                      className="pr-12 text-right h-12 lg:h-14 text-base lg:text-lg"
+                      disabled={hasUsedCalculator}
+                      className={`pr-12 text-right h-12 lg:h-14 text-base lg:text-lg ${hasUsedCalculator ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                     />
                     <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-sm lg:text-base">
                       PLN
@@ -258,7 +287,8 @@ const DebtCalculator = () => {
                       value={bankDebt}
                       onChange={handleBankChange}
                       placeholder="50 000"
-                      className="pr-12 text-right h-12 lg:h-14 text-base lg:text-lg"
+                      disabled={hasUsedCalculator}
+                      className={`pr-12 text-right h-12 lg:h-14 text-base lg:text-lg ${hasUsedCalculator ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                     />
                     <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-sm lg:text-base">
                       PLN
@@ -268,11 +298,24 @@ const DebtCalculator = () => {
 
                 <Button
                   onClick={calculate}
-                  className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 lg:py-5 text-base lg:text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 h-14 lg:h-16"
+                  disabled={hasUsedCalculator}
+                  className={`w-full font-bold py-4 lg:py-5 text-base lg:text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 h-14 lg:h-16 ${
+                    hasUsedCalculator 
+                      ? 'bg-gray-400 cursor-not-allowed' 
+                      : 'bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white'
+                  }`}
                 >
                   <Calculator className="w-4 h-4 lg:w-5 lg:h-5 mr-2" />
-                  Sprawdź czy Ci pomożemy
+                  {hasUsedCalculator ? 'Kalkulator został wykorzystany' : 'Sprawdź czy Ci pomożemy'}
                 </Button>
+
+                {hasUsedCalculator && !result.showForm && (
+                  <div className="p-3 lg:p-4 rounded-xl border-2 bg-blue-50 border-blue-200 text-blue-700">
+                    <p className="font-medium leading-relaxed text-sm lg:text-base text-center">
+                      📞 Masz pytania? Zadzwoń bezpośrednio: <strong>+48 123 456 789</strong>
+                    </p>
+                  </div>
+                )}
 
                 {result.message && !result.showForm && (
                   <div className={`p-3 lg:p-4 rounded-xl border-2 ${getResultClasses()}`}>

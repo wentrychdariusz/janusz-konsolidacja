@@ -7,9 +7,16 @@ const FloatingAvatar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [showAvatar, setShowAvatar] = useState(false);
+  const [hasUsedCalculator, setHasUsedCalculator] = useState(false);
 
   // Sprawdzanie pozycji scroll - pokazuj awatar od sekcji "Mamy największe zaufanie", ukrywaj w sekcji kalkulatora
   useEffect(() => {
+    // Sprawdź czy kalkulator był już używany
+    const calculatorUsed = localStorage.getItem('debt_calculator_used');
+    if (calculatorUsed === 'true') {
+      setHasUsedCalculator(true);
+    }
+
     const handleScroll = () => {
       // Szukamy sekcji "Mamy największe zaufanie klientów w Polsce"
       const headings = document.querySelectorAll('h2');
@@ -49,13 +56,15 @@ const FloatingAvatar = () => {
       }
       
       // Logika końcowa: pokaż jeśli jesteśmy po sekcji zaufania, ale ukryj w sekcji kalkulatora
-      setShowAvatar(shouldShowFromTrust && !shouldHideInCalculator);
+      // Dodatkowo ukryj jeśli kalkulator był już używany
+      setShowAvatar(shouldShowFromTrust && !shouldHideInCalculator && !hasUsedCalculator);
       
       console.log('Avatar visibility check:', {
         scrollY,
         shouldShowFromTrust,
         shouldHideInCalculator,
-        finalShow: shouldShowFromTrust && !shouldHideInCalculator
+        hasUsedCalculator,
+        finalShow: shouldShowFromTrust && !shouldHideInCalculator && !hasUsedCalculator
       });
     };
 
@@ -64,10 +73,10 @@ const FloatingAvatar = () => {
     handleScroll();
     
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [hasUsedCalculator]);
 
   const handleAvatarClick = () => {
-    if (!isDragging) {
+    if (!isDragging && !hasUsedCalculator) {
       setIsOpen(true);
     }
   };
