@@ -9,41 +9,25 @@ const FloatingAvatar = () => {
   const [showAvatar, setShowAvatar] = useState(false);
   const [hasUsedCalculator, setHasUsedCalculator] = useState(false);
 
-  // Sprawdzanie pozycji scroll - pokazuj awatar od sekcji "Mamy największe zaufanie", ukrywaj w sekcji kalkulatora
   useEffect(() => {
-    // Funkcja sprawdzająca localStorage
+    console.log('FloatingAvatar mounted');
+    
     const checkCalculatorUsage = () => {
       const calculatorUsed = localStorage.getItem('debt_calculator_used');
       const isUsed = calculatorUsed === 'true';
+      console.log('Calculator usage check:', isUsed);
       setHasUsedCalculator(isUsed);
       return isUsed;
     };
 
-    // Sprawdź na początku
-    checkCalculatorUsage();
-
-    // Nasłuchuj zmian w localStorage
-    const handleStorageChange = (e) => {
-      if (e.key === 'debt_calculator_used') {
-        checkCalculatorUsage();
-      }
-    };
-
-    // Nasłuchuj custom event gdy kalkulator zostanie użyty
-    const handleCalculatorUsed = () => {
-      checkCalculatorUsage();
-    };
-
     const handleScroll = () => {
-      // Sprawdź aktualny stan kalkulatora
-      const isCalculatorUsed = checkCalculatorUsage();
-      
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       const isMobile = window.innerWidth < 768;
       const currentPath = window.location.pathname;
+      const isCalculatorUsed = checkCalculatorUsage();
       
-      console.log('Scroll check:', {
+      console.log('Scroll event:', {
         scrollY,
         windowHeight,
         isMobile,
@@ -51,30 +35,41 @@ const FloatingAvatar = () => {
         hasUsedCalculator: isCalculatorUsed
       });
       
-      // Uproszczona logika - pokazuj awatar po przescrollowaniu określonej odległości
-      // Na mobile od 500px, na desktop od 1200px
-      const showThreshold = isMobile ? 500 : 1200;
+      // Bardzo proste warunki - pokaż awatar po 300px scrolla na mobile, 600px na desktop
+      const showThreshold = isMobile ? 300 : 600;
       let shouldShow = scrollY >= showThreshold;
       
-      // Szukamy sekcji kalkulatora żeby go ukryć przed nią
+      console.log('Show threshold check:', {
+        showThreshold,
+        scrollY,
+        shouldShow
+      });
+      
+      // Szukaj sekcji kalkulatora
       const calculatorSection = document.querySelector('[data-section="calculator"]') || 
-                               document.querySelector('h2, h3, h4')?.closest('section');
+                               document.getElementById('calculator') ||
+                               document.querySelector('section:has(h2:contains("SPRAWDŹ"))') ||
+                               Array.from(document.querySelectorAll('h2')).find(h => 
+                                 h.textContent?.includes('SPRAWDŹ') || h.textContent?.includes('POMÓC')
+                               )?.closest('section');
       
       let shouldHideBeforeCalculator = false;
-      if (currentPath !== '/kalkulator' && calculatorSection) {
+      if (calculatorSection) {
         const sectionRect = calculatorSection.getBoundingClientRect();
         const sectionTop = scrollY + sectionRect.top;
-        const hideOffset = isMobile ? 300 : 400;
+        const hideOffset = isMobile ? 200 : 300;
         shouldHideBeforeCalculator = scrollY >= sectionTop - hideOffset;
         
-        console.log('Calculator section check:', {
+        console.log('Calculator section found:', {
           sectionTop,
           hideOffset,
           shouldHideBeforeCalculator
         });
+      } else {
+        console.log('Calculator section NOT found');
       }
       
-      // Finalna decyzja - pokaż jeśli przescrollowano wystarczająco, ale ukryj przed kalkulatorem i jeśli był używany
+      // Finalna decyzja
       const finalShow = shouldShow && !shouldHideBeforeCalculator && !isCalculatorUsed;
       
       console.log('Final avatar decision:', {
@@ -88,12 +83,26 @@ const FloatingAvatar = () => {
     };
 
     // Event listeners
+    const handleStorageChange = (e) => {
+      if (e.key === 'debt_calculator_used') {
+        checkCalculatorUsage();
+      }
+    };
+
+    const handleCalculatorUsed = () => {
+      checkCalculatorUsage();
+    };
+
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('storage', handleStorageChange);
     window.addEventListener('calculatorUsed', handleCalculatorUsed);
     
-    // Sprawdź od razu przy załadowaniu z opóźnieniem
-    setTimeout(handleScroll, 500);
+    // Sprawdź od razu przy załadowaniu
+    checkCalculatorUsage();
+    setTimeout(() => {
+      handleScroll();
+      console.log('Initial scroll check completed');
+    }, 1000);
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -104,40 +113,38 @@ const FloatingAvatar = () => {
 
   const handleAvatarClick = () => {
     if (!isDragging && !hasUsedCalculator) {
+      console.log('Avatar clicked, opening modal');
       setIsOpen(true);
     }
   };
 
   const handleClose = () => {
+    console.log('Modal closed');
     setIsOpen(false);
   };
 
-  // Nie renderuj awatara, jeśli nie powinien być widoczny
-  if (!showAvatar) {
+  console.log('FloatingAvatar render:', { showAvatar, hasUsedCalculator, isOpen });
+
+  // ZAWSZE pokaż awatar dla debugowania
+  const debugMode = true;
+  if (!showAvatar && !debugMode) {
     console.log('Avatar hidden, showAvatar:', showAvatar);
     return null;
   }
 
-  console.log('Avatar rendering, showAvatar:', showAvatar);
-
   return (
     <>
-      {/* Floating Avatar - Fixed in bottom right corner z większym obszarem dotykowym */}
+      {/* Floating Avatar - Fixed in bottom right corner */}
       <div
         className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 cursor-pointer transition-all duration-500 ease-out ${
           isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
-        }`}
+        } ${debugMode ? 'border-2 border-red-500' : ''}`}
         onClick={handleAvatarClick}
       >
-        {/* Avatar Container z napisem i znacznie większym obszarem kliknięcia */}
+        {/* Avatar Container z napisem */}
         <div className="relative group flex items-center space-x-2 md:space-x-3">
-          {/* Bardzo duży niewidoczny obszar dotykowy dla całego komponentu */}
-          <div className="absolute inset-0 -m-[40px] md:-m-[60px] z-20" />
-          
-          {/* Napis po lewej stronie awatara - responsive */}
+          {/* Napis po lewej stronie awatara */}
           <div className="bg-white rounded-lg md:rounded-xl shadow-lg p-2 md:p-3 border-2 border-prestige-gold-400 transition-all duration-300 whitespace-nowrap animate-fade-in relative">
-            {/* Duży obszar dotykowy dla napisu */}
-            <div className="absolute inset-0 -m-[30px] md:-m-[40px] z-10" />
             <div className="text-navy-900 font-semibold text-xs md:text-sm relative z-0">
               Zobacz, czy Ci pomogę?
             </div>
@@ -145,11 +152,8 @@ const FloatingAvatar = () => {
             <div className="absolute right-0 top-1/2 w-0 h-0 border-t-2 border-b-2 border-l-2 md:border-t-4 md:border-b-4 md:border-l-4 border-t-transparent border-b-transparent border-l-white transform -translate-y-1/2 translate-x-full z-0"></div>
           </div>
           
-          {/* Avatar Image z większym obszarem dotykowym - responsive */}
+          {/* Avatar Image */}
           <div className="relative">
-            {/* Duży niewidoczny obszar dotykowy dla awatara */}
-            <div className="absolute inset-0 -m-[40px] md:-m-[50px] z-10" />
-            
             <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-3 md:border-4 border-prestige-gold-400 shadow-xl bg-white overflow-hidden hover:scale-110 transition-transform duration-300 relative z-0">
               <img 
                 src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
@@ -158,10 +162,8 @@ const FloatingAvatar = () => {
               />
             </div>
             
-            {/* Chat Icon Indicator - responsive */}
+            {/* Chat Icon Indicator */}
             <div className="absolute -bottom-0.5 -right-0.5 md:-bottom-1 md:-right-1 w-5 h-5 md:w-6 md:h-6 bg-success-500 rounded-full flex items-center justify-center border-2 border-white z-0">
-              {/* Duży obszar dotykowy dla ikony */}
-              <div className="absolute inset-0 -m-[15px] md:-m-[20px]" />
               <MessageCircle className="w-2.5 h-2.5 md:w-3 md:h-3 text-white relative z-10" />
             </div>
             
@@ -169,15 +171,21 @@ const FloatingAvatar = () => {
             <div className="absolute inset-0 rounded-full border-3 md:border-4 border-prestige-gold-400 opacity-30 animate-ping z-0"></div>
           </div>
         </div>
+        
+        {/* Debug info */}
+        {debugMode && (
+          <div className="absolute top-full left-0 mt-2 bg-black text-white text-xs p-2 rounded whitespace-nowrap">
+            Show: {showAvatar.toString()}, Used: {hasUsedCalculator.toString()}
+          </div>
+        )}
       </div>
 
-      {/* Modal z kalkulatorem - poprawione wymiary i przewijanie */}
+      {/* Modal z kalkulatorem */}
       {isOpen && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-2 md:p-4">
           <div className="bg-white rounded-xl md:rounded-2xl shadow-2xl w-full max-w-4xl max-h-[98vh] md:max-h-[95vh] overflow-hidden relative flex flex-col">
-            {/* Close Button z bardzo dużym obszarem dotykowym */}
+            {/* Close Button */}
             <div className="absolute top-2 right-2 md:top-4 md:right-4 z-10">
-              {/* Bardzo duży niewidoczny obszar dotykowy */}
               <div 
                 className="absolute inset-0 -m-[25px] md:-m-[30px] cursor-pointer" 
                 onClick={handleClose}
@@ -190,7 +198,7 @@ const FloatingAvatar = () => {
               </button>
             </div>
             
-            {/* Calculator Content z przewijaniem */}
+            {/* Calculator Content */}
             <div className="flex-1 overflow-y-auto p-3 md:p-6">
               <DebtCalculator />
             </div>
