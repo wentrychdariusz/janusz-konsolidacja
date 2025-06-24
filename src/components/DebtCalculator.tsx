@@ -186,15 +186,6 @@ const DebtCalculator = () => {
                       "Sprawdź, czy możemy Ci pomóc w konsolidacji chwilówek"
                     }
                   </p>
-                  
-                  {/* Dodana informacja o jednorazowym użyciu */}
-                  {!hasUsedCalculator && (
-                    <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                      <p className="text-amber-800 text-sm font-medium">
-                        ⚠️ Wpisz uczciwe dane - kalkulator można użyć tylko raz
-                      </p>
-                    </div>
-                  )}
                 </div>
 
                 {/* Sekcja z Dariuszem i zespołem - bardzo zmniejszona */}
@@ -245,6 +236,20 @@ const DebtCalculator = () => {
                     <p className="text-xs text-warm-neutral-600">20+ lat doświadczenia</p>
                   </div>
                 </div>
+
+                {/* Przeniesiona informacja o jednorazowym użyciu z bardziej wyróżniającym się tłem */}
+                {!hasUsedCalculator && (
+                  <div className="mt-3 mb-4 p-4 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300 rounded-xl shadow-md">
+                    <div className="flex items-center justify-center">
+                      <div className="bg-red-100 p-2 rounded-full mr-3">
+                        <AlertCircle className="w-5 h-5 text-red-600" />
+                      </div>
+                      <p className="text-red-800 text-sm font-bold text-center">
+                        ⚠️ Wpisz uczciwe dane - kalkulator można użyć tylko raz
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="space-y-3 lg:space-y-4">
