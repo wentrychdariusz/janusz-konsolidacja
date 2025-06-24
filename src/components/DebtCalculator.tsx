@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -314,7 +315,7 @@ const DebtCalculator = () => {
                 {hasUsedCalculator && !result.showForm && (
                   <div className="p-3 lg:p-4 rounded-xl border-2 bg-blue-50 border-blue-200 text-blue-700">
                     <p className="font-medium leading-relaxed text-sm lg:text-base text-center">
-                      📞 Masz pytania? Zadzwoń bezpośrednio: <strong>+48 123 456 789</strong>
+                      📞 Masz pytania? Zadzwoń bezpośrednio: <strong>+48 663 024 522</strong>
                     </p>
                   </div>
                 )}
