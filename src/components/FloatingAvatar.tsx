@@ -11,13 +11,33 @@ const FloatingAvatar = () => {
 
   // Sprawdzanie pozycji scroll - pokazuj awatar od sekcji "Mamy największe zaufanie", ukrywaj w sekcji kalkulatora
   useEffect(() => {
-    // Sprawdź czy kalkulator był już używany
-    const calculatorUsed = localStorage.getItem('debt_calculator_used');
-    if (calculatorUsed === 'true') {
-      setHasUsedCalculator(true);
-    }
+    // Funkcja sprawdzająca localStorage
+    const checkCalculatorUsage = () => {
+      const calculatorUsed = localStorage.getItem('debt_calculator_used');
+      const isUsed = calculatorUsed === 'true';
+      setHasUsedCalculator(isUsed);
+      return isUsed;
+    };
+
+    // Sprawdź na początku
+    checkCalculatorUsage();
+
+    // Nasłuchuj zmian w localStorage
+    const handleStorageChange = (e) => {
+      if (e.key === 'debt_calculator_used') {
+        checkCalculatorUsage();
+      }
+    };
+
+    // Nasłuchuj custom event gdy kalkulator zostanie użyty
+    const handleCalculatorUsed = () => {
+      checkCalculatorUsage();
+    };
 
     const handleScroll = () => {
+      // Sprawdź aktualny stan kalkulatora
+      const isCalculatorUsed = checkCalculatorUsage();
+      
       // Szukamy sekcji "Mamy największe zaufanie klientów w Polsce"
       const headings = document.querySelectorAll('h2');
       let trustSection: HTMLElement | null = null;
@@ -34,7 +54,6 @@ const FloatingAvatar = () => {
       
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
       
       // Pokazuj awatar od sekcji zaufania
       let shouldShowFromTrust = false;
@@ -56,24 +75,33 @@ const FloatingAvatar = () => {
       }
       
       // Logika końcowa: pokaż jeśli jesteśmy po sekcji zaufania, ale ukryj w sekcji kalkulatora
-      // Dodatkowo ukryj jeśli kalkulator był już używany
-      setShowAvatar(shouldShowFromTrust && !shouldHideInCalculator && !hasUsedCalculator);
+      // Dodatowo ukryj jeśli kalkulator był już używany
+      const finalShow = shouldShowFromTrust && !shouldHideInCalculator && !isCalculatorUsed;
+      setShowAvatar(finalShow);
       
       console.log('Avatar visibility check:', {
         scrollY,
         shouldShowFromTrust,
         shouldHideInCalculator,
-        hasUsedCalculator,
-        finalShow: shouldShowFromTrust && !shouldHideInCalculator && !hasUsedCalculator
+        hasUsedCalculator: isCalculatorUsed,
+        finalShow
       });
     };
 
+    // Event listeners
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('calculatorUsed', handleCalculatorUsed);
+    
     // Sprawdź od razu przy załadowaniu
     handleScroll();
     
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [hasUsedCalculator]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('calculatorUsed', handleCalculatorUsed);
+    };
+  }, []); // Usunąć hasUsedCalculator z dependencies
 
   const handleAvatarClick = () => {
     if (!isDragging && !hasUsedCalculator) {

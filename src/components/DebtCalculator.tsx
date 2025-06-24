@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -64,6 +63,9 @@ const DebtCalculator = () => {
     // Oznacz kalkulator jako użyty
     localStorage.setItem('debt_calculator_used', 'true');
     setHasUsedCalculator(true);
+    
+    // Wyślij custom event żeby inne komponenty wiedziały o zmianie
+    window.dispatchEvent(new CustomEvent('calculatorUsed'));
 
     // Limity z marginesem
     const nbLim = nonBankLimit(incomeVal) + MARGIN;
