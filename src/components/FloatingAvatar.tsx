@@ -7,36 +7,23 @@ const FloatingAvatar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [showAvatar, setShowAvatar] = useState(false);
-  const [hasUsedCalculator, setHasUsedCalculator] = useState(false);
 
   useEffect(() => {
     console.log('FloatingAvatar mounted');
-    
-    const checkCalculatorUsage = () => {
-      const calculatorUsed = localStorage.getItem('debt_calculator_used');
-      const isUsed = calculatorUsed === 'true';
-      console.log('Calculator usage check:', isUsed);
-      setHasUsedCalculator(isUsed);
-      return isUsed;
-    };
 
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       const isMobile = window.innerWidth < 768;
-      const currentPath = window.location.pathname;
-      const isCalculatorUsed = checkCalculatorUsage();
       
       console.log('Scroll event:', {
         scrollY,
         windowHeight,
-        isMobile,
-        currentPath,
-        hasUsedCalculator: isCalculatorUsed
+        isMobile
       });
       
-      // Bardzo proste warunki - pokaż awatar po 300px scrolla na mobile, 600px na desktop
-      const showThreshold = isMobile ? 300 : 600;
+      // Pokazuj awatar po przekroczeniu progu scrollowania
+      const showThreshold = isMobile ? 500 : 800;
       let shouldShow = scrollY >= showThreshold;
       
       console.log('Show threshold check:', {
@@ -45,19 +32,16 @@ const FloatingAvatar = () => {
         shouldShow
       });
       
-      // Szukaj sekcji kalkulatora
+      // Szukaj sekcji kalkulatora po data-section lub zawartości
       const calculatorSection = document.querySelector('[data-section="calculator"]') || 
                                document.getElementById('calculator') ||
-                               document.querySelector('section:has(h2:contains("SPRAWDŹ"))') ||
-                               Array.from(document.querySelectorAll('h2')).find(h => 
-                                 h.textContent?.includes('SPRAWDŹ') || h.textContent?.includes('POMÓC')
-                               )?.closest('section');
+                               document.querySelector('section h2')?.closest('section');
       
       let shouldHideBeforeCalculator = false;
       if (calculatorSection) {
         const sectionRect = calculatorSection.getBoundingClientRect();
         const sectionTop = scrollY + sectionRect.top;
-        const hideOffset = isMobile ? 200 : 300;
+        const hideOffset = isMobile ? 300 : 400;
         shouldHideBeforeCalculator = scrollY >= sectionTop - hideOffset;
         
         console.log('Calculator section found:', {
@@ -69,36 +53,21 @@ const FloatingAvatar = () => {
         console.log('Calculator section NOT found');
       }
       
-      // Finalna decyzja
-      const finalShow = shouldShow && !shouldHideBeforeCalculator && !isCalculatorUsed;
+      // Finalna decyzja - usunąłem warunek hasUsedCalculator
+      const finalShow = shouldShow && !shouldHideBeforeCalculator;
       
       console.log('Final avatar decision:', {
         shouldShow,
         shouldHideBeforeCalculator,
-        hasUsedCalculator: isCalculatorUsed,
         finalShow
       });
       
       setShowAvatar(finalShow);
     };
 
-    // Event listeners
-    const handleStorageChange = (e) => {
-      if (e.key === 'debt_calculator_used') {
-        checkCalculatorUsage();
-      }
-    };
-
-    const handleCalculatorUsed = () => {
-      checkCalculatorUsage();
-    };
-
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('calculatorUsed', handleCalculatorUsed);
     
     // Sprawdź od razu przy załadowaniu
-    checkCalculatorUsage();
     setTimeout(() => {
       handleScroll();
       console.log('Initial scroll check completed');
@@ -106,13 +75,11 @@ const FloatingAvatar = () => {
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('calculatorUsed', handleCalculatorUsed);
     };
   }, []);
 
   const handleAvatarClick = () => {
-    if (!isDragging && !hasUsedCalculator) {
+    if (!isDragging) {
       console.log('Avatar clicked, opening modal');
       setIsOpen(true);
     }
@@ -123,11 +90,10 @@ const FloatingAvatar = () => {
     setIsOpen(false);
   };
 
-  console.log('FloatingAvatar render:', { showAvatar, hasUsedCalculator, isOpen });
+  console.log('FloatingAvatar render:', { showAvatar, isOpen });
 
-  // ZAWSZE pokaż awatar dla debugowania
-  const debugMode = true;
-  if (!showAvatar && !debugMode) {
+  // Usuń debugMode i pokaż awatar gdy showAvatar = true
+  if (!showAvatar) {
     console.log('Avatar hidden, showAvatar:', showAvatar);
     return null;
   }
@@ -138,7 +104,7 @@ const FloatingAvatar = () => {
       <div
         className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 cursor-pointer transition-all duration-500 ease-out ${
           isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
-        } ${debugMode ? 'border-2 border-red-500' : ''}`}
+        }`}
         onClick={handleAvatarClick}
       >
         {/* Avatar Container z napisem */}
@@ -171,13 +137,6 @@ const FloatingAvatar = () => {
             <div className="absolute inset-0 rounded-full border-3 md:border-4 border-prestige-gold-400 opacity-30 animate-ping z-0"></div>
           </div>
         </div>
-        
-        {/* Debug info */}
-        {debugMode && (
-          <div className="absolute top-full left-0 mt-2 bg-black text-white text-xs p-2 rounded whitespace-nowrap">
-            Show: {showAvatar.toString()}, Used: {hasUsedCalculator.toString()}
-          </div>
-        )}
       </div>
 
       {/* Modal z kalkulatorem */}
