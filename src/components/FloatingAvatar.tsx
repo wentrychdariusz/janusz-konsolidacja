@@ -14,55 +14,60 @@ const FloatingAvatar = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
-      const isMobile = window.innerWidth < 768;
       
       console.log('Scroll event:', {
         scrollY,
-        windowHeight,
-        isMobile
+        windowHeight
       });
       
-      // Pokazuj awatar po przekroczeniu progu scrollowania
-      const showThreshold = isMobile ? 500 : 800;
-      let shouldShow = scrollY >= showThreshold;
+      // Szukaj sekcji "Mamy największe zaufanie" (ImagineSection)
+      const imagineSection = document.querySelector('section h2')?.closest('section');
       
-      console.log('Show threshold check:', {
-        showThreshold,
-        scrollY,
+      // Szukaj sekcji kalkulatora "SPRAWDŹ CZY MOŻEMY CI POMÓC"
+      const calculatorSection = document.querySelector('[data-section="calculator"]') || 
+                               document.getElementById('calculator') ||
+                               Array.from(document.querySelectorAll('h2')).find(h2 => 
+                                 h2.textContent?.includes('SPRAWDŹ CZY MOŻEMY CI')
+                               )?.closest('section');
+      
+      let shouldShow = false;
+      
+      if (imagineSection) {
+        const imagineSectionRect = imagineSection.getBoundingClientRect();
+        const imagineSectionTop = scrollY + imagineSectionRect.top;
+        const startShowingAt = imagineSectionTop - 200; // Pokaż 200px przed sekcją
+        
+        console.log('Imagine section found:', {
+          imagineSectionTop,
+          startShowingAt,
+          scrollY
+        });
+        
+        shouldShow = scrollY >= startShowingAt;
+      }
+      
+      // Sprawdź czy nie jesteśmy już przy sekcji kalkulatora
+      if (calculatorSection && shouldShow) {
+        const calculatorSectionRect = calculatorSection.getBoundingClientRect();
+        const calculatorSectionTop = scrollY + calculatorSectionRect.top;
+        const hideBeforeCalculator = calculatorSectionTop - 300; // Ukryj 300px przed kalkulatorem
+        
+        console.log('Calculator section found:', {
+          calculatorSectionTop,
+          hideBeforeCalculator,
+          scrollY
+        });
+        
+        if (scrollY >= hideBeforeCalculator) {
+          shouldShow = false;
+        }
+      }
+      
+      console.log('Final avatar decision:', {
         shouldShow
       });
       
-      // Szukaj sekcji kalkulatora po data-section lub zawartości
-      const calculatorSection = document.querySelector('[data-section="calculator"]') || 
-                               document.getElementById('calculator') ||
-                               document.querySelector('section h2')?.closest('section');
-      
-      let shouldHideBeforeCalculator = false;
-      if (calculatorSection) {
-        const sectionRect = calculatorSection.getBoundingClientRect();
-        const sectionTop = scrollY + sectionRect.top;
-        const hideOffset = isMobile ? 300 : 400;
-        shouldHideBeforeCalculator = scrollY >= sectionTop - hideOffset;
-        
-        console.log('Calculator section found:', {
-          sectionTop,
-          hideOffset,
-          shouldHideBeforeCalculator
-        });
-      } else {
-        console.log('Calculator section NOT found');
-      }
-      
-      // Finalna decyzja - usunąłem warunek hasUsedCalculator
-      const finalShow = shouldShow && !shouldHideBeforeCalculator;
-      
-      console.log('Final avatar decision:', {
-        shouldShow,
-        shouldHideBeforeCalculator,
-        finalShow
-      });
-      
-      setShowAvatar(finalShow);
+      setShowAvatar(shouldShow);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -92,7 +97,6 @@ const FloatingAvatar = () => {
 
   console.log('FloatingAvatar render:', { showAvatar, isOpen });
 
-  // Usuń debugMode i pokaż awatar gdy showAvatar = true
   if (!showAvatar) {
     console.log('Avatar hidden, showAvatar:', showAvatar);
     return null;
