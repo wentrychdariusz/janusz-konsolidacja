@@ -186,6 +186,15 @@ const DebtCalculator = () => {
                       "Sprawdź, czy możemy Ci pomóc w konsolidacji chwilówek"
                     }
                   </p>
+                  
+                  {/* Dodana informacja o jednorazowym użyciu */}
+                  {!hasUsedCalculator && (
+                    <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                      <p className="text-amber-800 text-sm font-medium">
+                        ⚠️ Wpisz uczciwe dane - kalkulator można użyć tylko raz
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Sekcja z Dariuszem i zespołem - bardzo zmniejszona */}
