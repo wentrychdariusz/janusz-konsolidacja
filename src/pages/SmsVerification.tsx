@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -24,7 +23,7 @@ const SmsVerification = () => {
   const [smsVerified, setSmsVerified] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationError, setVerificationError] = useState('');
-  const [timeLeft, setTimeLeft] = useState(120); // 2 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(180); // 3 minutes in seconds
 
   // Countdown timer
   useEffect(() => {
@@ -185,7 +184,7 @@ const SmsVerification = () => {
                     Nie otrzymałeś SMS? 
                     <button 
                       className="text-business-blue-600 hover:underline ml-1 font-medium"
-                      onClick={() => setTimeLeft(120)}
+                      onClick={() => setTimeLeft(180)}
                     >
                       Wyślij ponownie
                     </button>
