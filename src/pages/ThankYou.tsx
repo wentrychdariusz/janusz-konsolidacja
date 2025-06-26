@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -59,8 +58,8 @@ const ThankYou = () => {
   }
 
   const handleSmsVerification = async () => {
-    if (smsCode.length !== 6) {
-      setVerificationError('Kod SMS musi mieć 6 cyfr');
+    if (smsCode.length !== 4) {
+      setVerificationError('Kod SMS musi mieć 4 cyfry');
       return;
     }
 
@@ -111,7 +110,7 @@ const ThankYou = () => {
                   Wysłaliśmy kod SMS na numer: <strong>{decodeURIComponent(phone)}</strong>
                 </p>
                 <p className="text-warm-neutral-500 text-sm">
-                  Wpisz 6-cyfrowy kod, aby potwierdzić umówienie konsultacji
+                  Wpisz 4-cyfrowy kod, aby potwierdzić umówienie konsultacji
                 </p>
               </div>
 
@@ -123,7 +122,7 @@ const ThankYou = () => {
                   </label>
                   <div className="flex justify-center">
                     <InputOTP 
-                      maxLength={6} 
+                      maxLength={4} 
                       value={smsCode} 
                       onChange={setSmsCode}
                     >
@@ -132,8 +131,6 @@ const ThankYou = () => {
                         <InputOTPSlot index={1} />
                         <InputOTPSlot index={2} />
                         <InputOTPSlot index={3} />
-                        <InputOTPSlot index={4} />
-                        <InputOTPSlot index={5} />
                       </InputOTPGroup>
                     </InputOTP>
                   </div>
@@ -146,7 +143,7 @@ const ThankYou = () => {
                 <div className="text-center">
                   <button
                     onClick={handleSmsVerification}
-                    disabled={smsCode.length !== 6 || isVerifying}
+                    disabled={smsCode.length !== 4 || isVerifying}
                     className="bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 px-8 text-base lg:text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isVerifying ? "Weryfikuję..." : "Potwierdź konsultację"}
