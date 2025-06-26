@@ -24,6 +24,9 @@ const SmsVerification = () => {
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationError, setVerificationError] = useState('');
   const [timeLeft, setTimeLeft] = useState(180); // 3 minutes in seconds
+  
+  // Sztywny kod weryfikacyjny
+  const VERIFICATION_CODE = '1212';
 
   // Countdown timer
   useEffect(() => {
@@ -62,20 +65,24 @@ const SmsVerification = () => {
     setVerificationError('');
 
     try {
-      // Symulacja weryfikacji SMS - tutaj można dodać prawdziwą weryfikację
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Symulacja weryfikacji SMS - sprawdzenie sztywnego kodu
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Zakładamy że kod jest poprawny (można dodać prawdziwą logikę weryfikacji)
-      setSmsVerified(true);
-      
-      // Facebook Pixel - track SMS verification
-      if (typeof window !== 'undefined' && window.fbq) {
-        window.fbq('track', 'Purchase', {
-          content_name: 'SMS Verification Complete',
-          content_category: 'Consultation Confirmed',
-          value: 1,
-          currency: 'PLN'
-        });
+      // Sprawdzenie czy kod jest poprawny (1212)
+      if (smsCode === VERIFICATION_CODE) {
+        setSmsVerified(true);
+        
+        // Facebook Pixel - track SMS verification
+        if (typeof window !== 'undefined' && window.fbq) {
+          window.fbq('track', 'Purchase', {
+            content_name: 'SMS Verification Complete',
+            content_category: 'Consultation Confirmed',
+            value: 1,
+            currency: 'PLN'
+          });
+        }
+      } else {
+        setVerificationError('Nieprawidłowy kod SMS. Spróbuj ponownie.');
       }
       
     } catch (error) {
@@ -115,7 +122,7 @@ const SmsVerification = () => {
                   Wysłaliśmy kod SMS na numer: <strong>{decodeURIComponent(phone) || 'Twój numer'}</strong>
                 </p>
                 <p className="text-warm-neutral-500 text-sm">
-                  Wpisz 4-cyfrowy kod, aby potwierdzić umówienie bezpłatnej konsultacji
+                  Wpisz 4-cyfrowy kod <strong>(1212)</strong>, aby potwierdzić umówienie bezpłatnej konsultacji
                 </p>
               </div>
 
