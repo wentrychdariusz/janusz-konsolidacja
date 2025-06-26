@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
@@ -34,8 +33,8 @@ const FloatingAvatar = () => {
           headerRect
         });
         
-        // Pokaż awatar dopiero po przejściu nagłówka "Mamy największe zaufanie klientów w Polsce"
-        if (scrollY >= headerBottomPosition) {
+        // Pokaż awatar 100px wcześniej niż koniec nagłówka
+        if (scrollY >= (headerBottomPosition - 100)) {
           shouldShow = true;
         } else {
           shouldShow = false;
@@ -48,7 +47,7 @@ const FloatingAvatar = () => {
           const sectionRect = imagineSection.getBoundingClientRect();
           const sectionTop = scrollY + sectionRect.top;
           
-          if (scrollY >= sectionTop + 300) { // 300px w głąb sekcji
+          if (scrollY >= sectionTop + 200) { // 200px w głąb sekcji
             shouldShow = true;
           }
         }
