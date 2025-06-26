@@ -28,8 +28,9 @@ const SmsVerification = () => {
   // Sztywny kod weryfikacyjny
   const VERIFICATION_CODE = '1212';
   
-  // Webhook URL do aktualizacji weryfikacji w Google Sheets
+  // Webhook URL i API Key - zastąp swoimi danymi z Make.com
   const verificationWebhookUrl = "https://hook.eu2.make.com/YOUR_VERIFICATION_WEBHOOK_URL";
+  const webhookApiKey = "YOUR_MAKE_WEBHOOK_API_KEY"; // Dodaj swój API Key z Make.com
 
   // Countdown timer
   useEffect(() => {
@@ -93,6 +94,8 @@ const SmsVerification = () => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              "Authorization": `Bearer ${webhookApiKey}`, // Dodane uwierzytelnienie API Key
+              "X-API-Key": webhookApiKey, // Alternatywny format API Key (w zależności od wymagań Make.com)
             },
             body: JSON.stringify(verificationData),
           });
@@ -137,6 +140,8 @@ const SmsVerification = () => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              "Authorization": `Bearer ${webhookApiKey}`, // Dodane uwierzytelnienie API Key
+              "X-API-Key": webhookApiKey, // Alternatywny format API Key
             },
             body: JSON.stringify(failedVerificationData),
           });
