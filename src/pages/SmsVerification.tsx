@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Plus, CheckCircle, Phone, ArrowLeft, MessageSquare } from 'lucide-react';
+import { Plus, CheckCircle, Phone, ArrowLeft, MessageSquare, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 
@@ -24,6 +24,22 @@ const SmsVerification = () => {
   const [smsVerified, setSmsVerified] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationError, setVerificationError] = useState('');
+  const [timeLeft, setTimeLeft] = useState(120); // 2 minutes in seconds
+
+  // Countdown timer
+  useEffect(() => {
+    if (timeLeft > 0 && !smsVerified) {
+      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [timeLeft, smsVerified]);
+
+  // Format time as MM:SS
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
 
   // Facebook Pixel - track thank you page view
   useEffect(() => {
@@ -78,26 +94,45 @@ const SmsVerification = () => {
           {!smsVerified ? (
             // Krok weryfikacji SMS
             <>
-              {/* Header z informacją o SMS */}
+              {/* Header z wizerunkiem Dariusza Wentrycha */}
               <div className="text-center mb-8">
                 <div className="flex justify-center items-center mb-6">
-                  <MessageSquare className="w-16 h-16 text-business-blue-600" />
+                  <div className="flex flex-col items-center">
+                    <img 
+                      src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                      alt="Dariusz Wentrych"
+                      className="w-20 h-20 rounded-full overflow-hidden border-3 border-business-blue-200 shadow-xl object-cover mb-3"
+                    />
+                    <div className="text-center">
+                      <h3 className="text-lg font-bold text-navy-900">Dariusz Wentrych</h3>
+                      <p className="text-sm text-business-blue-600">Ekspert ds. zadłużenia</p>
+                    </div>
+                  </div>
                 </div>
                 <h1 className="text-xl lg:text-2xl font-bold text-navy-900 mb-3">
-                  Potwierdź swoją konsultację
+                  Potwierdź bezpłatną konsultację
                 </h1>
                 <p className="text-warm-neutral-600 text-sm lg:text-base mb-2">
                   Wysłaliśmy kod SMS na numer: <strong>{decodeURIComponent(phone) || 'Twój numer'}</strong>
                 </p>
                 <p className="text-warm-neutral-500 text-sm">
-                  Wpisz 4-cyfrowy kod, aby potwierdzić umówienie konsultacji
+                  Wpisz 4-cyfrowy kod, aby potwierdzić umówienie bezpłatnej konsultacji
                 </p>
               </div>
 
-              {/* Formularz SMS */}
+              {/* Timer */}
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center bg-orange-50 text-orange-700 px-4 py-2 rounded-lg border border-orange-200">
+                  <Clock className="w-4 h-4 mr-2" />
+                  <span className="font-mono text-lg font-bold">{formatTime(timeLeft)}</span>
+                </div>
+                <p className="text-sm text-gray-500 mt-2">Pozostały czas na wprowadzenie kodu</p>
+              </div>
+
+              {/* Formularz SMS z większym polem */}
               <div className="flex-1 flex flex-col justify-center space-y-6">
                 <div className="text-center">
-                  <label className="block text-base font-medium text-navy-800 mb-4">
+                  <label className="block text-lg font-medium text-navy-800 mb-6">
                     Kod SMS
                   </label>
                   <div className="flex justify-center">
@@ -105,33 +140,53 @@ const SmsVerification = () => {
                       maxLength={4} 
                       value={smsCode} 
                       onChange={setSmsCode}
+                      className="text-2xl"
                     >
-                      <InputOTPGroup>
-                        <InputOTPSlot index={0} />
-                        <InputOTPSlot index={1} />
-                        <InputOTPSlot index={2} />
-                        <InputOTPSlot index={3} />
+                      <InputOTPGroup className="gap-4">
+                        <InputOTPSlot 
+                          index={0} 
+                          className="w-16 h-16 text-2xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
+                        />
+                        <InputOTPSlot 
+                          index={1} 
+                          className="w-16 h-16 text-2xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
+                        />
+                        <InputOTPSlot 
+                          index={2} 
+                          className="w-16 h-16 text-2xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
+                        />
+                        <InputOTPSlot 
+                          index={3} 
+                          className="w-16 h-16 text-2xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
+                        />
                       </InputOTPGroup>
                     </InputOTP>
                   </div>
                   
                   {verificationError && (
-                    <p className="text-red-600 text-sm mt-2">{verificationError}</p>
+                    <p className="text-red-600 text-base mt-4 font-medium">{verificationError}</p>
+                  )}
+                  
+                  {timeLeft === 0 && (
+                    <p className="text-red-600 text-base mt-4 font-medium">Czas na wprowadzenie kodu upłynął. Wyślij kod ponownie.</p>
                   )}
                 </div>
 
                 <div className="text-center">
                   <button
                     onClick={handleSmsVerification}
-                    disabled={smsCode.length !== 4 || isVerifying}
-                    className="bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 px-8 text-base lg:text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={smsCode.length !== 4 || isVerifying || timeLeft === 0}
+                    className="bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 px-8 text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {isVerifying ? "Weryfikuję..." : "Potwierdź konsultację"}
+                    {isVerifying ? "Weryfikuję..." : "Potwierdź bezpłatną konsultację"}
                   </button>
                   
-                  <p className="text-sm text-gray-500 mt-4">
+                  <p className="text-base text-gray-600 mt-6">
                     Nie otrzymałeś SMS? 
-                    <button className="text-business-blue-600 hover:underline ml-1">
+                    <button 
+                      className="text-business-blue-600 hover:underline ml-1 font-medium"
+                      onClick={() => setTimeLeft(120)}
+                    >
                       Wyślij ponownie
                     </button>
                   </p>
