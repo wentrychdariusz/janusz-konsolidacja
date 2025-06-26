@@ -27,6 +27,9 @@ const SmsVerification = () => {
   
   // Sztywny kod weryfikacyjny
   const VERIFICATION_CODE = '1212';
+  
+  // Webhook URL do aktualizacji weryfikacji w Google Sheets
+  const verificationWebhookUrl = "https://hook.eu2.make.com/TWOJ_WEBHOOK_URL_DO_WERYFIKACJI";
 
   // Countdown timer
   useEffect(() => {
@@ -71,6 +74,33 @@ const SmsVerification = () => {
       // Sprawdzenie czy kod jest poprawny (1212)
       if (smsCode === VERIFICATION_CODE) {
         setSmsVerified(true);
+        
+        // Wywołanie webhook do aktualizacji Google Sheets
+        try {
+          const verificationData = {
+            phone: decodeURIComponent(phone),
+            name: decodeURIComponent(name),
+            email: decodeURIComponent(email),
+            sms_verified: true,
+            verified_at: new Date().toISOString()
+          };
+          
+          console.log('📤 Sending verification update to Make.com:', verificationData);
+          
+          await fetch(verificationWebhookUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(verificationData),
+          });
+          
+          console.log('✅ Verification status updated in Google Sheets');
+          
+        } catch (error) {
+          console.error('❌ Error updating verification status:', error);
+          // Nie przerywamy procesu nawet jeśli aktualizacja nie powiodła się
+        }
         
         // Facebook Pixel - track SMS verification
         if (typeof window !== 'undefined' && window.fbq) {
