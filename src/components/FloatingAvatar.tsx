@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
@@ -33,8 +34,8 @@ const FloatingAvatar = () => {
           headerRect
         });
         
-        // Pokaż awatar 100px wcześniej niż koniec nagłówka
-        if (scrollY >= (headerBottomPosition - 100)) {
+        // Pokaż awatar 200px wcześniej niż koniec nagłówka
+        if (scrollY >= (headerBottomPosition - 200)) {
           shouldShow = true;
         } else {
           shouldShow = false;
