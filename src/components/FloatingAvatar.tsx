@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
@@ -19,28 +20,36 @@ const FloatingAvatar = () => {
         h2.textContent?.includes('Mamy największe zaufanie klientów w Polsce')
       );
       
+      // Znajdź nagłówek "JESTEŚMY TU, ŻEBY CI POMÓC"
+      const helpHeader = Array.from(document.querySelectorAll('h2')).find(h2 => 
+        h2.textContent?.includes('JESTEŚMY TU, ŻEBY CI POMÓC')
+      );
+      
       let shouldShow = false;
       
-      if (trustHeader) {
-        const headerRect = trustHeader.getBoundingClientRect();
-        const headerTopPosition = scrollY + headerRect.top;
-        const headerBottomPosition = headerTopPosition + headerRect.height;
+      if (trustHeader && helpHeader) {
+        const trustHeaderRect = trustHeader.getBoundingClientRect();
+        const trustHeaderTopPosition = scrollY + trustHeaderRect.top;
+        const trustHeaderBottomPosition = trustHeaderTopPosition + trustHeaderRect.height;
         
-        console.log('Trust header found at position:', {
-          headerTopPosition,
-          headerBottomPosition,
-          scrollY,
-          headerRect
+        const helpHeaderRect = helpHeader.getBoundingClientRect();
+        const helpHeaderTopPosition = scrollY + helpHeaderRect.top;
+        
+        console.log('Headers found at positions:', {
+          trustHeaderBottomPosition,
+          helpHeaderTopPosition,
+          scrollY
         });
         
-        // Pokaż awatar 300px wcześniej niż koniec nagłówka
-        if (scrollY >= (headerBottomPosition - 300)) {
+        // Pokaż awatar 300px wcześniej niż koniec nagłówka zaufania
+        // i ukryj gdy dotrze do nagłówka pomocy
+        if (scrollY >= (trustHeaderBottomPosition - 300) && scrollY < helpHeaderTopPosition) {
           shouldShow = true;
         } else {
           shouldShow = false;
         }
       } else {
-        console.log('Trust header not found, trying fallback...');
+        console.log('Headers not found, trying fallback...');
         // Fallback - szukamy sekcji ImagineSection po klasie CSS
         const imagineSection = document.querySelector('section.bg-gradient-to-b.from-black');
         if (imagineSection) {
