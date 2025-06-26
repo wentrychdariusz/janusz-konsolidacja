@@ -15,57 +15,40 @@ const FloatingAvatar = () => {
       const scrollY = window.scrollY;
       console.log('Current scroll position:', scrollY);
       
-      // Znajdź sekcję z opiniami i zdjęciem Darka - szukamy po tekście "4.9" lub "383 OPINII" 
-      const ratingsSection = Array.from(document.querySelectorAll('*')).find(el => 
-        el.textContent?.includes('4.9') || 
-        el.textContent?.includes('383 OPINII') ||
-        el.textContent?.includes('Zweryfikowane opinie')
+      // Znajdź nagłówek "Mamy największe zaufanie klientów w Polsce"
+      const trustHeader = Array.from(document.querySelectorAll('h2')).find(h2 => 
+        h2.textContent?.includes('Mamy największe zaufanie klientów w Polsce')
       );
-      
-      // Znajdź zdjęcie Darka w tej sekcji
-      let dariuszImageElement = null;
-      if (ratingsSection) {
-        // Szukamy img z alt zawierającym "Dariusz" w pobliżu sekcji z opiniami
-        const images = ratingsSection.querySelectorAll('img');
-        dariuszImageElement = Array.from(images).find(img => 
-          img.alt?.toLowerCase().includes('dariusz') || 
-          img.src?.includes('334d50e2')
-        );
-        
-        // Jeśli nie ma w tej sekcji, szukamy w całym dokumencie
-        if (!dariuszImageElement) {
-          dariuszImageElement = document.querySelector('img[alt*="Dariusz"]') || 
-                               document.querySelector('img[src*="334d50e2"]');
-        }
-      }
       
       let shouldShow = false;
       
-      if (dariuszImageElement) {
-        const imageRect = dariuszImageElement.getBoundingClientRect();
-        const imageTopPosition = scrollY + imageRect.top;
+      if (trustHeader) {
+        const headerRect = trustHeader.getBoundingClientRect();
+        const headerTopPosition = scrollY + headerRect.top;
+        const headerBottomPosition = headerTopPosition + headerRect.height;
         
-        console.log('Dariusz image found at position:', {
-          imageTopPosition,
+        console.log('Trust header found at position:', {
+          headerTopPosition,
+          headerBottomPosition,
           scrollY,
-          imageRect
+          headerRect
         });
         
-        // Pokaż awatar gdy dojdziemy do wysokości zdjęcia Darka
-        if (scrollY >= imageTopPosition) {
+        // Pokaż awatar dopiero po przejściu nagłówka "Mamy największe zaufanie klientów w Polsce"
+        if (scrollY >= headerBottomPosition) {
           shouldShow = true;
         } else {
           shouldShow = false;
         }
       } else {
-        console.log('Dariusz image not found, trying fallback...');
-        // Fallback - szukamy sekcji ClientSection
-        const clientSection = document.querySelector('section h2')?.closest('section');
-        if (clientSection) {
-          const sectionRect = clientSection.getBoundingClientRect();
+        console.log('Trust header not found, trying fallback...');
+        // Fallback - szukamy sekcji ImagineSection po klasie CSS
+        const imagineSection = document.querySelector('section.bg-gradient-to-b.from-black');
+        if (imagineSection) {
+          const sectionRect = imagineSection.getBoundingClientRect();
           const sectionTop = scrollY + sectionRect.top;
           
-          if (scrollY >= sectionTop + 200) { // 200px w głąb sekcji gdzie powinno być zdjęcie
+          if (scrollY >= sectionTop + 300) { // 300px w głąb sekcji
             shouldShow = true;
           }
         }
