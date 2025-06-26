@@ -29,7 +29,7 @@ const SmsVerification = () => {
   const VERIFICATION_CODE = '1212';
   
   // Webhook URL do aktualizacji weryfikacji w Google Sheets
-  const verificationWebhookUrl = "https://hook.eu2.make.com/TWOJ_WEBHOOK_URL_DO_WERYFIKACJI";
+  const verificationWebhookUrl = "https://hook.eu2.make.com/YOUR_VERIFICATION_WEBHOOK_URL";
 
   // Countdown timer
   useEffect(() => {
@@ -75,19 +75,21 @@ const SmsVerification = () => {
       if (smsCode === VERIFICATION_CODE) {
         setSmsVerified(true);
         
-        // Wywołanie webhook do aktualizacji Google Sheets
+        // Wywołanie webhook do aktualizacji Google Sheets z informacją o weryfikacji
         try {
           const verificationData = {
             phone: decodeURIComponent(phone),
             name: decodeURIComponent(name),
             email: decodeURIComponent(email),
             sms_verified: true,
-            verified_at: new Date().toISOString()
+            sms_verified_at: new Date().toISOString(),
+            verification_status: 'VERIFIED',
+            client_quality: 'GOOD_CLIENT'
           };
           
           console.log('📤 Sending verification update to Make.com:', verificationData);
           
-          await fetch(verificationWebhookUrl, {
+          const response = await fetch(verificationWebhookUrl, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -95,7 +97,11 @@ const SmsVerification = () => {
             body: JSON.stringify(verificationData),
           });
           
-          console.log('✅ Verification status updated in Google Sheets');
+          if (response.ok) {
+            console.log('✅ Verification status updated in Google Sheets');
+          } else {
+            console.error('❌ Failed to update verification status:', response.statusText);
+          }
           
         } catch (error) {
           console.error('❌ Error updating verification status:', error);
@@ -113,6 +119,31 @@ const SmsVerification = () => {
         }
       } else {
         setVerificationError('Nieprawidłowy kod SMS. Spróbuj ponownie.');
+        
+        // Zapisz również nieudaną próbę weryfikacji
+        try {
+          const failedVerificationData = {
+            phone: decodeURIComponent(phone),
+            name: decodeURIComponent(name),
+            email: decodeURIComponent(email),
+            sms_verified: false,
+            sms_verified_at: new Date().toISOString(),
+            verification_status: 'FAILED',
+            client_quality: 'UNVERIFIED',
+            failed_code: smsCode
+          };
+          
+          await fetch(verificationWebhookUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(failedVerificationData),
+          });
+          
+        } catch (error) {
+          console.error('❌ Error logging failed verification:', error);
+        }
       }
       
     } catch (error) {
