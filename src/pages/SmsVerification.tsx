@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -141,7 +142,7 @@ const SmsVerification = () => {
                     />
                     <div className="text-center">
                       <h3 className="text-lg font-bold text-navy-900">Dariusz Wentrych</h3>
-                      <p className="text-sm text-business-blue-600">Ekspert ds. zadłużenia</p>
+                      <p className="text-sm text-business-blue-600">#1 Ekspert ds. oddłużeń w Polsce</p>
                     </div>
                   </div>
                 </div>
@@ -152,7 +153,7 @@ const SmsVerification = () => {
                   Wysłaliśmy kod SMS na numer: <strong>{decodeURIComponent(phone) || 'Twój numer'}</strong>
                 </p>
                 <p className="text-warm-neutral-500 text-sm">
-                  Wpisz 4-cyfrowy kod <strong>(1212)</strong>, aby potwierdzić umówienie bezpłatnej konsultacji
+                  Wpisz 4-cyfrowy kod, aby potwierdzić umówienie bezpłatnej konsultacji
                 </p>
               </div>
 
@@ -187,7 +188,7 @@ const SmsVerification = () => {
                           index={1} 
                           className="w-16 h-16 text-2xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
                         />
-                        <InputOTPSlot 
+                        <InputOTOSlot 
                           index={2} 
                           className="w-16 h-16 text-2xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
                         />
