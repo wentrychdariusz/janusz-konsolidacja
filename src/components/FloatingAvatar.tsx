@@ -1,5 +1,4 @@
 
-
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import DebtCalculator from './DebtCalculator';
@@ -14,54 +13,67 @@ const FloatingAvatar = () => {
 
     const handleScroll = () => {
       const scrollY = window.scrollY;
+      console.log('Current scroll position:', scrollY);
       
-      // Znajdź sekcję "Dlaczego wybierają nas klienci?" (TrustedClientsSection)
-      const trustedClientsSection = Array.from(document.querySelectorAll('h2')).find(h2 => 
-        h2.textContent?.includes('Dlaczego wybierają nas klienci')
-      )?.closest('section');
+      // Znajdź sekcję z opiniami i zdjęciem Darka - szukamy po tekście "4.9" lub "383 OPINII" 
+      const ratingsSection = Array.from(document.querySelectorAll('*')).find(el => 
+        el.textContent?.includes('4.9') || 
+        el.textContent?.includes('383 OPINII') ||
+        el.textContent?.includes('Zweryfikowane opinie')
+      );
       
-      // Znajdź sekcję kalkulatora "SPRAWDŹ CZY MOŻEMY CI POMÓC"
-      const calculatorSection = document.querySelector('[data-section="calculator"]') || 
-                               document.getElementById('calculator') ||
-                               Array.from(document.querySelectorAll('h2')).find(h2 => 
-                                 h2.textContent?.includes('SPRAWDŹ CZY MOŻEMY CI')
-                               )?.closest('section');
+      // Znajdź zdjęcie Darka w tej sekcji
+      let dariuszImageElement = null;
+      if (ratingsSection) {
+        // Szukamy img z alt zawierającym "Dariusz" w pobliżu sekcji z opiniami
+        const images = ratingsSection.querySelectorAll('img');
+        dariuszImageElement = Array.from(images).find(img => 
+          img.alt?.toLowerCase().includes('dariusz') || 
+          img.src?.includes('334d50e2')
+        );
+        
+        // Jeśli nie ma w tej sekcji, szukamy w całym dokumencie
+        if (!dariuszImageElement) {
+          dariuszImageElement = document.querySelector('img[alt*="Dariusz"]') || 
+                               document.querySelector('img[src*="334d50e2"]');
+        }
+      }
       
       let shouldShow = false;
       
-      if (trustedClientsSection && calculatorSection) {
-        const trustedClientsSectionRect = trustedClientsSection.getBoundingClientRect();
-        const trustedClientsSectionTop = scrollY + trustedClientsSectionRect.top;
-        const trustedClientsSectionBottom = trustedClientsSectionTop + trustedClientsSectionRect.height;
+      if (dariuszImageElement) {
+        const imageRect = dariuszImageElement.getBoundingClientRect();
+        const imageTopPosition = scrollY + imageRect.top;
         
-        const calculatorSectionRect = calculatorSection.getBoundingClientRect();
-        const calculatorSectionTop = scrollY + calculatorSectionRect.top;
-        const calculatorSectionBottom = calculatorSectionTop + calculatorSectionRect.height;
-        
-        // Ukryj awatar 40px po sekcji "Dlaczego wybierają nas klienci?"
-        const hideAfterTrustedClients = trustedClientsSectionBottom + 40;
-        
-        // Pokaż awatar ponownie 40px po kalkulatorze
-        const showAfterCalculator = calculatorSectionBottom + 40;
-        
-        console.log('Avatar visibility check:', {
+        console.log('Dariusz image found at position:', {
+          imageTopPosition,
           scrollY,
-          hideAfterTrustedClients,
-          showAfterCalculator,
-          calculatorSectionTop,
-          calculatorSectionBottom
+          imageRect
         });
         
-        // Logika: ukryj awatar po sekcji "Dlaczego wybierają nas klienci?" aż do 40px po kalkulatorze
-        if (scrollY >= hideAfterTrustedClients && scrollY < showAfterCalculator) {
-          shouldShow = false;
-        } else {
+        // Pokaż awatar gdy dojdziemy do wysokości zdjęcia Darka
+        if (scrollY >= imageTopPosition) {
           shouldShow = true;
+        } else {
+          shouldShow = false;
+        }
+      } else {
+        console.log('Dariusz image not found, trying fallback...');
+        // Fallback - szukamy sekcji ClientSection
+        const clientSection = document.querySelector('section h2')?.closest('section');
+        if (clientSection) {
+          const sectionRect = clientSection.getBoundingClientRect();
+          const sectionTop = scrollY + sectionRect.top;
+          
+          if (scrollY >= sectionTop + 200) { // 200px w głąb sekcji gdzie powinno być zdjęcie
+            shouldShow = true;
+          }
         }
       }
       
       console.log('Final avatar decision:', {
-        shouldShow
+        shouldShow,
+        scrollY
       });
       
       setShowAvatar(shouldShow);
@@ -170,4 +182,3 @@ const FloatingAvatar = () => {
 };
 
 export default FloatingAvatar;
-
