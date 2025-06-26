@@ -1,9 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Calculator, CheckCircle, AlertCircle, XCircle, Plus } from 'lucide-react';
+import { Calculator, CheckCircle, AlertCircle, XCircle, Plus, Star, Shield } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import QuickRegistrationForm from './QuickRegistrationForm';
 
@@ -237,16 +236,21 @@ const DebtCalculator = () => {
                   </div>
                 </div>
 
-                {/* Przeniesiona informacja o jednorazowym użyciu z bardziej wyróżniającym się tłem */}
+                {/* Zmieniona informacja na pozytywną i zachęcającą */}
                 {!hasUsedCalculator && (
-                  <div className="mt-3 mb-4 p-4 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300 rounded-xl shadow-md">
+                  <div className="mt-3 mb-4 p-4 bg-gradient-to-r from-success-50 to-blue-50 border-2 border-success-300 rounded-xl shadow-md">
                     <div className="flex items-center justify-center">
-                      <div className="bg-red-100 p-2 rounded-full mr-3">
-                        <AlertCircle className="w-5 h-5 text-red-600" />
+                      <div className="bg-success-100 p-2 rounded-full mr-3">
+                        <Shield className="w-5 h-5 text-success-600" />
                       </div>
-                      <p className="text-red-800 text-sm font-bold text-center">
-                        ⚠️ Wpisz uczciwe dane - kalkulator można użyć tylko raz
-                      </p>
+                      <div className="text-center">
+                        <p className="text-success-800 text-sm font-bold">
+                          ✨ Podaj prawdziwe dane - to gwarantuje najlepszą pomoc
+                        </p>
+                        <p className="text-success-700 text-xs mt-1">
+                          Precyzyjna analiza = skuteczne rozwiązanie Twojego problemu
+                        </p>
+                      </div>
                     </div>
                   </div>
                 )}
