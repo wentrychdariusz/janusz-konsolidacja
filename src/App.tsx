@@ -24,7 +24,7 @@ const App = () => (
           <Route path="/kalkulator" element={<Calculator />} />
           <Route path="/formularz" element={<ThankYou />} />
           <Route path="/sms-verification" element={<SmsVerification />} />
-          <Route path="/podziękowania" element={<Podziekowania />} />
+          <Route path="/podziekowania" element={<Podziekowania />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
