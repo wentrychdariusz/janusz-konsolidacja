@@ -1,9 +1,8 @@
+
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Plus, CheckCircle, Phone, ArrowLeft, MessageSquare, Clock } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
+import { Clock } from 'lucide-react';
 
 // Rozszerzenie obiektu window o fbq
 declare global {
@@ -155,17 +154,19 @@ const SmsVerification = () => {
       
     } catch (error) {
       setVerificationError('Wystąpił błąd podczas weryfikacji. Spróbuj ponownie.');
+      console.error('❌ SMS verification error:', error);
     } finally {
       setIsVerifying(false);
     }
   };
+
+  console.log('📱 SmsVerification component rendered with params:', { name, email, phone, success });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
       <div className="max-w-2xl w-full">
         <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
           
-          {/* Krok weryfikacji SMS */}
           {/* Header z wizerunkiem Dariusza Wentrycha */}
           <div className="text-center mb-8">
             <div className="flex justify-center items-center mb-6">
