@@ -33,11 +33,11 @@ const SmsVerification = () => {
 
   // Countdown timer
   useEffect(() => {
-    if (timeLeft > 0 && !smsVerified) {
+    if (timeLeft > 0) {
       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
       return () => clearTimeout(timer);
     }
-  }, [timeLeft, smsVerified]);
+  }, [timeLeft]);
 
   // Format time as MM:SS
   const formatTime = (seconds: number) => {
