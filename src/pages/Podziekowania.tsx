@@ -19,19 +19,23 @@ const Podziekowania = () => {
   const phone = searchParams.get('phone') || '';
   const source = searchParams.get('source') || 'calculator';
 
-  // Facebook Pixel - track conversion page view (pojedyncze śledzenie)
+  // Facebook Pixel - track conversion z URL /formularz?success=true
   useEffect(() => {
     if (typeof window !== 'undefined' && window.fbq) {
-      // Track główne zdarzenie konwersji - tylko Purchase (nie duplikujemy z Lead)
+      // Ustawiamy URL na /formularz?success=true dla zgodności z Facebook
+      const thankYouUrl = '/formularz?success=true';
+      
+      // Track główne zdarzenie konwersji - tylko Purchase
       window.fbq('track', 'Purchase', {
         content_name: 'Conversion Completed - Thank You Page',
         content_category: 'Lead Generation',
         value: 1,
         currency: 'PLN',
-        source: source
+        source: source,
+        page_url: window.location.origin + thankYouUrl
       });
 
-      console.log('🎯 Facebook Pixel: Purchase conversion tracked for source:', source);
+      console.log('🎯 Facebook Pixel: Purchase conversion tracked with URL:', thankYouUrl);
     }
   }, [source]);
 
