@@ -1,15 +1,36 @@
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Plus, CheckCircle, Phone, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+// Rozszerzenie obiektu window o fbq
+declare global {
+  interface Window {
+    fbq: (action: string, event: string, params?: any) => void;
+  }
+}
 
 const Podziekowania = () => {
   const [searchParams] = useSearchParams();
   const name = searchParams.get('name') || '';
   const email = searchParams.get('email') || '';
   const phone = searchParams.get('phone') || '';
+
+  // Facebook Pixel - track conversion dla wentrych.pl/podziekowania
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.fbq) {
+      // Track konwersję dla wentrych.pl
+      window.fbq('track', 'Lead', {
+        content_name: 'Konsultacja umówiona',
+        content_category: 'Lead Generation',
+        value: 1,
+        currency: 'PLN'
+      });
+
+      console.log('🎯 Facebook Pixel: Lead conversion tracked for wentrych.pl/podziekowania');
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
