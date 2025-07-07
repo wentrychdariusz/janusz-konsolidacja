@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
@@ -105,38 +106,50 @@ const SmsVerification = () => {
           console.error('❌ Error updating verification status:', error);
         }
 
-        // NOWY HOOK - Wysłanie zweryfikowanych danych klienta
+        // POPRAWIONY NOWY HOOK - Wysłanie zweryfikowanych danych klienta
         try {
+          // Przygotowanie danych bez dekodowania (może to powodować problem)
           const verifiedClientData = {
-            name: decodeURIComponent(name),
-            email: decodeURIComponent(email),
-            phone: decodeURIComponent(phone),
+            name: name,
+            email: email,
+            phone: phone,
             sms_code_verified: true,
             verification_code_used: VERIFICATION_CODE,
             verified_at: new Date().toISOString(),
             client_status: 'VERIFIED_CLIENT',
             ready_for_consultation: true,
-            source: 'SMS_VERIFICATION_PAGE'
+            source: 'SMS_VERIFICATION_PAGE',
+            webhook_test: 'test_data_v2'
           };
           
           console.log('📤 Sending verified client data to new Make.com hook:', verifiedClientData);
+          console.log('🔗 Hook URL:', verifiedClientWebhookUrl);
           
           const verifiedResponse = await fetch(verifiedClientWebhookUrl, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
+              "Accept": "application/json"
             },
             body: JSON.stringify(verifiedClientData),
           });
           
+          console.log('📊 Response status:', verifiedResponse.status);
+          console.log('📊 Response headers:', verifiedResponse.headers);
+          
           if (verifiedResponse.ok) {
-            console.log('✅ Verified client data sent to new Make.com hook');
+            console.log('✅ Verified client data sent to new Make.com hook successfully');
+            const responseText = await verifiedResponse.text();
+            console.log('📋 Response body:', responseText);
           } else {
-            console.error('❌ Failed to send verified client data:', verifiedResponse.statusText);
+            console.error('❌ Failed to send verified client data. Status:', verifiedResponse.status);
+            const errorText = await verifiedResponse.text();
+            console.error('❌ Error response:', errorText);
           }
           
         } catch (error) {
           console.error('❌ Error sending verified client data:', error);
+          console.error('❌ Error details:', error.message);
         }
         
         // Facebook Pixel - track SMS verification
