@@ -21,9 +21,9 @@ const TopHeader = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center text-center lg:text-left">
           
           {/* Lewa kolumna - Avatar i główny tekst */}
-          <div className="flex items-center justify-center lg:justify-start space-x-3">
-            {/* Avatar Dariusza - widoczny tylko na desktop */}
-            <div className="hidden md:block flex-shrink-0">
+          <div className="flex items-center justify-center lg:justify-start space-x-4">
+            {/* Avatar Dariusza - widoczny tylko na desktop, bardziej do lewej */}
+            <div className="hidden md:block flex-shrink-0 mr-2">
               <OptimizedImage
                 src="/lovable-uploads/669e599a-c272-4fec-81fe-5ca4c496d018.png"
                 alt="Dariusz Wentrych"
