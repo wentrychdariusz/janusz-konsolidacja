@@ -27,16 +27,16 @@ const TopHeader = () => {
               <OptimizedImage
                 src="/lovable-uploads/669e599a-c272-4fec-81fe-5ca4c496d018.png"
                 alt="Dariusz Wentrych"
-                className="w-14 h-14 lg:w-16 lg:h-16 rounded-full border-3 border-amber-400/90 shadow-lg object-cover ring-2 ring-amber-300/50"
+                className="w-16 h-16 lg:w-20 lg:h-20 rounded-full border-3 border-amber-400/90 shadow-xl object-cover ring-2 ring-amber-300/50 brightness-110"
                 priority={true}
-                width={64}
-                height={64}
+                width={80}
+                height={80}
               />
             </div>
             
             {/* Główny tekst - wyrównany do lewej */}
             <div className="text-left">
-              <div className="flex items-center justify-start space-x-2 mb-1">
+              <div className="flex items-center justify-center space-x-2 mb-1">
                 <span className="text-amber-400 text-base animate-pulse">🔥</span>
                 <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-3 py-1 rounded-md">
                   <span className="font-semibold text-white text-xs lg:text-sm uppercase tracking-wide">
