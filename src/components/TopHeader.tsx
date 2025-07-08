@@ -1,14 +1,9 @@
-
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
-import PolishCitizensNotice from './PolishCitizensNotice';
 
 const TopHeader = () => {
   return (
     <div className="lg:hidden">
-      {/* Powiadomienie o obywatelstwie polskim - na samej górze */}
-      <PolishCitizensNotice />
-      
       <div className="bg-gradient-to-r from-navy-900 to-navy-800 text-white py-3 px-4 relative overflow-hidden">
         {/* Nowoczesne tło z subtelnym wzorem */}
         <div 

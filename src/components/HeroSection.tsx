@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
+import PolishCitizensNotice from './PolishCitizensNotice';
 import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star } from 'lucide-react';
 
 const HeroSection = () => {
@@ -280,6 +281,11 @@ const HeroSection = () => {
                   </div>
                 ))}
               </div>
+              
+              {/* Polish Citizens Notice - Mobile */}
+              <div className="mt-6">
+                <PolishCitizensNotice />
+              </div>
             </div>
             
             {/* Calculator Section - Mobile */}
@@ -328,6 +334,11 @@ const HeroSection = () => {
                     </div>
                   </div>
                 ))}
+              </div>
+              
+              {/* Polish Citizens Notice - Desktop */}
+              <div className="mt-6">
+                <PolishCitizensNotice />
               </div>
             </div>
             
