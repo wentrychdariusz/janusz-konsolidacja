@@ -1,6 +1,9 @@
+
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
+import PolishCitizensNotice from './PolishCitizensNotice';
 import { MapPin, Car, Award, Users, Star } from 'lucide-react';
+
 const ImagineSection = () => {
   const expertise = [{
     icon: MapPin,
@@ -19,9 +22,11 @@ const ImagineSection = () => {
     title: "Najbardziej profesjonalni",
     description: "Kompleksowa obsługa klienta"
   }];
+
   const renderStars = () => {
     return [...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 text-prestige-gold-400 fill-current" />);
   };
+
   return <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-8 md:py-12 lg:py-16 overflow-hidden z-10">
       {/* Background only for desktop - mosaic with Dariusz photos */}
       <div className="hidden md:block absolute inset-0 z-0">
@@ -91,9 +96,13 @@ const ImagineSection = () => {
                   <p className="text-warm-neutral-300 text-sm font-lato">{item.description}</p>
                 </div>
               </div>)}
+            
+            {/* Powiadomienie o obywatelstwie polskim - po sekcji "Dojeżdzamy do Ciebie" */}
+            <PolishCitizensNotice />
           </div>
         </div>
       </div>
     </section>;
 };
+
 export default ImagineSection;

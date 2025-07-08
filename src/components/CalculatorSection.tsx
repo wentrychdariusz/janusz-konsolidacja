@@ -1,7 +1,6 @@
 
 import React from 'react';
 import DebtCalculator from './DebtCalculator';
-import PolishCitizensNotice from './PolishCitizensNotice';
 
 const CalculatorSection = () => {
   return (
@@ -16,9 +15,6 @@ const CalculatorSection = () => {
             Skorzystaj z naszego kalkulatora oddłużeniowego i dowiedz się, czy możemy pomóc w Twojej sytuacji finansowej
           </p>
         </div>
-        
-        {/* Powiadomienie o obywatelstwie polskim - nad kalkulatorem */}
-        <PolishCitizensNotice />
         
         <div className="max-w-4xl mx-auto">
           <DebtCalculator />
