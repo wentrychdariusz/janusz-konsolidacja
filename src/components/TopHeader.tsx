@@ -1,3 +1,4 @@
+
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
 
@@ -17,12 +18,12 @@ const TopHeader = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between text-center lg:text-left space-y-2 lg:space-y-0">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center text-center lg:text-left">
           
-          {/* Lewa sekcja - Avatar i główny tekst */}
-          <div className="flex items-center space-x-3">
+          {/* Lewa kolumna - Avatar i główny tekst */}
+          <div className="flex items-center justify-center lg:justify-start space-x-3">
             {/* Avatar Dariusza - widoczny tylko na desktop */}
-            <div className="hidden md:block">
+            <div className="hidden md:block flex-shrink-0">
               <OptimizedImage
                 src="/lovable-uploads/669e599a-c272-4fec-81fe-5ca4c496d018.png"
                 alt="Dariusz Wentrych"
@@ -35,7 +36,7 @@ const TopHeader = () => {
             
             {/* Główny tekst */}
             <div className="text-left">
-              <div className="flex items-center space-x-2 mb-1">
+              <div className="flex items-center justify-center lg:justify-start space-x-2 mb-1">
                 <span className="text-amber-400 text-base animate-pulse">🔥</span>
                 <span className="font-semibold text-amber-400 text-xs lg:text-sm uppercase tracking-wide">
                   TYLKO W LIPCU
@@ -47,17 +48,17 @@ const TopHeader = () => {
             </div>
           </div>
           
-          {/* Prawa sekcja - Korzyści i liczba miejsc */}
-          <div className="flex flex-col lg:flex-row items-center space-y-3 lg:space-y-0 lg:space-x-6">
+          {/* Prawa kolumna - Korzyści i liczba miejsc */}
+          <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-end space-y-3 lg:space-y-0 lg:space-x-6">
             
-            {/* Pojedyncza korzyść */}
+            {/* Korzyść */}
             <div className="flex items-center space-x-1 text-xs">
               <span className="text-emerald-400 font-bold text-sm">✓</span>
               <span className="text-slate-200">Autor bestsellera nowe życie bez długów</span>
             </div>
             
             {/* Liczba miejsc z pulsującą animacją */}
-            <div className="bg-gradient-to-r from-rose-600/90 to-rose-700/90 rounded-lg px-3 py-1.5 shadow-md border border-rose-500/30">
+            <div className="bg-gradient-to-r from-rose-600/90 to-rose-700/90 rounded-lg px-3 py-1.5 shadow-md border border-rose-500/30 flex-shrink-0">
               <div className="flex flex-col items-center text-center">
                 <div className="text-rose-100 text-xs font-medium uppercase tracking-wide">
                   zostało
