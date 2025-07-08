@@ -1,4 +1,3 @@
-
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
 
@@ -11,10 +10,10 @@ const TopHeader = () => {
         <OptimizedImage
           src="/lovable-uploads/0b6ca5a9-3bf0-48d9-9105-cd311475489f.png"
           alt="Dariusz Wentrych"
-          className="w-full h-full object-cover opacity-20"
+          className="w-full h-full object-cover opacity-40"
           priority={true}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-800/70 to-slate-900/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-800/60 to-slate-900/70"></div>
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
