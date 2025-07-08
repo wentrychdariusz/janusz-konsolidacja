@@ -89,20 +89,21 @@ const HeroSection = () => {
         }}
       ></div>
       
-      {/* Mobile background - mozaika u góry z gradientem tonalnym */}
+      {/* Mobile background - mozaika 400px u góry z płynnym przejściem tonalnym */}
       <div className="md:hidden absolute inset-0">
-        {/* Mozaika w górnej części ekranu - zwiększona liczba zdjęć */}
-        <div className="absolute top-0 left-0 right-0 h-2/3">
-          <div className="grid grid-cols-10 gap-0 h-full">
+        {/* Mozaika bez przerw - 400px wysokości */}
+        <div className="absolute top-0 left-0 right-0" style={{ height: '400px' }}>
+          <div className="grid grid-cols-10 h-full" style={{ gap: '0px' }}>
             {Array.from({ length: 200 }, (_, index) => {
               const imageIndex = index % mobileBackgroundImages.length;
               return (
-                <div key={index} className="aspect-square">
+                <div key={index} className="w-full h-full" style={{ display: 'block', lineHeight: '0' }}>
                   <OptimizedImage
                     src={mobileBackgroundImages[imageIndex]}
                     alt=""
-                    className="w-full h-full object-cover opacity-70"
+                    className="w-full h-full object-cover opacity-70 block"
                     priority={index < 20}
+                    style={{ display: 'block', verticalAlign: 'top' }}
                   />
                 </div>
               );
@@ -110,14 +111,11 @@ const HeroSection = () => {
           </div>
         </div>
         
-        {/* Gradient tonalny od mozaiki do czerni */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black"></div>
+        {/* Płynne przejście tonalne od mozaiki do czerni */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/50 to-black" style={{ top: '200px' }}></div>
         
-        {/* Dodatkowy gradient dla płynnego przejścia tonalnego */}
-        <div className="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-transparent via-black/30 to-black/90"></div>
-        
-        {/* Solidny czarny gradient na dole */}
-        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black via-black/95 to-transparent"></div>
+        {/* Dodatkowy gradient dla mocniejszego przejścia */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-black" style={{ top: '300px' }}></div>
       </div>
       
       {/* Enhanced gradient overlay with smooth tonal transition - desktop */}
