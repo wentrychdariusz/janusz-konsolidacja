@@ -1,7 +1,6 @@
 
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
-import PolishCitizensNotice from './PolishCitizensNotice';
 import { MapPin, Car, Award, Users, Star } from 'lucide-react';
 
 const ImagineSection = () => {
@@ -96,9 +95,6 @@ const ImagineSection = () => {
                   <p className="text-warm-neutral-300 text-sm font-lato">{item.description}</p>
                 </div>
               </div>)}
-            
-            {/* Powiadomienie o obywatelstwie polskim - po sekcji "Dojeżdzamy do Ciebie" */}
-            <PolishCitizensNotice />
           </div>
         </div>
       </div>
