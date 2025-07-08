@@ -4,8 +4,20 @@ import OptimizedImage from './OptimizedImage';
 
 const TopHeader = () => {
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-sm text-white py-2 px-4 shadow-lg border-b border-slate-700/50">
-      <div className="max-w-7xl mx-auto">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-sm text-white py-2 px-4 shadow-lg border-b border-slate-700/50 relative overflow-hidden">
+      
+      {/* Background image z Dariuszem - tylko na mobile */}
+      <div className="absolute inset-0 md:hidden">
+        <OptimizedImage
+          src="/lovable-uploads/0b6ca5a9-3bf0-48d9-9105-cd311475489f.png"
+          alt="Dariusz Wentrych"
+          className="w-full h-full object-cover opacity-20"
+          priority={true}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-800/70 to-slate-900/80"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between text-center lg:text-left space-y-2 lg:space-y-0">
           
           {/* Lewa sekcja - Avatar i główny tekst */}
@@ -36,23 +48,13 @@ const TopHeader = () => {
             </div>
           </div>
           
-          {/* Prawa sekcja - Lista korzyści i liczba miejsc */}
+          {/* Prawa sekcja - Korzyści i liczba miejsc */}
           <div className="flex flex-col lg:flex-row items-center space-y-3 lg:space-y-0 lg:space-x-6">
             
-            {/* Lista korzyści */}
-            <div className="flex flex-col lg:flex-row items-center space-y-1 lg:space-y-0 lg:space-x-4 text-xs">
-              <div className="flex items-center space-x-1">
-                <span className="text-emerald-400 font-bold text-sm">✓</span>
-                <span className="text-slate-200">Autor bestsellera</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <span className="text-emerald-400 font-bold text-sm">✓</span>
-                <span className="text-slate-200">Osobista analiza</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <span className="text-emerald-400 font-bold text-sm">✓</span>
-                <span className="text-slate-200">Plan w 24h</span>
-              </div>
+            {/* Pojedyncza korzyść */}
+            <div className="flex items-center space-x-1 text-xs">
+              <span className="text-emerald-400 font-bold text-sm">✓</span>
+              <span className="text-slate-200">Autor bestsellera nowe życie bez długów</span>
             </div>
             
             {/* Liczba miejsc z pulsującą animacją */}
