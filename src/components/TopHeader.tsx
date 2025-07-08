@@ -6,9 +6,9 @@ const TopHeader = () => {
   return (
     <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-sm text-white py-2 px-4 shadow-lg border-b border-slate-700/50">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col lg:flex-row items-center justify-center text-center space-y-2 lg:space-y-0 lg:space-x-6">
+        <div className="flex flex-col lg:flex-row items-center justify-between text-center lg:text-left space-y-2 lg:space-y-0">
           
-          {/* Sekcja główna z awatarem i tekstem */}
+          {/* Lewa sekcja - Avatar i główny tekst */}
           <div className="flex items-center space-x-3">
             {/* Avatar Dariusza - widoczny tylko na desktop */}
             <div className="hidden md:block">
@@ -22,7 +22,7 @@ const TopHeader = () => {
               />
             </div>
             
-            {/* Główny tekst z lepszą hierarchią */}
+            {/* Główny tekst */}
             <div className="text-left">
               <div className="flex items-center space-x-2 mb-1">
                 <span className="text-amber-400 text-base animate-pulse">🔥</span>
@@ -36,51 +36,39 @@ const TopHeader = () => {
             </div>
           </div>
           
-          {/* Lista korzyści - desktop */}
-          <div className="hidden xl:flex items-center space-x-4 text-xs">
-            <div className="flex items-center space-x-1">
-              <span className="text-emerald-400 font-bold text-sm">✓</span>
-              <span className="text-slate-200">Autor bestsellera</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <span className="text-emerald-400 font-bold text-sm">✓</span>
-              <span className="text-slate-200">Osobista analiza</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <span className="text-emerald-400 font-bold text-sm">✓</span>
-              <span className="text-slate-200">Plan w 24h</span>
-            </div>
-          </div>
-          
-          {/* Liczba miejsc z nowoczesnym designem */}
-          <div className="bg-gradient-to-r from-rose-600/90 to-rose-700/90 rounded-lg px-3 py-1.5 shadow-md border border-rose-500/30">
-            <div className="flex flex-col items-center text-center">
-              <div className="text-rose-100 text-xs font-medium uppercase tracking-wide">
-                zostało
+          {/* Prawa sekcja - Lista korzyści i liczba miejsc */}
+          <div className="flex flex-col lg:flex-row items-center space-y-3 lg:space-y-0 lg:space-x-6">
+            
+            {/* Lista korzyści */}
+            <div className="flex flex-col lg:flex-row items-center space-y-1 lg:space-y-0 lg:space-x-4 text-xs">
+              <div className="flex items-center space-x-1">
+                <span className="text-emerald-400 font-bold text-sm">✓</span>
+                <span className="text-slate-200">Autor bestsellera</span>
               </div>
-              <div className="bg-white/95 text-rose-600 font-black text-lg px-2 py-0.5 rounded-md shadow-sm">
-                12
+              <div className="flex items-center space-x-1">
+                <span className="text-emerald-400 font-bold text-sm">✓</span>
+                <span className="text-slate-200">Osobista analiza</span>
               </div>
-              <div className="text-rose-200 text-xs font-normal lowercase">
-                miejsc w tym miesiącu
+              <div className="flex items-center space-x-1">
+                <span className="text-emerald-400 font-bold text-sm">✓</span>
+                <span className="text-slate-200">Plan w 24h</span>
               </div>
             </div>
-          </div>
-        </div>
-        
-        {/* Mobile/Tablet - kompaktowa lista korzyści */}
-        <div className="xl:hidden mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs">
-          <div className="flex items-center space-x-1">
-            <span className="text-emerald-400 font-bold">✓</span>
-            <span className="text-slate-300">Autor bestsellera</span>
-          </div>
-          <div className="flex items-center space-x-1">
-            <span className="text-emerald-400 font-bold">✓</span>
-            <span className="text-slate-300">Osobista analiza</span>
-          </div>
-          <div className="flex items-center space-x-1">
-            <span className="text-emerald-400 font-bold">✓</span>
-            <span className="text-slate-300">Plan w 24h</span>
+            
+            {/* Liczba miejsc z pulsującą animacją */}
+            <div className="bg-gradient-to-r from-rose-600/90 to-rose-700/90 rounded-lg px-3 py-1.5 shadow-md border border-rose-500/30">
+              <div className="flex flex-col items-center text-center">
+                <div className="text-rose-100 text-xs font-medium uppercase tracking-wide">
+                  zostało
+                </div>
+                <div className="bg-white/95 text-rose-600 font-black text-lg px-2 py-0.5 rounded-md shadow-sm animate-pulse">
+                  12
+                </div>
+                <div className="text-rose-200 text-xs font-normal lowercase">
+                  miejsc w tym miesiącu
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
