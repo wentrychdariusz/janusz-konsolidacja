@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
@@ -89,27 +90,35 @@ const HeroSection = () => {
         }}
       ></div>
       
-      {/* Mobile background - mozaika z lazy loading */}
+      {/* Mobile background - mozaika u góry z gradientem tonalnym */}
       <div className="md:hidden absolute inset-0">
-        <div className="absolute inset-0 grid grid-cols-6 gap-0">
-          {Array.from({ length: 48 }, (_, index) => {
-            const imageIndex = index % mobileBackgroundImages.length;
-            return (
-              <div key={index} className="aspect-square">
-                <OptimizedImage
-                  src={mobileBackgroundImages[imageIndex]}
-                  alt=""
-                  className="w-full h-full object-cover opacity-50"
-                  priority={index < 12}
-                />
-              </div>
-            );
-          })}
+        {/* Mozaika tylko w górnej części ekranu */}
+        <div className="absolute top-0 left-0 right-0 h-1/2">
+          <div className="grid grid-cols-8 gap-0 h-full">
+            {Array.from({ length: 32 }, (_, index) => {
+              const imageIndex = index % mobileBackgroundImages.length;
+              return (
+                <div key={index} className="aspect-square">
+                  <OptimizedImage
+                    src={mobileBackgroundImages[imageIndex]}
+                    alt=""
+                    className="w-full h-full object-cover opacity-70"
+                    priority={index < 8}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
-        {/* Gradient overlay dla mobilnej mozaiki */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/60 to-black"></div>
-        {/* Dodatkowy gradient na dole dla płynnego przejścia */}
-        <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black via-black/90 to-transparent"></div>
+        
+        {/* Gradient tonalny od mozaiki do czerni */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black"></div>
+        
+        {/* Dodatkowy gradient dla płynnego przejścia tonalnego */}
+        <div className="absolute top-0 left-0 right-0 h-3/4 bg-gradient-to-b from-transparent via-black/30 to-black/90"></div>
+        
+        {/* Solidny czarny gradient na dole */}
+        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black via-black/95 to-transparent"></div>
       </div>
       
       {/* Enhanced gradient overlay with smooth tonal transition - desktop */}
