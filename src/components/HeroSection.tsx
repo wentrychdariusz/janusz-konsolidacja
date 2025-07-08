@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
@@ -78,7 +77,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden pt-14 md:pt-16 pb-16 md:pb-20">
+    <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden pt-14 md:pt-16 pb-8 md:pb-12">
       {/* Desktop background - Dariusz image z lazy loading */}
       <div 
         className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
@@ -130,11 +129,11 @@ const HeroSection = () => {
       <div className="hidden md:block absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
       
       <div className="relative z-10">
-        <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-4 md:py-8">
+        <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-2 md:py-4">
           
           {/* Header Section - Full Width */}
           <div className="w-full text-center mb-2 md:mb-3 animate-fade-in">
-            <div className="flex justify-center items-center mb-3 lg:mb-4">
+            <div className="flex justify-center items-center mb-2 lg:mb-3">
               <OptimizedImage
                 src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
                 alt="Dariusz Wentrych"
@@ -153,7 +152,7 @@ const HeroSection = () => {
           </div>
 
           {/* Enhanced Trust Section z pojedynczą ramką na jasnym tle - HIDDEN ON DESKTOP */}
-          <div className="w-full relative mb-3 xl:hidden">
+          <div className="w-full relative mb-2 xl:hidden">
             {/* Szersza szara ramka z jasnym tłem gradientowym i czarną ramką */}
             <div className="mx-2 md:mx-6 lg:mx-8 bg-gradient-to-br from-white/20 via-white/15 to-white/10 backdrop-blur-md border-2 border-black/80 rounded-xl shadow-2xl py-6">
               <div className="relative text-center">

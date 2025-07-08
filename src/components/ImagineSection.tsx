@@ -1,4 +1,3 @@
-
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
 import { MapPin, Car, Award, Users, Star } from 'lucide-react';
@@ -26,7 +25,8 @@ const ImagineSection = () => {
     return [...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 text-prestige-gold-400 fill-current" />);
   };
 
-  return <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-8 md:py-12 lg:py-16 overflow-hidden z-10">
+  return (
+    <section className="bg-gradient-to-b from-black via-navy-900 to-business-blue-800 relative py-4 md:py-6 lg:py-8 overflow-hidden z-10">
       {/* Background only for desktop - mosaic with Dariusz photos */}
       <div className="hidden md:block absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-business-blue-900/75 via-navy-900/70 to-business-blue-700/75 z-10"></div>
@@ -98,7 +98,8 @@ const ImagineSection = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
 
 export default ImagineSection;
