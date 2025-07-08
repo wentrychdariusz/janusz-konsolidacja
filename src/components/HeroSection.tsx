@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
@@ -97,19 +98,23 @@ const HeroSection = () => {
             {Array.from({ length: 200 }, (_, index) => {
               const imageIndex = index % mobileBackgroundImages.length;
               return (
-                <div key={index} className="w-full h-full" style={{ display: 'block', lineHeight: '0' }}>
+                <div key={index} className="w-full h-full block leading-none">
                   <OptimizedImage
                     src={mobileBackgroundImages[imageIndex]}
                     alt=""
-                    className="w-full h-full object-cover opacity-70 block"
+                    className="w-full h-full object-cover opacity-50 block"
                     priority={index < 20}
-                    style={{ display: 'block', verticalAlign: 'top' }}
+                    width={40}
+                    height={40}
                   />
                 </div>
               );
             })}
           </div>
         </div>
+        
+        {/* Czarna przezroczystość na całej mozaice */}
+        <div className="absolute top-0 left-0 right-0 bg-black/50" style={{ height: '400px' }}></div>
         
         {/* Płynne przejście tonalne od mozaiki do czerni */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/50 to-black" style={{ top: '200px' }}></div>
