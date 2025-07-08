@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
@@ -16,7 +15,7 @@ const HeroSection = () => {
     },
     {
       icon: Users,
-      title: "15.000 zadowolonych klientów",
+      title: "15.000 zadowolonych klientów", 
       description: "Mojej firmie zaufało już 15.000 zadowolonych klientów"
     },
     {
@@ -92,16 +91,16 @@ const HeroSection = () => {
       
       {/* Mobile background - mozaika z lazy loading */}
       <div className="md:hidden absolute inset-0">
-        <div className="absolute inset-0 grid grid-cols-4 gap-0">
-          {Array.from({ length: 80 }, (_, index) => {
+        <div className="absolute inset-0 grid grid-cols-6 gap-0">
+          {Array.from({ length: 48 }, (_, index) => {
             const imageIndex = index % mobileBackgroundImages.length;
             return (
               <div key={index} className="aspect-square">
                 <OptimizedImage
                   src={mobileBackgroundImages[imageIndex]}
                   alt=""
-                  className="w-full h-full object-cover opacity-40"
-                  priority={index < 16} // Pierwsze 16 obrazów ładuj od razu
+                  className="w-full h-full object-cover opacity-50"
+                  priority={index < 12}
                 />
               </div>
             );
