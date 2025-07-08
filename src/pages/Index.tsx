@@ -1,7 +1,7 @@
+
 import React from 'react';
 import TopHeader from '../components/TopHeader';
 import HeroSection from '../components/HeroSection';
-import PolishCitizensNotice from '../components/PolishCitizensNotice';
 import ImagineSection from '../components/ImagineSection';
 import VideoSection from '../components/VideoSection';
 import DariuszLetterSection from '../components/DariuszLetterSection';
@@ -22,7 +22,6 @@ const Index = () => {
     <div className="font-lato">
       <TopHeader />
       <HeroSection />
-      <PolishCitizensNotice />
       <ImagineSection />
       <VideoSection />
       <DariuszLetterSection />
