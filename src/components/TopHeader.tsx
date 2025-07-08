@@ -38,9 +38,11 @@ const TopHeader = () => {
             <div className="text-left">
               <div className="flex items-center justify-start space-x-2 mb-1">
                 <span className="text-amber-400 text-base animate-pulse">🔥</span>
-                <span className="font-semibold text-amber-400 text-xs lg:text-sm uppercase tracking-wide">
-                  TYLKO W LIPCU
-                </span>
+                <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-3 py-1 rounded-md">
+                  <span className="font-semibold text-white text-xs lg:text-sm uppercase tracking-wide">
+                    TYLKO W LIPCU
+                  </span>
+                </div>
               </div>
               <div className="font-bold text-sm lg:text-base text-white leading-tight text-left">
                 BEZPŁATNA KONSULTACJA Z DARIUSZEM WENTRYCHEM
