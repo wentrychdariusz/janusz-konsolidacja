@@ -22,15 +22,15 @@ const TopHeader = () => {
           
           {/* Lewa kolumna - Avatar i główny tekst */}
           <div className="flex items-center justify-center lg:justify-start space-x-4">
-            {/* Avatar Dariusza - widoczny tylko na desktop, bardziej do lewej */}
-            <div className="hidden md:block flex-shrink-0 mr-2">
+            {/* Avatar Dariusza - widoczny tylko na desktop, większy i bardziej widoczny */}
+            <div className="hidden md:block flex-shrink-0">
               <OptimizedImage
                 src="/lovable-uploads/669e599a-c272-4fec-81fe-5ca4c496d018.png"
                 alt="Dariusz Wentrych"
-                className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2 border-amber-400/80 shadow-md object-cover"
+                className="w-14 h-14 lg:w-16 lg:h-16 rounded-full border-3 border-amber-400/90 shadow-lg object-cover ring-2 ring-amber-300/50"
                 priority={true}
-                width={48}
-                height={48}
+                width={64}
+                height={64}
               />
             </div>
             
