@@ -18,10 +18,10 @@ const TopHeader = () => {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center text-center lg:text-left">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
           
           {/* Lewa kolumna - Avatar i główny tekst */}
-          <div className="flex items-center justify-center lg:justify-start space-x-4">
+          <div className="flex items-center justify-start space-x-4">
             {/* Avatar Dariusza - widoczny tylko na desktop, większy i bardziej widoczny */}
             <div className="hidden md:block flex-shrink-0">
               <OptimizedImage
@@ -35,14 +35,14 @@ const TopHeader = () => {
             </div>
             
             {/* Główny tekst - wyrównany do lewej */}
-            <div className="text-center lg:text-left">
-              <div className="flex items-center justify-center lg:justify-start space-x-2 mb-1">
+            <div className="text-left">
+              <div className="flex items-center justify-start space-x-2 mb-1">
                 <span className="text-amber-400 text-base animate-pulse">🔥</span>
                 <span className="font-semibold text-amber-400 text-xs lg:text-sm uppercase tracking-wide">
                   TYLKO W LIPCU
                 </span>
               </div>
-              <div className="font-bold text-sm lg:text-base text-white leading-tight text-center lg:text-left">
+              <div className="font-bold text-sm lg:text-base text-white leading-tight text-left">
                 BEZPŁATNA KONSULTACJA Z DARIUSZEM WENTRYCHEM
               </div>
             </div>
