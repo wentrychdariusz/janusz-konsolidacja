@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
@@ -92,10 +91,10 @@ const HeroSection = () => {
       
       {/* Mobile background - mozaika u góry z gradientem tonalnym */}
       <div className="md:hidden absolute inset-0">
-        {/* Mozaika tylko w górnej części ekranu */}
-        <div className="absolute top-0 left-0 right-0 h-1/2">
-          <div className="grid grid-cols-8 gap-0 h-full">
-            {Array.from({ length: 32 }, (_, index) => {
+        {/* Mozaika w górnej części ekranu - zwiększona liczba zdjęć */}
+        <div className="absolute top-0 left-0 right-0 h-2/3">
+          <div className="grid grid-cols-10 gap-0 h-full">
+            {Array.from({ length: 200 }, (_, index) => {
               const imageIndex = index % mobileBackgroundImages.length;
               return (
                 <div key={index} className="aspect-square">
@@ -103,7 +102,7 @@ const HeroSection = () => {
                     src={mobileBackgroundImages[imageIndex]}
                     alt=""
                     className="w-full h-full object-cover opacity-70"
-                    priority={index < 8}
+                    priority={index < 20}
                   />
                 </div>
               );
