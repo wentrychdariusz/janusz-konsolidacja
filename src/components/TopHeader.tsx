@@ -1,19 +1,11 @@
-
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
-
 const TopHeader = () => {
-  return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-sm text-white py-4 px-8 shadow-lg border-b border-slate-700/50 relative overflow-hidden md:hidden">
+  return <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-sm text-white py-4 px-8 shadow-lg border-b border-slate-700/50 relative overflow-hidden md:hidden">
       
       {/* Background image z Dariuszem - tylko na mobile */}
       <div className="absolute inset-0">
-        <OptimizedImage
-          src="/lovable-uploads/0b6ca5a9-3bf0-48d9-9105-cd311475489f.png"
-          alt="Dariusz Wentrych"
-          className="w-full h-full object-cover opacity-40"
-          priority={true}
-        />
+        <OptimizedImage src="/lovable-uploads/0b6ca5a9-3bf0-48d9-9105-cd311475489f.png" alt="Dariusz Wentrych" className="w-full h-full object-cover opacity-40" priority={true} />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-slate-800/60 to-slate-900/70"></div>
       </div>
 
@@ -24,14 +16,7 @@ const TopHeader = () => {
           <div className="flex items-center justify-start space-x-4">
             {/* Avatar Dariusza - widoczny tylko na desktop, większy i bardziej widoczny */}
             <div className="hidden md:block flex-shrink-0">
-              <OptimizedImage
-                src="/lovable-uploads/669e599a-c272-4fec-81fe-5ca4c496d018.png"
-                alt="Dariusz Wentrych"
-                className="w-16 h-16 lg:w-20 lg:h-20 rounded-full border-3 border-amber-400/90 shadow-xl object-cover ring-2 ring-amber-300/50 brightness-110"
-                priority={true}
-                width={80}
-                height={80}
-              />
+              <OptimizedImage src="/lovable-uploads/669e599a-c272-4fec-81fe-5ca4c496d018.png" alt="Dariusz Wentrych" className="w-16 h-16 lg:w-20 lg:h-20 rounded-full border-3 border-amber-400/90 shadow-xl object-cover ring-2 ring-amber-300/50 brightness-110" priority={true} width={80} height={80} />
             </div>
             
             {/* Główny tekst - wyrównany do lewej */}
@@ -56,7 +41,7 @@ const TopHeader = () => {
             {/* Korzyść */}
             <div className="flex items-center space-x-1 text-xs">
               <span className="text-emerald-400 font-bold text-sm">✓</span>
-              <span className="text-slate-200">Autor bestsellera nowe życie bez długów</span>
+              <span className="text-slate-200">Autor bestsellera "Nowe życie bez długów"</span>
             </div>
             
             {/* Liczba miejsc z pulsującą animacją */}
@@ -76,8 +61,6 @@ const TopHeader = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default TopHeader;
