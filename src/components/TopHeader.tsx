@@ -34,15 +34,15 @@ const TopHeader = () => {
               />
             </div>
             
-            {/* Główny tekst - wyśrodkowany */}
-            <div className="text-center">
-              <div className="flex items-center justify-center space-x-2 mb-1">
+            {/* Główny tekst - wyrównany do lewej */}
+            <div className="text-center lg:text-left">
+              <div className="flex items-center justify-center lg:justify-start space-x-2 mb-1">
                 <span className="text-amber-400 text-base animate-pulse">🔥</span>
                 <span className="font-semibold text-amber-400 text-xs lg:text-sm uppercase tracking-wide">
                   TYLKO W LIPCU
                 </span>
               </div>
-              <div className="font-bold text-sm lg:text-base text-white leading-tight text-center">
+              <div className="font-bold text-sm lg:text-base text-white leading-tight text-center lg:text-left">
                 BEZPŁATNA KONSULTACJA Z DARIUSZEM WENTRYCHEM
               </div>
             </div>
