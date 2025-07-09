@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
@@ -315,7 +314,7 @@ const SmsVerificationVariantB = () => {
               </div>
             </div>
 
-            {/* Formularz SMS z bardziej agresywnym designem i lepszą responsywnością */}
+            {/* Formularz SMS z poprawionymi zaokrąglonymi rogami */}
             <div className="flex-1 flex flex-col justify-center space-y-8">
               <div className="text-center">
                 <label className="block text-2xl font-black text-red-900 mb-8">
@@ -332,15 +331,15 @@ const SmsVerificationVariantB = () => {
                     <InputOTPGroup className="gap-3 sm:gap-6">
                       <InputOTPSlot 
                         index={0} 
-                        className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50" 
+                        className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50" 
                       />
                       <InputOTPSlot 
                         index={1} 
-                        className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50" 
+                        className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50" 
                       />
                       <InputOTPSlot 
                         index={2} 
-                        className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50" 
+                        className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50" 
                       />
                     </InputOTPGroup>
                   </InputOTP>
