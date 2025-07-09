@@ -21,7 +21,7 @@ const LiveNotifications = () => {
         setCurrentNotification((prev) => (prev + 1) % notifications.length);
         setIsVisible(true);
       }, 500);
-    }, 8000); // Zwiększone z 4000 do 8000ms (8 sekund)
+    }, 12000); // Zwiększone z 8000 do 12000ms (12 sekund) - mniej częste
 
     return () => clearInterval(interval);
   }, []);
@@ -31,8 +31,8 @@ const LiveNotifications = () => {
   return (
     <div className="fixed top-20 left-4 z-40 max-w-sm">
       <div 
-        className={`bg-white/90 backdrop-blur-sm border-2 border-green-400 rounded-xl shadow-2xl p-4 transition-all duration-500 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
+        className={`bg-white/80 backdrop-blur-md border-2 border-green-400 rounded-xl shadow-xl p-4 transition-all duration-500 ${
+          isVisible ? 'opacity-90 translate-y-0' : 'opacity-0 -translate-y-2'
         }`}
       >
         <div className="flex items-center space-x-3">

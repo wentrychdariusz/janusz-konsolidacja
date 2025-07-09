@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
@@ -212,9 +211,9 @@ const SmsVerificationVariantB = () => {
   return (
     <>
       <LiveNotifications />
-      <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4 relative">
         <div className="max-w-2xl w-full">
-          <div className="bg-white rounded-3xl shadow-2xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full ring-2 ring-red-200">
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full ring-2 ring-red-200">
             
             {/* Header z bardziej agresywnym designem */}
             <div className="text-center mb-8">
@@ -276,7 +275,7 @@ const SmsVerificationVariantB = () => {
               )}
             </div>
 
-            {/* Zdjęcia klientów z tekstem */}
+            {/* Zdjęcia klientów z zaktualizowanym tekstem */}
             <div className="mb-6">
               <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-4 border border-green-200">
                 <div className="flex flex-col items-center justify-center">
@@ -302,8 +301,8 @@ const SmsVerificationVariantB = () => {
                       className="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover"
                     />
                   </div>
-                  <p className="text-sm text-green-600 font-medium text-center">
-                    oni wyszli już z długów
+                  <p className="text-base text-green-700 font-bold text-center">
+                    🎉 Oni wyszli już z długów! Czekamy na Ciebie!
                   </p>
                 </div>
               </div>
