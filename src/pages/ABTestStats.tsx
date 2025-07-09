@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useABTestSettings } from '../hooks/useABTestSettings';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
@@ -34,28 +35,56 @@ const ABTestStats = () => {
     console.log('📈 Getting direct stats from localStorage for sms_verification_test');
     
     // Debug wszystkich kluczy w localStorage
-    console.log('🔍 All localStorage keys related to A/B test:');
+    console.log('🔍 All localStorage keys:');
+    const allKeys = [];
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (key?.includes('ab_test_sms_verification_test')) {
-        console.log(`  ${key}: ${localStorage.getItem(key)}`);
+      if (key) {
+        allKeys.push(`${key}: ${localStorage.getItem(key)}`);
       }
     }
+    console.log(allKeys);
+    
+    // Poprawne klucze zgodne z useABTest
+    const keys = {
+      variantA: {
+        uniqueUsers: 'ab_test_sms_verification_test_variant_a_unique_users',
+        views: 'ab_test_sms_verification_test_variant_a_views', 
+        conversions: 'ab_test_sms_verification_test_variant_a_conversions'
+      },
+      variantB: {
+        uniqueUsers: 'ab_test_sms_verification_test_variant_b_unique_users',
+        views: 'ab_test_sms_verification_test_variant_b_views',
+        conversions: 'ab_test_sms_verification_test_variant_b_conversions'
+      }
+    };
+    
+    console.log('🔍 Looking for keys:', keys);
     
     const directStats = {
       variantA: {
-        uniqueUsers: parseInt(localStorage.getItem('ab_test_sms_verification_test_variant_a_unique_users') || '0'),
-        totalViews: parseInt(localStorage.getItem('ab_test_sms_verification_test_variant_a_views') || '0'),
-        conversions: parseInt(localStorage.getItem('ab_test_sms_verification_test_variant_a_conversions') || '0'),
+        uniqueUsers: parseInt(localStorage.getItem(keys.variantA.uniqueUsers) || '0'),
+        totalViews: parseInt(localStorage.getItem(keys.variantA.views) || '0'),
+        conversions: parseInt(localStorage.getItem(keys.variantA.conversions) || '0'),
       },
       variantB: {
-        uniqueUsers: parseInt(localStorage.getItem('ab_test_sms_verification_test_variant_b_unique_users') || '0'),
-        totalViews: parseInt(localStorage.getItem('ab_test_sms_verification_test_variant_b_views') || '0'),
-        conversions: parseInt(localStorage.getItem('ab_test_sms_verification_test_variant_b_conversions') || '0'),
+        uniqueUsers: parseInt(localStorage.getItem(keys.variantB.uniqueUsers) || '0'),
+        totalViews: parseInt(localStorage.getItem(keys.variantB.views) || '0'),
+        conversions: parseInt(localStorage.getItem(keys.variantB.conversions) || '0'),
       }
     };
     
     console.log('📈 Direct stats result:', directStats);
+    
+    // Debug poszczególnych wartości
+    console.log('🔍 Individual values:');
+    Object.entries(keys.variantA).forEach(([metric, key]) => {
+      console.log(`  Variant A ${metric}: ${localStorage.getItem(key)}`);
+    });
+    Object.entries(keys.variantB).forEach(([metric, key]) => {
+      console.log(`  Variant B ${metric}: ${localStorage.getItem(key)}`);
+    });
+    
     return directStats;
   };
 
