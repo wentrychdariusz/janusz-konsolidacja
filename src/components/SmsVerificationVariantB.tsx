@@ -11,7 +11,6 @@ declare global {
     fbq: (action: string, event: string, params?: any) => void;
   }
 }
-
 const SmsVerificationVariantB = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -19,22 +18,25 @@ const SmsVerificationVariantB = () => {
   const name = searchParams.get('name') || '';
   const email = searchParams.get('email') || '';
   const phone = searchParams.get('phone') || '';
-  
   const [smsCode, setSmsCode] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationError, setVerificationError] = useState('');
 
   // Countdown hook - 5 minut (300 sekund)
-  const { formattedTime, isExpired, reset: resetCountdown } = useCountdown({
+  const {
+    formattedTime,
+    isExpired,
+    reset: resetCountdown
+  } = useCountdown({
     initialTime: 300,
     onComplete: () => {
       console.log('⏰ SMS verification countdown expired - 5 minutes elapsed');
     }
   });
-  
+
   // Sztywny kod weryfikacyjny
   const VERIFICATION_CODE = '1212';
-  
+
   // Webhook URLs
   const verificationWebhookUrl = "https://hook.eu2.make.com/py94cyfbhaa514btm2klljd3m3q2tpye";
   const verifiedClientWebhookUrl = "https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3";
@@ -50,23 +52,19 @@ const SmsVerificationVariantB = () => {
       });
     }
   }, []);
-
   const handleSmsVerification = async () => {
     if (smsCode.length !== 4) {
       setVerificationError('Kod SMS musi mieć 4 cyfry');
       return;
     }
-
     setIsVerifying(true);
     setVerificationError('');
-
     try {
       // Symulacja weryfikacji SMS - sprawdzenie sztywnego kodu
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       // Sprawdzenie czy kod jest poprawny (1212)
       if (smsCode === VERIFICATION_CODE) {
-        
         // Wywołanie pierwszego webhook do aktualizacji Google Sheets z informacją o weryfikacji
         try {
           const verificationData = {
@@ -78,23 +76,19 @@ const SmsVerificationVariantB = () => {
             verification_status: 'VERIFIED',
             client_quality: 'GOOD_CLIENT'
           };
-          
           console.log('📤 Sending verification update to Make.com:', verificationData);
-          
           const response = await fetch(verificationWebhookUrl, {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
+              "Content-Type": "application/json"
             },
-            body: JSON.stringify(verificationData),
+            body: JSON.stringify(verificationData)
           });
-          
           if (response.ok) {
             console.log('✅ Verification status updated in Google Sheets');
           } else {
             console.error('❌ Failed to update verification status:', response.statusText);
           }
-          
         } catch (error) {
           console.error('❌ Error updating verification status:', error);
         }
@@ -113,22 +107,18 @@ const SmsVerificationVariantB = () => {
             source: 'SMS_VERIFICATION_PAGE',
             webhook_test: 'test_data_v2'
           };
-          
           console.log('📤 Sending verified client data to new Make.com hook:', verifiedClientData);
           console.log('🔗 Hook URL:', verifiedClientWebhookUrl);
-          
           const verifiedResponse = await fetch(verifiedClientWebhookUrl, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
               "Accept": "application/json"
             },
-            body: JSON.stringify(verifiedClientData),
+            body: JSON.stringify(verifiedClientData)
           });
-          
           console.log('📊 Response status:', verifiedResponse.status);
           console.log('📊 Response headers:', verifiedResponse.headers);
-          
           if (verifiedResponse.ok) {
             console.log('✅ Verified client data sent to new Make.com hook successfully');
             const responseText = await verifiedResponse.text();
@@ -138,12 +128,11 @@ const SmsVerificationVariantB = () => {
             const errorText = await verifiedResponse.text();
             console.error('❌ Error response:', errorText);
           }
-          
         } catch (error) {
           console.error('❌ Error sending verified client data:', error);
           console.error('❌ Error details:', error.message);
         }
-        
+
         // Facebook Pixel - track SMS verification
         if (typeof window !== 'undefined' && window.fbq) {
           window.fbq('track', 'Purchase', {
@@ -161,10 +150,9 @@ const SmsVerificationVariantB = () => {
           phone: phone
         });
         navigate(`/podziekowania?${params.toString()}`);
-        
       } else {
         setVerificationError('Nieprawidłowy kod SMS. Spróbuj ponownie.');
-        
+
         // Zapisz również nieudaną próbę weryfikacji
         try {
           const failedVerificationData = {
@@ -177,20 +165,17 @@ const SmsVerificationVariantB = () => {
             client_quality: 'UNVERIFIED',
             failed_code: smsCode
           };
-          
           await fetch(verificationWebhookUrl, {
             method: "POST",
             headers: {
-              "Content-Type": "application/json",
+              "Content-Type": "application/json"
             },
-            body: JSON.stringify(failedVerificationData),
+            body: JSON.stringify(failedVerificationData)
           });
-          
         } catch (error) {
           console.error('❌ Error logging failed verification:', error);
         }
       }
-      
     } catch (error) {
       setVerificationError('Wystąpił błąd podczas weryfikacji. Spróbuj ponownie.');
       console.error('❌ SMS verification error:', error);
@@ -198,18 +183,19 @@ const SmsVerificationVariantB = () => {
       setIsVerifying(false);
     }
   };
-
   const handleResendSms = () => {
     resetCountdown();
     setSmsCode('');
     setVerificationError('');
     console.log('📱 SMS resent - countdown reset');
   };
-
-  console.log('📱 SmsVerificationVariantB component rendered with params:', { name, email, phone, success });
-
-  return (
-    <>
+  console.log('📱 SmsVerificationVariantB component rendered with params:', {
+    name,
+    email,
+    phone,
+    success
+  });
+  return <>
       <LiveNotifications />
       <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4 relative">
         <div className="max-w-2xl w-full">
@@ -220,14 +206,8 @@ const SmsVerificationVariantB = () => {
               <div className="flex justify-center items-center mb-6">
                 <div className="flex flex-col items-center">
                   <div className="relative">
-                    <img 
-                      src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                      alt="Dariusz Wentrych"
-                      className="w-24 h-24 rounded-full overflow-hidden border-4 border-red-500 shadow-2xl object-cover mb-3"
-                    />
-                    <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                      #1
-                    </div>
+                    <img src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" alt="Dariusz Wentrych" className="w-24 h-24 rounded-full overflow-hidden border-4 border-red-500 shadow-2xl object-cover mb-3" />
+                    <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">NR 1</div>
                   </div>
                   <div className="text-center">
                     <h3 className="text-xl font-black text-red-900">Dariusz Wentrych</h3>
@@ -263,16 +243,14 @@ const SmsVerificationVariantB = () => {
                 </div>
               </div>
               
-              {isExpired && (
-                <div className="bg-red-100 border-2 border-red-600 rounded-xl p-4 mt-4">
+              {isExpired && <div className="bg-red-100 border-2 border-red-600 rounded-xl p-4 mt-4">
                   <div className="flex items-center justify-center space-x-2">
                     <AlertCircle className="w-6 h-6 text-red-700" />
                     <span className="text-red-800 text-lg font-black">
                       ⏰ CZAS UPŁYNĄŁ! WYŚLIJ KOD PONOWNIE!
                     </span>
                   </div>
-                </div>
-              )}
+                </div>}
             </div>
 
             {/* Zdjęcia klientów z zaktualizowanym tekstem */}
@@ -280,26 +258,10 @@ const SmsVerificationVariantB = () => {
               <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-4 border border-green-200">
                 <div className="flex flex-col items-center justify-center">
                   <div className="flex -space-x-2 mb-3">
-                    <img 
-                      src="/lovable-uploads/9985157b-e0d2-4841-98fc-efcce96afa49.png"
-                      alt="Zadowolony klient"
-                      className="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover"
-                    />
-                    <img 
-                      src="/lovable-uploads/330d84ab-e471-4a60-a2ba-b131b0db582d.png"
-                      alt="Zadowolony klient"
-                      className="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover"
-                    />
-                    <img 
-                      src="/lovable-uploads/eb7b2854-6ce9-4318-8cb5-7f866eb59ef8.png"
-                      alt="Zadowolona klientka"
-                      className="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover"
-                    />
-                    <img 
-                      src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                      alt="Dariusz Wentrych"
-                      className="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover"
-                    />
+                    <img src="/lovable-uploads/9985157b-e0d2-4841-98fc-efcce96afa49.png" alt="Zadowolony klient" className="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover" />
+                    <img src="/lovable-uploads/330d84ab-e471-4a60-a2ba-b131b0db582d.png" alt="Zadowolony klient" className="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover" />
+                    <img src="/lovable-uploads/eb7b2854-6ce9-4318-8cb5-7f866eb59ef8.png" alt="Zadowolona klientka" className="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover" />
+                    <img src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" alt="Dariusz Wentrych" className="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover" />
                   </div>
                   <p className="text-base text-green-700 font-bold text-center">
                     🎉 Oni wyszli już z długów! Czekamy na Ciebie!
@@ -315,47 +277,23 @@ const SmsVerificationVariantB = () => {
                   🔥 WPISZ 4-CYFROWY KOD SMS
                 </label>
                 <div className="flex justify-center px-4">
-                  <InputOTP 
-                    maxLength={4} 
-                    value={smsCode} 
-                    onChange={setSmsCode}
-                    className="text-3xl"
-                    disabled={isExpired}
-                  >
+                  <InputOTP maxLength={4} value={smsCode} onChange={setSmsCode} className="text-3xl" disabled={isExpired}>
                     <InputOTPGroup className="gap-3 sm:gap-6">
-                      <InputOTPSlot 
-                        index={0} 
-                        className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50"
-                      />
-                      <InputOTPSlot 
-                        index={1} 
-                        className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50"
-                      />
-                      <InputOTPSlot 
-                        index={2} 
-                        className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50"
-                      />
-                      <InputOTPSlot 
-                        index={3} 
-                        className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50"
-                      />
+                      <InputOTPSlot index={0} className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50" />
+                      <InputOTPSlot index={1} className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50" />
+                      <InputOTPSlot index={2} className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50" />
+                      <InputOTPSlot index={3} className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50" />
                     </InputOTPGroup>
                   </InputOTP>
                 </div>
                 
-                {verificationError && (
-                  <div className="bg-red-100 border-2 border-red-500 rounded-xl p-4 mt-6">
+                {verificationError && <div className="bg-red-100 border-2 border-red-500 rounded-xl p-4 mt-6">
                     <p className="text-red-800 text-lg font-bold">{verificationError}</p>
-                  </div>
-                )}
+                  </div>}
               </div>
 
               <div className="text-center">
-                <button
-                  onClick={handleSmsVerification}
-                  disabled={smsCode.length !== 4 || isVerifying || isExpired}
-                  className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-bold py-5 px-10 text-xl rounded-2xl shadow-2xl hover:shadow-3xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed border-4 border-red-700 w-full sm:w-auto"
-                >
+                <button onClick={handleSmsVerification} disabled={smsCode.length !== 4 || isVerifying || isExpired} className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-bold py-5 px-10 text-xl rounded-2xl shadow-2xl hover:shadow-3xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed border-4 border-red-700 w-full sm:w-auto">
                   {isVerifying ? "⏳ WERYFIKUJĘ..." : "🚀 POTWIERDŹ KONSULTACJĘ"}
                 </button>
                 
@@ -379,8 +317,6 @@ const SmsVerificationVariantB = () => {
           </div>
         </div>
       </div>
-    </>
-  );
+    </>;
 };
-
 export default SmsVerificationVariantB;
