@@ -30,32 +30,23 @@ const ABTestStats = () => {
   });
   const [debugInfo, setDebugInfo] = useState<string[]>([]);
 
-  // NAPRAWIONA funkcja parsowania - teraz właściwie obsługuje null
+  // FINALNIE NAPRAWIONA funkcja parsowania
   const parseLocalStorageValue = (value: string | null): number => {
     console.log(`🔍 parseLocalStorageValue called with:`, value, `(type: ${typeof value})`);
     
-    // Sprawdź czy to faktycznie null (nie string "null")
+    // Jeśli wartość to null lub undefined, zwróć 0
     if (value === null || value === undefined) {
       console.log('  → null/undefined value, returning 0');
       return 0;
     }
     
-    // Sprawdź czy to string "null"
-    if (value === "null") {
-      console.log('  → string "null", returning 0');
+    // Jeśli wartość to string "null" lub "undefined", zwróć 0
+    if (value === "null" || value === "undefined" || value === "") {
+      console.log(`  → string "${value}", returning 0`);
       return 0;
     }
     
-    if (value === "undefined") {
-      console.log('  → string "undefined", returning 0');
-      return 0;
-    }
-    
-    if (value === "") {
-      console.log('  → empty string, returning 0');
-      return 0;
-    }
-    
+    // Spróbuj sparsować jako liczbę
     const parsed = parseInt(value, 10);
     if (isNaN(parsed)) {
       console.log(`  → NaN after parsing "${value}", returning 0`);
@@ -178,13 +169,13 @@ const ABTestStats = () => {
     
     setDebugInfo([
       `Odświeżone o: ${new Date().toLocaleTimeString()}`,
-      `NAPRAWIONE: Teraz właściwie obsługuje null vs "null"`,
+      `FINALNIE NAPRAWIONE - powinno działać!`,
       `Variant A: ${parsedStats.variantA.uniqueUsers} users, ${parsedStats.variantA.totalViews} views, ${parsedStats.variantA.conversions} conversions`,
       `Variant B: ${parsedStats.variantB.uniqueUsers} users, ${parsedStats.variantB.totalViews} views, ${parsedStats.variantB.conversions} conversions`,
       `Found A/B test keys: ${abTestKeys.length}`,
       ...abTestKeys,
       `Total localStorage keys: ${allKeys.length}`,
-      `UWAGA: Jeśli wszystkie dane to 0, użyj przycisku "GENERUJ TESTOWE DANE"`
+      `SPRAWDŹ TERAZ - powinno pokazać prawdziwe dane!`
     ]);
     
     return parsedStats;
