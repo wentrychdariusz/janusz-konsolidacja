@@ -30,22 +30,24 @@ const ABTestStats = () => {
   });
   const [debugInfo, setDebugInfo] = useState<string[]>([]);
 
-  // NAPRAWIONA funkcja parsowania - teraz obsługuje WSZYSTKIE przypadki
+  // NAPRAWIONA funkcja parsowania - teraz właściwie obsługuje null
   const parseLocalStorageValue = (value: string | null): number => {
-    console.log(`🔍 parseLocalStorageValue called with: "${value}" (type: ${typeof value})`);
+    console.log(`🔍 parseLocalStorageValue called with:`, value, `(type: ${typeof value})`);
     
-    if (value === null) {
-      console.log('  → null value, returning 0');
+    // Sprawdź czy to faktycznie null (nie string "null")
+    if (value === null || value === undefined) {
+      console.log('  → null/undefined value, returning 0');
       return 0;
     }
     
+    // Sprawdź czy to string "null"
     if (value === "null") {
       console.log('  → string "null", returning 0');
       return 0;
     }
     
-    if (value === undefined || value === "undefined") {
-      console.log('  → undefined value, returning 0');
+    if (value === "undefined") {
+      console.log('  → string "undefined", returning 0');
       return 0;
     }
     
@@ -176,7 +178,7 @@ const ABTestStats = () => {
     
     setDebugInfo([
       `Odświeżone o: ${new Date().toLocaleTimeString()}`,
-      `NAPRAWIONE: Teraz parsuje "null" jako 0`,
+      `NAPRAWIONE: Teraz właściwie obsługuje null vs "null"`,
       `Variant A: ${parsedStats.variantA.uniqueUsers} users, ${parsedStats.variantA.totalViews} views, ${parsedStats.variantA.conversions} conversions`,
       `Variant B: ${parsedStats.variantB.uniqueUsers} users, ${parsedStats.variantB.totalViews} views, ${parsedStats.variantB.conversions} conversions`,
       `Found A/B test keys: ${abTestKeys.length}`,
