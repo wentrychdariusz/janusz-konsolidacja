@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
@@ -34,8 +35,8 @@ const SmsVerificationVariantB = () => {
     }
   });
 
-  // Sztywny kod weryfikacyjny
-  const VERIFICATION_CODE = '1212';
+  // Kody weryfikacyjne - 3-cyfrowy i 4-cyfrowy
+  const VERIFICATION_CODES = ['121', '1212'];
 
   // Webhook URLs
   const verificationWebhookUrl = "https://hook.eu2.make.com/py94cyfbhaa514btm2klljd3m3q2tpye";
@@ -53,18 +54,18 @@ const SmsVerificationVariantB = () => {
     }
   }, []);
   const handleSmsVerification = async () => {
-    if (smsCode.length !== 4) {
-      setVerificationError('Kod SMS musi mieć 4 cyfry');
+    if (smsCode.length < 3 || smsCode.length > 4) {
+      setVerificationError('Kod SMS musi mieć 3 lub 4 cyfry');
       return;
     }
     setIsVerifying(true);
     setVerificationError('');
     try {
-      // Symulacja weryfikacji SMS - sprawdzenie sztywnego kodu
+      // Symulacja weryfikacji SMS - sprawdzenie kodów
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      // Sprawdzenie czy kod jest poprawny (1212)
-      if (smsCode === VERIFICATION_CODE) {
+      // Sprawdzenie czy kod jest poprawny (121 lub 1212)
+      if (VERIFICATION_CODES.includes(smsCode)) {
         // Wywołanie pierwszego webhook do aktualizacji Google Sheets z informacją o weryfikacji
         try {
           const verificationData = {
@@ -100,7 +101,7 @@ const SmsVerificationVariantB = () => {
             email: email,
             phone: phone,
             sms_code_verified: true,
-            verification_code_used: VERIFICATION_CODE,
+            verification_code_used: smsCode,
             verified_at: new Date().toISOString(),
             client_status: 'VERIFIED_CLIENT',
             ready_for_consultation: true,
@@ -274,7 +275,7 @@ const SmsVerificationVariantB = () => {
             <div className="flex-1 flex flex-col justify-center space-y-8">
               <div className="text-center">
                 <label className="block text-2xl font-black text-red-900 mb-8">
-                  🔥 WPISZ 4-CYFROWY KOD SMS
+                  🔥 WPISZ 3 LUB 4-CYFROWY KOD SMS
                 </label>
                 <div className="flex justify-center px-4">
                   <InputOTP maxLength={4} value={smsCode} onChange={setSmsCode} className="text-3xl" disabled={isExpired}>
@@ -293,7 +294,7 @@ const SmsVerificationVariantB = () => {
               </div>
 
               <div className="text-center">
-                <button onClick={handleSmsVerification} disabled={smsCode.length !== 4 || isVerifying || isExpired} className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-bold py-5 px-10 text-xl rounded-2xl shadow-2xl hover:shadow-3xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed border-4 border-red-700 w-full sm:w-auto">
+                <button onClick={handleSmsVerification} disabled={(smsCode.length < 3 || smsCode.length > 4) || isVerifying || isExpired} className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-bold py-5 px-10 text-xl rounded-2xl shadow-2xl hover:shadow-3xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed border-4 border-red-700 w-full sm:w-auto">
                   {isVerifying ? "⏳ WERYFIKUJĘ..." : "🚀 POTWIERDŹ KONSULTACJĘ"}
                 </button>
                 

@@ -32,8 +32,8 @@ const SmsVerificationVariantA = () => {
     }
   });
   
-  // Sztywny kod weryfikacyjny
-  const VERIFICATION_CODE = '1212';
+  // Kody weryfikacyjne - 3-cyfrowy i 4-cyfrowy
+  const VERIFICATION_CODES = ['121', '1212'];
   
   // Webhook URLs
   const verificationWebhookUrl = "https://hook.eu2.make.com/py94cyfbhaa514btm2klljd3m3q2tpye";
@@ -52,8 +52,8 @@ const SmsVerificationVariantA = () => {
   }, []);
 
   const handleSmsVerification = async () => {
-    if (smsCode.length !== 4) {
-      setVerificationError('Kod SMS musi mieć 4 cyfry');
+    if (smsCode.length < 3 || smsCode.length > 4) {
+      setVerificationError('Kod SMS musi mieć 3 lub 4 cyfry');
       return;
     }
 
@@ -61,11 +61,11 @@ const SmsVerificationVariantA = () => {
     setVerificationError('');
 
     try {
-      // Symulacja weryfikacji SMS - sprawdzenie sztywnego kodu
+      // Symulacja weryfikacji SMS - sprawdzenie kodów
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Sprawdzenie czy kod jest poprawny (1212)
-      if (smsCode === VERIFICATION_CODE) {
+      // Sprawdzenie czy kod jest poprawny (121 lub 1212)
+      if (VERIFICATION_CODES.includes(smsCode)) {
         
         // Wywołanie pierwszego webhook do aktualizacji Google Sheets z informacją o weryfikacji
         try {
@@ -106,7 +106,7 @@ const SmsVerificationVariantA = () => {
             email: email,
             phone: phone,
             sms_code_verified: true,
-            verification_code_used: VERIFICATION_CODE,
+            verification_code_used: smsCode,
             verified_at: new Date().toISOString(),
             client_status: 'VERIFIED_CLIENT',
             ready_for_consultation: true,
@@ -235,7 +235,7 @@ const SmsVerificationVariantA = () => {
               Wysłaliśmy kod SMS na numer: <strong>{decodeURIComponent(phone) || 'Twój numer'}</strong>
             </p>
             <p className="text-warm-neutral-500 text-base sm:text-lg px-2">
-              Wpisz 4-cyfrowy kod, aby potwierdzić umówienie bezpłatnej konsultacji
+              Wpisz 3 lub 4-cyfrowy kod, aby potwierdzić umówienie bezpłatnej konsultacji
             </p>
           </div>
 
@@ -304,7 +304,7 @@ const SmsVerificationVariantA = () => {
             <div className="text-center px-2">
               <button
                 onClick={handleSmsVerification}
-                disabled={smsCode.length !== 4 || isVerifying || isExpired}
+                disabled={(smsCode.length < 3 || smsCode.length > 4) || isVerifying || isExpired}
                 className="bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 sm:py-5 px-8 sm:px-12 text-xl sm:text-2xl rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
               >
                 {isVerifying ? "Weryfikuję..." : "Potwierdź bezpłatną konsultację"}
