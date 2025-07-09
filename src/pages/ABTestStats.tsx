@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -29,23 +28,30 @@ const ABTestStats = () => {
     variantA: { uniqueUsers: 0, totalViews: 0, conversions: 0 },
     variantB: { uniqueUsers: 0, totalViews: 0, conversions: 0 }
   });
+  const [debugInfo, setDebugInfo] = useState<string[]>([]);
 
   // Funkcja do bezpośredniego odczytu statystyk z localStorage
   const getDirectStats = (): ABTestStats => {
-    console.log('📈 Getting direct stats from localStorage for sms_verification_test');
+    console.log('📈 [ABTestStats] Getting direct stats from localStorage');
     
-    // Debug wszystkich kluczy w localStorage
-    console.log('🔍 All localStorage keys:');
-    const allKeys = [];
+    // Sprawdzamy wszystkie klucze w localStorage
+    const allKeys: string[] = [];
+    const abTestKeys: string[] = [];
+    
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (key) {
         allKeys.push(`${key}: ${localStorage.getItem(key)}`);
+        if (key.includes('ab_test_sms_verification_test')) {
+          abTestKeys.push(`${key}: ${localStorage.getItem(key)}`);
+        }
       }
     }
-    console.log(allKeys);
     
-    // Poprawne klucze zgodne z useABTest
+    console.log('🔍 [ABTestStats] All localStorage keys:', allKeys);
+    console.log('🔍 [ABTestStats] A/B Test keys:', abTestKeys);
+    
+    // Klucze zgodne z useABTest
     const keys = {
       variantA: {
         uniqueUsers: 'ab_test_sms_verification_test_variant_a_unique_users',
@@ -59,31 +65,46 @@ const ABTestStats = () => {
       }
     };
     
-    console.log('🔍 Looking for keys:', keys);
+    console.log('🔍 [ABTestStats] Looking for keys:', keys);
+    
+    // Sprawdzamy czy klucze istnieją i co zawierają
+    const variantAUniqueUsers = localStorage.getItem(keys.variantA.uniqueUsers);
+    const variantAViews = localStorage.getItem(keys.variantA.views);
+    const variantAConversions = localStorage.getItem(keys.variantA.conversions);
+    const variantBUniqueUsers = localStorage.getItem(keys.variantB.uniqueUsers);
+    const variantBViews = localStorage.getItem(keys.variantB.views);
+    const variantBConversions = localStorage.getItem(keys.variantB.conversions);
+    
+    console.log('🔍 [ABTestStats] Raw values:');
+    console.log(`  Variant A uniqueUsers: "${variantAUniqueUsers}"`);
+    console.log(`  Variant A views: "${variantAViews}"`);
+    console.log(`  Variant A conversions: "${variantAConversions}"`);
+    console.log(`  Variant B uniqueUsers: "${variantBUniqueUsers}"`);
+    console.log(`  Variant B views: "${variantBViews}"`);
+    console.log(`  Variant B conversions: "${variantBConversions}"`);
     
     const directStats = {
       variantA: {
-        uniqueUsers: parseInt(localStorage.getItem(keys.variantA.uniqueUsers) || '0'),
-        totalViews: parseInt(localStorage.getItem(keys.variantA.views) || '0'),
-        conversions: parseInt(localStorage.getItem(keys.variantA.conversions) || '0'),
+        uniqueUsers: parseInt(variantAUniqueUsers || '0'),
+        totalViews: parseInt(variantAViews || '0'),
+        conversions: parseInt(variantAConversions || '0'),
       },
       variantB: {
-        uniqueUsers: parseInt(localStorage.getItem(keys.variantB.uniqueUsers) || '0'),
-        totalViews: parseInt(localStorage.getItem(keys.variantB.views) || '0'),
-        conversions: parseInt(localStorage.getItem(keys.variantB.conversions) || '0'),
+        uniqueUsers: parseInt(variantBUniqueUsers || '0'),
+        totalViews: parseInt(variantBViews || '0'),
+        conversions: parseInt(variantBConversions || '0'),
       }
     };
     
-    console.log('📈 Direct stats result:', directStats);
+    console.log('📈 [ABTestStats] Final stats:', directStats);
     
-    // Debug poszczególnych wartości
-    console.log('🔍 Individual values:');
-    Object.entries(keys.variantA).forEach(([metric, key]) => {
-      console.log(`  Variant A ${metric}: ${localStorage.getItem(key)}`);
-    });
-    Object.entries(keys.variantB).forEach(([metric, key]) => {
-      console.log(`  Variant B ${metric}: ${localStorage.getItem(key)}`);
-    });
+    // Ustawiamy debug info
+    setDebugInfo([
+      `Found ${abTestKeys.length} A/B test keys in localStorage`,
+      `Variant A: ${variantAUniqueUsers || 'null'} users, ${variantAViews || 'null'} views, ${variantAConversions || 'null'} conversions`,
+      `Variant B: ${variantBUniqueUsers || 'null'} users, ${variantBViews || 'null'} views, ${variantBConversions || 'null'} conversions`,
+      `Total localStorage keys: ${allKeys.length}`
+    ]);
     
     return directStats;
   };
@@ -99,12 +120,12 @@ const ABTestStats = () => {
       'ab_test_sms_verification_test_variant_b_conversions',
     ];
     
-    console.log('🔄 Resetting stats, removing keys:', keys);
+    console.log('🔄 [ABTestStats] Resetting stats, removing keys:', keys);
     keys.forEach(key => {
-      console.log(`🗑️ Removing key: ${key}`);
+      console.log(`🗑️ [ABTestStats] Removing key: ${key}`);
       localStorage.removeItem(key);
     });
-    console.log('🔄 AB Test: sms_verification_test - All stats reset');
+    console.log('🔄 [ABTestStats] All stats reset');
     
     // Odśwież statystyki po resecie
     refreshStats();
@@ -112,13 +133,15 @@ const ABTestStats = () => {
 
   // Funkcja do odświeżania statystyk
   const refreshStats = () => {
+    console.log('🔄 [ABTestStats] Refreshing stats...');
     const newStats = getDirectStats();
     setStats(newStats);
-    console.log('🔄 Stats refreshed:', newStats);
+    console.log('🔄 [ABTestStats] Stats refreshed:', newStats);
   };
 
   // Załaduj statystyki przy pierwszym renderze
   useEffect(() => {
+    console.log('🚀 [ABTestStats] Component mounted, loading initial stats');
     refreshStats();
   }, []);
 
@@ -162,27 +185,38 @@ const ABTestStats = () => {
           </p>
         </div>
 
-        {/* Debug Panel */}
+        {/* Enhanced Debug Panel */}
         <Card className="border-yellow-200 bg-yellow-50">
           <CardHeader>
             <CardTitle className="text-yellow-800">Debug - Dane localStorage</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div>
-                <strong>Wariant A:</strong>
-                <ul className="ml-4">
-                  <li>Unikalni: {stats.variantA.uniqueUsers}</li>
-                  <li>Wyświetlenia: {stats.variantA.totalViews}</li>
-                  <li>Konwersje: {stats.variantA.conversions}</li>
-                </ul>
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <strong>Wariant A:</strong>
+                  <ul className="ml-4">
+                    <li>Unikalni: {stats.variantA.uniqueUsers}</li>
+                    <li>Wyświetlenia: {stats.variantA.totalViews}</li>
+                    <li>Konwersje: {stats.variantA.conversions}</li>
+                  </ul>
+                </div>
+                <div>
+                  <strong>Wariant B:</strong>
+                  <ul className="ml-4">
+                    <li>Unikalni: {stats.variantB.uniqueUsers}</li>
+                    <li>Wyświetlenia: {stats.variantB.totalViews}</li>
+                    <li>Konwersje: {stats.variantB.conversions}</li>
+                  </ul>
+                </div>
               </div>
-              <div>
-                <strong>Wariant B:</strong>
-                <ul className="ml-4">
-                  <li>Unikalni: {stats.variantB.uniqueUsers}</li>
-                  <li>Wyświetlenia: {stats.variantB.totalViews}</li>
-                  <li>Konwersje: {stats.variantB.conversions}</li>
+              
+              <div className="border-t pt-4">
+                <strong>Debug Info:</strong>
+                <ul className="ml-4 text-xs">
+                  {debugInfo.map((info, index) => (
+                    <li key={index}>{info}</li>
+                  ))}
                 </ul>
               </div>
             </div>
