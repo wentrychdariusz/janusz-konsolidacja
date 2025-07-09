@@ -97,7 +97,7 @@ const SimpleStats = () => {
           <div className="bg-gray-50 p-4 rounded-lg">
             <h3 className="text-lg font-semibold mb-4">Wszystkie Eventy po Typach</h3>
             <div className="grid grid-cols-2 gap-4">
-              {Object.entries(stats.eventsByType).map(([event, count]) => (
+              {Object.entries(stats.eventsByType as Record<string, number>).map(([event, count]) => (
                 <div key={event} className="flex justify-between">
                   <span>{event}:</span>
                   <span className="font-semibold">{count}</span>
@@ -109,7 +109,7 @@ const SimpleStats = () => {
           <div className="bg-gray-50 p-4 rounded-lg mt-4">
             <h3 className="text-lg font-semibold mb-4">Eventy po Wariantach</h3>
             <div className="grid grid-cols-2 gap-4">
-              {Object.entries(stats.eventsByVariant).map(([event, count]) => (
+              {Object.entries(stats.eventsByVariant as Record<string, number>).map(([event, count]) => (
                 <div key={event} className="flex justify-between">
                   <span>{event}:</span>
                   <span className="font-semibold">{count}</span>
