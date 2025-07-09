@@ -16,17 +16,13 @@ import CalculatorSection from '../components/CalculatorSection';
 import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
-import { usePageTracking } from '../hooks/usePageTracking';
+import { useSimpleTracking } from '../hooks/useSimpleTracking';
 
 const Index = () => {
-  const { trackPageView, trackUniqueUser } = usePageTracking();
+  const { trackPageView } = useSimpleTracking();
   
   useEffect(() => {
-    // Track unique user (tylko raz na sesję)
-    trackUniqueUser();
-    
-    // Track page view (za każdym razem)
-    trackPageView('Index');
+    trackPageView('home');
   }, []);
   
   return (

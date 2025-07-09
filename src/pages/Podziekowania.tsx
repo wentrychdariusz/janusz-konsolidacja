@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Plus, CheckCircle, Phone, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { usePageTracking } from '../hooks/usePageTracking';
+import { useSimpleTracking } from '../hooks/useSimpleTracking';
 
 // Rozszerzenie obiektu window o fbq
 declare global {
@@ -18,15 +18,13 @@ const Podziekowania = () => {
   const email = searchParams.get('email') || '';
   const phone = searchParams.get('phone') || '';
 
-  const { trackPageView, trackConversion } = usePageTracking();
+  const { trackPageView, trackConversion } = useSimpleTracking();
 
   // Facebook Pixel - track conversion dla wentrych.pl/podziekowania
   useEffect(() => {
-    // Track page view
-    trackPageView('Podziekowania');
-    
-    // Track conversion
-    trackConversion('Final Thank You Page');
+    // Simple tracking
+    trackPageView('thank_you');
+    trackConversion('final_thank_you');
     
     if (typeof window !== 'undefined' && window.fbq) {
       // Track konwersję dla wentrych.pl

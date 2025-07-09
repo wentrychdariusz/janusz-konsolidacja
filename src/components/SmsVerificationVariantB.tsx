@@ -4,7 +4,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp
 import { Clock, AlertCircle } from 'lucide-react';
 import { useCountdown } from '../hooks/useCountdown';
 import LiveNotifications from './LiveNotifications';
-import { usePageTracking } from '../hooks/usePageTracking';
+import { useSimpleTracking } from '../hooks/useSimpleTracking';
 
 // Rozszerzenie obiektu window o fbq
 declare global {
@@ -28,12 +28,12 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationError, setVerificationError] = useState('');
 
-  // Page tracking hook
-  const { trackPageView, trackConversion } = usePageTracking();
+  // Simple tracking
+  const { trackPageView, trackConversion } = useSimpleTracking();
 
   // Track page view when component mounts
   useEffect(() => {
-    trackPageView('SMS Verification Variant B');
+    trackPageView('sms_verification', 'B');
   }, []);
 
   // Countdown hook - 5 minut (300 sekund)
@@ -80,12 +80,10 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
       // Symulacja weryfikacji SMS - sprawdzenie kodów
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      // Sprawdzenie czy kod jest poprawny (121)
       if (VERIFICATION_CODES.includes(smsCode)) {
         
-        // WAŻNE: Trackowanie konwersji - NAJPIERW page tracking!
-        console.log('🎯 SMS Verification Variant B: Tracking conversion');
-        trackConversion('SMS Verification Success Variant B');
+        // Simple tracking - konwersja
+        trackConversion('sms_verification_success', 'B');
         
         // A/B Test conversion tracking (jeśli dostępne)
         if (onConversion && typeof onConversion === 'function') {
