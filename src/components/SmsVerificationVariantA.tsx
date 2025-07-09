@@ -37,7 +37,7 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
   // Track page view when component mounts - TYLKO RAZ
   useEffect(() => {
     if (!hasTrackedPageView.current) {
-      trackPageView('sms_verification', 'A');
+      trackPageView('sms_verification_test', 'A');
       hasTrackedPageView.current = true;
       console.log('📊 Page view tracked for Variant A');
     }
@@ -86,12 +86,12 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
       if (VERIFICATION_CODES.includes(smsCode)) {
         
         // Simple tracking - konwersja
-        trackConversion('sms_verification_success', 'A');
+        trackConversion('sms_verification_test_success', 'A');
         console.log('🎯 SMS verification success tracked for Variant A');
         
         if (onConversion && typeof onConversion === 'function') {
           try {
-            onConversion();
+            onConversion('sms_verification_test_success');
             console.log('✅ A/B Test: Variant A conversion tracked successfully');
           } catch (conversionError) {
             console.error('❌ Error tracking A/B test conversion:', conversionError);

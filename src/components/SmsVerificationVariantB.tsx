@@ -33,7 +33,7 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
 
   // Track page view when component mounts
   useEffect(() => {
-    trackPageView('sms_verification', 'B');
+    trackPageView('sms_verification_test', 'B');
   }, []);
 
   // Countdown hook - 5 minut (300 sekund)
@@ -83,12 +83,12 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
       if (VERIFICATION_CODES.includes(smsCode)) {
         
         // Simple tracking - konwersja
-        trackConversion('sms_verification_success', 'B');
+        trackConversion('sms_verification_test_success', 'B');
         
         // A/B Test conversion tracking (jeśli dostępne)
         if (onConversion && typeof onConversion === 'function') {
           try {
-            onConversion();
+            onConversion('sms_verification_test_success');
             console.log('✅ A/B Test: Variant B conversion tracked successfully');
           } catch (conversionError) {
             console.error('❌ Error tracking A/B test conversion:', conversionError);

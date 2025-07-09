@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -24,16 +23,14 @@ const ABTestStats = () => {
     const stats = getStats();
     console.log('📊 All stats:', stats);
     
-    // Wariant A - zlicz eventy z Simple Tracking
-    const aViews = stats.eventsByVariant['page_view_sms_verification_A'] || 0;
-    const aConversions = (stats.eventsByVariant['conversion_sms_verification_success_A'] || 0) + 
-                        (stats.eventsByVariant['conversion_final_thank_you_A'] || 0);
+    // Wariant A - zlicz eventy z Simple Tracking (POPRAWIONE KLUCZE)
+    const aViews = stats.eventsByVariant['page_view_sms_verification_test_A'] || 0;
+    const aConversions = stats.eventsByVariant['conversion_sms_verification_test_success_A'] || 0;
     const aConversionRate = aViews > 0 ? (aConversions / aViews) * 100 : 0;
     
-    // Wariant B  
-    const bViews = stats.eventsByVariant['page_view_sms_verification_B'] || 0;
-    const bConversions = (stats.eventsByVariant['conversion_sms_verification_success_B'] || 0) + 
-                        (stats.eventsByVariant['conversion_final_thank_you_B'] || 0);
+    // Wariant B (POPRAWIONE KLUCZE)
+    const bViews = stats.eventsByVariant['page_view_sms_verification_test_B'] || 0;
+    const bConversions = stats.eventsByVariant['conversion_sms_verification_test_success_B'] || 0;
     const bConversionRate = bViews > 0 ? (bConversions / bViews) * 100 : 0;
     
     setVariantA({ users: aViews, views: aViews, conversions: aConversions, conversionRate: aConversionRate });
@@ -54,18 +51,18 @@ const ABTestStats = () => {
     
     // Symuluj realistyczne dane A/B test - Wariant A (45 użytkowników, 12 konwersji)
     for (let i = 0; i < 45; i++) {
-      trackPageView('sms_verification', 'A');
+      trackPageView('sms_verification_test', 'A');
     }
     for (let i = 0; i < 12; i++) {
-      trackConversion('sms_verification_success', 'A');
+      trackConversion('sms_verification_test_success', 'A');
     }
     
     // Wariant B (52 użytkowników, 18 konwersji)  
     for (let i = 0; i < 52; i++) {
-      trackPageView('sms_verification', 'B');
+      trackPageView('sms_verification_test', 'B');
     }
     for (let i = 0; i < 18; i++) {
-      trackConversion('sms_verification_success', 'B');
+      trackConversion('sms_verification_test_success', 'B');
     }
     
     console.log('✅ Test data generated');
