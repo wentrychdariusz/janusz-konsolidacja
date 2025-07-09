@@ -275,39 +275,31 @@ const SmsVerificationVariantB = () => {
               )}
             </div>
 
-            {/* Większy Social Proof */}
+            {/* Tylko zdjęcia klientów - bez tekstu */}
             <div className="mb-6">
-              <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-6 border border-green-200">
-                <div className="flex items-center justify-center space-x-6">
-                  <div className="flex -space-x-3">
+              <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-4 border border-green-200">
+                <div className="flex items-center justify-center">
+                  <div className="flex -space-x-2">
                     <img 
                       src="/lovable-uploads/9985157b-e0d2-4841-98fc-efcce96afa49.png"
                       alt="Zadowolony klient"
-                      className="w-14 h-14 rounded-full border-3 border-white shadow-lg object-cover"
+                      className="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover"
                     />
                     <img 
                       src="/lovable-uploads/330d84ab-e471-4a60-a2ba-b131b0db582d.png"
                       alt="Zadowolony klient"
-                      className="w-14 h-14 rounded-full border-3 border-white shadow-lg object-cover"
+                      className="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover"
                     />
                     <img 
                       src="/lovable-uploads/eb7b2854-6ce9-4318-8cb5-7f866eb59ef8.png"
                       alt="Zadowolona klientka"
-                      className="w-14 h-14 rounded-full border-3 border-white shadow-lg object-cover"
+                      className="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover"
                     />
                     <img 
                       src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
                       alt="Dariusz Wentrych"
-                      className="w-14 h-14 rounded-full border-3 border-white shadow-lg object-cover"
+                      className="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover"
                     />
-                  </div>
-                  <div className="text-left">
-                    <p className="text-lg font-bold text-green-700">
-                      ✅ Oni już wyszli z długów
-                    </p>
-                    <p className="text-sm text-green-600 font-medium">
-                      Dołącz do 2000+ zadowolonych klientów
-                    </p>
                   </div>
                 </div>
               </div>
