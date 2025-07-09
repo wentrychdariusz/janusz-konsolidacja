@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { Clock, AlertCircle } from 'lucide-react';
@@ -27,14 +27,21 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
   const [smsCode, setSmsCode] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationError, setVerificationError] = useState('');
+  
+  // Ref do śledzenia czy już był tracked
+  const hasTrackedPageView = useRef(false);
 
   // Simple tracking
   const { trackPageView, trackConversion } = useSimpleTracking();
 
-  // Track page view when component mounts
+  // Track page view when component mounts - TYLKO RAZ
   useEffect(() => {
-    trackPageView('sms_verification', 'A');
-  }, []);
+    if (!hasTrackedPageView.current) {
+      trackPageView('sms_verification', 'A');
+      hasTrackedPageView.current = true;
+      console.log('📊 Page view tracked for Variant A');
+    }
+  }, [trackPageView]);
 
   // Countdown hook - 5 minut (300 sekund)
   const { formattedTime, isExpired, reset: resetCountdown } = useCountdown({
@@ -80,8 +87,8 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
         
         // Simple tracking - konwersja
         trackConversion('sms_verification_success', 'A');
+        console.log('🎯 SMS verification success tracked for Variant A');
         
-        // A/B Test conversion tracking (jeśli dostępne)
         if (onConversion && typeof onConversion === 'function') {
           try {
             onConversion();
@@ -91,7 +98,6 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
           }
         }
         
-        // Wywołanie pierwszego webhook do aktualizacji Google Sheets z informacją o weryfikacji
         try {
           const verificationData = {
             phone: decodeURIComponent(phone),
@@ -123,7 +129,6 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
           console.error('❌ Error updating verification status:', error);
         }
 
-        // POPRAWIONY NOWY HOOK - Wysłanie zweryfikowanych danych klienta
         try {
           const verifiedClientData = {
             name: name,
@@ -168,7 +173,6 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
           console.error('❌ Error details:', error.message);
         }
         
-        // Facebook Pixel - track SMS verification
         if (typeof window !== 'undefined' && window.fbq) {
           window.fbq('track', 'Purchase', {
             content_name: 'SMS Verification Complete',
@@ -229,13 +233,6 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
     setVerificationError('');
     console.log('📱 SMS resent - countdown reset');
   };
-
-  console.log('📱 SmsVerificationVariantA component rendered with params:', {
-    name,
-    email,
-    phone,
-    success
-  });
 
   return (
     <>

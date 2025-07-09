@@ -73,7 +73,7 @@ const saveEvent = (eventName: string, variant?: string) => {
   console.log(`📊 Event tracked: ${eventName}${variant ? ` (${variant})` : ''} - Session: ${sessionId}`);
 };
 
-// Pobieranie statystyk
+// Pobieranie statystyk - POPRAWIONY
 const getStats = () => {
   const eventsKey = 'simple_tracking_events';
   const existingEvents = localStorage.getItem(eventsKey);
@@ -98,10 +98,13 @@ const getStats = () => {
       eventsByType[event.event] = (eventsByType[event.event] || 0) + 1;
       
       if (event.variant) {
+        // KLUCZ: event_variant (np. page_view_sms_verification_A)
         const key = `${event.event}_${event.variant}`;
         eventsByVariant[key] = (eventsByVariant[key] || 0) + 1;
       }
     });
+    
+    console.log('📊 Events by variant:', eventsByVariant);
     
     return {
       uniqueSessions,
