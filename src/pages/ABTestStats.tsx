@@ -23,6 +23,12 @@ const ABTestStats = () => {
     const stats = getStats();
     console.log('📊 All stats:', stats);
     
+    // DEBUGGING: Sprawdź wszystkie klucze w eventsByVariant
+    console.log('🔍 Available keys in eventsByVariant:');
+    Object.keys(stats.eventsByVariant).forEach(key => {
+      console.log(`  ${key}: ${stats.eventsByVariant[key]}`);
+    });
+    
     // Wariant A - zlicz eventy z Simple Tracking (POPRAWIONE KLUCZE)
     const aViews = stats.eventsByVariant['page_view_sms_verification_test_A'] || 0;
     const aConversions = stats.eventsByVariant['conversion_sms_verification_test_success_A'] || 0;
