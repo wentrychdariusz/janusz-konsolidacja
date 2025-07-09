@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
@@ -32,8 +31,8 @@ const SmsVerificationVariantA = () => {
     }
   });
   
-  // Kody weryfikacyjne - 3-cyfrowy i 4-cyfrowy
-  const VERIFICATION_CODES = ['121', '1212'];
+  // Kody weryfikacyjne - tylko 3-cyfrowy
+  const VERIFICATION_CODES = ['121'];
   
   // Webhook URLs
   const verificationWebhookUrl = "https://hook.eu2.make.com/py94cyfbhaa514btm2klljd3m3q2tpye";
@@ -52,8 +51,8 @@ const SmsVerificationVariantA = () => {
   }, []);
 
   const handleSmsVerification = async () => {
-    if (smsCode.length < 3 || smsCode.length > 4) {
-      setVerificationError('Kod SMS musi mieć 3 lub 4 cyfry');
+    if (smsCode.length !== 3) {
+      setVerificationError('Kod SMS musi mieć 3 cyfry');
       return;
     }
 
@@ -64,7 +63,7 @@ const SmsVerificationVariantA = () => {
       // Symulacja weryfikacji SMS - sprawdzenie kodów
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Sprawdzenie czy kod jest poprawny (121 lub 1212)
+      // Sprawdzenie czy kod jest poprawny (121)
       if (VERIFICATION_CODES.includes(smsCode)) {
         
         // Wywołanie pierwszego webhook do aktualizacji Google Sheets z informacją o weryfikacji
@@ -235,7 +234,7 @@ const SmsVerificationVariantA = () => {
               Wysłaliśmy kod SMS na numer: <strong>{decodeURIComponent(phone) || 'Twój numer'}</strong>
             </p>
             <p className="text-warm-neutral-500 text-base sm:text-lg px-2">
-              Wpisz 3 lub 4-cyfrowy kod, aby potwierdzić umówienie bezpłatnej konsultacji
+              Wpisz 3-cyfrowy kod, aby potwierdzić umówienie bezpłatnej konsultacji
             </p>
           </div>
 
@@ -267,7 +266,7 @@ const SmsVerificationVariantA = () => {
               </label>
               <div className="flex justify-center mb-6">
                 <InputOTP 
-                  maxLength={4} 
+                  maxLength={3} 
                   value={smsCode} 
                   onChange={setSmsCode}
                   className="text-2xl sm:text-3xl"
@@ -286,10 +285,6 @@ const SmsVerificationVariantA = () => {
                       index={2} 
                       className="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 lg:w-20 lg:h-20 text-2xl sm:text-3xl md:text-4xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
                     />
-                    <InputOTPSlot 
-                      index={3} 
-                      className="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 lg:w-20 lg:h-20 text-2xl sm:text-3xl md:text-4xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
-                    />
                   </InputOTPGroup>
                 </InputOTP>
               </div>
@@ -304,7 +299,7 @@ const SmsVerificationVariantA = () => {
             <div className="text-center px-2">
               <button
                 onClick={handleSmsVerification}
-                disabled={(smsCode.length < 3 || smsCode.length > 4) || isVerifying || isExpired}
+                disabled={smsCode.length !== 3 || isVerifying || isExpired}
                 className="bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 sm:py-5 px-8 sm:px-12 text-xl sm:text-2xl rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
               >
                 {isVerifying ? "Weryfikuję..." : "Potwierdź bezpłatną konsultację"}
