@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { Clock, AlertCircle } from 'lucide-react';
 import { useCountdown } from '../hooks/useCountdown';
+import LiveNotifications from './LiveNotifications';
 
 // Rozszerzenie obiektu window o fbq
 declare global {
@@ -208,179 +209,182 @@ const SmsVerificationVariantB = () => {
   console.log('📱 SmsVerificationVariantB component rendered with params:', { name, email, phone, success });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4">
-      <div className="max-w-2xl w-full">
-        <div className="bg-white rounded-3xl shadow-2xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full ring-2 ring-red-200">
-          
-          {/* Header z bardziej agresywnym designem */}
-          <div className="text-center mb-8">
-            <div className="flex justify-center items-center mb-6">
-              <div className="flex flex-col items-center">
-                <div className="relative">
-                  <img 
-                    src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                    alt="Dariusz Wentrych"
-                    className="w-24 h-24 rounded-full overflow-hidden border-4 border-red-500 shadow-2xl object-cover mb-3"
-                  />
-                  <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                    #1
+    <>
+      <LiveNotifications />
+      <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4">
+        <div className="max-w-2xl w-full">
+          <div className="bg-white rounded-3xl shadow-2xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full ring-2 ring-red-200">
+            
+            {/* Header z bardziej agresywnym designem */}
+            <div className="text-center mb-8">
+              <div className="flex justify-center items-center mb-6">
+                <div className="flex flex-col items-center">
+                  <div className="relative">
+                    <img 
+                      src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                      alt="Dariusz Wentrych"
+                      className="w-24 h-24 rounded-full overflow-hidden border-4 border-red-500 shadow-2xl object-cover mb-3"
+                    />
+                    <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+                      #1
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <h3 className="text-xl font-black text-red-900">Dariusz Wentrych</h3>
+                    <p className="text-base text-red-600 font-bold">#1 Ekspert ds. oddłużeń w Polsce</p>
                   </div>
                 </div>
-                <div className="text-center">
-                  <h3 className="text-xl font-black text-red-900">Dariusz Wentrych</h3>
-                  <p className="text-base text-red-600 font-bold">#1 Ekspert ds. oddłużeń w Polsce</p>
-                </div>
               </div>
-            </div>
-            <h1 className="text-2xl lg:text-3xl font-black text-red-900 mb-4">
-              ⚡ POTWIERDŹ TERAZ SWOJĄ KONSULTACJĘ!
-            </h1>
-            <div className="bg-red-100 border-2 border-red-300 text-red-800 p-3 rounded-xl mb-4">
-              <p className="text-base font-semibold mb-2">
-                KOD SMS WYSŁANY NA: 
+              <h1 className="text-2xl lg:text-3xl font-black text-red-900 mb-4">
+                ⚡ POTWIERDŹ TERAZ SWOJĄ KONSULTACJĘ!
+              </h1>
+              <div className="bg-red-100 border-2 border-red-300 text-red-800 p-3 rounded-xl mb-4">
+                <p className="text-base font-semibold mb-2">
+                  KOD SMS WYSŁANY NA: 
+                </p>
+                <p className="text-lg font-bold bg-white text-red-600 px-3 py-2 rounded-lg inline-block">
+                  {decodeURIComponent(phone) || 'Twój numer'}
+                </p>
+              </div>
+              <p className="text-red-700 text-base font-semibold">
+                ⏰ MASZ TYLKO 5 MINUT NA WPROWADZENIE KODU!
               </p>
-              <p className="text-lg font-bold bg-white text-red-600 px-3 py-2 rounded-lg inline-block">
-                {decodeURIComponent(phone) || 'Twój numer'}
-              </p>
             </div>
-            <p className="text-red-700 text-base font-semibold">
-              ⏰ MASZ TYLKO 5 MINUT NA WPROWADZENIE KODU!
-            </p>
-          </div>
 
-          {/* Timer z bardziej wyróżniającym się kolorem */}
-          <div className="text-center mb-8">
-            <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-2xl border-2 border-purple-700 shadow-xl">
-              <div className="flex items-center justify-center space-x-3">
-                <Clock className="w-8 h-8 animate-pulse" />
-                <div>
-                  <p className="text-lg font-black">ZOSTAŁO CZASU:</p>
-                  <span className="font-mono text-3xl font-black">{formattedTime}</span>
+            {/* Timer z bardziej wyróżniającym się kolorem */}
+            <div className="text-center mb-8">
+              <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-2xl border-2 border-purple-700 shadow-xl">
+                <div className="flex items-center justify-center space-x-3">
+                  <Clock className="w-8 h-8 animate-pulse" />
+                  <div>
+                    <p className="text-lg font-black">ZOSTAŁO CZASU:</p>
+                    <span className="font-mono text-3xl font-black">{formattedTime}</span>
+                  </div>
                 </div>
-              </div>
-            </div>
-            
-            {isExpired && (
-              <div className="bg-red-100 border-2 border-red-600 rounded-xl p-4 mt-4">
-                <div className="flex items-center justify-center space-x-2">
-                  <AlertCircle className="w-6 h-6 text-red-700" />
-                  <span className="text-red-800 text-lg font-black">
-                    ⏰ CZAS UPŁYNĄŁ! WYŚLIJ KOD PONOWNIE!
-                  </span>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Subtelny Social Proof */}
-          <div className="mb-6">
-            <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-4 border border-green-200">
-              <div className="flex items-center justify-center space-x-4">
-                <div className="flex -space-x-2">
-                  <img 
-                    src="/lovable-uploads/9985157b-e0d2-4841-98fc-efcce96afa49.png"
-                    alt="Zadowolony klient"
-                    className="w-10 h-10 rounded-full border-2 border-white shadow-md object-cover"
-                  />
-                  <img 
-                    src="/lovable-uploads/330d84ab-e471-4a60-a2ba-b131b0db582d.png"
-                    alt="Zadowolony klient"
-                    className="w-10 h-10 rounded-full border-2 border-white shadow-md object-cover"
-                  />
-                  <img 
-                    src="/lovable-uploads/eb7b2854-6ce9-4318-8cb5-7f866eb59ef8.png"
-                    alt="Zadowolona klientka"
-                    className="w-10 h-10 rounded-full border-2 border-white shadow-md object-cover"
-                  />
-                  <img 
-                    src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                    alt="Dariusz Wentrych"
-                    className="w-10 h-10 rounded-full border-2 border-white shadow-md object-cover"
-                  />
-                </div>
-                <div className="text-left">
-                  <p className="text-sm font-semibold text-green-700">
-                    ✅ Oni już wyszli z długów
-                  </p>
-                  <p className="text-xs text-green-600">
-                    Dołącz do 2000+ zadowolonych klientów
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Formularz SMS z bardziej agresywnym designem i lepszą responsywnością */}
-          <div className="flex-1 flex flex-col justify-center space-y-8">
-            <div className="text-center">
-              <label className="block text-2xl font-black text-red-900 mb-8">
-                🔥 WPISZ 4-CYFROWY KOD SMS
-              </label>
-              <div className="flex justify-center px-4">
-                <InputOTP 
-                  maxLength={4} 
-                  value={smsCode} 
-                  onChange={setSmsCode}
-                  className="text-3xl"
-                  disabled={isExpired}
-                >
-                  <InputOTPGroup className="gap-3 sm:gap-6">
-                    <InputOTPSlot 
-                      index={0} 
-                      className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50"
-                    />
-                    <InputOTPSlot 
-                      index={1} 
-                      className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50"
-                    />
-                    <InputOTPSlot 
-                      index={2} 
-                      className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50"
-                    />
-                    <InputOTPSlot 
-                      index={3} 
-                      className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50"
-                    />
-                  </InputOTPGroup>
-                </InputOTP>
               </div>
               
-              {verificationError && (
-                <div className="bg-red-100 border-2 border-red-500 rounded-xl p-4 mt-6">
-                  <p className="text-red-800 text-lg font-bold">{verificationError}</p>
+              {isExpired && (
+                <div className="bg-red-100 border-2 border-red-600 rounded-xl p-4 mt-4">
+                  <div className="flex items-center justify-center space-x-2">
+                    <AlertCircle className="w-6 h-6 text-red-700" />
+                    <span className="text-red-800 text-lg font-black">
+                      ⏰ CZAS UPŁYNĄŁ! WYŚLIJ KOD PONOWNIE!
+                    </span>
+                  </div>
                 </div>
               )}
             </div>
 
-            <div className="text-center">
-              <button
-                onClick={handleSmsVerification}
-                disabled={smsCode.length !== 4 || isVerifying || isExpired}
-                className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-bold py-5 px-10 text-xl rounded-2xl shadow-2xl hover:shadow-3xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed border-4 border-red-700 w-full sm:w-auto"
-              >
-                {isVerifying ? "⏳ WERYFIKUJĘ..." : "🚀 POTWIERDŹ KONSULTACJĘ"}
-              </button>
-              
-              <div className="mt-6">
-                <p className="text-base text-gray-600 font-medium mb-3">
-                  Nie otrzymałeś SMS? 
-                </p>
-                <p className="text-gray-600 text-base font-medium cursor-pointer hover:text-gray-800 transition-colors" onClick={handleResendSms}>
-                  📱 Wyślij ponownie
-                </p>
+            {/* Większy Social Proof */}
+            <div className="mb-6">
+              <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-6 border border-green-200">
+                <div className="flex items-center justify-center space-x-6">
+                  <div className="flex -space-x-3">
+                    <img 
+                      src="/lovable-uploads/9985157b-e0d2-4841-98fc-efcce96afa49.png"
+                      alt="Zadowolony klient"
+                      className="w-14 h-14 rounded-full border-3 border-white shadow-lg object-cover"
+                    />
+                    <img 
+                      src="/lovable-uploads/330d84ab-e471-4a60-a2ba-b131b0db582d.png"
+                      alt="Zadowolony klient"
+                      className="w-14 h-14 rounded-full border-3 border-white shadow-lg object-cover"
+                    />
+                    <img 
+                      src="/lovable-uploads/eb7b2854-6ce9-4318-8cb5-7f866eb59ef8.png"
+                      alt="Zadowolona klientka"
+                      className="w-14 h-14 rounded-full border-3 border-white shadow-lg object-cover"
+                    />
+                    <img 
+                      src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                      alt="Dariusz Wentrych"
+                      className="w-14 h-14 rounded-full border-3 border-white shadow-lg object-cover"
+                    />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-lg font-bold text-green-700">
+                      ✅ Oni już wyszli z długów
+                    </p>
+                    <p className="text-sm text-green-600 font-medium">
+                      Dołącz do 2000+ zadowolonych klientów
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Zwykły tekst motywacyjny */}
-          <div className="text-center mt-4">
-            <p className="text-green-700 text-base font-medium">
-              ✅ Twoja konsultacja zostanie potwierdzona w ciągu kilku sekund
-            </p>
+            {/* Formularz SMS z bardziej agresywnym designem i lepszą responsywnością */}
+            <div className="flex-1 flex flex-col justify-center space-y-8">
+              <div className="text-center">
+                <label className="block text-2xl font-black text-red-900 mb-8">
+                  🔥 WPISZ 4-CYFROWY KOD SMS
+                </label>
+                <div className="flex justify-center px-4">
+                  <InputOTP 
+                    maxLength={4} 
+                    value={smsCode} 
+                    onChange={setSmsCode}
+                    className="text-3xl"
+                    disabled={isExpired}
+                  >
+                    <InputOTPGroup className="gap-3 sm:gap-6">
+                      <InputOTPSlot 
+                        index={0} 
+                        className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50"
+                      />
+                      <InputOTPSlot 
+                        index={1} 
+                        className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50"
+                      />
+                      <InputOTPSlot 
+                        index={2} 
+                        className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50"
+                      />
+                      <InputOTPSlot 
+                        index={3} 
+                        className="w-14 h-14 sm:w-20 sm:h-20 text-2xl sm:text-3xl font-black border-4 border-red-400 rounded-2xl focus:border-red-600 focus:ring-4 focus:ring-red-200 bg-red-50"
+                      />
+                    </InputOTPGroup>
+                  </InputOTP>
+                </div>
+                
+                {verificationError && (
+                  <div className="bg-red-100 border-2 border-red-500 rounded-xl p-4 mt-6">
+                    <p className="text-red-800 text-lg font-bold">{verificationError}</p>
+                  </div>
+                )}
+              </div>
+
+              <div className="text-center">
+                <button
+                  onClick={handleSmsVerification}
+                  disabled={smsCode.length !== 4 || isVerifying || isExpired}
+                  className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-bold py-5 px-10 text-xl rounded-2xl shadow-2xl hover:shadow-3xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed border-4 border-red-700 w-full sm:w-auto"
+                >
+                  {isVerifying ? "⏳ WERYFIKUJĘ..." : "🚀 POTWIERDŹ KONSULTACJĘ"}
+                </button>
+                
+                <div className="mt-6">
+                  <p className="text-base text-gray-600 font-medium mb-3">
+                    Nie otrzymałeś SMS? 
+                  </p>
+                  <p className="text-gray-600 text-base font-medium cursor-pointer hover:text-gray-800 transition-colors" onClick={handleResendSms}>
+                    📱 Wyślij ponownie
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Zwykły tekst motywacyjny */}
+            <div className="text-center mt-4">
+              <p className="text-green-700 text-base font-medium">
+                ✅ Twoja konsultacja zostanie potwierdzona w ciągu kilku sekund
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
