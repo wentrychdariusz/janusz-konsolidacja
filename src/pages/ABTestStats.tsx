@@ -440,6 +440,19 @@ const ABTestStats = () => {
               >
                 Reset ustawień
               </Button>
+              <Button 
+                variant="default" 
+                onClick={() => {
+                  // Wymuś wariant B i wyczyść localStorage żeby przetestować
+                  updateSettings({ sms_verification_force_variant: 'B' });
+                  localStorage.removeItem('ab_test_sms_verification_test');
+                  alert('✅ Wymuszono wariant B! Idź teraz na /sms-verification');
+                }}
+                size="sm"
+                className="bg-red-600 text-white hover:bg-red-700"
+              >
+                🧪 TESTUJ WARIANT B
+              </Button>
             </div>
           </CardContent>
         </Card>
