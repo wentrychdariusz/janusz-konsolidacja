@@ -127,7 +127,7 @@ const ABTestStats = () => {
       }
     };
     
-    console.log('🔍 [ABTestStats] Checking localStorage with keys:', keys);
+    console.log('🔍 [ABTestStats] EXACT KEYS TO MATCH useABTest:', keys);
     
     // ODCZYTAJ BEZPOŚREDNIO Z LOCALSTORAGE
     const rawValues = {
@@ -320,16 +320,39 @@ const ABTestStats = () => {
                   <Button 
                     variant="outline" 
                     onClick={() => {
-                      console.log('🔍 [DEBUG] Manual localStorage check:');
+                      console.log('🔍 [MANUAL DEBUG] Checking ALL localStorage keys for A/B test:');
+                      
+                      // Sprawdź WSZYSTKIE klucze
                       for (let i = 0; i < localStorage.length; i++) {
                         const key = localStorage.key(i);
                         if (key) {
-                          console.log(`${key}: ${localStorage.getItem(key)}`);
+                          const value = localStorage.getItem(key);
+                          if (key.includes('ab_test') || key.includes('sms')) {
+                            console.log(`🔑 ${key}: "${value}"`);
+                          }
                         }
                       }
+                      
+                      // Sprawdź DOKŁADNIE te klucze które powinny być
+                      const testKeys = [
+                        'ab_test_sms_verification_test_variant_a_unique_users',
+                        'ab_test_sms_verification_test_variant_a_views',
+                        'ab_test_sms_verification_test_variant_a_conversions',
+                        'ab_test_sms_verification_test_variant_b_unique_users', 
+                        'ab_test_sms_verification_test_variant_b_views',
+                        'ab_test_sms_verification_test_variant_b_conversions'
+                      ];
+                      
+                      console.log('🎯 [MANUAL DEBUG] Checking EXACT expected keys:');
+                      testKeys.forEach(key => {
+                        const value = localStorage.getItem(key);
+                        console.log(`📊 ${key}: "${value}"`);
+                      });
+                      
+                      refreshStats();
                     }}
                   >
-                    🔍 Debug localStorage
+                    🔍 DEBUG WSZYSTKO
                   </Button>
                 </div>
               </div>
