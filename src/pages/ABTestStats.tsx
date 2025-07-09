@@ -30,13 +30,83 @@ const ABTestStats = () => {
   });
   const [debugInfo, setDebugInfo] = useState<string[]>([]);
 
-  // NAPRAWIONA funkcja - prawdziwe parsowanie localStorage
+  // NAPRAWIONA funkcja parsowania - teraz obsługuje WSZYSTKIE przypadki
   const parseLocalStorageValue = (value: string | null): number => {
-    if (value === null || value === "null" || value === undefined || value === "undefined") {
+    console.log(`🔍 parseLocalStorageValue called with: "${value}" (type: ${typeof value})`);
+    
+    if (value === null) {
+      console.log('  → null value, returning 0');
       return 0;
     }
-    const parsed = parseInt(value);
-    return isNaN(parsed) ? 0 : parsed;
+    
+    if (value === "null") {
+      console.log('  → string "null", returning 0');
+      return 0;
+    }
+    
+    if (value === undefined || value === "undefined") {
+      console.log('  → undefined value, returning 0');
+      return 0;
+    }
+    
+    if (value === "") {
+      console.log('  → empty string, returning 0');
+      return 0;
+    }
+    
+    const parsed = parseInt(value, 10);
+    if (isNaN(parsed)) {
+      console.log(`  → NaN after parsing "${value}", returning 0`);
+      return 0;
+    }
+    
+    console.log(`  → successfully parsed "${value}" to ${parsed}`);
+    return parsed;
+  };
+
+  // Funkcja do generowania testowych danych
+  const generateTestData = () => {
+    console.log('🧪 Generating test data...');
+    
+    const keys = {
+      variantA: {
+        uniqueUsers: 'ab_test_sms_verification_test_variant_a_unique_users',
+        views: 'ab_test_sms_verification_test_variant_a_views', 
+        conversions: 'ab_test_sms_verification_test_variant_a_conversions'
+      },
+      variantB: {
+        uniqueUsers: 'ab_test_sms_verification_test_variant_b_unique_users',
+        views: 'ab_test_sms_verification_test_variant_b_views',
+        conversions: 'ab_test_sms_verification_test_variant_b_conversions'
+      }
+    };
+
+    // Generuj losowe dane testowe
+    const testData = {
+      variantA: {
+        uniqueUsers: Math.floor(Math.random() * 100) + 10,
+        views: Math.floor(Math.random() * 200) + 50,
+        conversions: Math.floor(Math.random() * 20) + 1
+      },
+      variantB: {
+        uniqueUsers: Math.floor(Math.random() * 100) + 10,
+        views: Math.floor(Math.random() * 200) + 50,
+        conversions: Math.floor(Math.random() * 20) + 1
+      }
+    };
+
+    // Zapisz dane do localStorage
+    localStorage.setItem(keys.variantA.uniqueUsers, testData.variantA.uniqueUsers.toString());
+    localStorage.setItem(keys.variantA.views, testData.variantA.views.toString());
+    localStorage.setItem(keys.variantA.conversions, testData.variantA.conversions.toString());
+    localStorage.setItem(keys.variantB.uniqueUsers, testData.variantB.uniqueUsers.toString());
+    localStorage.setItem(keys.variantB.views, testData.variantB.views.toString());
+    localStorage.setItem(keys.variantB.conversions, testData.variantB.conversions.toString());
+
+    console.log('🧪 Test data generated:', testData);
+    
+    // Odśwież statystyki
+    refreshStats();
   };
 
   const getDirectStats = (): ABTestStats => {
@@ -56,56 +126,66 @@ const ABTestStats = () => {
       }
     };
     
-    // BEZPOŚREDNI ODCZYT z POPRAWNYM parsowaniem
-    const variantAUniqueUsers = parseLocalStorageValue(localStorage.getItem(keys.variantA.uniqueUsers));
-    const variantAViews = parseLocalStorageValue(localStorage.getItem(keys.variantA.views));
-    const variantAConversions = parseLocalStorageValue(localStorage.getItem(keys.variantA.conversions));
-    const variantBUniqueUsers = parseLocalStorageValue(localStorage.getItem(keys.variantB.uniqueUsers));
-    const variantBViews = parseLocalStorageValue(localStorage.getItem(keys.variantB.views));
-    const variantBConversions = parseLocalStorageValue(localStorage.getItem(keys.variantB.conversions));
+    console.log('🔍 [ABTestStats] Checking localStorage with keys:', keys);
     
-    console.log('🔍 [ABTestStats] RAW VALUES FROM LOCALSTORAGE:');
-    console.log(`  ${keys.variantA.uniqueUsers} = "${localStorage.getItem(keys.variantA.uniqueUsers)}" -> ${variantAUniqueUsers}`);
-    console.log(`  ${keys.variantA.views} = "${localStorage.getItem(keys.variantA.views)}" -> ${variantAViews}`);
-    console.log(`  ${keys.variantA.conversions} = "${localStorage.getItem(keys.variantA.conversions)}" -> ${variantAConversions}`);
-    console.log(`  ${keys.variantB.uniqueUsers} = "${localStorage.getItem(keys.variantB.uniqueUsers)}" -> ${variantBUniqueUsers}`);
-    console.log(`  ${keys.variantB.views} = "${localStorage.getItem(keys.variantB.views)}" -> ${variantBViews}`);
-    console.log(`  ${keys.variantB.conversions} = "${localStorage.getItem(keys.variantB.conversions)}" -> ${variantBConversions}`);
-    
-    const directStats = {
+    // ODCZYTAJ BEZPOŚREDNIO Z LOCALSTORAGE
+    const rawValues = {
       variantA: {
-        uniqueUsers: variantAUniqueUsers,
-        totalViews: variantAViews,
-        conversions: variantAConversions,
+        uniqueUsers: localStorage.getItem(keys.variantA.uniqueUsers),
+        views: localStorage.getItem(keys.variantA.views),
+        conversions: localStorage.getItem(keys.variantA.conversions)
       },
       variantB: {
-        uniqueUsers: variantBUniqueUsers,
-        totalViews: variantBViews,
-        conversions: variantBConversions,
+        uniqueUsers: localStorage.getItem(keys.variantB.uniqueUsers),
+        views: localStorage.getItem(keys.variantB.views),
+        conversions: localStorage.getItem(keys.variantB.conversions)
       }
     };
     
-    console.log('📈 [ABTestStats] FINAL PARSED STATS:', directStats);
+    console.log('🔍 [ABTestStats] RAW VALUES FROM LOCALSTORAGE:', rawValues);
     
-    // Debug info
-    const allAbTestKeys: string[] = [];
+    // PARSUJ WSZYSTKIE WARTOŚCI
+    const parsedStats = {
+      variantA: {
+        uniqueUsers: parseLocalStorageValue(rawValues.variantA.uniqueUsers),
+        totalViews: parseLocalStorageValue(rawValues.variantA.views),
+        conversions: parseLocalStorageValue(rawValues.variantA.conversions),
+      },
+      variantB: {
+        uniqueUsers: parseLocalStorageValue(rawValues.variantB.uniqueUsers),
+        totalViews: parseLocalStorageValue(rawValues.variantB.views),
+        conversions: parseLocalStorageValue(rawValues.variantB.conversions),
+      }
+    };
+    
+    console.log('📈 [ABTestStats] PARSED STATS:', parsedStats);
+    
+    // Debug info - sprawdź WSZYSTKIE klucze w localStorage
+    const allKeys: string[] = [];
+    const abTestKeys: string[] = [];
+    
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (key && key.includes('ab_test_sms_verification_test')) {
-        allAbTestKeys.push(`${key}: ${localStorage.getItem(key)}`);
+      if (key) {
+        allKeys.push(`${key}: "${localStorage.getItem(key)}"`);
+        if (key.includes('ab_test_sms_verification_test')) {
+          abTestKeys.push(`${key}: "${localStorage.getItem(key)}"`);
+        }
       }
     }
     
     setDebugInfo([
       `Odświeżone o: ${new Date().toLocaleTimeString()}`,
       `NAPRAWIONE: Teraz parsuje "null" jako 0`,
-      `Variant A: ${directStats.variantA.uniqueUsers} users, ${directStats.variantA.totalViews} views, ${directStats.variantA.conversions} conversions`,
-      `Variant B: ${directStats.variantB.uniqueUsers} users, ${directStats.variantB.totalViews} views, ${directStats.variantB.conversions} conversions`,
-      `Found A/B test keys: ${allAbTestKeys.length}`,
-      ...allAbTestKeys
+      `Variant A: ${parsedStats.variantA.uniqueUsers} users, ${parsedStats.variantA.totalViews} views, ${parsedStats.variantA.conversions} conversions`,
+      `Variant B: ${parsedStats.variantB.uniqueUsers} users, ${parsedStats.variantB.totalViews} views, ${parsedStats.variantB.conversions} conversions`,
+      `Found A/B test keys: ${abTestKeys.length}`,
+      ...abTestKeys,
+      `Total localStorage keys: ${allKeys.length}`,
+      `UWAGA: Jeśli wszystkie dane to 0, użyj przycisku "GENERUJ TESTOWE DANE"`
     ]);
     
-    return directStats;
+    return parsedStats;
   };
 
   // Funkcja do resetowania statystyk
@@ -219,28 +299,37 @@ const ABTestStats = () => {
                 </ul>
               </div>
               
-              <div className="border-t pt-4">
-                <Button 
-                  variant="outline" 
-                  onClick={refreshStats}
-                  className="mr-2 bg-green-100 hover:bg-green-200"
-                >
-                  🔄 ODŚWIEŻ DANE (NAPRAWIONE!)
-                </Button>
-                <Button 
-                  variant="outline" 
-                  onClick={() => {
-                    console.log('🔍 [DEBUG] Manual localStorage check:');
-                    for (let i = 0; i < localStorage.length; i++) {
-                      const key = localStorage.key(i);
-                      if (key) {
-                        console.log(`${key}: ${localStorage.getItem(key)}`);
+              <div className="border-t pt-4 space-y-2">
+                <div className="flex flex-wrap gap-2">
+                  <Button 
+                    variant="outline" 
+                    onClick={refreshStats}
+                    className="bg-green-100 hover:bg-green-200"
+                  >
+                    🔄 ODŚWIEŻ DANE (NAPRAWIONE!)
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    onClick={generateTestData}
+                    className="bg-blue-100 hover:bg-blue-200"
+                  >
+                    🧪 GENERUJ TESTOWE DANE
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    onClick={() => {
+                      console.log('🔍 [DEBUG] Manual localStorage check:');
+                      for (let i = 0; i < localStorage.length; i++) {
+                        const key = localStorage.key(i);
+                        if (key) {
+                          console.log(`${key}: ${localStorage.getItem(key)}`);
+                        }
                       }
-                    }
-                  }}
-                >
-                  🔍 Debug localStorage
-                </Button>
+                    }}
+                  >
+                    🔍 Debug localStorage
+                  </Button>
+                </div>
               </div>
             </div>
           </CardContent>
