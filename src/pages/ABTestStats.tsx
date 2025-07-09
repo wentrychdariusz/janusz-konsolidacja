@@ -1,672 +1,288 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { useABTestSettings } from '../hooks/useABTestSettings';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { useSimpleTracking } from '../hooks/useSimpleTracking';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-interface ABTestStats {
-  variantA: {
-    uniqueUsers: number;
-    totalViews: number;
-    conversions: number;
-  };
-  variantB: {
-    uniqueUsers: number;
-    totalViews: number;
-    conversions: number;
-  };
+interface VariantStats {
+  users: number;
+  views: number;
+  conversions: number;
+  conversionRate: number;
 }
 
 const ABTestStats = () => {
-  const { settings, updateSettings, resetSettings } = useABTestSettings();
-  const [stats, setStats] = useState<ABTestStats>({
-    variantA: { uniqueUsers: 0, totalViews: 0, conversions: 0 },
-    variantB: { uniqueUsers: 0, totalViews: 0, conversions: 0 }
-  });
-  const [debugInfo, setDebugInfo] = useState<string[]>([]);
+  const { getStats, clearStats } = useSimpleTracking();
+  const [variantA, setVariantA] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
+  const [variantB, setVariantB] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
+  const [lastUpdate, setLastUpdate] = useState<string>('');
 
-  // FINALNIE NAPRAWIONA funkcja parsowania
-  const parseLocalStorageValue = (value: string | null): number => {
-    console.log(`🔍 parseLocalStorageValue called with:`, value, `(type: ${typeof value})`);
+  const refreshStats = () => {
+    console.log('🔄 Refreshing A/B test stats...');
+    const stats = getStats();
     
-    // Jeśli wartość to null lub undefined, zwróć 0
-    if (value === null || value === undefined) {
-      console.log('  → null/undefined value, returning 0');
-      return 0;
-    }
+    // Wariant A
+    const aUsers = stats.eventsByVariant['page_view_sms_verification_A'] || 0;
+    const aViews = stats.eventsByType['page_view_sms_verification'] || 0; // wszystkie wyświetlenia
+    const aConversions = stats.eventsByVariant['conversion_thank_you_A'] || 0;
+    const aConversionRate = aUsers > 0 ? (aConversions / aUsers) * 100 : 0;
     
-    // Jeśli wartość to string "null" lub "undefined", zwróć 0
-    if (value === "null" || value === "undefined" || value === "") {
-      console.log(`  → string "${value}", returning 0`);
-      return 0;
-    }
+    // Wariant B  
+    const bUsers = stats.eventsByVariant['page_view_sms_verification_B'] || 0;
+    const bViews = stats.eventsByType['page_view_sms_verification'] || 0; // wszystkie wyświetlenia
+    const bConversions = stats.eventsByVariant['conversion_thank_you_B'] || 0;
+    const bConversionRate = bUsers > 0 ? (bConversions / bUsers) * 100 : 0;
     
-    // Spróbuj sparsować jako liczbę
-    const parsed = parseInt(value, 10);
-    if (isNaN(parsed)) {
-      console.log(`  → NaN after parsing "${value}", returning 0`);
-      return 0;
-    }
+    setVariantA({ users: aUsers, views: aViews, conversions: aConversions, conversionRate: aConversionRate });
+    setVariantB({ users: bUsers, views: bViews, conversions: bConversions, conversionRate: bConversionRate });
+    setLastUpdate(new Date().toLocaleTimeString());
     
-    console.log(`  → successfully parsed "${value}" to ${parsed}`);
-    return parsed;
+    console.log('📊 Stats updated:', { variantA: { users: aUsers, conversions: aConversions, rate: aConversionRate }, variantB: { users: bUsers, conversions: bConversions, rate: bConversionRate } });
   };
 
-  // Funkcja do generowania testowych danych
   const generateTestData = () => {
-    console.log('🧪 Generating test data...');
+    console.log('🧪 Generating realistic test data...');
     
-    const keys = {
-      variantA: {
-        uniqueUsers: 'ab_test_sms_verification_test_variant_a_unique_users',
-        views: 'ab_test_sms_verification_test_variant_a_views', 
-        conversions: 'ab_test_sms_verification_test_variant_a_conversions'
-      },
-      variantB: {
-        uniqueUsers: 'ab_test_sms_verification_test_variant_b_unique_users',
-        views: 'ab_test_sms_verification_test_variant_b_views',
-        conversions: 'ab_test_sms_verification_test_variant_b_conversions'
-      }
-    };
-
-    // Generuj REALISTYCZNE dane testowe
-    const testData = {
-      variantA: {
-        uniqueUsers: 45,
-        views: 87,
-        conversions: 12
-      },
-      variantB: {
-        uniqueUsers: 52,
-        views: 94,
-        conversions: 18
-      }
-    };
-
-    console.log('🧪 Setting REALISTIC test data:', testData);
-
-    // Zapisz dane do localStorage z dokładnym debugowaniem
-    Object.entries(keys.variantA).forEach(([key, storageKey]) => {
-      const value = testData.variantA[key as keyof typeof testData.variantA].toString();
-      localStorage.setItem(storageKey, value);
-      console.log(`✅ Set ${storageKey} = "${value}"`);
-    });
-
-    Object.entries(keys.variantB).forEach(([key, storageKey]) => {
-      const value = testData.variantB[key as keyof typeof testData.variantB].toString();
-      localStorage.setItem(storageKey, value);
-      console.log(`✅ Set ${storageKey} = "${value}"`);
-    });
-    
-    // Odśwież statystyki
-    setTimeout(() => {
-      console.log('🔄 Refreshing stats after test data generation...');
-      refreshStats();
-    }, 100);
-  };
-
-  const getDirectStats = (): ABTestStats => {
-    console.log('📈 [ABTestStats] getDirectStats called at:', new Date().toISOString());
-    
-    // SPRAWDŹ WSZYSTKIE KLUCZE W LOCALSTORAGE NAJPIERW
-    console.log('🔍 [DEBUG] WSZYSTKIE KLUCZE localStorage:');
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key) {
-        const value = localStorage.getItem(key);
-        console.log(`  🔑 ${key}: "${value}"`);
-      }
-    }
-    
-    // KLUCZE DOKŁADNIE TAKIE JAKIE ZAPISUJE useABTest
-    const keys = {
-      variantA: {
-        uniqueUsers: 'ab_test_sms_verification_test_variant_a_unique_users',
-        views: 'ab_test_sms_verification_test_variant_a_views', 
-        conversions: 'ab_test_sms_verification_test_variant_a_conversions'
-      },
-      variantB: {
-        uniqueUsers: 'ab_test_sms_verification_test_variant_b_unique_users',
-        views: 'ab_test_sms_verification_test_variant_b_views',
-        conversions: 'ab_test_sms_verification_test_variant_b_conversions'
-      }
-    };
-    
-    console.log('🔍 [ABTestStats] EXACT KEYS TO MATCH useABTest:', keys);
-    
-    // ODCZYTAJ BEZPOŚREDNIO Z LOCALSTORAGE
-    const rawValues = {
-      variantA: {
-        uniqueUsers: localStorage.getItem(keys.variantA.uniqueUsers),
-        views: localStorage.getItem(keys.variantA.views),
-        conversions: localStorage.getItem(keys.variantA.conversions)
-      },
-      variantB: {
-        uniqueUsers: localStorage.getItem(keys.variantB.uniqueUsers),
-        views: localStorage.getItem(keys.variantB.views),
-        conversions: localStorage.getItem(keys.variantB.conversions)
-      }
-    };
-    
-    console.log('🔍 [ABTestStats] RAW VALUES FROM LOCALSTORAGE:', rawValues);
-    
-    // PARSUJ WSZYSTKIE WARTOŚCI
-    const parsedStats = {
-      variantA: {
-        uniqueUsers: parseLocalStorageValue(rawValues.variantA.uniqueUsers),
-        totalViews: parseLocalStorageValue(rawValues.variantA.views),
-        conversions: parseLocalStorageValue(rawValues.variantA.conversions),
-      },
-      variantB: {
-        uniqueUsers: parseLocalStorageValue(rawValues.variantB.uniqueUsers),
-        totalViews: parseLocalStorageValue(rawValues.variantB.views),
-        conversions: parseLocalStorageValue(rawValues.variantB.conversions),
-      }
-    };
-    
-    console.log('📈 [ABTestStats] PARSED STATS:', parsedStats);
-    
-    // Debug info - sprawdź WSZYSTKIE klucze w localStorage
-    const allKeys: string[] = [];
-    const abTestKeys: string[] = [];
-    
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key) {
-        allKeys.push(`${key}: "${localStorage.getItem(key)}"`);
-        if (key.includes('ab_test_sms_verification_test')) {
-          abTestKeys.push(`${key}: "${localStorage.getItem(key)}"`);
-        }
-      }
-    }
-    
-    setDebugInfo([
-      `⏰ Odświeżone o: ${new Date().toLocaleTimeString()}`,
-      `🎯 Variant A: ${parsedStats.variantA.uniqueUsers} users, ${parsedStats.variantA.totalViews} views, ${parsedStats.variantA.conversions} conversions`,
-      `🎯 Variant B: ${parsedStats.variantB.uniqueUsers} users, ${parsedStats.variantB.totalViews} views, ${parsedStats.variantB.conversions} conversions`,
-      `📊 Found A/B test keys: ${abTestKeys.length}`,
-      ...abTestKeys.slice(0, 10), // Limit output
-      `💾 Total localStorage keys: ${allKeys.length}`,
-      parsedStats.variantA.uniqueUsers + parsedStats.variantB.uniqueUsers === 0 
-        ? `⚠️ BRAK DANYCH - Kliknij "GENERUJ TESTOWE DANE" lub idź na stronę SMS i wróć tutaj`
-        : `✅ DANE SĄ OBECNE - wszystko działa!`
-    ]);
-    
-    return parsedStats;
-  };
-
-  // Funkcja do resetowania statystyk
-  const resetStats = () => {
-    const keys = [
-      'ab_test_sms_verification_test_variant_a_unique_users',
-      'ab_test_sms_verification_test_variant_a_views',
-      'ab_test_sms_verification_test_variant_a_conversions',
-      'ab_test_sms_verification_test_variant_b_unique_users',
-      'ab_test_sms_verification_test_variant_b_views',
-      'ab_test_sms_verification_test_variant_b_conversions',
+    // Symuluj realistyczne dane A/B test
+    const testEvents = [
+      // Wariant A - 45 użytkowników, 12 konwersji (26.7%)
+      ...Array(45).fill(0).map(() => ({ event: 'page_view_sms_verification', variant: 'A' })),
+      ...Array(12).fill(0).map(() => ({ event: 'conversion_thank_you', variant: 'A' })),
+      
+      // Wariant B - 52 użytkowników, 18 konwersji (34.6%)  
+      ...Array(52).fill(0).map(() => ({ event: 'page_view_sms_verification', variant: 'B' })),
+      ...Array(18).fill(0).map(() => ({ event: 'conversion_thank_you', variant: 'B' })),
     ];
     
-    console.log('🔄 [ABTestStats] Resetting stats, removing keys:', keys);
-    keys.forEach(key => {
-      console.log(`🗑️ [ABTestStats] Removing key: ${key}`);
-      localStorage.removeItem(key);
-    });
-    console.log('🔄 [ABTestStats] All stats reset');
+    // Wyczyść poprzednie dane
+    clearStats();
     
-    // Odśwież statystyki po resecie
-    refreshStats();
+    // Dodaj testowe eventy
+    testEvents.forEach(({ event, variant }) => {
+      const eventData = { 
+        timestamp: Date.now(), 
+        sessionId: `test_${Math.random().toString(36)}`, 
+        event, 
+        variant 
+      };
+      
+      const existingEvents = JSON.parse(localStorage.getItem('simple_tracking_events') || '[]');
+      existingEvents.push(eventData);
+      localStorage.setItem('simple_tracking_events', JSON.stringify(existingEvents));
+    });
+    
+    console.log('✅ Test data generated');
+    setTimeout(refreshStats, 100);
   };
 
-  // Funkcja do odświeżania statystyk
-  const refreshStats = () => {
-    console.log('🔄 [ABTestStats] refreshStats called - button clicked!');
-    const newStats = getDirectStats();
-    setStats(newStats);
-    console.log('🔄 [ABTestStats] Stats refreshed:', newStats);
-  };
-
-  // Załaduj statystyki przy pierwszym renderze
   useEffect(() => {
-    console.log('🚀 [ABTestStats] Component mounted, loading initial stats');
     refreshStats();
   }, []);
-
-  const calculateConversionRate = (conversions: number, uniqueUsers: number) => {
-    if (uniqueUsers === 0) return 0;
-    return ((conversions / uniqueUsers) * 100).toFixed(2);
-  };
 
   const chartData = [
     {
       name: 'Wariant A',
-      'Unikalni użytkownicy': stats.variantA.uniqueUsers,
-      'Wyświetlenia': stats.variantA.totalViews,
-      'Konwersje': stats.variantA.conversions,
+      'Użytkownicy': variantA.users,
+      'Konwersje': variantA.conversions,
     },
     {
-      name: 'Wariant B',
-      'Unikalni użytkownicy': stats.variantB.uniqueUsers,
-      'Wyświetlenia': stats.variantB.totalViews,
-      'Konwersje': stats.variantB.conversions,
+      name: 'Wariant B', 
+      'Użytkownicy': variantB.users,
+      'Konwersje': variantB.conversions,
     },
   ];
 
-  const pieData = [
-    { name: 'Wariant A', value: stats.variantA.uniqueUsers, color: '#3b82f6' },
-    { name: 'Wariant B', value: stats.variantB.uniqueUsers, color: '#ef4444' },
-  ];
-
-  const totalUsers = stats.variantA.uniqueUsers + stats.variantB.uniqueUsers;
-  const totalConversions = stats.variantA.conversions + stats.variantB.conversions;
+  const totalUsers = variantA.users + variantB.users;
+  const totalConversions = variantA.conversions + variantB.conversions;
+  const overallConversionRate = totalUsers > 0 ? (totalConversions / totalUsers) * 100 : 0;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="max-w-6xl mx-auto space-y-6">
+        
+        {/* Header */}
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Statystyki A/B Test - SMS Verification
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            A/B Test - SMS Verification
           </h1>
-          <p className="text-gray-600">
-            Zarządzanie i analiza testów A/B dla strony weryfikacji SMS
+          <p className="text-gray-600 text-lg">
+            Analiza skuteczności wariantów strony weryfikacji
           </p>
-        </div>
-
-        {/* Enhanced Debug Panel */}
-        <Card className="border-yellow-200 bg-yellow-50">
-          <CardHeader>
-            <CardTitle className="text-yellow-800">Debug - NAPRAWIONE PARSOWANIE</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4 text-sm">
-                <div>
-                  <strong>Wariant A:</strong>
-                  <ul className="ml-4">
-                    <li>Unikalni: {stats.variantA.uniqueUsers}</li>
-                    <li>Wyświetlenia: {stats.variantA.totalViews}</li>
-                    <li>Konwersje: {stats.variantA.conversions}</li>
-                  </ul>
-                </div>
-                <div>
-                  <strong>Wariant B:</strong>
-                  <ul className="ml-4">
-                    <li>Unikalni: {stats.variantB.uniqueUsers}</li>
-                    <li>Wyświetlenia: {stats.variantB.totalViews}</li>
-                    <li>Konwersje: {stats.variantB.conversions}</li>
-                  </ul>
-                </div>
-              </div>
-              
-              <div className="border-t pt-4">
-                <strong>Debug Info:</strong>
-                <ul className="ml-4 text-xs">
-                  {debugInfo.map((info, index) => (
-                    <li key={index}>{info}</li>
-                  ))}
-                </ul>
-              </div>
-              
-              <div className="border-t pt-4 space-y-2">
-                <div className="flex flex-wrap gap-2">
-                  <Button 
-                    variant="outline" 
-                    onClick={refreshStats}
-                    className="bg-green-100 hover:bg-green-200"
-                  >
-                    🔄 ODŚWIEŻ DANE
-                  </Button>
-                  <Button 
-                    variant="default" 
-                    onClick={generateTestData}
-                    className="bg-blue-600 text-white hover:bg-blue-700"
-                  >
-                    🧪 WYGENERUJ TESTOWE DANE
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    onClick={() => {
-                      alert('🔍 DEBUG ROZPOCZĘTY - sprawdź konsolę!');
-                      console.log('🔍 [MANUAL DEBUG] === ROZPOCZĘCIE DEBUGOWANIA ===');
-                      console.log('🔍 [MANUAL DEBUG] Checking ALL localStorage keys for A/B test:');
-                      
-                      let foundABTestKeys = 0;
-                      let allKeys = [];
-                      
-                      // Sprawdź WSZYSTKIE klucze
-                      for (let i = 0; i < localStorage.length; i++) {
-                        const key = localStorage.key(i);
-                        if (key) {
-                          const value = localStorage.getItem(key);
-                          allKeys.push(`${key}: "${value}"`);
-                          
-                          if (key.includes('ab_test') || key.includes('sms_verification')) {
-                            console.log(`🔑 FOUND A/B TEST: ${key}: "${value}"`);
-                            foundABTestKeys++;
-                          }
-                        }
-                      }
-                      
-                      console.log(`📊 Found ${foundABTestKeys} A/B test related keys out of ${allKeys.length} total keys`);
-                      console.log('🗂️ ALL localStorage keys:');
-                      allKeys.forEach(keyValue => console.log(`  ${keyValue}`));
-                      
-                      // Sprawdź DOKŁADNIE te klucze które powinny być z useABTest
-                      const testKeys = [
-                        'ab_test_sms_verification_test', // user variant
-                        'ab_test_sms_verification_test_variant_a_unique_users',
-                        'ab_test_sms_verification_test_variant_a_views',
-                        'ab_test_sms_verification_test_variant_a_conversions',
-                        'ab_test_sms_verification_test_variant_b_unique_users', 
-                        'ab_test_sms_verification_test_variant_b_views',
-                        'ab_test_sms_verification_test_variant_b_conversions'
-                      ];
-                      
-                      console.log('🎯 [MANUAL DEBUG] Checking EXACT expected keys from useABTest:');
-                      testKeys.forEach(key => {
-                        const value = localStorage.getItem(key);
-                        const exists = value !== null && value !== "null";
-                        console.log(`📊 ${exists ? '✅' : '❌'} ${key}: "${value}"`);
-                      });
-                      
-                      console.log('🔍 [MANUAL DEBUG] === KONIEC DEBUGOWANIA ===');
-                      alert(`🔍 Debug zakończony! Znaleziono ${foundABTestKeys} kluczy A/B test z ${allKeys.length} total`);
-                      
-                      refreshStats();
-                    }}
-                    className="bg-yellow-100 hover:bg-yellow-200 border-yellow-300"
-                  >
-                    🔍 DEBUG WSZYSTKO
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Ustawienia A/B Testu */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Ustawienia A/B Testu</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <Switch
-                  id="ab-test-enabled"
-                  checked={settings.sms_verification_enabled}
-                  onCheckedChange={(enabled) => 
-                    updateSettings({ sms_verification_enabled: enabled })
-                  }
-                />
-                <Label htmlFor="ab-test-enabled">
-                  Włącz A/B Test
-                </Label>
-              </div>
-              
-              <Badge variant={settings.sms_verification_enabled ? "default" : "secondary"}>
-                {settings.sms_verification_enabled ? "Aktywny" : "Wyłączony"}
-              </Badge>
-            </div>
-
-            <div className="space-y-2">
-              <Label>Wymuszony wariant</Label>
-              <div className="flex items-center space-x-4">
-                <Select
-                  value={settings.sms_verification_force_variant || "none"}
-                  onValueChange={(value) => 
-                    updateSettings({ 
-                      sms_verification_force_variant: value === "none" ? undefined : value as "A" | "B"
-                    })
-                  }
-                >
-                  <SelectTrigger className="w-48">
-                    <SelectValue placeholder="Wybierz wariant" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="none">Automatyczny podział</SelectItem>
-                    <SelectItem value="A">Wymuszony wariant A</SelectItem>
-                    <SelectItem value="B">Wymuszony wariant B</SelectItem>
-                  </SelectContent>
-                </Select>
-                
-                {settings.sms_verification_force_variant && (
-                  <Badge variant="outline">
-                    Wariant {settings.sms_verification_force_variant} wymuszony
-                  </Badge>
-                )}
-              </div>
-            </div>
-
-            <div className="flex space-x-2">
-              <Button 
-                variant="outline" 
-                onClick={resetSettings}
-                size="sm"
-              >
-                Reset ustawień
-              </Button>
-              <Button 
-                variant="default" 
-                onClick={() => {
-                  // Wymuś wariant B i wyczyść localStorage żeby przetestować
-                  updateSettings({ sms_verification_force_variant: 'B' });
-                  localStorage.removeItem('ab_test_sms_verification_test');
-                  alert('✅ Wymuszono wariant B! Idź teraz na /sms-verification');
-                }}
-                size="sm"
-                className="bg-red-600 text-white hover:bg-red-700"
-              >
-                🧪 TESTUJ WARIANT B
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Podsumowanie */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Łączni użytkownicy</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{totalUsers}</div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Łączne konwersje</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-purple-600">{totalConversions}</div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Konwersja A</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-blue-600">
-                {calculateConversionRate(stats.variantA.conversions, stats.variantA.uniqueUsers)}%
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Konwersja B</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-red-600">
-                {calculateConversionRate(stats.variantB.conversions, stats.variantB.uniqueUsers)}%
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Szczegółowe statystyki */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Wariant A (Oryginalny)</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-3 gap-4 text-center">
-                <div>
-                  <div className="text-2xl font-bold text-blue-600">
-                    {stats.variantA.uniqueUsers}
-                  </div>
-                  <div className="text-sm text-gray-500">Unikalni użytkownicy</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-blue-600">
-                    {stats.variantA.totalViews}
-                  </div>
-                  <div className="text-sm text-gray-500">Wyświetlenia</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-green-600">
-                    {stats.variantA.conversions}
-                  </div>
-                  <div className="text-sm text-gray-500">Konwersje</div>
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-lg font-semibold">
-                  Współczynnik konwersji: {calculateConversionRate(stats.variantA.conversions, stats.variantA.uniqueUsers)}%
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Wariant B (Agresywny)</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-3 gap-4 text-center">
-                <div>
-                  <div className="text-2xl font-bold text-red-600">
-                    {stats.variantB.uniqueUsers}
-                  </div>
-                  <div className="text-sm text-gray-500">Unikalni użytkownicy</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-red-600">
-                    {stats.variantB.totalViews}
-                  </div>
-                  <div className="text-sm text-gray-500">Wyświetlenia</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-green-600">
-                    {stats.variantB.conversions}
-                  </div>
-                  <div className="text-sm text-gray-500">Konwersje</div>
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-lg font-semibold">
-                  Współczynnik konwersji: {calculateConversionRate(stats.variantB.conversions, stats.variantB.uniqueUsers)}%
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Wykresy */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Porównanie wariantów</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="Unikalni użytkownicy" fill="#3b82f6" />
-                  <Bar dataKey="Konwersje" fill="#10b981" />
-                </BarChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Podział użytkowników</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <PieChart>
-                  <Pie
-                    data={pieData}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                    outerRadius={80}
-                    fill="#8884d8"
-                    dataKey="value"
-                  >
-                    {pieData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                </PieChart>
-              </ResponsiveContainer>
-            </CardContent>
-          </Card>
+          {lastUpdate && (
+            <Badge variant="outline" className="mt-2">
+              Ostatnia aktualizacja: {lastUpdate}
+            </Badge>
+          )}
         </div>
 
         {/* Akcje */}
+        <div className="flex justify-center gap-4">
+          <Button onClick={refreshStats} variant="outline" className="bg-green-50 hover:bg-green-100 border-green-200">
+            🔄 Odśwież dane
+          </Button>
+          <Button onClick={generateTestData} className="bg-blue-600 hover:bg-blue-700 text-white">
+            🧪 Wygeneruj testowe dane
+          </Button>
+          <Button onClick={() => { clearStats(); refreshStats(); }} variant="destructive">
+            🗑️ Wyczyść wszystko
+          </Button>
+        </div>
+
+        {/* Podsumowanie ogólne */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="text-center">
+            <CardHeader>
+              <CardTitle className="text-lg">Łączni użytkownicy</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-blue-600">{totalUsers}</div>
+            </CardContent>
+          </Card>
+          
+          <Card className="text-center">
+            <CardHeader>
+              <CardTitle className="text-lg">Łączne konwersje</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-green-600">{totalConversions}</div>
+            </CardContent>
+          </Card>
+          
+          <Card className="text-center">
+            <CardHeader>
+              <CardTitle className="text-lg">Średni współczynnik</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-purple-600">{overallConversionRate.toFixed(1)}%</div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Porównanie wariantów - główne karty */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          {/* Wariant A */}
+          <Card className="border-blue-200 bg-blue-50/30">
+            <CardHeader className="bg-blue-100 border-b border-blue-200">
+              <CardTitle className="text-2xl text-blue-800 flex items-center justify-between">
+                Wariant A (Oryginalny)
+                <Badge className="bg-blue-600 text-white text-lg px-3 py-1">
+                  {variantA.conversionRate.toFixed(1)}%
+                </Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="space-y-4">
+                <div className="flex justify-between items-center py-3 border-b border-blue-100">
+                  <span className="text-lg font-medium text-gray-700">Unikalni użytkownicy:</span>
+                  <span className="text-2xl font-bold text-blue-600">{variantA.users}</span>
+                </div>
+                <div className="flex justify-between items-center py-3 border-b border-blue-100">
+                  <span className="text-lg font-medium text-gray-700">Wyświetlenia:</span>
+                  <span className="text-2xl font-bold text-blue-600">{variantA.views}</span>
+                </div>
+                <div className="flex justify-between items-center py-3 border-b border-blue-100">
+                  <span className="text-lg font-medium text-gray-700">Konwersje:</span>
+                  <span className="text-2xl font-bold text-green-600">{variantA.conversions}</span>
+                </div>
+                <div className="bg-blue-100 p-4 rounded-lg text-center">
+                  <div className="text-sm text-blue-700 font-medium">Współczynnik konwersji</div>
+                  <div className="text-4xl font-bold text-blue-800">{variantA.conversionRate.toFixed(1)}%</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Wariant B */}
+          <Card className="border-red-200 bg-red-50/30">
+            <CardHeader className="bg-red-100 border-b border-red-200">
+              <CardTitle className="text-2xl text-red-800 flex items-center justify-between">
+                Wariant B (Agresywny)
+                <Badge className="bg-red-600 text-white text-lg px-3 py-1">
+                  {variantB.conversionRate.toFixed(1)}%
+                </Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="space-y-4">
+                <div className="flex justify-between items-center py-3 border-b border-red-100">
+                  <span className="text-lg font-medium text-gray-700">Unikalni użytkownicy:</span>
+                  <span className="text-2xl font-bold text-red-600">{variantB.users}</span>
+                </div>
+                <div className="flex justify-between items-center py-3 border-b border-red-100">
+                  <span className="text-lg font-medium text-gray-700">Wyświetlenia:</span>
+                  <span className="text-2xl font-bold text-red-600">{variantB.views}</span>
+                </div>
+                <div className="flex justify-between items-center py-3 border-b border-red-100">
+                  <span className="text-lg font-medium text-gray-700">Konwersje:</span>
+                  <span className="text-2xl font-bold text-green-600">{variantB.conversions}</span>
+                </div>
+                <div className="bg-red-100 p-4 rounded-lg text-center">
+                  <div className="text-sm text-red-700 font-medium">Współczynnik konwersji</div>
+                  <div className="text-4xl font-bold text-red-800">{variantB.conversionRate.toFixed(1)}%</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Wykres porównawczy */}
         <Card>
           <CardHeader>
-            <CardTitle>Akcje</CardTitle>
+            <CardTitle className="text-xl">Porównanie wizualne wariantów</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex space-x-4">
-              <Button 
-                variant="destructive" 
-                onClick={() => {
-                  if (confirm('Czy na pewno chcesz zresetować wszystkie statystyki?')) {
-                    resetStats();
-                  }
-                }}
-              >
-                Reset wszystkich statystyk
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={refreshStats}
-              >
-                Odśwież dane
-              </Button>
-              <Button 
-                variant="outline" 
-                onClick={() => {
-                  console.log('LocalStorage keys:');
-                  for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    if (key?.includes('ab_test')) {
-                      console.log(`${key}: ${localStorage.getItem(key)}`);
-                    }
-                  }
-                }}
-              >
-                Debug localStorage
-              </Button>
+            <ResponsiveContainer width="100%" height={400}>
+              <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="Użytkownicy" fill="#3b82f6" name="Użytkownicy" />
+                <Bar dataKey="Konwersje" fill="#10b981" name="Konwersje" />
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* Analiza wyników */}
+        <Card className="border-yellow-200 bg-yellow-50">
+          <CardHeader>
+            <CardTitle className="text-xl text-yellow-800">Analiza wyników</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h3 className="font-semibold text-lg mb-2">Statystyki różnic:</h3>
+                <ul className="space-y-2 text-sm">
+                  <li>• Różnica w użytkownikach: <strong>{Math.abs(variantB.users - variantA.users)}</strong></li>
+                  <li>• Różnica w konwersjach: <strong>{Math.abs(variantB.conversions - variantA.conversions)}</strong></li>
+                  <li>• Różnica w współczynniku: <strong>{Math.abs(variantB.conversionRate - variantA.conversionRate).toFixed(1)}%</strong></li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg mb-2">Zwycięzca:</h3>
+                <div className="text-2xl font-bold">
+                  {variantB.conversionRate > variantA.conversionRate ? (
+                    <span className="text-red-600">🏆 Wariant B prowadzi!</span>
+                  ) : variantA.conversionRate > variantB.conversionRate ? (
+                    <span className="text-blue-600">🏆 Wariant A prowadzi!</span>
+                  ) : (
+                    <span className="text-gray-600">🤝 Remis</span>
+                  )}
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
+
+        {/* Footer info */}
+        <div className="text-center text-gray-500 text-sm">
+          <p>Statystyki oparte na unikalnych sesjach (1 godzina ważności) • Dane przechowywane lokalnie</p>
+        </div>
+
       </div>
     </div>
   );
