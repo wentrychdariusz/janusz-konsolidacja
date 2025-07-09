@@ -28,8 +28,11 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    console.log('🚀 useABTest hook initializing with config:', { testName, splitRatio, forceVariant, enabled });
+    
     // Jeśli A/B test jest wyłączony, zawsze używaj wariantu A
     if (!enabled) {
+      console.log('❌ A/B Test disabled, using variant A');
       setVariant('A');
       setIsLoaded(true);
       return;
@@ -39,17 +42,22 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
     const storageKey = `ab_test_${testName}`;
     const existingVariant = localStorage.getItem(storageKey) as ABVariant;
     
+    console.log(`🔍 Checking localStorage for key: ${storageKey}, found: ${existingVariant}`);
+    
     if (existingVariant && (existingVariant === 'A' || existingVariant === 'B')) {
       // Użyj nadpisanego wariantu jeśli jest podany
       const finalVariant = forceVariant || existingVariant;
       setVariant(finalVariant);
       localStorage.setItem(storageKey, finalVariant);
-      console.log(`🧪 Existing user assigned to variant ${finalVariant}`);
+      console.log(`🧪 Existing user assigned to variant ${finalVariant} (force: ${forceVariant}, existing: ${existingVariant})`);
     } else {
       // Przypisz losowo wariant na podstawie splitRatio lub użyj nadpisanego
-      const assignedVariant: ABVariant = forceVariant || (Math.random() < splitRatio ? 'A' : 'B');
+      const randomValue = Math.random();
+      const assignedVariant: ABVariant = forceVariant || (randomValue < splitRatio ? 'A' : 'B');
       setVariant(assignedVariant);
       localStorage.setItem(storageKey, assignedVariant);
+      
+      console.log(`🎲 Random value: ${randomValue}, splitRatio: ${splitRatio}, assigned variant: ${assignedVariant}`);
       
       // Zapisz unikalnego użytkownika - POPRAWKA
       trackUniqueUser(testName, assignedVariant);
@@ -60,8 +68,11 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
   }, [testName, splitRatio, forceVariant, enabled]);
 
   useEffect(() => {
+    console.log(`📊 Second useEffect triggered - isLoaded: ${isLoaded}, enabled: ${enabled}, variant: ${variant}`);
+    
     if (isLoaded && enabled) {
       // Zapisz wyświetlenie (view) tylko po załadowaniu - POPRAWKA
+      console.log(`📈 About to track view for ${testName}, variant ${variant}`);
       trackView(testName, variant);
     }
   }, [isLoaded, variant, testName, enabled]);
@@ -70,7 +81,10 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
     variant,
     isVariantA: variant === 'A',
     isVariantB: variant === 'B',
-    trackConversion: () => trackConversion(testName, variant, enabled),
+    trackConversion: () => {
+      console.log(`🎯 trackConversion called for ${testName}, variant ${variant}, enabled: ${enabled}`);
+      return trackConversion(testName, variant, enabled);
+    },
     getStats: () => getStats(testName),
     resetStats: () => resetStats(testName),
     isLoaded,
@@ -86,6 +100,11 @@ const trackUniqueUser = (testName: string, currentVariant: ABVariant) => {
   localStorage.setItem(uniqueUsersKey, newCount.toString());
   
   console.log(`👤 AB Test: ${testName} - Unique user tracked for Variant ${currentVariant}. Total: ${newCount}`);
+  console.log(`💾 Saved to localStorage key: ${uniqueUsersKey} with value: ${newCount}`);
+  
+  // Debug - sprawdź czy rzeczywiście zapisało
+  const verification = localStorage.getItem(uniqueUsersKey);
+  console.log(`🔍 Verification - reading back from localStorage: ${verification}`);
 };
 
 const trackView = (testName: string, currentVariant: ABVariant) => {
@@ -95,9 +114,16 @@ const trackView = (testName: string, currentVariant: ABVariant) => {
   localStorage.setItem(viewsKey, newCount.toString());
   
   console.log(`📊 AB Test: ${testName} - View tracked for Variant ${currentVariant}. Total: ${newCount}`);
+  console.log(`💾 Saved to localStorage key: ${viewsKey} with value: ${newCount}`);
+  
+  // Debug - sprawdź czy rzeczywiście zapisało
+  const verification = localStorage.getItem(viewsKey);
+  console.log(`🔍 Verification - reading back from localStorage: ${verification}`);
 };
 
 const trackConversion = (testName: string, currentVariant: ABVariant, enabled: boolean) => {
+  console.log(`🎯 trackConversion function called with: testName=${testName}, variant=${currentVariant}, enabled=${enabled}`);
+  
   if (!enabled) {
     console.log('🚫 AB Test disabled - conversion not tracked');
     return;
@@ -110,9 +136,24 @@ const trackConversion = (testName: string, currentVariant: ABVariant, enabled: b
   
   console.log(`🎯 AB Test: ${testName} - Conversion tracked for Variant ${currentVariant}. Total: ${newCount}`);
   console.log(`💾 Saved to localStorage key: ${conversionsKey} with value: ${newCount}`);
+  
+  // Debug - sprawdź czy rzeczywiście zapisało
+  const verification = localStorage.getItem(conversionsKey);
+  console.log(`🔍 Verification - reading back from localStorage: ${verification}`);
 };
 
 const getStats = (testName: string): ABTestStats => {
+  console.log(`📈 Getting stats for ${testName}`);
+  
+  // Debug wszystkich kluczy w localStorage
+  console.log('🔍 All localStorage keys related to A/B test:');
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key?.includes(`ab_test_${testName}`)) {
+      console.log(`  ${key}: ${localStorage.getItem(key)}`);
+    }
+  }
+  
   const stats = {
     variantA: {
       uniqueUsers: parseInt(localStorage.getItem(`ab_test_${testName}_variant_a_unique_users`) || '0'),
@@ -126,7 +167,7 @@ const getStats = (testName: string): ABTestStats => {
     }
   };
   
-  console.log(`📈 Getting stats for ${testName}:`, stats);
+  console.log(`📈 Final stats for ${testName}:`, stats);
   return stats;
 };
 
@@ -140,6 +181,10 @@ const resetStats = (testName: string) => {
     `ab_test_${testName}_variant_b_conversions`,
   ];
   
-  keys.forEach(key => localStorage.removeItem(key));
+  console.log(`🔄 Resetting stats for ${testName}, removing keys:`, keys);
+  keys.forEach(key => {
+    console.log(`🗑️ Removing key: ${key}`);
+    localStorage.removeItem(key);
+  });
   console.log(`🔄 AB Test: ${testName} - All stats reset`);
 };
