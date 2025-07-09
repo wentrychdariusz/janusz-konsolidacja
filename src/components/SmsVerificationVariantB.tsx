@@ -1,10 +1,10 @@
-
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { Clock, AlertCircle } from 'lucide-react';
 import { useCountdown } from '../hooks/useCountdown';
 import LiveNotifications from './LiveNotifications';
+import { usePageTracking } from '../hooks/usePageTracking';
 
 // Rozszerzenie obiektu window o fbq
 declare global {
@@ -27,6 +27,14 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
   const [smsCode, setSmsCode] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationError, setVerificationError] = useState('');
+
+  // Page tracking hook
+  const { trackPageView, trackConversion } = usePageTracking();
+
+  // Track page view when component mounts
+  useEffect(() => {
+    trackPageView('SMS Verification Variant B');
+  }, []);
 
   // Countdown hook - 5 minut (300 sekund)
   const {
@@ -75,19 +83,18 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
       // Sprawdzenie czy kod jest poprawny (121)
       if (VERIFICATION_CODES.includes(smsCode)) {
         
-        // WAŻNE: Trackowanie konwersji A/B testu - NAJPIERW!
-        console.log('🎯 A/B Test Variant B: SMS verification successful, tracking conversion NOW');
-        console.log('🎯 onConversion function available:', typeof onConversion);
+        // WAŻNE: Trackowanie konwersji - NAJPIERW page tracking!
+        console.log('🎯 SMS Verification Variant B: Tracking conversion');
+        trackConversion('SMS Verification Success Variant B');
         
+        // A/B Test conversion tracking (jeśli dostępne)
         if (onConversion && typeof onConversion === 'function') {
           try {
             onConversion();
             console.log('✅ A/B Test: Variant B conversion tracked successfully');
           } catch (conversionError) {
-            console.error('❌ Error tracking conversion:', conversionError);
+            console.error('❌ Error tracking A/B test conversion:', conversionError);
           }
-        } else {
-          console.error('⚠️ A/B Test: onConversion function not provided or not a function to Variant B');
         }
         
         // Wywołanie pierwszego webhook do aktualizacji Google Sheets z informacją o weryfikacji
