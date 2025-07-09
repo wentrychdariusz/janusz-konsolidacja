@@ -236,11 +236,11 @@ const SmsVerificationVariantB = () => {
             <h1 className="text-2xl lg:text-3xl font-black text-red-900 mb-4">
               ⚡ POTWIERDŹ TERAZ SWOJĄ KONSULTACJĘ!
             </h1>
-            <div className="bg-gradient-to-r from-red-500 to-orange-500 text-white p-4 rounded-xl mb-4">
-              <p className="text-lg font-bold mb-2">
+            <div className="bg-red-100 border-2 border-red-300 text-red-800 p-3 rounded-xl mb-4">
+              <p className="text-base font-semibold mb-2">
                 KOD SMS WYSŁANY NA: 
               </p>
-              <p className="text-xl font-black bg-white text-red-600 px-4 py-2 rounded-lg inline-block">
+              <p className="text-lg font-bold bg-white text-red-600 px-3 py-2 rounded-lg inline-block">
                 {decodeURIComponent(phone) || 'Twój numer'}
               </p>
             </div>
@@ -319,30 +319,30 @@ const SmsVerificationVariantB = () => {
               <button
                 onClick={handleSmsVerification}
                 disabled={smsCode.length !== 4 || isVerifying || isExpired}
-                className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-black py-6 px-12 text-2xl rounded-2xl shadow-2xl hover:shadow-3xl transform transition-all duration-300 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed border-4 border-red-700 w-full sm:w-auto"
+                className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-bold py-5 px-10 text-xl rounded-2xl shadow-2xl hover:shadow-3xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed border-4 border-red-700 w-full sm:w-auto"
               >
-                {isVerifying ? "⏳ WERYFIKUJĘ..." : "🚀 POTWIERDŹ KONSULTACJĘ TERAZ!"}
+                {isVerifying ? "⏳ WERYFIKUJĘ..." : "🚀 POTWIERDŹ KONSULTACJĘ"}
               </button>
               
-              <div className="mt-8">
-                <p className="text-lg text-red-700 font-bold mb-4">
+              <div className="mt-6">
+                <p className="text-base text-gray-600 font-medium mb-3">
                   Nie otrzymałeś SMS? 
                 </p>
                 <button 
-                  className="bg-orange-500 hover:bg-orange-600 text-white font-black py-3 px-8 rounded-xl text-lg transition-all duration-300 hover:scale-105 border-2 border-orange-600"
+                  className="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-6 rounded-lg text-base transition-all duration-300 hover:scale-105 border border-gray-500"
                   onClick={handleResendSms}
                 >
-                  📱 WYŚLIJ PONOWNIE
+                  📱 Wyślij ponownie
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Dodatkowy element motywacyjny */}
-          <div className="text-center mt-6">
-            <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white p-4 rounded-xl border-2 border-green-600">
-              <p className="text-lg font-bold">
-                ✅ TWOJA KONSULTACJA ZOSTANIE POTWIERDZONA W CIĄGU KILKU SEKUND!
+          {/* Zmniejszony element motywacyjny */}
+          <div className="text-center mt-4">
+            <div className="bg-green-50 border border-green-300 text-green-700 p-3 rounded-lg">
+              <p className="text-base font-medium">
+                ✅ Twoja konsultacja zostanie potwierdzona w ciągu kilku sekund
               </p>
             </div>
           </div>
