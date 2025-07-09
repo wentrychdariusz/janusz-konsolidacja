@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
@@ -238,11 +239,11 @@ const SmsVerificationVariantB = () => {
               <h1 className="text-2xl lg:text-3xl font-black text-red-900 mb-4">
                 ⚡ POTWIERDŹ TERAZ SWOJĄ KONSULTACJĘ!
               </h1>
-              <div className="bg-red-100 border-2 border-red-300 text-red-800 p-3 rounded-xl mb-4">
-                <p className="text-base font-semibold mb-2">
+              <div className="bg-red-50 border border-red-200 text-red-700 p-2 rounded-lg mb-4">
+                <p className="text-sm font-medium mb-1">
                   KOD SMS WYSŁANY NA: 
                 </p>
-                <p className="text-lg font-bold bg-white text-red-600 px-3 py-2 rounded-lg inline-block">
+                <p className="text-base font-semibold bg-white text-red-600 px-2 py-1 rounded inline-block">
                   {decodeURIComponent(phone) || 'Twój numer'}
                 </p>
               </div>
