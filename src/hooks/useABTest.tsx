@@ -61,24 +61,29 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
       console.log(`🧪 New user assigned to variant ${finalVariant}`);
     }
     
+    console.log(`🎯 Final variant before setState: ${finalVariant}`);
     setVariant(finalVariant);
     localStorage.setItem(storageKey, finalVariant);
     
     // WAŻNE: Zapisz unikalnego użytkownika tylko dla nowych użytkowników
     if (isNewUser) {
+      console.log(`👤 Tracking unique user for NEW user, variant: ${finalVariant}`);
       trackUniqueUser(testName, finalVariant);
     }
     
+    console.log(`🏁 useABTest initialization complete - variant: ${finalVariant}, isNewUser: ${isNewUser}`);
     setIsLoaded(true);
   }, [testName, splitRatio, forceVariant, enabled]);
 
   useEffect(() => {
     console.log(`📊 Second useEffect triggered - isLoaded: ${isLoaded}, enabled: ${enabled}, variant: ${variant}`);
     
-    if (isLoaded && enabled) {
+    if (isLoaded && enabled && variant) {
       // WAŻNE: Zapisz wyświetlenie (view) za każdym razem gdy komponent się ładuje
       console.log(`📈 About to track view for ${testName}, variant ${variant}`);
       trackView(testName, variant);
+    } else {
+      console.log(`⏸️ Skipping view tracking - isLoaded: ${isLoaded}, enabled: ${enabled}, variant: ${variant}`);
     }
   }, [isLoaded, variant, testName, enabled]);
 
