@@ -151,7 +151,7 @@ const ABTestStats = () => {
             🧪 Wygeneruj testowe dane
           </Button>
           <Button onClick={() => { clearStats(); refreshStats(); }} variant="destructive">
-            🗑️ Wyczyść wszystko
+            🗑️ Wyczyść WSZYSTKIE dane (łącznie z thank you page)
           </Button>
           <Button 
             onClick={() => window.location.href = '/admin-logout'} 
