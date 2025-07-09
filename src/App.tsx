@@ -8,6 +8,8 @@ import Index from "./pages/Index";
 import Calculator from "./pages/Calculator";
 import ThankYou from "./pages/ThankYou";
 import SmsVerification from "./pages/SmsVerification";
+import SmsVerificationA from "./pages/SmsVerificationA";
+import SmsVerificationB from "./pages/SmsVerificationB";
 import Podziekowania from "./pages/Podziekowania";
 import ABTestStats from "./pages/ABTestStats";
 import NotFound from "./pages/NotFound";
@@ -25,6 +27,8 @@ const App = () => (
           <Route path="/kalkulator" element={<Calculator />} />
           <Route path="/formularz" element={<ThankYou />} />
           <Route path="/sms-verification" element={<SmsVerification />} />
+          <Route path="/sms-verification-a" element={<SmsVerificationA />} />
+          <Route path="/sms-verification-b" element={<SmsVerificationB />} />
           <Route path="/podziekowania" element={<Podziekowania />} />
           <Route path="/admin-stats-2024" element={<ABTestStats />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
