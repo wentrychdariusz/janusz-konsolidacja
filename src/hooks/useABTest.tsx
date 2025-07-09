@@ -27,13 +27,18 @@ export const useABTest = ({ testName, splitRatio = 0.5 }: ABTestConfig) => {
       localStorage.setItem(storageKey, assignedVariant);
     }
 
-    // Zapisz wyświetlenie (view)
-    trackView(variant);
     setIsLoaded(true);
   }, [testName, splitRatio]);
 
+  useEffect(() => {
+    if (isLoaded) {
+      // Zapisz wyświetlenie (view) tylko po załadowaniu
+      trackView(variant);
+    }
+  }, [isLoaded, variant, testName]);
+
   const trackView = (currentVariant: ABVariant) => {
-    const viewsKey = `ab_variant_${currentVariant.toLowerCase()}_views`;
+    const viewsKey = `ab_test_${testName}_variant_${currentVariant.toLowerCase()}_views`;
     const currentViews = parseInt(localStorage.getItem(viewsKey) || '0');
     localStorage.setItem(viewsKey, (currentViews + 1).toString());
     
@@ -41,7 +46,7 @@ export const useABTest = ({ testName, splitRatio = 0.5 }: ABTestConfig) => {
   };
 
   const trackConversion = () => {
-    const conversionsKey = `ab_variant_${variant.toLowerCase()}_conversions`;
+    const conversionsKey = `ab_test_${testName}_variant_${variant.toLowerCase()}_conversions`;
     const currentConversions = parseInt(localStorage.getItem(conversionsKey) || '0');
     localStorage.setItem(conversionsKey, (currentConversions + 1).toString());
     
