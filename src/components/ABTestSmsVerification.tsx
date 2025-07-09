@@ -4,6 +4,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { Clock, AlertCircle, MessageSquare, CheckCircle } from 'lucide-react';
 import { useABTest } from '../hooks/useABTest';
+import { useABTestSettings } from '../hooks/useABTestSettings';
 import { useCountdown } from '../hooks/useCountdown';
 
 // Rozszerzenie obiektu window o fbq
