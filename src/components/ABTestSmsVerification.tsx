@@ -6,7 +6,10 @@ import SmsVerificationVariantA from './SmsVerificationVariantA';
 import SmsVerificationVariantB from './SmsVerificationVariantB';
 
 const ABTestSmsVerification = () => {
+  console.log('🚀 ABTestSmsVerification component starting...');
+  
   const { settings } = useABTestSettings();
+  console.log('⚙️ ABTestSettings loaded:', settings);
   
   const { variant, isLoaded, trackConversion } = useABTest({
     testName: 'sms_verification_test',
@@ -14,6 +17,8 @@ const ABTestSmsVerification = () => {
     enabled: settings.sms_verification_enabled,
     forceVariant: settings.sms_verification_force_variant
   });
+
+  console.log('🎯 useABTest returned:', { variant, isLoaded, trackConversion: typeof trackConversion });
 
   if (!isLoaded) {
     return (
