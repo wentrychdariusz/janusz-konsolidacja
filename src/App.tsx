@@ -9,6 +9,7 @@ import Calculator from "./pages/Calculator";
 import ThankYou from "./pages/ThankYou";
 import SmsVerification from "./pages/SmsVerification";
 import Podziekowania from "./pages/Podziekowania";
+import ABTestStats from "./pages/ABTestStats";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/formularz" element={<ThankYou />} />
           <Route path="/sms-verification" element={<SmsVerification />} />
           <Route path="/podziekowania" element={<Podziekowania />} />
+          <Route path="/admin-stats-2024" element={<ABTestStats />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

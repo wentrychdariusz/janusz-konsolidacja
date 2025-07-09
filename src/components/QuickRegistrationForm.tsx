@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Plus, CheckCircle, Phone, ArrowLeft, Edit, Rocket } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useABTest } from '../hooks/useABTest';
 
 // Rozszerzenie obiektu window o fbq
 declare global {
@@ -27,6 +28,12 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   
+  // Hook do testów A/B
+  const { trackConversion } = useABTest({
+    testName: 'top_header_test',
+    splitRatio: 0.5
+  });
+  
   // Webhook URL bezpośrednio w kodzie
   const webhookUrl = "https://hook.eu2.make.com/yusy3i37uoiv14b2dx1zv6wro898d9q5";
 
@@ -46,6 +53,9 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
     console.log('🚀 Final form submission started');
     console.log('📝 Final data:', { formData, calculatorData });
     console.log('🔗 Webhook URL:', webhookUrl);
+    
+    // Track konwersję dla testu A/B
+    trackConversion();
     
     // Facebook Pixel - track form submission start
     if (typeof window !== 'undefined' && window.fbq) {
