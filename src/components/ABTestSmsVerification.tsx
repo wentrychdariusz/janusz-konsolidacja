@@ -31,14 +31,21 @@ const ABTestSmsVerification = () => {
   console.log(`🧪 Force variant:`, settings.sms_verification_force_variant);
   console.log(`🧪 trackConversion function:`, typeof trackConversion);
 
-  // Debug localStorage
-  console.log('📦 Current localStorage A/B Test keys:');
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if (key?.includes('ab_test_sms_verification_test')) {
-      console.log(`  ${key}: ${localStorage.getItem(key)}`);
-    }
-  }
+  // DODAJ DEBUGOWANIE LOCALSTORAGE dla prawdziwego A/B testu
+  console.log('📦 Current localStorage A/B Test stats:');
+  const statsKeys = [
+    'ab_test_sms_verification_test_variant_a_unique_users',
+    'ab_test_sms_verification_test_variant_a_views',
+    'ab_test_sms_verification_test_variant_a_conversions',
+    'ab_test_sms_verification_test_variant_b_unique_users',
+    'ab_test_sms_verification_test_variant_b_views',
+    'ab_test_sms_verification_test_variant_b_conversions'
+  ];
+  
+  statsKeys.forEach(key => {
+    const value = localStorage.getItem(key);
+    console.log(`  ${key}: "${value}"`);
+  });
 
   // Przekaż trackConversion do komponentów
   if (variant === 'A') {

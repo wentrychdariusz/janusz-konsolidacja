@@ -44,26 +44,31 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
     
     console.log(`🔍 Checking localStorage for key: ${storageKey}, found: ${existingVariant}`);
     
+    let finalVariant: ABVariant;
+    let isNewUser = false;
+    
     if (existingVariant && (existingVariant === 'A' || existingVariant === 'B')) {
       // Użyj nadpisanego wariantu jeśli jest podany
-      const finalVariant = forceVariant || existingVariant;
-      setVariant(finalVariant);
-      localStorage.setItem(storageKey, finalVariant);
+      finalVariant = forceVariant || existingVariant;
       console.log(`🧪 Existing user assigned to variant ${finalVariant} (force: ${forceVariant}, existing: ${existingVariant})`);
     } else {
       // Przypisz losowo wariant na podstawie splitRatio lub użyj nadpisanego
       const randomValue = Math.random();
-      const assignedVariant: ABVariant = forceVariant || (randomValue < splitRatio ? 'A' : 'B');
-      setVariant(assignedVariant);
-      localStorage.setItem(storageKey, assignedVariant);
+      finalVariant = forceVariant || (randomValue < splitRatio ? 'A' : 'B');
+      isNewUser = true;
       
-      console.log(`🎲 Random value: ${randomValue}, splitRatio: ${splitRatio}, assigned variant: ${assignedVariant}`);
-      
-      // Zapisz unikalnego użytkownika - POPRAWKA
-      trackUniqueUser(testName, assignedVariant);
-      console.log(`🧪 New user assigned to variant ${assignedVariant}`);
+      console.log(`🎲 Random value: ${randomValue}, splitRatio: ${splitRatio}, assigned variant: ${finalVariant}`);
+      console.log(`🧪 New user assigned to variant ${finalVariant}`);
     }
-
+    
+    setVariant(finalVariant);
+    localStorage.setItem(storageKey, finalVariant);
+    
+    // WAŻNE: Zapisz unikalnego użytkownika tylko dla nowych użytkowników
+    if (isNewUser) {
+      trackUniqueUser(testName, finalVariant);
+    }
+    
     setIsLoaded(true);
   }, [testName, splitRatio, forceVariant, enabled]);
 
@@ -71,7 +76,7 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
     console.log(`📊 Second useEffect triggered - isLoaded: ${isLoaded}, enabled: ${enabled}, variant: ${variant}`);
     
     if (isLoaded && enabled) {
-      // Zapisz wyświetlenie (view) tylko po załadowaniu - POPRAWKA
+      // WAŻNE: Zapisz wyświetlenie (view) za każdym razem gdy komponent się ładuje
       console.log(`📈 About to track view for ${testName}, variant ${variant}`);
       trackView(testName, variant);
     }
@@ -83,7 +88,9 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
     isVariantB: variant === 'B',
     trackConversion: () => {
       console.log(`🎯 trackConversion called for ${testName}, variant ${variant}, enabled: ${enabled}`);
-      return trackConversion(testName, variant, enabled);
+      if (enabled) {
+        trackConversion(testName, variant);
+      }
     },
     getStats: () => getStats(testName),
     resetStats: () => resetStats(testName),
@@ -92,54 +99,74 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
   };
 };
 
-// POPRAWIONE FUNKCJE - wyciągnięte na zewnątrz hooka
+// NAPRAWIONE FUNKCJE TRACKUJĄCE
 const trackUniqueUser = (testName: string, currentVariant: ABVariant) => {
   const uniqueUsersKey = `ab_test_${testName}_variant_${currentVariant.toLowerCase()}_unique_users`;
-  const currentUsers = parseInt(localStorage.getItem(uniqueUsersKey) || '0');
-  const newCount = currentUsers + 1;
-  localStorage.setItem(uniqueUsersKey, newCount.toString());
   
-  console.log(`👤 AB Test: ${testName} - Unique user tracked for Variant ${currentVariant}. Total: ${newCount}`);
-  console.log(`💾 Saved to localStorage key: ${uniqueUsersKey} with value: ${newCount}`);
-  
-  // Debug - sprawdź czy rzeczywiście zapisało
-  const verification = localStorage.getItem(uniqueUsersKey);
-  console.log(`🔍 Verification - reading back from localStorage: ${verification}`);
+  try {
+    const currentUsersStr = localStorage.getItem(uniqueUsersKey);
+    console.log(`👤 Reading unique users from localStorage: ${uniqueUsersKey} = "${currentUsersStr}"`);
+    
+    const currentUsers = currentUsersStr ? parseInt(currentUsersStr, 10) : 0;
+    const validCurrentUsers = isNaN(currentUsers) ? 0 : currentUsers;
+    const newCount = validCurrentUsers + 1;
+    
+    localStorage.setItem(uniqueUsersKey, newCount.toString());
+    
+    console.log(`👤 AB Test: ${testName} - Unique user tracked for Variant ${currentVariant}. Previous: ${validCurrentUsers}, New: ${newCount}`);
+    
+    // Weryfikacja
+    const verification = localStorage.getItem(uniqueUsersKey);
+    console.log(`🔍 Verification - reading back from localStorage: "${verification}"`);
+  } catch (error) {
+    console.error(`❌ Error tracking unique user:`, error);
+  }
 };
 
 const trackView = (testName: string, currentVariant: ABVariant) => {
   const viewsKey = `ab_test_${testName}_variant_${currentVariant.toLowerCase()}_views`;
-  const currentViews = parseInt(localStorage.getItem(viewsKey) || '0');
-  const newCount = currentViews + 1;
-  localStorage.setItem(viewsKey, newCount.toString());
   
-  console.log(`📊 AB Test: ${testName} - View tracked for Variant ${currentVariant}. Total: ${newCount}`);
-  console.log(`💾 Saved to localStorage key: ${viewsKey} with value: ${newCount}`);
-  
-  // Debug - sprawdź czy rzeczywiście zapisało
-  const verification = localStorage.getItem(viewsKey);
-  console.log(`🔍 Verification - reading back from localStorage: ${verification}`);
+  try {
+    const currentViewsStr = localStorage.getItem(viewsKey);
+    console.log(`📊 Reading views from localStorage: ${viewsKey} = "${currentViewsStr}"`);
+    
+    const currentViews = currentViewsStr ? parseInt(currentViewsStr, 10) : 0;
+    const validCurrentViews = isNaN(currentViews) ? 0 : currentViews;
+    const newCount = validCurrentViews + 1;
+    
+    localStorage.setItem(viewsKey, newCount.toString());
+    
+    console.log(`📊 AB Test: ${testName} - View tracked for Variant ${currentVariant}. Previous: ${validCurrentViews}, New: ${newCount}`);
+    
+    // Weryfikacja
+    const verification = localStorage.getItem(viewsKey);
+    console.log(`🔍 Verification - reading back from localStorage: "${verification}"`);
+  } catch (error) {
+    console.error(`❌ Error tracking view:`, error);
+  }
 };
 
-const trackConversion = (testName: string, currentVariant: ABVariant, enabled: boolean) => {
-  console.log(`🎯 trackConversion function called with: testName=${testName}, variant=${currentVariant}, enabled=${enabled}`);
-  
-  if (!enabled) {
-    console.log('🚫 AB Test disabled - conversion not tracked');
-    return;
-  }
-  
+const trackConversion = (testName: string, currentVariant: ABVariant) => {
   const conversionsKey = `ab_test_${testName}_variant_${currentVariant.toLowerCase()}_conversions`;
-  const currentConversions = parseInt(localStorage.getItem(conversionsKey) || '0');
-  const newCount = currentConversions + 1;
-  localStorage.setItem(conversionsKey, newCount.toString());
   
-  console.log(`🎯 AB Test: ${testName} - Conversion tracked for Variant ${currentVariant}. Total: ${newCount}`);
-  console.log(`💾 Saved to localStorage key: ${conversionsKey} with value: ${newCount}`);
-  
-  // Debug - sprawdź czy rzeczywiście zapisało
-  const verification = localStorage.getItem(conversionsKey);
-  console.log(`🔍 Verification - reading back from localStorage: ${verification}`);
+  try {
+    const currentConversionsStr = localStorage.getItem(conversionsKey);
+    console.log(`🎯 Reading conversions from localStorage: ${conversionsKey} = "${currentConversionsStr}"`);
+    
+    const currentConversions = currentConversionsStr ? parseInt(currentConversionsStr, 10) : 0;
+    const validCurrentConversions = isNaN(currentConversions) ? 0 : currentConversions;
+    const newCount = validCurrentConversions + 1;
+    
+    localStorage.setItem(conversionsKey, newCount.toString());
+    
+    console.log(`🎯 AB Test: ${testName} - Conversion tracked for Variant ${currentVariant}. Previous: ${validCurrentConversions}, New: ${newCount}`);
+    
+    // Weryfikacja
+    const verification = localStorage.getItem(conversionsKey);
+    console.log(`🔍 Verification - reading back from localStorage: "${verification}"`);
+  } catch (error) {
+    console.error(`❌ Error tracking conversion:`, error);
+  }
 };
 
 const getStats = (testName: string): ABTestStats => {
