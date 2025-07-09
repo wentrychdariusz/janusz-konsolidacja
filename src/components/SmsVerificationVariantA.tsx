@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
@@ -71,9 +72,12 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
       if (VERIFICATION_CODES.includes(smsCode)) {
         
         // WAŻNE: Trackowanie konwersji A/B testu
+        console.log('🎯 A/B Test Variant A: SMS verification successful, tracking conversion');
         if (onConversion) {
           onConversion();
-          console.log('🎯 A/B Test: Variant A conversion tracked for SMS verification');
+          console.log('✅ A/B Test: Variant A conversion tracked for SMS verification');
+        } else {
+          console.warn('⚠️ A/B Test: onConversion function not provided to Variant A');
         }
         
         // Wywołanie pierwszego webhook do aktualizacji Google Sheets z informacją o weryfikacji

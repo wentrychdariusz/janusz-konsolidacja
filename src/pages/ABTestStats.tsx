@@ -11,7 +11,11 @@ import { useABTestSettings } from '../hooks/useABTestSettings';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const ABTestStats = () => {
-  const { getStats, resetStats } = useABTest({ testName: 'sms_verification_test' });
+  // Używamy tego samego hooka co w głównym komponencie
+  const { getStats, resetStats } = useABTest({ 
+    testName: 'sms_verification_test',
+    enabled: false // Nie chcemy trackować w panelu statystyk
+  });
   const { settings, updateSettings, resetSettings } = useABTestSettings();
   const stats = getStats();
 
@@ -41,7 +45,13 @@ const ABTestStats = () => {
   ];
 
   const totalUsers = stats.variantA.uniqueUsers + stats.variantB.uniqueUsers;
+  const totalConversions = stats.variantA.conversions + stats.variantB.conversions;
   const winningVariant = stats.variantA.conversions >= stats.variantB.conversions ? 'A' : 'B';
+
+  // Debug informacje
+  console.log('📊 Current A/B Test Stats:', stats);
+  console.log('📊 Total Users:', totalUsers);
+  console.log('📊 Total Conversions:', totalConversions);
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">
@@ -54,6 +64,33 @@ const ABTestStats = () => {
             Zarządzanie i analiza testów A/B dla strony weryfikacji SMS
           </p>
         </div>
+
+        {/* Debug Panel */}
+        <Card className="border-yellow-200 bg-yellow-50">
+          <CardHeader>
+            <CardTitle className="text-yellow-800">Debug - Dane localStorage</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <strong>Wariant A:</strong>
+                <ul className="ml-4">
+                  <li>Unikalni: {stats.variantA.uniqueUsers}</li>
+                  <li>Wyświetlenia: {stats.variantA.totalViews}</li>
+                  <li>Konwersje: {stats.variantA.conversions}</li>
+                </ul>
+              </div>
+              <div>
+                <strong>Wariant B:</strong>
+                <ul className="ml-4">
+                  <li>Unikalni: {stats.variantB.uniqueUsers}</li>
+                  <li>Wyświetlenia: {stats.variantB.totalViews}</li>
+                  <li>Konwersje: {stats.variantB.conversions}</li>
+                </ul>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Ustawienia A/B Testu */}
         <Card>
@@ -134,12 +171,10 @@ const ABTestStats = () => {
           
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Zwycięski wariant</CardTitle>
+              <CardTitle className="text-sm font-medium">Łączne konwersje</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">
-                Wariant {winningVariant}
-              </div>
+              <div className="text-2xl font-bold text-purple-600">{totalConversions}</div>
             </CardContent>
           </Card>
           
@@ -306,6 +341,20 @@ const ABTestStats = () => {
                 onClick={() => window.location.reload()}
               >
                 Odśwież dane
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={() => {
+                  console.log('LocalStorage keys:');
+                  for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key?.includes('ab_test')) {
+                      console.log(`${key}: ${localStorage.getItem(key)}`);
+                    }
+                  }
+                }}
+              >
+                Debug localStorage
               </Button>
             </div>
           </CardContent>
