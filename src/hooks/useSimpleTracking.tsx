@@ -44,51 +44,60 @@ const getSessionId = (): string => {
   return newSessionId;
 };
 
-// Zapisywanie eventu
+// Zapisywanie eventu - ZAWSZE DZIAŁA
 const saveEvent = (eventName: string, variant?: string) => {
-  const sessionId = getSessionId();
-  const event: TrackingEvent = {
-    timestamp: Date.now(),
-    sessionId,
-    event: eventName,
-    variant
-  };
-  
-  const eventsKey = 'simple_tracking_events';
-  const existingEvents = localStorage.getItem(eventsKey);
-  let events: TrackingEvent[] = [];
-  
-  if (existingEvents) {
-    try {
-      events = JSON.parse(existingEvents);
-    } catch (error) {
-      console.error('Error parsing events:', error);
-      events = [];
+  try {
+    const sessionId = getSessionId();
+    const event: TrackingEvent = {
+      timestamp: Date.now(),
+      sessionId,
+      event: eventName,
+      variant
+    };
+    
+    const eventsKey = 'simple_tracking_events';
+    const existingEvents = localStorage.getItem(eventsKey);
+    let events: TrackingEvent[] = [];
+    
+    if (existingEvents) {
+      try {
+        events = JSON.parse(existingEvents);
+      } catch (error) {
+        console.error('Error parsing events:', error);
+        events = [];
+      }
     }
+    
+    events.push(event);
+    localStorage.setItem(eventsKey, JSON.stringify(events));
+    
+    console.log(`📊 Event tracked: ${eventName}${variant ? ` (${variant})` : ''} - Session: ${sessionId}`);
+    console.log(`📊 Total events now: ${events.length}`);
+  } catch (error) {
+    console.error('❌ Error saving event:', error);
   }
-  
-  events.push(event);
-  localStorage.setItem(eventsKey, JSON.stringify(events));
-  
-  console.log(`📊 Event tracked: ${eventName}${variant ? ` (${variant})` : ''} - Session: ${sessionId}`);
 };
 
-// Pobieranie statystyk - POPRAWIONY
+// Pobieranie statystyk - ZAWSZE ZWRACA DANE
 const getStats = () => {
   const eventsKey = 'simple_tracking_events';
   const existingEvents = localStorage.getItem(eventsKey);
   
   if (!existingEvents) {
+    console.log('📊 No events found in localStorage');
     return {
       uniqueSessions: 0,
       totalEvents: 0,
       eventsByType: {},
-      eventsByVariant: {}
+      eventsByVariant: {},
+      allEvents: []
     };
   }
   
   try {
     const events: TrackingEvent[] = JSON.parse(existingEvents);
+    console.log(`📊 Found ${events.length} events in localStorage`);
+    
     const uniqueSessions = new Set(events.map(e => e.sessionId)).size;
     
     const eventsByType: Record<string, number> = {};
@@ -104,6 +113,7 @@ const getStats = () => {
       }
     });
     
+    console.log('📊 Events by type:', eventsByType);
     console.log('📊 Events by variant:', eventsByVariant);
     
     return {
@@ -114,28 +124,34 @@ const getStats = () => {
       allEvents: events
     };
   } catch (error) {
-    console.error('Error getting stats:', error);
+    console.error('❌ Error getting stats:', error);
     return {
       uniqueSessions: 0,
       totalEvents: 0,
       eventsByType: {},
-      eventsByVariant: {}
+      eventsByVariant: {},
+      allEvents: []
     };
   }
 };
 
-// Hook do śledzenia
+// Hook do śledzenia - ZAWSZE DZIAŁA
 export const useSimpleTracking = () => {
   const trackEvent = (eventName: string, variant?: string) => {
+    console.log(`🎯 Tracking event: ${eventName} with variant: ${variant}`);
     saveEvent(eventName, variant);
   };
   
   const trackPageView = (pageName: string, variant?: string) => {
-    trackEvent(`page_view_${pageName}`, variant);
+    const eventName = `page_view_${pageName}`;
+    console.log(`📄 Tracking page view: ${eventName} with variant: ${variant}`);
+    trackEvent(eventName, variant);
   };
   
   const trackConversion = (conversionName: string, variant?: string) => {
-    trackEvent(`conversion_${conversionName}`, variant);
+    const eventName = `conversion_${conversionName}`;
+    console.log(`🎯 Tracking conversion: ${eventName} with variant: ${variant}`);
+    trackEvent(eventName, variant);
   };
   
   const clearStats = () => {
