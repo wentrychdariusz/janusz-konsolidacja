@@ -12,7 +12,9 @@ import SmsVerificationA from "./pages/SmsVerificationA";
 import SmsVerificationB from "./pages/SmsVerificationB";
 import Podziekowania from "./pages/Podziekowania";
 import ABTestStats from "./pages/ABTestStats";
+import AdminLogin from "./pages/AdminLogin";
 import NotFound from "./pages/NotFound";
+import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 
 const queryClient = new QueryClient();
 
@@ -30,7 +32,12 @@ const App = () => (
           <Route path="/sms-verification-a" element={<SmsVerificationA />} />
           <Route path="/sms-verification-b" element={<SmsVerificationB />} />
           <Route path="/podziekowania" element={<Podziekowania />} />
-          <Route path="/admin-stats-2024" element={<ABTestStats />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin-stats-2024" element={
+            <ProtectedAdminRoute>
+              <ABTestStats />
+            </ProtectedAdminRoute>
+          } />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
