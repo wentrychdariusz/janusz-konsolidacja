@@ -1,8 +1,10 @@
+
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { Clock, AlertCircle } from 'lucide-react';
 import { useCountdown } from '../hooks/useCountdown';
+import { useABTest } from '../hooks/useABTest';
 import LiveNotifications from './LiveNotifications';
 
 // Rozszerzenie obiektu window o fbq
@@ -22,6 +24,12 @@ const SmsVerificationVariantB = () => {
   const [smsCode, setSmsCode] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationError, setVerificationError] = useState('');
+
+  // A/B Test hook dla trackowania konwersji
+  const { trackConversion } = useABTest({
+    testName: 'sms_verification_test',
+    enabled: true
+  });
 
   // Countdown hook - 5 minut (300 sekund)
   const {
@@ -69,6 +77,10 @@ const SmsVerificationVariantB = () => {
 
       // Sprawdzenie czy kod jest poprawny (121)
       if (VERIFICATION_CODES.includes(smsCode)) {
+        
+        // WAŻNE: Trackowanie konwersji A/B testu
+        trackConversion();
+        console.log('🎯 A/B Test: Variant B conversion tracked for SMS verification');
         
         // Wywołanie pierwszego webhook do aktualizacji Google Sheets z informacją o weryfikacji
         try {
