@@ -325,23 +325,29 @@ const ABTestStats = () => {
                       console.log('🔍 [MANUAL DEBUG] Checking ALL localStorage keys for A/B test:');
                       
                       let foundABTestKeys = 0;
+                      let allKeys = [];
                       
                       // Sprawdź WSZYSTKIE klucze
                       for (let i = 0; i < localStorage.length; i++) {
                         const key = localStorage.key(i);
                         if (key) {
                           const value = localStorage.getItem(key);
+                          allKeys.push(`${key}: "${value}"`);
+                          
                           if (key.includes('ab_test') || key.includes('sms_verification')) {
-                            console.log(`🔑 FOUND: ${key}: "${value}"`);
+                            console.log(`🔑 FOUND A/B TEST: ${key}: "${value}"`);
                             foundABTestKeys++;
                           }
                         }
                       }
                       
-                      console.log(`📊 Found ${foundABTestKeys} A/B test related keys`);
+                      console.log(`📊 Found ${foundABTestKeys} A/B test related keys out of ${allKeys.length} total keys`);
+                      console.log('🗂️ ALL localStorage keys:');
+                      allKeys.forEach(keyValue => console.log(`  ${keyValue}`));
                       
-                      // Sprawdź DOKŁADNIE te klucze które powinny być
+                      // Sprawdź DOKŁADNIE te klucze które powinny być z useABTest
                       const testKeys = [
+                        'ab_test_sms_verification_test', // user variant
                         'ab_test_sms_verification_test_variant_a_unique_users',
                         'ab_test_sms_verification_test_variant_a_views',
                         'ab_test_sms_verification_test_variant_a_conversions',
@@ -350,20 +356,15 @@ const ABTestStats = () => {
                         'ab_test_sms_verification_test_variant_b_conversions'
                       ];
                       
-                      console.log('🎯 [MANUAL DEBUG] Checking EXACT expected keys:');
+                      console.log('🎯 [MANUAL DEBUG] Checking EXACT expected keys from useABTest:');
                       testKeys.forEach(key => {
                         const value = localStorage.getItem(key);
-                        const exists = value !== null;
+                        const exists = value !== null && value !== "null";
                         console.log(`📊 ${exists ? '✅' : '❌'} ${key}: "${value}"`);
                       });
                       
-                      // Sprawdź klucz wariantu użytkownika
-                      const userVariantKey = 'ab_test_sms_verification_test';
-                      const userVariant = localStorage.getItem(userVariantKey);
-                      console.log(`👤 User variant: ${userVariantKey}: "${userVariant}"`);
-                      
                       console.log('🔍 [MANUAL DEBUG] === KONIEC DEBUGOWANIA ===');
-                      alert('🔍 Debug zakończony - sprawdź konsolę dla szczegółów!');
+                      alert(`🔍 Debug zakończony! Znaleziono ${foundABTestKeys} kluczy A/B test z ${allKeys.length} total`);
                       
                       refreshStats();
                     }}
