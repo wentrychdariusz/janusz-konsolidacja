@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
@@ -71,13 +70,19 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
       // Sprawdzenie czy kod jest poprawny (121)
       if (VERIFICATION_CODES.includes(smsCode)) {
         
-        // WAŻNE: Trackowanie konwersji A/B testu
-        console.log('🎯 A/B Test Variant A: SMS verification successful, tracking conversion');
-        if (onConversion) {
-          onConversion();
-          console.log('✅ A/B Test: Variant A conversion tracked for SMS verification');
+        // WAŻNE: Trackowanie konwersji A/B testu - NAJPIERW!
+        console.log('🎯 A/B Test Variant A: SMS verification successful, tracking conversion NOW');
+        console.log('🎯 onConversion function available:', typeof onConversion);
+        
+        if (onConversion && typeof onConversion === 'function') {
+          try {
+            onConversion();
+            console.log('✅ A/B Test: Variant A conversion tracked successfully');
+          } catch (conversionError) {
+            console.error('❌ Error tracking conversion:', conversionError);
+          }
         } else {
-          console.warn('⚠️ A/B Test: onConversion function not provided to Variant A');
+          console.error('⚠️ A/B Test: onConversion function not provided or not a function to Variant A');
         }
         
         // Wywołanie pierwszego webhook do aktualizacji Google Sheets z informacją o weryfikacji
@@ -220,6 +225,7 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
   };
 
   console.log('📱 SmsVerificationVariantA component rendered with params:', { name, email, phone, success });
+  console.log('📱 SmsVerificationVariantA onConversion prop:', onConversion);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex flex-col justify-start items-center p-4 pt-8">

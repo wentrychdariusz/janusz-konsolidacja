@@ -27,11 +27,15 @@ const ABTestSmsVerification = () => {
   }
 
   console.log(`🧪 A/B Test SMS Verification: Showing variant ${variant}`);
+  console.log(`🧪 trackConversion function type:`, typeof trackConversion);
+  console.log(`🧪 trackConversion function:`, trackConversion);
 
   // Przekaż trackConversion do komponentów
   if (variant === 'A') {
+    console.log('🧪 Rendering Variant A with trackConversion:', trackConversion);
     return <SmsVerificationVariantA onConversion={trackConversion} />;
   } else {
+    console.log('🧪 Rendering Variant B with trackConversion:', trackConversion);
     return <SmsVerificationVariantB onConversion={trackConversion} />;
   }
 };
