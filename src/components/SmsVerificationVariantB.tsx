@@ -248,9 +248,9 @@ const SmsVerificationVariantB = () => {
             </p>
           </div>
 
-          {/* Bardziej wyrazisty Timer */}
+          {/* Timer z bardziej wyróżniającym się kolorem */}
           <div className="text-center mb-8">
-            <div className="bg-gradient-to-r from-red-600 to-orange-600 text-white px-8 py-4 rounded-2xl border-2 border-red-700 shadow-xl">
+            <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-2xl border-2 border-purple-700 shadow-xl">
               <div className="flex items-center justify-center space-x-3">
                 <Clock className="w-8 h-8 animate-pulse" />
                 <div>
