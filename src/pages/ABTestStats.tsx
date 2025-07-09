@@ -113,6 +113,16 @@ const ABTestStats = () => {
   const getDirectStats = (): ABTestStats => {
     console.log('📈 [ABTestStats] getDirectStats called at:', new Date().toISOString());
     
+    // SPRAWDŹ WSZYSTKIE KLUCZE W LOCALSTORAGE NAJPIERW
+    console.log('🔍 [DEBUG] WSZYSTKIE KLUCZE localStorage:');
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key) {
+        const value = localStorage.getItem(key);
+        console.log(`  🔑 ${key}: "${value}"`);
+      }
+    }
+    
     // KLUCZE DOKŁADNIE TAKIE JAKIE ZAPISUJE useABTest
     const keys = {
       variantA: {
