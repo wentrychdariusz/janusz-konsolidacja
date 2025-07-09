@@ -1,25 +1,19 @@
 
 import React from 'react';
 import { useABTest } from '../hooks/useABTest';
+import { useABTestSettings } from '../hooks/useABTestSettings';
 import SmsVerificationVariantA from './SmsVerificationVariantA';
 import SmsVerificationVariantB from './SmsVerificationVariantB';
 
 const ABTestSmsVerification = () => {
+  const { settings } = useABTestSettings();
+  
   const { variant, isLoaded, trackConversion } = useABTest({
     testName: 'sms_verification_test',
     splitRatio: 0.5,
-    enabled: true
+    enabled: settings.sms_verification_enabled,
+    forceVariant: settings.sms_verification_force_variant
   });
-
-  // Dodaj funkcję trackConversion do kontekstu aby komponenty mogły jej używać
-  React.useEffect(() => {
-    // Przekaż funkcję trackConversion do komponentów
-    const originalTrackConversion = trackConversion;
-    
-    return () => {
-      // Cleanup jeśli potrzebny
-    };
-  }, [trackConversion]);
 
   if (!isLoaded) {
     return (
@@ -34,11 +28,11 @@ const ABTestSmsVerification = () => {
 
   console.log(`🧪 A/B Test SMS Verification: Showing variant ${variant}`);
 
-  // Przekaż trackConversion do komponentów przez props lub context
+  // Przekaż trackConversion do komponentów
   if (variant === 'A') {
-    return <SmsVerificationVariantA />;
+    return <SmsVerificationVariantA onConversion={trackConversion} />;
   } else {
-    return <SmsVerificationVariantB />;
+    return <SmsVerificationVariantB onConversion={trackConversion} />;
   }
 };
 
