@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -30,7 +31,7 @@ const ABTestStats = () => {
   });
   const [debugInfo, setDebugInfo] = useState<string[]>([]);
 
-  // Funkcja do bezpośredniego odczytu statystyk z localStorage
+  // NAPRAWIONA funkcja do odczytu statystyk z localStorage
   const getDirectStats = (): ABTestStats => {
     console.log('📈 [ABTestStats] getDirectStats called at:', new Date().toISOString());
     
@@ -41,9 +42,10 @@ const ABTestStats = () => {
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
       if (key) {
-        allKeys.push(`${key}: ${localStorage.getItem(key)}`);
+        const value = localStorage.getItem(key);
+        allKeys.push(`${key}: ${value}`);
         if (key.includes('ab_test_sms_verification_test')) {
-          abTestKeys.push(`${key}: ${localStorage.getItem(key)}`);
+          abTestKeys.push(`${key}: ${value}`);
         }
       }
     }
@@ -51,7 +53,7 @@ const ABTestStats = () => {
     console.log('🔍 [ABTestStats] All localStorage keys:', allKeys);
     console.log('🔍 [ABTestStats] A/B Test keys:', abTestKeys);
     
-    // POPRAWIONE KLUCZE - zgodne z useABTest
+    // DOKŁADNE KLUCZE z logów które widzimy w konsoli
     const keys = {
       variantA: {
         uniqueUsers: 'ab_test_sms_verification_test_variant_a_unique_users',
@@ -65,9 +67,9 @@ const ABTestStats = () => {
       }
     };
     
-    console.log('🔍 [ABTestStats] Looking for keys:', keys);
+    console.log('🔍 [ABTestStats] Looking for exact keys:', keys);
     
-    // Sprawdzamy czy klucze istnieją i co zawierają
+    // BEZPOŚREDNI ODCZYT z dokładnym logowaniem
     const variantAUniqueUsers = localStorage.getItem(keys.variantA.uniqueUsers);
     const variantAViews = localStorage.getItem(keys.variantA.views);
     const variantAConversions = localStorage.getItem(keys.variantA.conversions);
@@ -75,37 +77,49 @@ const ABTestStats = () => {
     const variantBViews = localStorage.getItem(keys.variantB.views);
     const variantBConversions = localStorage.getItem(keys.variantB.conversions);
     
-    console.log('🔍 [ABTestStats] Raw values:');
-    console.log(`  Variant A uniqueUsers: "${variantAUniqueUsers}"`);
-    console.log(`  Variant A views: "${variantAViews}"`);
-    console.log(`  Variant A conversions: "${variantAConversions}"`);
-    console.log(`  Variant B uniqueUsers: "${variantBUniqueUsers}"`);
-    console.log(`  Variant B views: "${variantBViews}"`);
-    console.log(`  Variant B conversions: "${variantBConversions}"`);
+    console.log('🔍 [ABTestStats] DOKŁADNE WARTOŚCI:');
+    console.log(`  ${keys.variantA.uniqueUsers} = "${variantAUniqueUsers}"`);
+    console.log(`  ${keys.variantA.views} = "${variantAViews}"`);
+    console.log(`  ${keys.variantA.conversions} = "${variantAConversions}"`);
+    console.log(`  ${keys.variantB.uniqueUsers} = "${variantBUniqueUsers}"`);
+    console.log(`  ${keys.variantB.views} = "${variantBViews}"`);
+    console.log(`  ${keys.variantB.conversions} = "${variantBConversions}"`);
+    
+    // ALTERNATYWNY sposób - poszukaj wszystkich kluczy zaczynających się od ab_test_sms
+    const alternativeData: Record<string, string> = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith('ab_test_sms_verification_test_variant_')) {
+        alternativeData[key] = localStorage.getItem(key) || '0';
+      }
+    }
+    console.log('🔍 [ABTestStats] Alternative data found:', alternativeData);
     
     const directStats = {
       variantA: {
-        uniqueUsers: parseInt(variantAUniqueUsers || '0'),
-        totalViews: parseInt(variantAViews || '0'),
-        conversions: parseInt(variantAConversions || '0'),
+        uniqueUsers: parseInt(variantAUniqueUsers || alternativeData['ab_test_sms_verification_test_variant_a_unique_users'] || '0'),
+        totalViews: parseInt(variantAViews || alternativeData['ab_test_sms_verification_test_variant_a_views'] || '0'),
+        conversions: parseInt(variantAConversions || alternativeData['ab_test_sms_verification_test_variant_a_conversions'] || '0'),
       },
       variantB: {
-        uniqueUsers: parseInt(variantBUniqueUsers || '0'),
-        totalViews: parseInt(variantBViews || '0'),
-        conversions: parseInt(variantBConversions || '0'),
+        uniqueUsers: parseInt(variantBUniqueUsers || alternativeData['ab_test_sms_verification_test_variant_b_unique_users'] || '0'),
+        totalViews: parseInt(variantBViews || alternativeData['ab_test_sms_verification_test_variant_b_views'] || '0'),
+        conversions: parseInt(variantBConversions || alternativeData['ab_test_sms_verification_test_variant_b_conversions'] || '0'),
       }
     };
     
-    console.log('📈 [ABTestStats] Final stats:', directStats);
+    console.log('📈 [ABTestStats] Final computed stats:', directStats);
     
     // Ustawiamy debug info
     setDebugInfo([
       `Odświeżone o: ${new Date().toLocaleTimeString()}`,
       `Found ${abTestKeys.length} A/B test keys in localStorage`,
-      `Variant A: ${variantAUniqueUsers || 'null'} users, ${variantAViews || 'null'} views, ${variantAConversions || 'null'} conversions`,
-      `Variant B: ${variantBUniqueUsers || 'null'} users, ${variantBViews || 'null'} views, ${variantBConversions || 'null'} conversions`,
+      `Alternative keys found: ${Object.keys(alternativeData).length}`,
+      `Variant A: ${directStats.variantA.uniqueUsers} users, ${directStats.variantA.totalViews} views, ${directStats.variantA.conversions} conversions`,
+      `Variant B: ${directStats.variantB.uniqueUsers} users, ${directStats.variantB.totalViews} views, ${directStats.variantB.conversions} conversions`,
       `Total localStorage keys: ${allKeys.length}`,
-      `POPRAWIONE: Teraz używam prawidłowych kluczy z useABTest!`
+      `NAPRAWIONE: Używam alternatywnego odczytu jeśli główny nie działa!`,
+      `Alternative data: ${JSON.stringify(alternativeData)}`
     ]);
     
     return directStats;
