@@ -27,8 +27,18 @@ const ABTestSmsVerification = () => {
   }
 
   console.log(`🧪 A/B Test SMS Verification: Showing variant ${variant}`);
-  console.log(`🧪 trackConversion function type:`, typeof trackConversion);
-  console.log(`🧪 trackConversion function:`, trackConversion);
+  console.log(`🧪 Settings enabled:`, settings.sms_verification_enabled);
+  console.log(`🧪 Force variant:`, settings.sms_verification_force_variant);
+  console.log(`🧪 trackConversion function:`, typeof trackConversion);
+
+  // Debug localStorage
+  console.log('📦 Current localStorage A/B Test keys:');
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (key?.includes('ab_test_sms_verification_test')) {
+      console.log(`  ${key}: ${localStorage.getItem(key)}`);
+    }
+  }
 
   // Przekaż trackConversion do komponentów
   if (variant === 'A') {
