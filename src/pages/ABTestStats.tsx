@@ -32,7 +32,7 @@ const ABTestStats = () => {
 
   // Funkcja do bezpośredniego odczytu statystyk z localStorage
   const getDirectStats = (): ABTestStats => {
-    console.log('📈 [ABTestStats] Getting direct stats from localStorage');
+    console.log('📈 [ABTestStats] getDirectStats called at:', new Date().toISOString());
     
     // Sprawdzamy wszystkie klucze w localStorage
     const allKeys: string[] = [];
@@ -100,10 +100,12 @@ const ABTestStats = () => {
     
     // Ustawiamy debug info
     setDebugInfo([
+      `Odświeżone o: ${new Date().toLocaleTimeString()}`,
       `Found ${abTestKeys.length} A/B test keys in localStorage`,
       `Variant A: ${variantAUniqueUsers || 'null'} users, ${variantAViews || 'null'} views, ${variantAConversions || 'null'} conversions`,
       `Variant B: ${variantBUniqueUsers || 'null'} users, ${variantBViews || 'null'} views, ${variantBConversions || 'null'} conversions`,
-      `Total localStorage keys: ${allKeys.length}`
+      `Total localStorage keys: ${allKeys.length}`,
+      `UWAGA: Może dane są w innych kluczach? Sprawdź konsolę.`
     ]);
     
     return directStats;
@@ -133,10 +135,13 @@ const ABTestStats = () => {
 
   // Funkcja do odświeżania statystyk
   const refreshStats = () => {
-    console.log('🔄 [ABTestStats] Refreshing stats...');
+    console.log('🔄 [ABTestStats] refreshStats called - button clicked!');
     const newStats = getDirectStats();
     setStats(newStats);
     console.log('🔄 [ABTestStats] Stats refreshed:', newStats);
+    
+    // Force re-render by updating debug info
+    setDebugInfo(prev => [...prev, `Kliknięto odśwież o: ${new Date().toLocaleTimeString()}`]);
   };
 
   // Załaduj statystyki przy pierwszym renderze
@@ -218,6 +223,30 @@ const ABTestStats = () => {
                     <li key={index}>{info}</li>
                   ))}
                 </ul>
+              </div>
+              
+              <div className="border-t pt-4">
+                <Button 
+                  variant="outline" 
+                  onClick={refreshStats}
+                  className="mr-2"
+                >
+                  🔄 TEST ODŚWIEŻ DANE
+                </Button>
+                <Button 
+                  variant="outline" 
+                  onClick={() => {
+                    console.log('🔍 [DEBUG] Manual localStorage check:');
+                    for (let i = 0; i < localStorage.length; i++) {
+                      const key = localStorage.key(i);
+                      if (key) {
+                        console.log(`${key}: ${localStorage.getItem(key)}`);
+                      }
+                    }
+                  }}
+                >
+                  🔍 Debug localStorage
+                </Button>
               </div>
             </div>
           </CardContent>
