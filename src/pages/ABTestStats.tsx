@@ -51,7 +51,7 @@ const ABTestStats = () => {
     console.log('🔍 [ABTestStats] All localStorage keys:', allKeys);
     console.log('🔍 [ABTestStats] A/B Test keys:', abTestKeys);
     
-    // Klucze zgodne z useABTest
+    // POPRAWIONE KLUCZE - zgodne z useABTest
     const keys = {
       variantA: {
         uniqueUsers: 'ab_test_sms_verification_test_variant_a_unique_users',
@@ -105,7 +105,7 @@ const ABTestStats = () => {
       `Variant A: ${variantAUniqueUsers || 'null'} users, ${variantAViews || 'null'} views, ${variantAConversions || 'null'} conversions`,
       `Variant B: ${variantBUniqueUsers || 'null'} users, ${variantBViews || 'null'} views, ${variantBConversions || 'null'} conversions`,
       `Total localStorage keys: ${allKeys.length}`,
-      `UWAGA: Może dane są w innych kluczach? Sprawdź konsolę.`
+      `POPRAWIONE: Teraz używam prawidłowych kluczy z useABTest!`
     ]);
     
     return directStats;
