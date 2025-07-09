@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import TopHeader from '../components/TopHeader';
 import HeroSection from '../components/HeroSection';
 import ImagineSection from '../components/ImagineSection';
@@ -16,8 +16,19 @@ import CalculatorSection from '../components/CalculatorSection';
 import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
+import { usePageTracking } from '../hooks/usePageTracking';
 
 const Index = () => {
+  const { trackPageView, trackUniqueUser } = usePageTracking();
+  
+  useEffect(() => {
+    // Track unique user (tylko raz na sesję)
+    trackUniqueUser();
+    
+    // Track page view (za każdym razem)
+    trackPageView('Index');
+  }, []);
+  
   return (
     <div className="font-lato">
       <TopHeader />
