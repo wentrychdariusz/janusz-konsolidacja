@@ -20,6 +20,8 @@ const ABTestStats = () => {
 
   const refreshStats = () => {
     console.log('🔄 Refreshing A/B test stats...');
+    console.log('🌐 Current domain:', window.location.hostname);
+    console.log('📍 Current URL:', window.location.href);
     const stats = getStats();
     console.log('📊 All stats:', stats);
     
