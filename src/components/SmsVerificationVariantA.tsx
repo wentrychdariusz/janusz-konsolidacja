@@ -91,7 +91,7 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
         
         if (onConversion && typeof onConversion === 'function') {
           try {
-            onConversion('sms_verification_test_success');
+            onConversion();
             console.log('✅ A/B Test: Variant A conversion tracked successfully');
           } catch (conversionError) {
             console.error('❌ Error tracking A/B test conversion:', conversionError);
