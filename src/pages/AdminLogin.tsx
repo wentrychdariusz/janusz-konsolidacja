@@ -12,7 +12,7 @@ const AdminLogin = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const ADMIN_PASSWORD = 'admin2024!'; // W prawdziwej aplikacji to byłoby w ENV
+  const ADMIN_PASSWORD = 'Chuj6913'; // W prawdziwej aplikacji to byłoby w ENV
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ const AdminLogin = () => {
       // Zapisz token w localStorage
       localStorage.setItem('admin_authenticated', 'true');
       localStorage.setItem('admin_auth_time', Date.now().toString());
-      navigate('/admin-stats-2024');
+      navigate('/panel');
     } else {
       setError('Nieprawidłowe hasło');
       setPassword('');
