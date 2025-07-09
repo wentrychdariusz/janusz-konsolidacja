@@ -23,6 +23,20 @@ const ABTestStats = () => {
     const stats = getStats();
     console.log('📊 All stats:', stats);
     
+    // DEBUGOWANIE: Sprawdź localStorage bezpośrednio
+    console.log('🔍 RAW localStorage check:');
+    const rawEvents = localStorage.getItem('simple_tracking_events');
+    console.log('📦 simple_tracking_events:', rawEvents);
+    if (rawEvents) {
+      try {
+        const events = JSON.parse(rawEvents);
+        console.log('📊 Events count:', events.length);
+        console.log('📋 Recent events:', events.slice(-3));
+      } catch (e) {
+        console.error('❌ Error parsing events:', e);
+      }
+    }
+    
     // DEBUGGING: Sprawdź wszystkie klucze w eventsByVariant
     console.log('🔍 Available keys in eventsByVariant:');
     Object.keys(stats.eventsByVariant).forEach(key => {
