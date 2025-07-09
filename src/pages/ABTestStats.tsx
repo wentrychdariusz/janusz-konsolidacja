@@ -65,6 +65,11 @@ const ABTestStats = () => {
     setVariantB({ users: bViews, views: bViews, conversions: bConversions, conversionRate: bConversionRate });
     setLastUpdate(new Date().toLocaleTimeString());
     
+    console.log('🎯 Final React state set:');
+    console.log('  Variant A:', { users: aViews, views: aViews, conversions: aConversions, rate: aConversionRate });
+    console.log('  Variant B:', { users: bViews, views: bViews, conversions: bConversions, rate: bConversionRate });
+    console.log('🕐 Last update:', new Date().toLocaleTimeString());
+    
     console.log('📊 Stats updated:', { 
       variantA: { views: aViews, conversions: aConversions, rate: aConversionRate }, 
       variantB: { views: bViews, conversions: bConversions, rate: bConversionRate } 
