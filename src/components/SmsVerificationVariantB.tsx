@@ -275,11 +275,11 @@ const SmsVerificationVariantB = () => {
               )}
             </div>
 
-            {/* Tylko zdjęcia klientów - bez tekstu */}
+            {/* Zdjęcia klientów z tekstem */}
             <div className="mb-6">
               <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-4 border border-green-200">
-                <div className="flex items-center justify-center">
-                  <div className="flex -space-x-2">
+                <div className="flex flex-col items-center justify-center">
+                  <div className="flex -space-x-2 mb-3">
                     <img 
                       src="/lovable-uploads/9985157b-e0d2-4841-98fc-efcce96afa49.png"
                       alt="Zadowolony klient"
@@ -301,6 +301,9 @@ const SmsVerificationVariantB = () => {
                       className="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover"
                     />
                   </div>
+                  <p className="text-sm text-green-600 font-medium text-center">
+                    oni wyszli już z długów
+                  </p>
                 </div>
               </div>
             </div>

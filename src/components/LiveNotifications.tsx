@@ -3,11 +3,11 @@ import React, { useState, useEffect } from 'react';
 
 const notifications = [
   { name: "Anna K.", location: "Warszawa", time: "2 minuty temu" },
-  { name: "Tomasz M.", location: "Kraków", time: "5 minut temu" },
-  { name: "Katarzyna S.", location: "Gdańsk", time: "8 minut temu" },
-  { name: "Michał P.", location: "Wrocław", time: "12 minut temu" },
-  { name: "Joanna W.", location: "Poznań", time: "15 minut temu" },
-  { name: "Robert K.", location: "Łódź", time: "18 minut temu" },
+  { name: "Tomasz M.", location: "Kraków", time: "8 minut temu" },
+  { name: "Katarzyna S.", location: "Gdańsk", time: "12 minut temu" },
+  { name: "Michał P.", location: "Wrocław", time: "16 minut temu" },
+  { name: "Joanna W.", location: "Poznań", time: "19 minut temu" },
+  { name: "Robert K.", location: "Łódź", time: "20 minut temu" },
 ];
 
 const LiveNotifications = () => {
@@ -31,7 +31,7 @@ const LiveNotifications = () => {
   return (
     <div className="fixed top-20 left-4 z-40 max-w-sm">
       <div 
-        className={`bg-white border-2 border-green-400 rounded-xl shadow-2xl p-4 transition-all duration-500 ${
+        className={`bg-white/90 backdrop-blur-sm border-2 border-green-400 rounded-xl shadow-2xl p-4 transition-all duration-500 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
         }`}
       >
