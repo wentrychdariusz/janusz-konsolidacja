@@ -22,9 +22,14 @@ const Podziekowania = () => {
 
   // Facebook Pixel - track conversion dla wentrych.pl/podziekowania
   useEffect(() => {
-    // Simple tracking
-    trackPageView('thank_you');
-    trackConversion('final_thank_you');
+    // Pobierz wariant użytkownika z localStorage
+    const variant = localStorage.getItem('ab_test_sms_verification') as 'A' | 'B' || 'A';
+    
+    // Simple tracking z wariantem
+    trackPageView('thank_you', variant);
+    trackConversion('final_thank_you', variant);
+    
+    console.log(`🎯 Thank you page: tracked for variant ${variant}`);
     
     if (typeof window !== 'undefined' && window.fbq) {
       // Track konwersję dla wentrych.pl

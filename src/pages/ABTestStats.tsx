@@ -14,7 +14,7 @@ interface VariantStats {
 }
 
 const ABTestStats = () => {
-  const { getStats, clearStats } = useSimpleTracking();
+  const { getStats, clearStats, trackPageView, trackConversion } = useSimpleTracking();
   const [variantA, setVariantA] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
   const [variantB, setVariantB] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
   const [lastUpdate, setLastUpdate] = useState<string>('');
@@ -22,56 +22,51 @@ const ABTestStats = () => {
   const refreshStats = () => {
     console.log('🔄 Refreshing A/B test stats...');
     const stats = getStats();
+    console.log('📊 All stats:', stats);
     
-    // Wariant A
-    const aUsers = stats.eventsByVariant['page_view_sms_verification_A'] || 0;
-    const aViews = stats.eventsByType['page_view_sms_verification'] || 0; // wszystkie wyświetlenia
-    const aConversions = stats.eventsByVariant['conversion_thank_you_A'] || 0;
-    const aConversionRate = aUsers > 0 ? (aConversions / aUsers) * 100 : 0;
+    // Wariant A - zlicz eventy z Simple Tracking
+    const aViews = stats.eventsByVariant['page_view_sms_verification_A'] || 0;
+    const aConversions = (stats.eventsByVariant['conversion_sms_verification_success_A'] || 0) + 
+                        (stats.eventsByVariant['conversion_final_thank_you_A'] || 0);
+    const aConversionRate = aViews > 0 ? (aConversions / aViews) * 100 : 0;
     
     // Wariant B  
-    const bUsers = stats.eventsByVariant['page_view_sms_verification_B'] || 0;
-    const bViews = stats.eventsByType['page_view_sms_verification'] || 0; // wszystkie wyświetlenia
-    const bConversions = stats.eventsByVariant['conversion_thank_you_B'] || 0;
-    const bConversionRate = bUsers > 0 ? (bConversions / bUsers) * 100 : 0;
+    const bViews = stats.eventsByVariant['page_view_sms_verification_B'] || 0;
+    const bConversions = (stats.eventsByVariant['conversion_sms_verification_success_B'] || 0) + 
+                        (stats.eventsByVariant['conversion_final_thank_you_B'] || 0);
+    const bConversionRate = bViews > 0 ? (bConversions / bViews) * 100 : 0;
     
-    setVariantA({ users: aUsers, views: aViews, conversions: aConversions, conversionRate: aConversionRate });
-    setVariantB({ users: bUsers, views: bViews, conversions: bConversions, conversionRate: bConversionRate });
+    setVariantA({ users: aViews, views: aViews, conversions: aConversions, conversionRate: aConversionRate });
+    setVariantB({ users: bViews, views: bViews, conversions: bConversions, conversionRate: bConversionRate });
     setLastUpdate(new Date().toLocaleTimeString());
     
-    console.log('📊 Stats updated:', { variantA: { users: aUsers, conversions: aConversions, rate: aConversionRate }, variantB: { users: bUsers, conversions: bConversions, rate: bConversionRate } });
+    console.log('📊 Stats updated:', { 
+      variantA: { views: aViews, conversions: aConversions, rate: aConversionRate }, 
+      variantB: { views: bViews, conversions: bConversions, rate: bConversionRate } 
+    });
   };
 
   const generateTestData = () => {
     console.log('🧪 Generating realistic test data...');
     
-    // Symuluj realistyczne dane A/B test
-    const testEvents = [
-      // Wariant A - 45 użytkowników, 12 konwersji (26.7%)
-      ...Array(45).fill(0).map(() => ({ event: 'page_view_sms_verification', variant: 'A' })),
-      ...Array(12).fill(0).map(() => ({ event: 'conversion_thank_you', variant: 'A' })),
-      
-      // Wariant B - 52 użytkowników, 18 konwersji (34.6%)  
-      ...Array(52).fill(0).map(() => ({ event: 'page_view_sms_verification', variant: 'B' })),
-      ...Array(18).fill(0).map(() => ({ event: 'conversion_thank_you', variant: 'B' })),
-    ];
-    
     // Wyczyść poprzednie dane
     clearStats();
     
-    // Dodaj testowe eventy
-    testEvents.forEach(({ event, variant }) => {
-      const eventData = { 
-        timestamp: Date.now(), 
-        sessionId: `test_${Math.random().toString(36)}`, 
-        event, 
-        variant 
-      };
-      
-      const existingEvents = JSON.parse(localStorage.getItem('simple_tracking_events') || '[]');
-      existingEvents.push(eventData);
-      localStorage.setItem('simple_tracking_events', JSON.stringify(existingEvents));
-    });
+    // Symuluj realistyczne dane A/B test - Wariant A (45 użytkowników, 12 konwersji)
+    for (let i = 0; i < 45; i++) {
+      trackPageView('sms_verification', 'A');
+    }
+    for (let i = 0; i < 12; i++) {
+      trackConversion('sms_verification_success', 'A');
+    }
+    
+    // Wariant B (52 użytkowników, 18 konwersji)  
+    for (let i = 0; i < 52; i++) {
+      trackPageView('sms_verification', 'B');
+    }
+    for (let i = 0; i < 18; i++) {
+      trackConversion('sms_verification_success', 'B');
+    }
     
     console.log('✅ Test data generated');
     setTimeout(refreshStats, 100);
@@ -105,7 +100,7 @@ const ABTestStats = () => {
         {/* Header */}
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            A/B Test - SMS Verification
+            A/B Test - SMS Verification Stats 2024
           </h1>
           <p className="text-gray-600 text-lg">
             Analiza skuteczności wariantów strony weryfikacji
@@ -130,7 +125,7 @@ const ABTestStats = () => {
           </Button>
         </div>
 
-        {/* Podsumowanie ogólne */}
+        {/* Podsumowanie */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card className="text-center">
             <CardHeader>
@@ -160,14 +155,14 @@ const ABTestStats = () => {
           </Card>
         </div>
 
-        {/* Porównanie wariantów - główne karty */}
+        {/* Główne porównanie wariantów */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           
           {/* Wariant A */}
           <Card className="border-blue-200 bg-blue-50/30">
             <CardHeader className="bg-blue-100 border-b border-blue-200">
               <CardTitle className="text-2xl text-blue-800 flex items-center justify-between">
-                Wariant A (Oryginalny)
+                Wariant A
                 <Badge className="bg-blue-600 text-white text-lg px-3 py-1">
                   {variantA.conversionRate.toFixed(1)}%
                 </Badge>
@@ -176,7 +171,7 @@ const ABTestStats = () => {
             <CardContent className="p-6">
               <div className="space-y-4">
                 <div className="flex justify-between items-center py-3 border-b border-blue-100">
-                  <span className="text-lg font-medium text-gray-700">Unikalni użytkownicy:</span>
+                  <span className="text-lg font-medium text-gray-700">Użytkownicy:</span>
                   <span className="text-2xl font-bold text-blue-600">{variantA.users}</span>
                 </div>
                 <div className="flex justify-between items-center py-3 border-b border-blue-100">
@@ -188,7 +183,7 @@ const ABTestStats = () => {
                   <span className="text-2xl font-bold text-green-600">{variantA.conversions}</span>
                 </div>
                 <div className="bg-blue-100 p-4 rounded-lg text-center">
-                  <div className="text-sm text-blue-700 font-medium">Współczynnik konwersji</div>
+                  <div className="text-sm text-blue-700 font-medium">% Konwersji</div>
                   <div className="text-4xl font-bold text-blue-800">{variantA.conversionRate.toFixed(1)}%</div>
                 </div>
               </div>
@@ -199,7 +194,7 @@ const ABTestStats = () => {
           <Card className="border-red-200 bg-red-50/30">
             <CardHeader className="bg-red-100 border-b border-red-200">
               <CardTitle className="text-2xl text-red-800 flex items-center justify-between">
-                Wariant B (Agresywny)
+                Wariant B
                 <Badge className="bg-red-600 text-white text-lg px-3 py-1">
                   {variantB.conversionRate.toFixed(1)}%
                 </Badge>
@@ -208,7 +203,7 @@ const ABTestStats = () => {
             <CardContent className="p-6">
               <div className="space-y-4">
                 <div className="flex justify-between items-center py-3 border-b border-red-100">
-                  <span className="text-lg font-medium text-gray-700">Unikalni użytkownicy:</span>
+                  <span className="text-lg font-medium text-gray-700">Użytkownicy:</span>
                   <span className="text-2xl font-bold text-red-600">{variantB.users}</span>
                 </div>
                 <div className="flex justify-between items-center py-3 border-b border-red-100">
@@ -220,7 +215,7 @@ const ABTestStats = () => {
                   <span className="text-2xl font-bold text-green-600">{variantB.conversions}</span>
                 </div>
                 <div className="bg-red-100 p-4 rounded-lg text-center">
-                  <div className="text-sm text-red-700 font-medium">Współczynnik konwersji</div>
+                  <div className="text-sm text-red-700 font-medium">% Konwersji</div>
                   <div className="text-4xl font-bold text-red-800">{variantB.conversionRate.toFixed(1)}%</div>
                 </div>
               </div>
@@ -228,10 +223,10 @@ const ABTestStats = () => {
           </Card>
         </div>
 
-        {/* Wykres porównawczy */}
+        {/* Wykres */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-xl">Porównanie wizualne wariantów</CardTitle>
+            <CardTitle className="text-xl">Porównanie wizualne</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={400}>
@@ -247,41 +242,29 @@ const ABTestStats = () => {
           </CardContent>
         </Card>
 
-        {/* Analiza wyników */}
+        {/* Analiza */}
         <Card className="border-yellow-200 bg-yellow-50">
           <CardHeader>
-            <CardTitle className="text-xl text-yellow-800">Analiza wyników</CardTitle>
+            <CardTitle className="text-xl text-yellow-800">Wyniki</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h3 className="font-semibold text-lg mb-2">Statystyki różnic:</h3>
-                <ul className="space-y-2 text-sm">
-                  <li>• Różnica w użytkownikach: <strong>{Math.abs(variantB.users - variantA.users)}</strong></li>
-                  <li>• Różnica w konwersjach: <strong>{Math.abs(variantB.conversions - variantA.conversions)}</strong></li>
-                  <li>• Różnica w współczynniku: <strong>{Math.abs(variantB.conversionRate - variantA.conversionRate).toFixed(1)}%</strong></li>
-                </ul>
+            <div className="text-center">
+              <div className="text-2xl font-bold mb-4">
+                {variantB.conversionRate > variantA.conversionRate ? (
+                  <span className="text-red-600">🏆 Wariant B prowadzi o {(variantB.conversionRate - variantA.conversionRate).toFixed(1)}%</span>
+                ) : variantA.conversionRate > variantB.conversionRate ? (
+                  <span className="text-blue-600">🏆 Wariant A prowadzi o {(variantA.conversionRate - variantB.conversionRate).toFixed(1)}%</span>
+                ) : (
+                  <span className="text-gray-600">🤝 Remis</span>
+                )}
               </div>
-              <div>
-                <h3 className="font-semibold text-lg mb-2">Zwycięzca:</h3>
-                <div className="text-2xl font-bold">
-                  {variantB.conversionRate > variantA.conversionRate ? (
-                    <span className="text-red-600">🏆 Wariant B prowadzi!</span>
-                  ) : variantA.conversionRate > variantB.conversionRate ? (
-                    <span className="text-blue-600">🏆 Wariant A prowadzi!</span>
-                  ) : (
-                    <span className="text-gray-600">🤝 Remis</span>
-                  )}
-                </div>
-              </div>
+              <p className="text-sm text-gray-600">
+                Różnica w konwersjach: {Math.abs(variantB.conversions - variantA.conversions)} • 
+                Różnica w użytkownikach: {Math.abs(variantB.users - variantA.users)}
+              </p>
             </div>
           </CardContent>
         </Card>
-
-        {/* Footer info */}
-        <div className="text-center text-gray-500 text-sm">
-          <p>Statystyki oparte na unikalnych sesjach (1 godzina ważności) • Dane przechowywane lokalnie</p>
-        </div>
 
       </div>
     </div>
