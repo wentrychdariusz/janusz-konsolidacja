@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
@@ -225,52 +224,52 @@ const ABTestSmsVerification = () => {
 
   console.log('📱 SmsVerification component rendered with params:', { name, email, phone, success });
 
-  // Wariant A - Oryginalny design
+  // Wariant A - DOKŁADNIE taki sam layout jak SmsVerificationVariantA
   if (isVariantA) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
-        <div className="max-w-2xl w-full">
-          <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
+      <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex flex-col justify-start items-center p-4 pt-8">
+        <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl">
+          <div className="bg-white rounded-2xl shadow-xl border-0 p-6 sm:p-8 lg:p-10">
             
             {/* Header z wizerunkiem Dariusza Wentrycha */}
-            <div className="text-center mb-8">
-              <div className="flex justify-center items-center mb-6">
+            <div className="text-center mb-8 sm:mb-10">
+              <div className="flex justify-center items-center mb-6 sm:mb-8">
                 <div className="flex flex-col items-center">
                   <img 
                     src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
                     alt="Dariusz Wentrych"
-                    className="w-20 h-20 rounded-full overflow-hidden border-3 border-business-blue-200 shadow-xl object-cover mb-3"
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-3 border-business-blue-200 shadow-xl object-cover mb-3 sm:mb-4"
                   />
                   <div className="text-center">
-                    <h3 className="text-lg font-bold text-navy-900">Dariusz Wentrych</h3>
-                    <p className="text-sm text-business-blue-600">#1 Ekspert ds. oddłużeń w Polsce</p>
+                    <h3 className="text-xl sm:text-2xl font-bold text-navy-900">Dariusz Wentrych</h3>
+                    <p className="text-base sm:text-lg text-business-blue-600 font-medium">#1 Ekspert ds. oddłużeń w Polsce</p>
                   </div>
                 </div>
               </div>
-              <h1 className="text-xl lg:text-2xl font-bold text-navy-900 mb-3">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-navy-900 mb-4 sm:mb-6 px-2">
                 Potwierdź bezpłatną konsultację
               </h1>
-              <p className="text-warm-neutral-600 text-sm lg:text-base mb-2">
+              <p className="text-warm-neutral-600 text-lg sm:text-xl mb-3 sm:mb-4 px-2 font-medium">
                 Wysłaliśmy kod SMS na numer: <strong>{decodeURIComponent(phone) || 'Twój numer'}</strong>
               </p>
-              <p className="text-warm-neutral-500 text-sm">
+              <p className="text-warm-neutral-500 text-base sm:text-lg px-2">
                 Wpisz 4-cyfrowy kod, aby potwierdzić umówienie bezpłatnej konsultacji
               </p>
             </div>
 
             {/* Timer */}
-            <div className="text-center mb-6">
-              <div className="inline-flex items-center bg-orange-50 text-orange-700 px-4 py-2 rounded-lg border border-orange-200">
-                <Clock className="w-4 h-4 mr-2" />
-                <span className="font-mono text-lg font-bold">{formattedTime}</span>
+            <div className="text-center mb-8 sm:mb-10">
+              <div className="inline-flex items-center bg-orange-50 text-orange-700 px-6 sm:px-8 py-3 sm:py-4 rounded-xl border border-orange-200">
+                <Clock className="w-6 h-6 mr-3" />
+                <span className="font-mono text-2xl sm:text-3xl font-bold">{formattedTime}</span>
               </div>
-              <p className="text-sm text-gray-500 mt-2">Pozostały czas na wprowadzenie kodu</p>
+              <p className="text-base sm:text-lg text-gray-500 mt-4 font-medium">Pozostały czas na wprowadzenie kodu</p>
               
               {isExpired && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-3 mt-4">
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4 mt-6 mx-2">
                   <div className="flex items-center justify-center space-x-2">
-                    <AlertCircle className="w-4 h-4 text-red-600" />
-                    <span className="text-red-600 text-sm">
+                    <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+                    <span className="text-red-600 text-base sm:text-lg font-medium">
                       Czas na wprowadzenie kodu upłynął. Wyślij kod ponownie.
                     </span>
                   </div>
@@ -278,64 +277,68 @@ const ABTestSmsVerification = () => {
               )}
             </div>
 
-            {/* Formularz SMS z większym polem */}
-            <div className="flex-1 flex flex-col justify-center space-y-6">
-              <div className="text-center">
-                <label className="block text-lg font-medium text-navy-800 mb-6">
+            {/* Formularz SMS */}
+            <div className="space-y-8 sm:space-y-10">
+              <div className="text-center px-2">
+                <label className="block text-xl sm:text-2xl font-bold text-navy-800 mb-6 sm:mb-8">
                   Kod SMS
                 </label>
-                <div className="flex justify-center">
+                <div className="flex justify-center mb-6">
                   <InputOTP 
                     maxLength={4} 
                     value={smsCode} 
                     onChange={setSmsCode}
-                    className="text-2xl"
+                    className="text-2xl sm:text-3xl"
                     disabled={isExpired}
                   >
-                    <InputOTPGroup className="gap-4">
+                    <InputOTPGroup className="gap-3 sm:gap-4 md:gap-6">
                       <InputOTPSlot 
                         index={0} 
-                        className="w-16 h-16 text-2xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
+                        className="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:w-18 lg:w-20 lg:h-20 text-2xl sm:text-3xl md:text-4xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
                       />
                       <InputOTPSlot 
                         index={1} 
-                        className="w-16 h-16 text-2xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
+                        className="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:w-18 lg:w-20 lg:h-20 text-2xl sm:text-3xl md:text-4xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
                       />
                       <InputOTPSlot 
                         index={2} 
-                        className="w-16 h-16 text-2xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
+                        className="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:w-18 lg:w-20 lg:h-20 text-2xl sm:text-3xl md:text-4xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
                       />
                       <InputOTPSlot 
                         index={3} 
-                        className="w-16 h-16 text-2xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
+                        className="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:w-18 lg:w-20 lg:h-20 text-2xl sm:text-3xl md:text-4xl font-bold border-2 border-business-blue-300 rounded-xl focus:border-business-blue-600 focus:ring-2 focus:ring-business-blue-200"
                       />
                     </InputOTPGroup>
                   </InputOTP>
                 </div>
                 
                 {verificationError && (
-                  <p className="text-red-600 text-base mt-4 font-medium">{verificationError}</p>
+                  <div className="mb-6 px-2">
+                    <p className="text-red-600 text-lg sm:text-xl font-bold">{verificationError}</p>
+                  </div>
                 )}
               </div>
 
-              <div className="text-center">
+              <div className="text-center px-2">
                 <button
                   onClick={handleSmsVerification}
                   disabled={smsCode.length !== 4 || isVerifying || isExpired}
-                  className="bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 px-8 text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 sm:py-5 px-8 sm:px-12 text-xl sm:text-2xl rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
                 >
                   {isVerifying ? "Weryfikuję..." : "Potwierdź bezpłatną konsultację"}
                 </button>
                 
-                <p className="text-base text-gray-600 mt-6">
-                  Nie otrzymałeś SMS? 
-                  <button 
-                    className="text-business-blue-600 hover:underline ml-1 font-medium"
-                    onClick={handleResendSms}
-                  >
-                    Wyślij ponownie
-                  </button>
-                </p>
+                <div className="mt-6 sm:mt-8">
+                  <p className="text-lg sm:text-xl text-gray-600 font-medium">
+                    Nie otrzymałeś SMS? 
+                    <button 
+                      className="text-business-blue-600 hover:underline ml-2 font-bold"
+                      onClick={handleResendSms}
+                    >
+                      Wyślij ponownie
+                    </button>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -344,7 +347,7 @@ const ABTestSmsVerification = () => {
     );
   }
 
-  // Wariant B - Nowy agresywny design z czerwono-pomarańczową kolorystyką
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4">
       <div className="max-w-2xl w-full">
