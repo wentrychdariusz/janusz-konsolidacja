@@ -320,18 +320,25 @@ const ABTestStats = () => {
                   <Button 
                     variant="outline" 
                     onClick={() => {
+                      alert('🔍 DEBUG ROZPOCZĘTY - sprawdź konsolę!');
+                      console.log('🔍 [MANUAL DEBUG] === ROZPOCZĘCIE DEBUGOWANIA ===');
                       console.log('🔍 [MANUAL DEBUG] Checking ALL localStorage keys for A/B test:');
+                      
+                      let foundABTestKeys = 0;
                       
                       // Sprawdź WSZYSTKIE klucze
                       for (let i = 0; i < localStorage.length; i++) {
                         const key = localStorage.key(i);
                         if (key) {
                           const value = localStorage.getItem(key);
-                          if (key.includes('ab_test') || key.includes('sms')) {
-                            console.log(`🔑 ${key}: "${value}"`);
+                          if (key.includes('ab_test') || key.includes('sms_verification')) {
+                            console.log(`🔑 FOUND: ${key}: "${value}"`);
+                            foundABTestKeys++;
                           }
                         }
                       }
+                      
+                      console.log(`📊 Found ${foundABTestKeys} A/B test related keys`);
                       
                       // Sprawdź DOKŁADNIE te klucze które powinny być
                       const testKeys = [
@@ -346,11 +353,21 @@ const ABTestStats = () => {
                       console.log('🎯 [MANUAL DEBUG] Checking EXACT expected keys:');
                       testKeys.forEach(key => {
                         const value = localStorage.getItem(key);
-                        console.log(`📊 ${key}: "${value}"`);
+                        const exists = value !== null;
+                        console.log(`📊 ${exists ? '✅' : '❌'} ${key}: "${value}"`);
                       });
+                      
+                      // Sprawdź klucz wariantu użytkownika
+                      const userVariantKey = 'ab_test_sms_verification_test';
+                      const userVariant = localStorage.getItem(userVariantKey);
+                      console.log(`👤 User variant: ${userVariantKey}: "${userVariant}"`);
+                      
+                      console.log('🔍 [MANUAL DEBUG] === KONIEC DEBUGOWANIA ===');
+                      alert('🔍 Debug zakończony - sprawdź konsolę dla szczegółów!');
                       
                       refreshStats();
                     }}
+                    className="bg-yellow-100 hover:bg-yellow-200 border-yellow-300"
                   >
                     🔍 DEBUG WSZYSTKO
                   </Button>
