@@ -1,23 +1,97 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useABTest } from '../hooks/useABTest';
 import { useABTestSettings } from '../hooks/useABTestSettings';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
+interface ABTestStats {
+  variantA: {
+    uniqueUsers: number;
+    totalViews: number;
+    conversions: number;
+  };
+  variantB: {
+    uniqueUsers: number;
+    totalViews: number;
+    conversions: number;
+  };
+}
+
 const ABTestStats = () => {
-  // Używamy tego samego hooka co w głównym komponencie
-  const { getStats, resetStats } = useABTest({ 
-    testName: 'sms_verification_test',
-    enabled: false // Nie chcemy trackować w panelu statystyk
-  });
   const { settings, updateSettings, resetSettings } = useABTestSettings();
-  const stats = getStats();
+  const [stats, setStats] = useState<ABTestStats>({
+    variantA: { uniqueUsers: 0, totalViews: 0, conversions: 0 },
+    variantB: { uniqueUsers: 0, totalViews: 0, conversions: 0 }
+  });
+
+  // Funkcja do bezpośredniego odczytu statystyk z localStorage
+  const getDirectStats = (): ABTestStats => {
+    console.log('📈 Getting direct stats from localStorage for sms_verification_test');
+    
+    // Debug wszystkich kluczy w localStorage
+    console.log('🔍 All localStorage keys related to A/B test:');
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.includes('ab_test_sms_verification_test')) {
+        console.log(`  ${key}: ${localStorage.getItem(key)}`);
+      }
+    }
+    
+    const directStats = {
+      variantA: {
+        uniqueUsers: parseInt(localStorage.getItem('ab_test_sms_verification_test_variant_a_unique_users') || '0'),
+        totalViews: parseInt(localStorage.getItem('ab_test_sms_verification_test_variant_a_views') || '0'),
+        conversions: parseInt(localStorage.getItem('ab_test_sms_verification_test_variant_a_conversions') || '0'),
+      },
+      variantB: {
+        uniqueUsers: parseInt(localStorage.getItem('ab_test_sms_verification_test_variant_b_unique_users') || '0'),
+        totalViews: parseInt(localStorage.getItem('ab_test_sms_verification_test_variant_b_views') || '0'),
+        conversions: parseInt(localStorage.getItem('ab_test_sms_verification_test_variant_b_conversions') || '0'),
+      }
+    };
+    
+    console.log('📈 Direct stats result:', directStats);
+    return directStats;
+  };
+
+  // Funkcja do resetowania statystyk
+  const resetStats = () => {
+    const keys = [
+      'ab_test_sms_verification_test_variant_a_unique_users',
+      'ab_test_sms_verification_test_variant_a_views',
+      'ab_test_sms_verification_test_variant_a_conversions',
+      'ab_test_sms_verification_test_variant_b_unique_users',
+      'ab_test_sms_verification_test_variant_b_views',
+      'ab_test_sms_verification_test_variant_b_conversions',
+    ];
+    
+    console.log('🔄 Resetting stats, removing keys:', keys);
+    keys.forEach(key => {
+      console.log(`🗑️ Removing key: ${key}`);
+      localStorage.removeItem(key);
+    });
+    console.log('🔄 AB Test: sms_verification_test - All stats reset');
+    
+    // Odśwież statystyki po resecie
+    refreshStats();
+  };
+
+  // Funkcja do odświeżania statystyk
+  const refreshStats = () => {
+    const newStats = getDirectStats();
+    setStats(newStats);
+    console.log('🔄 Stats refreshed:', newStats);
+  };
+
+  // Załaduj statystyki przy pierwszym renderze
+  useEffect(() => {
+    refreshStats();
+  }, []);
 
   const calculateConversionRate = (conversions: number, uniqueUsers: number) => {
     if (uniqueUsers === 0) return 0;
@@ -46,12 +120,6 @@ const ABTestStats = () => {
 
   const totalUsers = stats.variantA.uniqueUsers + stats.variantB.uniqueUsers;
   const totalConversions = stats.variantA.conversions + stats.variantB.conversions;
-  const winningVariant = stats.variantA.conversions >= stats.variantB.conversions ? 'A' : 'B';
-
-  // Debug informacje
-  console.log('📊 Current A/B Test Stats:', stats);
-  console.log('📊 Total Users:', totalUsers);
-  console.log('📊 Total Conversions:', totalConversions);
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">
@@ -330,7 +398,6 @@ const ABTestStats = () => {
                 onClick={() => {
                   if (confirm('Czy na pewno chcesz zresetować wszystkie statystyki?')) {
                     resetStats();
-                    window.location.reload();
                   }
                 }}
               >
@@ -338,7 +405,7 @@ const ABTestStats = () => {
               </Button>
               <Button 
                 variant="outline" 
-                onClick={() => window.location.reload()}
+                onClick={refreshStats}
               >
                 Odśwież dane
               </Button>
