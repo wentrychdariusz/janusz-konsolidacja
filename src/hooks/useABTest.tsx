@@ -109,6 +109,10 @@ const trackUniqueUser = (testName: string, currentVariant: ABVariant) => {
   const uniqueUsersKey = `ab_test_${testName}_variant_${currentVariant.toLowerCase()}_unique_users`;
   
   try {
+    console.log(`🚨 [CRITICAL DEBUG] trackUniqueUser called with testName: "${testName}", variant: "${currentVariant}"`);
+    console.log(`🚨 [CRITICAL DEBUG] Generated key: "${uniqueUsersKey}"`);
+    console.log(`🚨 [CRITICAL DEBUG] localStorage available?`, typeof Storage !== 'undefined');
+    
     const currentUsersStr = localStorage.getItem(uniqueUsersKey);
     console.log(`👤 Reading unique users from localStorage: ${uniqueUsersKey} = "${currentUsersStr}"`);
     
@@ -116,13 +120,24 @@ const trackUniqueUser = (testName: string, currentVariant: ABVariant) => {
     const validCurrentUsers = isNaN(currentUsers) ? 0 : currentUsers;
     const newCount = validCurrentUsers + 1;
     
+    console.log(`🚨 [CRITICAL DEBUG] About to set localStorage with key: "${uniqueUsersKey}", value: "${newCount}"`);
     localStorage.setItem(uniqueUsersKey, newCount.toString());
+    console.log(`🚨 [CRITICAL DEBUG] localStorage.setItem completed`);
     
     console.log(`👤 AB Test: ${testName} - Unique user tracked for Variant ${currentVariant}. Previous: ${validCurrentUsers}, New: ${newCount}`);
     
     // Weryfikacja
     const verification = localStorage.getItem(uniqueUsersKey);
     console.log(`🔍 Verification - reading back from localStorage: "${verification}"`);
+    
+    // SPRAWDŹ WSZYSTKIE KLUCZE PO ZAPISIE
+    console.log(`🚨 [CRITICAL DEBUG] All localStorage keys after setting:`);
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.includes('ab_test')) {
+        console.log(`  🔑 ${key}: ${localStorage.getItem(key)}`);
+      }
+    }
   } catch (error) {
     console.error(`❌ Error tracking unique user:`, error);
   }
