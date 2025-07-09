@@ -74,32 +74,40 @@ const ABTestStats = () => {
       }
     };
 
-    // Generuj losowe dane testowe
+    // Generuj REALISTYCZNE dane testowe
     const testData = {
       variantA: {
-        uniqueUsers: Math.floor(Math.random() * 100) + 10,
-        views: Math.floor(Math.random() * 200) + 50,
-        conversions: Math.floor(Math.random() * 20) + 1
+        uniqueUsers: 45,
+        views: 87,
+        conversions: 12
       },
       variantB: {
-        uniqueUsers: Math.floor(Math.random() * 100) + 10,
-        views: Math.floor(Math.random() * 200) + 50,
-        conversions: Math.floor(Math.random() * 20) + 1
+        uniqueUsers: 52,
+        views: 94,
+        conversions: 18
       }
     };
 
-    // Zapisz dane do localStorage
-    localStorage.setItem(keys.variantA.uniqueUsers, testData.variantA.uniqueUsers.toString());
-    localStorage.setItem(keys.variantA.views, testData.variantA.views.toString());
-    localStorage.setItem(keys.variantA.conversions, testData.variantA.conversions.toString());
-    localStorage.setItem(keys.variantB.uniqueUsers, testData.variantB.uniqueUsers.toString());
-    localStorage.setItem(keys.variantB.views, testData.variantB.views.toString());
-    localStorage.setItem(keys.variantB.conversions, testData.variantB.conversions.toString());
+    console.log('🧪 Setting REALISTIC test data:', testData);
 
-    console.log('🧪 Test data generated:', testData);
+    // Zapisz dane do localStorage z dokładnym debugowaniem
+    Object.entries(keys.variantA).forEach(([key, storageKey]) => {
+      const value = testData.variantA[key as keyof typeof testData.variantA].toString();
+      localStorage.setItem(storageKey, value);
+      console.log(`✅ Set ${storageKey} = "${value}"`);
+    });
+
+    Object.entries(keys.variantB).forEach(([key, storageKey]) => {
+      const value = testData.variantB[key as keyof typeof testData.variantB].toString();
+      localStorage.setItem(storageKey, value);
+      console.log(`✅ Set ${storageKey} = "${value}"`);
+    });
     
     // Odśwież statystyki
-    refreshStats();
+    setTimeout(() => {
+      console.log('🔄 Refreshing stats after test data generation...');
+      refreshStats();
+    }, 100);
   };
 
   const getDirectStats = (): ABTestStats => {
@@ -168,14 +176,15 @@ const ABTestStats = () => {
     }
     
     setDebugInfo([
-      `Odświeżone o: ${new Date().toLocaleTimeString()}`,
-      `FINALNIE NAPRAWIONE - powinno działać!`,
-      `Variant A: ${parsedStats.variantA.uniqueUsers} users, ${parsedStats.variantA.totalViews} views, ${parsedStats.variantA.conversions} conversions`,
-      `Variant B: ${parsedStats.variantB.uniqueUsers} users, ${parsedStats.variantB.totalViews} views, ${parsedStats.variantB.conversions} conversions`,
-      `Found A/B test keys: ${abTestKeys.length}`,
-      ...abTestKeys,
-      `Total localStorage keys: ${allKeys.length}`,
-      `SPRAWDŹ TERAZ - powinno pokazać prawdziwe dane!`
+      `⏰ Odświeżone o: ${new Date().toLocaleTimeString()}`,
+      `🎯 Variant A: ${parsedStats.variantA.uniqueUsers} users, ${parsedStats.variantA.totalViews} views, ${parsedStats.variantA.conversions} conversions`,
+      `🎯 Variant B: ${parsedStats.variantB.uniqueUsers} users, ${parsedStats.variantB.totalViews} views, ${parsedStats.variantB.conversions} conversions`,
+      `📊 Found A/B test keys: ${abTestKeys.length}`,
+      ...abTestKeys.slice(0, 10), // Limit output
+      `💾 Total localStorage keys: ${allKeys.length}`,
+      parsedStats.variantA.uniqueUsers + parsedStats.variantB.uniqueUsers === 0 
+        ? `⚠️ BRAK DANYCH - Kliknij "GENERUJ TESTOWE DANE" lub idź na stronę SMS i wróć tutaj`
+        : `✅ DANE SĄ OBECNE - wszystko działa!`
     ]);
     
     return parsedStats;
@@ -299,14 +308,14 @@ const ABTestStats = () => {
                     onClick={refreshStats}
                     className="bg-green-100 hover:bg-green-200"
                   >
-                    🔄 ODŚWIEŻ DANE (NAPRAWIONE!)
+                    🔄 ODŚWIEŻ DANE
                   </Button>
                   <Button 
-                    variant="outline" 
+                    variant="default" 
                     onClick={generateTestData}
-                    className="bg-blue-100 hover:bg-blue-200"
+                    className="bg-blue-600 text-white hover:bg-blue-700"
                   >
-                    🧪 GENERUJ TESTOWE DANE
+                    🧪 WYGENERUJ TESTOWE DANE
                   </Button>
                   <Button 
                     variant="outline" 
