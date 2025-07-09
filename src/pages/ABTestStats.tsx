@@ -1,300 +1,315 @@
 
-import React, { useState, useEffect } from 'react';
-import { Eye, EyeOff, TrendingUp, Users, MousePointer, Calculator } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import React from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useABTest } from '../hooks/useABTest';
+import { useABTestSettings } from '../hooks/useABTestSettings';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
 const ABTestStats = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState('');
-  const [stats, setStats] = useState({
-    variantA: {
-      views: 0,
-      conversions: 0,
-      conversionRate: 0
+  const { getStats, resetStats } = useABTest({ testName: 'sms_verification_test' });
+  const { settings, updateSettings, resetSettings } = useABTestSettings();
+  const stats = getStats();
+
+  const calculateConversionRate = (conversions: number, uniqueUsers: number) => {
+    if (uniqueUsers === 0) return 0;
+    return ((conversions / uniqueUsers) * 100).toFixed(2);
+  };
+
+  const chartData = [
+    {
+      name: 'Wariant A',
+      'Unikalni użytkownicy': stats.variantA.uniqueUsers,
+      'Wyświetlenia': stats.variantA.totalViews,
+      'Konwersje': stats.variantA.conversions,
     },
-    variantB: {
-      views: 0,
-      conversions: 0,
-      conversionRate: 0
-    }
-  });
+    {
+      name: 'Wariant B',
+      'Unikalni użytkownicy': stats.variantB.uniqueUsers,
+      'Wyświetlenia': stats.variantB.totalViews,
+      'Konwersje': stats.variantB.conversions,
+    },
+  ];
 
-  // Hasło do dostępu (można zmienić)
-  const ADMIN_PASSWORD = 'wentrych2024';
+  const pieData = [
+    { name: 'Wariant A', value: stats.variantA.uniqueUsers, color: '#3b82f6' },
+    { name: 'Wariant B', value: stats.variantB.uniqueUsers, color: '#ef4444' },
+  ];
 
-  // Sprawdź czy użytkownik jest już zalogowany
-  useEffect(() => {
-    const authenticated = localStorage.getItem('ab_test_auth');
-    if (authenticated === 'true') {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  // Pobierz statystyki z localStorage
-  useEffect(() => {
-    if (isAuthenticated) {
-      loadStats();
-      // Odświeżaj co 30 sekund
-      const interval = setInterval(loadStats, 30000);
-      return () => clearInterval(interval);
-    }
-  }, [isAuthenticated]);
-
-  const loadStats = () => {
-    const variantAViews = parseInt(localStorage.getItem('ab_variant_a_views') || '0');
-    const variantAConversions = parseInt(localStorage.getItem('ab_variant_a_conversions') || '0');
-    const variantBViews = parseInt(localStorage.getItem('ab_variant_b_views') || '0');
-    const variantBConversions = parseInt(localStorage.getItem('ab_variant_b_conversions') || '0');
-
-    setStats({
-      variantA: {
-        views: variantAViews,
-        conversions: variantAConversions,
-        conversionRate: variantAViews > 0 ? (variantAConversions / variantAViews * 100) : 0
-      },
-      variantB: {
-        views: variantBViews,
-        conversions: variantBConversions,
-        conversionRate: variantBViews > 0 ? (variantBConversions / variantBViews * 100) : 0
-      }
-    });
-  };
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password === ADMIN_PASSWORD) {
-      setIsAuthenticated(true);
-      localStorage.setItem('ab_test_auth', 'true');
-      setError('');
-    } else {
-      setError('Nieprawidłowe hasło');
-    }
-  };
-
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem('ab_test_auth');
-    setPassword('');
-  };
-
-  const resetStats = () => {
-    if (confirm('Czy na pewno chcesz zresetować wszystkie statystyki?')) {
-      localStorage.removeItem('ab_variant_a_views');
-      localStorage.removeItem('ab_variant_a_conversions');
-      localStorage.removeItem('ab_variant_b_views');
-      localStorage.removeItem('ab_variant_b_conversions');
-      loadStats();
-    }
-  };
-
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle className="text-center">Dostęp do statystyk A/B</CardTitle>
-            <CardDescription className="text-center">
-              Wprowadź hasło, aby uzyskać dostęp do statystyk testów A/B
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div className="relative">
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Wprowadź hasło"
-                  className="w-full px-4 py-3 border border-warm-neutral-300 rounded-lg focus:border-navy-600 focus:ring-1 focus:ring-navy-600 pr-12"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
-              {error && (
-                <p className="text-red-600 text-sm text-center">{error}</p>
-              )}
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300"
-              >
-                Zaloguj się
-              </button>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
-  const totalViews = stats.variantA.views + stats.variantB.views;
-  const totalConversions = stats.variantA.conversions + stats.variantB.conversions;
-  const overallConversionRate = totalViews > 0 ? (totalConversions / totalViews * 100) : 0;
+  const totalUsers = stats.variantA.uniqueUsers + stats.variantB.uniqueUsers;
+  const winningVariant = stats.variantA.conversions >= stats.variantB.conversions ? 'A' : 'B';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 p-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-navy-900">Statystyki Testów A/B</h1>
-            <p className="text-warm-neutral-600 mt-2">Panel administracyjny - dane w czasie rzeczywistym</p>
-          </div>
-          <div className="flex gap-3">
-            <button
-              onClick={resetStats}
-              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              Reset statystyk
-            </button>
-            <button
-              onClick={handleLogout}
-              className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              Wyloguj
-            </button>
-          </div>
+    <div className="min-h-screen bg-gray-50 p-4">
+      <div className="max-w-7xl mx-auto space-y-6">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            Statystyki A/B Test - SMS Verification
+          </h1>
+          <p className="text-gray-600">
+            Zarządzanie i analiza testów A/B dla strony weryfikacji SMS
+          </p>
         </div>
 
-        {/* Ogólne statystyki */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Łączne wyświetlenia</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{totalViews}</div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Łączne konwersje</CardTitle>
-              <MousePointer className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{totalConversions}</div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Ogólna konwersja</CardTitle>
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{overallConversionRate.toFixed(2)}%</div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Test aktywny</CardTitle>
-              <Calculator className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-green-600">TAK</div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Porównanie wariantów */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Wariant A */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl text-center">Wariant A (Oryginalny)</CardTitle>
-              <CardDescription className="text-center">Obecna wersja strony</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">
-                  {stats.variantA.conversionRate.toFixed(2)}%
-                </div>
-                <p className="text-gray-600">Współczynnik konwersji</p>
+        {/* Ustawienia A/B Testu */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Ustawienia A/B Testu</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                <Switch
+                  id="ab-test-enabled"
+                  checked={settings.sms_verification_enabled}
+                  onCheckedChange={(enabled) => 
+                    updateSettings({ sms_verification_enabled: enabled })
+                  }
+                />
+                <Label htmlFor="ab-test-enabled">
+                  Włącz A/B Test
+                </Label>
               </div>
               
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-4 bg-blue-50 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-800">{stats.variantA.views}</div>
-                  <div className="text-sm text-blue-600">Wyświetlenia</div>
-                </div>
-                <div className="text-center p-4 bg-green-50 rounded-lg">
-                  <div className="text-2xl font-bold text-green-800">{stats.variantA.conversions}</div>
-                  <div className="text-sm text-green-600">Konwersje</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              <Badge variant={settings.sms_verification_enabled ? "default" : "secondary"}>
+                {settings.sms_verification_enabled ? "Aktywny" : "Wyłączony"}
+              </Badge>
+            </div>
 
-          {/* Wariant B */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl text-center">Wariant B (Test)</CardTitle>
-              <CardDescription className="text-center">Nowa wersja do testowania</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-purple-600 mb-2">
-                  {stats.variantB.conversionRate.toFixed(2)}%
-                </div>
-                <p className="text-gray-600">Współczynnik konwersji</p>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-4 bg-purple-50 rounded-lg">
-                  <div className="text-2xl font-bold text-purple-800">{stats.variantB.views}</div>
-                  <div className="text-sm text-purple-600">Wyświetlenia</div>
-                </div>
-                <div className="text-center p-4 bg-green-50 rounded-lg">
-                  <div className="text-2xl font-bold text-green-800">{stats.variantB.conversions}</div>
-                  <div className="text-sm text-green-600">Konwersje</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Wyniki testu */}
-        {totalViews > 10 && (
-          <Card className="mt-8">
-            <CardHeader>
-              <CardTitle>Analiza wyników</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center p-6">
-                {stats.variantA.conversionRate > stats.variantB.conversionRate ? (
-                  <div className="text-blue-600">
-                    <div className="text-2xl font-bold mb-2">Wariant A prowadzi!</div>
-                    <p>Oryginalny wariant ma wyższą konwersję o {(stats.variantA.conversionRate - stats.variantB.conversionRate).toFixed(2)} punktów procentowych</p>
-                  </div>
-                ) : stats.variantB.conversionRate > stats.variantA.conversionRate ? (
-                  <div className="text-purple-600">
-                    <div className="text-2xl font-bold mb-2">Wariant B prowadzi!</div>
-                    <p>Testowy wariant ma wyższą konwersję o {(stats.variantB.conversionRate - stats.variantA.conversionRate).toFixed(2)} punktów procentowych</p>
-                  </div>
-                ) : (
-                  <div className="text-gray-600">
-                    <div className="text-2xl font-bold mb-2">Remis!</div>
-                    <p>Oba warianty mają identyczną konwersję</p>
-                  </div>
+            <div className="space-y-2">
+              <Label>Wymuszony wariant</Label>
+              <div className="flex items-center space-x-4">
+                <Select
+                  value={settings.sms_verification_force_variant || "none"}
+                  onValueChange={(value) => 
+                    updateSettings({ 
+                      sms_verification_force_variant: value === "none" ? undefined : value as "A" | "B"
+                    })
+                  }
+                >
+                  <SelectTrigger className="w-48">
+                    <SelectValue placeholder="Wybierz wariant" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">Automatyczny podział</SelectItem>
+                    <SelectItem value="A">Wymuszony wariant A</SelectItem>
+                    <SelectItem value="B">Wymuszony wariant B</SelectItem>
+                  </SelectContent>
+                </Select>
+                
+                {settings.sms_verification_force_variant && (
+                  <Badge variant="outline">
+                    Wariant {settings.sms_verification_force_variant} wymuszony
+                  </Badge>
                 )}
               </div>
+            </div>
+
+            <div className="flex space-x-2">
+              <Button 
+                variant="outline" 
+                onClick={resetSettings}
+                size="sm"
+              >
+                Reset ustawień
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Podsumowanie */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium">Łączni użytkownicy</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{totalUsers}</div>
             </CardContent>
           </Card>
-        )}
-
-        <div className="mt-8 text-center text-sm text-gray-500">
-          Ostatnia aktualizacja: {new Date().toLocaleString('pl-PL')}
+          
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium">Zwycięski wariant</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-green-600">
+                Wariant {winningVariant}
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium">Konwersja A</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-blue-600">
+                {calculateConversionRate(stats.variantA.conversions, stats.variantA.uniqueUsers)}%
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium">Konwersja B</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-red-600">
+                {calculateConversionRate(stats.variantB.conversions, stats.variantB.uniqueUsers)}%
+              </div>
+            </CardContent>
+          </Card>
         </div>
+
+        {/* Szczegółowe statystyki */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Wariant A (Oryginalny)</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-3 gap-4 text-center">
+                <div>
+                  <div className="text-2xl font-bold text-blue-600">
+                    {stats.variantA.uniqueUsers}
+                  </div>
+                  <div className="text-sm text-gray-500">Unikalni użytkownicy</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-blue-600">
+                    {stats.variantA.totalViews}
+                  </div>
+                  <div className="text-sm text-gray-500">Wyświetlenia</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-green-600">
+                    {stats.variantA.conversions}
+                  </div>
+                  <div className="text-sm text-gray-500">Konwersje</div>
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-lg font-semibold">
+                  Współczynnik konwersji: {calculateConversionRate(stats.variantA.conversions, stats.variantA.uniqueUsers)}%
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Wariant B (Agresywny)</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-3 gap-4 text-center">
+                <div>
+                  <div className="text-2xl font-bold text-red-600">
+                    {stats.variantB.uniqueUsers}
+                  </div>
+                  <div className="text-sm text-gray-500">Unikalni użytkownicy</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-red-600">
+                    {stats.variantB.totalViews}
+                  </div>
+                  <div className="text-sm text-gray-500">Wyświetlenia</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold text-green-600">
+                    {stats.variantB.conversions}
+                  </div>
+                  <div className="text-sm text-gray-500">Konwersje</div>
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-lg font-semibold">
+                  Współczynnik konwersji: {calculateConversionRate(stats.variantB.conversions, stats.variantB.uniqueUsers)}%
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Wykresy */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Porównanie wariantów</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={chartData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="Unikalni użytkownicy" fill="#3b82f6" />
+                  <Bar dataKey="Konwersje" fill="#10b981" />
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Podział użytkowników</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                  <Pie
+                    data={pieData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {pieData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Akcje */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Akcje</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex space-x-4">
+              <Button 
+                variant="destructive" 
+                onClick={() => {
+                  if (confirm('Czy na pewno chcesz zresetować wszystkie statystyki?')) {
+                    resetStats();
+                    window.location.reload();
+                  }
+                }}
+              >
+                Reset wszystkich statystyk
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={() => window.location.reload()}
+              >
+                Odśwież dane
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

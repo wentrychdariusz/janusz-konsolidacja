@@ -25,10 +25,15 @@ const ABTestSmsVerification = () => {
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationError, setVerificationError] = useState('');
   
-  // A/B Test hook
+  // Sprawdź ustawienia A/B testu
+  const { settings } = useABTestSettings();
+  
+  // A/B Test hook z nowymi funkcjami
   const { variant, isVariantA, trackConversion } = useABTest({
     testName: 'sms_verification_test',
-    splitRatio: 0.5
+    splitRatio: 0.5,
+    enabled: settings.sms_verification_enabled,
+    forceVariant: settings.sms_verification_force_variant
   });
 
   // Countdown hook - 5 minut (300 sekund)
