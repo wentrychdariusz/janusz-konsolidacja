@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
@@ -328,23 +327,18 @@ const SmsVerificationVariantB = () => {
                 <p className="text-base text-gray-600 font-medium mb-3">
                   Nie otrzymałeś SMS? 
                 </p>
-                <button 
-                  className="bg-gray-400 hover:bg-gray-500 text-white font-semibold py-2 px-6 rounded-lg text-base transition-all duration-300 hover:scale-105 border border-gray-500"
-                  onClick={handleResendSms}
-                >
+                <p className="text-gray-600 text-base font-medium cursor-pointer hover:text-gray-800 transition-colors" onClick={handleResendSms}>
                   📱 Wyślij ponownie
-                </button>
+                </p>
               </div>
             </div>
           </div>
 
-          {/* Zmniejszony element motywacyjny */}
+          {/* Zwykły tekst motywacyjny */}
           <div className="text-center mt-4">
-            <div className="bg-green-50 border border-green-300 text-green-700 p-3 rounded-lg">
-              <p className="text-base font-medium">
-                ✅ Twoja konsultacja zostanie potwierdzona w ciągu kilku sekund
-              </p>
-            </div>
+            <p className="text-green-700 text-base font-medium">
+              ✅ Twoja konsultacja zostanie potwierdzona w ciągu kilku sekund
+            </p>
           </div>
         </div>
       </div>
