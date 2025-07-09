@@ -73,13 +73,12 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
     console.log(`📊 Second useEffect triggered - isLoaded: ${isLoaded}, enabled: ${enabled}, variant: ${variant}`);
     
     if (isLoaded && enabled && variant) {
-      // Używaj useSimpleTracking do śledzenia page view
-      console.log(`📈 About to track page view for ${testName}, variant ${variant}`);
-      trackPageView(testName, variant);
+      // USUNIĘTE PODWÓJNE TRACKOWANIE - page view jest już tracked w komponentach
+      console.log(`⏭️ Skipping duplicate page view tracking - already handled in components`);
     } else {
       console.log(`⏸️ Skipping view tracking - isLoaded: ${isLoaded}, enabled: ${enabled}, variant: ${variant}`);
     }
-  }, [isLoaded, variant, testName, enabled, trackPageView]);
+  }, [isLoaded, variant, testName, enabled]);
 
   return {
     variant,
