@@ -130,7 +130,7 @@ const ABTestStats = () => {
         {/* Header */}
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            A/B Test - SMS Verification Stats 2024
+            A/B Test - SMS Verification Stats 2025
           </h1>
           <p className="text-gray-600 text-lg">
             Analiza skuteczności wariantów strony weryfikacji
@@ -143,7 +143,7 @@ const ABTestStats = () => {
         </div>
 
         {/* Akcje */}
-        <div className="flex justify-center gap-4">
+        <div className="flex justify-center gap-4 flex-wrap">
           <Button onClick={refreshStats} variant="outline" className="bg-green-50 hover:bg-green-100 border-green-200">
             🔄 Odśwież dane
           </Button>
@@ -152,6 +152,13 @@ const ABTestStats = () => {
           </Button>
           <Button onClick={() => { clearStats(); refreshStats(); }} variant="destructive">
             🗑️ Wyczyść wszystko
+          </Button>
+          <Button 
+            onClick={() => window.location.href = '/admin-logout'} 
+            variant="outline" 
+            className="bg-red-50 hover:bg-red-100 border-red-200 text-red-700"
+          >
+            🚪 Wyloguj się
           </Button>
         </div>
 
