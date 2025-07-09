@@ -29,15 +29,21 @@ const ABTestStats = () => {
       console.log(`  ${key}: ${stats.eventsByVariant[key]}`);
     });
     
-    // Wariant A - zlicz eventy z Simple Tracking (POPRAWIONE KLUCZE)
+    // Mapowanie kluczy - używaj DOKŁADNIE tych samych kluczy co w localStorage
     const aViews = stats.eventsByVariant['page_view_sms_verification_test_A'] || 0;
     const aConversions = stats.eventsByVariant['conversion_sms_verification_test_success_A'] || 0;
     const aConversionRate = aViews > 0 ? (aConversions / aViews) * 100 : 0;
     
-    // Wariant B (POPRAWIONE KLUCZE)
     const bViews = stats.eventsByVariant['page_view_sms_verification_test_B'] || 0;
     const bConversions = stats.eventsByVariant['conversion_sms_verification_test_success_B'] || 0;
     const bConversionRate = bViews > 0 ? (bConversions / bViews) * 100 : 0;
+    
+    console.log('🔍 Looking for keys:', {
+      aViews: `page_view_sms_verification_test_A = ${aViews}`,
+      aConversions: `conversion_sms_verification_test_success_A = ${aConversions}`,
+      bViews: `page_view_sms_verification_test_B = ${bViews}`,
+      bConversions: `conversion_sms_verification_test_success_B = ${bConversions}`
+    });
     
     setVariantA({ users: aViews, views: aViews, conversions: aConversions, conversionRate: aConversionRate });
     setVariantB({ users: bViews, views: bViews, conversions: bConversions, conversionRate: bConversionRate });
