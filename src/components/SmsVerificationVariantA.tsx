@@ -85,9 +85,8 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
       
       if (VERIFICATION_CODES.includes(smsCode)) {
         
-        // Simple tracking - konwersja
-        trackConversion('sms_verification_test_success', 'A');
-        console.log('🎯 SMS verification success tracked for Variant A');
+        // A/B Test conversion tracking (używamy hook'a zamiast bezpośredniego trackConversion)
+        console.log('🎯 SMS verification success - tracking via A/B Test hook');
         
         if (onConversion && typeof onConversion === 'function') {
           try {
