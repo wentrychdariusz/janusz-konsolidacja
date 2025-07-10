@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useSimpleTracking } from '../hooks/useSimpleTracking';
+import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface VariantStats {
@@ -13,22 +13,22 @@ interface VariantStats {
 }
 
 const ABTestStats = () => {
-  const { getStats, clearStats, trackPageView, trackConversion } = useSimpleTracking();
+  const { getStats, clearStats, trackPageView, trackConversion } = useSupabaseTracking();
   const [variantA, setVariantA] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
   const [variantB, setVariantB] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
   const [lastUpdate, setLastUpdate] = useState<string>('');
 
-  const refreshStats = () => {
-    console.log('🔄 Refreshing A/B test stats...');
+  const refreshStats = async () => {
+    console.log('🔄 Refreshing A/B test stats from Supabase...');
     console.log('🌐 Current domain:', window.location.hostname);
     console.log('📍 Current URL:', window.location.href);
-    const stats = getStats();
-    console.log('📊 All stats:', stats);
+    const stats = await getStats();
+    console.log('📊 All stats from Supabase:', stats);
     
-    // DEBUGOWANIE: Sprawdź localStorage bezpośrednio
+    // DEBUGOWANIE: Sprawdź localStorage i Supabase
     console.log('🔍 RAW localStorage check:');
-    const rawEvents = localStorage.getItem('simple_tracking_events');
-    console.log('📦 simple_tracking_events:', rawEvents);
+    const rawEvents = localStorage.getItem('supabase_tracking_events');
+    console.log('📦 supabase_tracking_events:', rawEvents);
     if (rawEvents) {
       try {
         const events = JSON.parse(rawEvents);
@@ -76,30 +76,30 @@ const ABTestStats = () => {
     });
   };
 
-  const generateTestData = () => {
+  const generateTestData = async () => {
     console.log('🧪 Generating realistic test data...');
     
     // Wyczyść poprzednie dane
-    clearStats();
+    await clearStats();
     
     // Symuluj realistyczne dane A/B test - Wariant A (45 użytkowników, 12 konwersji)
     for (let i = 0; i < 45; i++) {
-      trackPageView('sms_verification_test', 'A');
+      trackPageView('sms_verification_test', 'A', 'sms_verification_test');
     }
     for (let i = 0; i < 12; i++) {
-      trackConversion('sms_verification_test_success', 'A');
+      trackConversion('sms_verification_test_success', 'A', 'sms_verification_test');
     }
     
     // Wariant B (52 użytkowników, 18 konwersji)  
     for (let i = 0; i < 52; i++) {
-      trackPageView('sms_verification_test', 'B');
+      trackPageView('sms_verification_test', 'B', 'sms_verification_test');
     }
     for (let i = 0; i < 18; i++) {
-      trackConversion('sms_verification_test_success', 'B');
+      trackConversion('sms_verification_test_success', 'B', 'sms_verification_test');
     }
     
     console.log('✅ Test data generated');
-    setTimeout(refreshStats, 100);
+    setTimeout(refreshStats, 1000);
   };
 
   useEffect(() => {
@@ -154,7 +154,7 @@ const ABTestStats = () => {
           <Button onClick={generateTestData} className="bg-blue-600 hover:bg-blue-700 text-white">
             🧪 Wygeneruj testowe dane
           </Button>
-          <Button onClick={() => { clearStats(); refreshStats(); }} variant="destructive">
+          <Button onClick={async () => { await clearStats(); await refreshStats(); }} variant="destructive">
             🗑️ Wyczyść WSZYSTKIE dane (łącznie z thank you page)
           </Button>
           <Button 

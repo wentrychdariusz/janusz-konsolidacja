@@ -16,13 +16,13 @@ import CalculatorSection from '../components/CalculatorSection';
 import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
-import { useSimpleTracking } from '../hooks/useSimpleTracking';
+import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 
 const Index = () => {
-  const { trackPageView } = useSimpleTracking();
+  const { trackPageView } = useSupabaseTracking();
   
   useEffect(() => {
-    trackPageView('home');
+    trackPageView('home', undefined, 'main_site');
   }, []);
   
   return (

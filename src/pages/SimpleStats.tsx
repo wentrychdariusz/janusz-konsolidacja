@@ -1,13 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
-import { useSimpleTracking } from '../hooks/useSimpleTracking';
+import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 
 const SimpleStats = () => {
-  const { getStats, clearStats } = useSimpleTracking();
+  const { getStats, clearStats } = useSupabaseTracking();
   const [stats, setStats] = useState(null);
 
-  const refreshStats = () => {
-    const currentStats = getStats();
+  const refreshStats = async () => {
+    const currentStats = await getStats();
     setStats(currentStats);
     console.log('📊 Current stats:', currentStats);
   };
@@ -16,10 +16,10 @@ const SimpleStats = () => {
     refreshStats();
   }, []);
 
-  const handleClearStats = () => {
+  const handleClearStats = async () => {
     if (confirm('Czy na pewno chcesz wyczyścić wszystkie statystyki?')) {
-      clearStats();
-      refreshStats();
+      await clearStats();
+      await refreshStats();
     }
   };
 
