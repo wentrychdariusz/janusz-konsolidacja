@@ -28,7 +28,7 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationError, setVerificationError] = useState('');
   
-  // Ref do śledzenia czy już był tracked - DODANE dla konsystencji z wariantem A
+  // Ref do śledzenia czy już był tracked
   const hasTrackedPageView = useRef(false);
 
   // Supabase tracking

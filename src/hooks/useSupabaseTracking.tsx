@@ -1,3 +1,4 @@
+
 import { useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -55,6 +56,8 @@ const saveSessionToSupabase = async (sessionId: string) => {
     
     if (error && error.code !== '23505') { // Ignoruj duplikaty
       console.error('❌ Error saving session to Supabase:', error);
+    } else if (error?.code === '23505') {
+      console.log(`ℹ️ Session already exists: ${sessionId}`);
     } else {
       console.log(`✅ Session saved to Supabase: ${sessionId}`);
     }
@@ -63,29 +66,39 @@ const saveSessionToSupabase = async (sessionId: string) => {
   }
 };
 
-// Zapisywanie eventu do Supabase
+// Zapisywanie eventu do Supabase z walidacją
 const saveEventToSupabase = async (eventName: string, variant?: string, testName?: string) => {
   try {
     const sessionId = getSessionId();
     
+    // Walidacja danych przed zapisem
+    if (!eventName || eventName.trim() === '') {
+      console.error('❌ Event name is required');
+      return;
+    }
+    
     // Upewnij się, że sesja istnieje w bazie
     await saveSessionToSupabase(sessionId);
     
+    const eventData = {
+      session_id: sessionId,
+      event_name: eventName.trim(),
+      variant: variant || null,
+      test_name: testName || null
+    };
+    
+    console.log('📊 Saving event to Supabase:', eventData);
+    
     const { error } = await supabase
       .from('ab_test_events')
-      .insert({
-        session_id: sessionId,
-        event_name: eventName,
-        variant,
-        test_name: testName
-      });
+      .insert(eventData);
     
     if (error) {
       console.error('❌ Error saving event to Supabase:', error);
       // Fallback do localStorage jeśli Supabase nie działa
       saveEventToLocalStorage(eventName, variant, testName);
     } else {
-      console.log(`📊 Event saved to Supabase: ${eventName}${variant ? ` (${variant})` : ''} - Session: ${sessionId}`);
+      console.log(`✅ Event saved to Supabase: ${eventName}${variant ? ` (${variant})` : ''} - Session: ${sessionId}`);
     }
   } catch (error) {
     console.error('❌ Error saving event to Supabase:', error);
@@ -149,9 +162,11 @@ const getStatsFromSupabase = async () => {
     const eventsByVariant: Record<string, number> = {};
     
     events?.forEach(event => {
+      // Zlicz według typu eventu
       eventsByType[event.event_name] = (eventsByType[event.event_name] || 0) + 1;
       
-      if (event.variant) {
+      // Zlicz według wariantu (tylko jeśli variant jest zdefiniowany)
+      if (event.variant && event.variant.trim() !== '') {
         const key = `${event.event_name}_${event.variant}`;
         eventsByVariant[key] = (eventsByVariant[key] || 0) + 1;
       }
@@ -229,20 +244,36 @@ const getStatsFromLocalStorage = () => {
 // Hook do śledzenia z Supabase
 export const useSupabaseTracking = () => {
   const trackEvent = (eventName: string, variant?: string, testName?: string) => {
-    console.log(`🎯 Tracking event to Supabase: ${eventName} with variant: ${variant}, test: ${testName}`);
-    saveEventToSupabase(eventName, variant, testName);
+    // Walidacja przed śledzeniem
+    if (!eventName || eventName.trim() === '') {
+      console.error('❌ Cannot track event: eventName is required');
+      return;
+    }
+    
+    console.log(`🎯 Tracking event to Supabase: "${eventName}" with variant: "${variant}", test: "${testName}"`);
+    saveEventToSupabase(eventName.trim(), variant?.trim(), testName?.trim());
   };
   
   const trackPageView = (pageName: string, variant?: string, testName?: string) => {
-    const eventName = `page_view_${pageName}`;
-    console.log(`📄 Tracking page view to Supabase: ${eventName} with variant: ${variant}, test: ${testName}`);
-    trackEvent(eventName, variant, testName);
+    if (!pageName || pageName.trim() === '') {
+      console.error('❌ Cannot track page view: pageName is required');
+      return;
+    }
+    
+    const eventName = `page_view_${pageName.trim()}`;
+    console.log(`📄 Tracking page view to Supabase: "${eventName}" with variant: "${variant}", test: "${testName}"`);
+    trackEvent(eventName, variant?.trim(), testName?.trim());
   };
   
   const trackConversion = (conversionName: string, variant?: string, testName?: string) => {
-    const eventName = `conversion_${conversionName}`;
-    console.log(`🎯 Tracking conversion to Supabase: ${eventName} with variant: ${variant}, test: ${testName}`);
-    trackEvent(eventName, variant, testName);
+    if (!conversionName || conversionName.trim() === '') {
+      console.error('❌ Cannot track conversion: conversionName is required');
+      return;
+    }
+    
+    const eventName = `conversion_${conversionName.trim()}`;
+    console.log(`🎯 Tracking conversion to Supabase: "${eventName}" with variant: "${variant}", test: "${testName}"`);
+    trackEvent(eventName, variant?.trim(), testName?.trim());
   };
   
   const getStats = async () => {
@@ -262,7 +293,7 @@ export const useSupabaseTracking = () => {
       if (eventsError) {
         console.error('❌ Error clearing Supabase events:', eventsError);
       } else {
-        console.log('📊 Supabase events cleared');
+        console.log('✅ Supabase events cleared');
       }
 
       // Wyczyść sesje z Supabase
@@ -274,13 +305,13 @@ export const useSupabaseTracking = () => {
       if (sessionsError) {
         console.error('❌ Error clearing Supabase sessions:', sessionsError);
       } else {
-        console.log('📊 Supabase sessions cleared');
+        console.log('✅ Supabase sessions cleared');
       }
       
       // Wyczyść localStorage
       localStorage.removeItem('supabase_tracking_events');
       localStorage.removeItem('supabase_tracking_session');
-      console.log('📊 LocalStorage tracking data cleared');
+      console.log('✅ LocalStorage tracking data cleared');
     } catch (error) {
       console.error('❌ Error clearing stats:', error);
     }
