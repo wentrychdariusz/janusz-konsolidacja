@@ -17,63 +17,54 @@ const ABTestStats = () => {
   const [variantA, setVariantA] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
   const [variantB, setVariantB] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
   const [lastUpdate, setLastUpdate] = useState<string>('');
+  const [debugInfo, setDebugInfo] = useState<any>(null);
 
   const refreshStats = async () => {
     console.log('🔄 Refreshing A/B test stats from Supabase...');
     console.log('🌐 Current domain:', window.location.hostname);
     console.log('📍 Current URL:', window.location.href);
-    const stats = await getStats();
-    console.log('📊 All stats from Supabase:', stats);
     
-    // DEBUGOWANIE: Sprawdź localStorage i Supabase
-    console.log('🔍 RAW localStorage check:');
-    const rawEvents = localStorage.getItem('supabase_tracking_events');
-    console.log('📦 supabase_tracking_events:', rawEvents);
-    if (rawEvents) {
-      try {
-        const events = JSON.parse(rawEvents);
-        console.log('📊 Events count:', events.length);
-        console.log('📋 Recent events:', events.slice(-3));
-      } catch (e) {
-        console.error('❌ Error parsing events:', e);
-      }
+    try {
+      const stats = await getStats();
+      console.log('📊 All stats from Supabase:', stats);
+      
+      // DEBUGGING: Zapisz surowe dane do state
+      setDebugInfo(stats);
+      
+      // DEBUGGING: Sprawdź wszystkie klucze w eventsByVariant
+      console.log('🔍 Available keys in eventsByVariant:');
+      Object.keys(stats.eventsByVariant).forEach(key => {
+        console.log(`  ${key}: ${stats.eventsByVariant[key]}`);
+      });
+      
+      // Mapowanie kluczy - używaj DOKŁADNIE tych samych kluczy co w śledzeniu
+      const aViews = stats.eventsByVariant['page_view_sms_verification_test_A'] || 0;
+      const aConversions = stats.eventsByVariant['conversion_sms_verification_test_success_A'] || 0;
+      const aConversionRate = aViews > 0 ? (aConversions / aViews) * 100 : 0;
+      
+      const bViews = stats.eventsByVariant['page_view_sms_verification_test_B'] || 0;
+      const bConversions = stats.eventsByVariant['conversion_sms_verification_test_success_B'] || 0;
+      const bConversionRate = bViews > 0 ? (bConversions / bViews) * 100 : 0;
+      
+      console.log('🔍 Looking for keys:', {
+        aViews: `page_view_sms_verification_test_A = ${aViews}`,
+        aConversions: `conversion_sms_verification_test_success_A = ${aConversions}`,
+        bViews: `page_view_sms_verification_test_B = ${bViews}`,
+        bConversions: `conversion_sms_verification_test_success_B = ${bConversions}`
+      });
+      
+      setVariantA({ users: aViews, views: aViews, conversions: aConversions, conversionRate: aConversionRate });
+      setVariantB({ users: bViews, views: bViews, conversions: bConversions, conversionRate: bConversionRate });
+      setLastUpdate(new Date().toLocaleTimeString());
+      
+      console.log('🎯 Final React state set:');
+      console.log('  Variant A:', { users: aViews, views: aViews, conversions: aConversions, rate: aConversionRate });
+      console.log('  Variant B:', { users: bViews, views: bViews, conversions: bConversions, rate: bConversionRate });
+      console.log('🕐 Last update:', new Date().toLocaleTimeString());
+      
+    } catch (error) {
+      console.error('❌ Error refreshing stats:', error);
     }
-    
-    // DEBUGGING: Sprawdź wszystkie klucze w eventsByVariant
-    console.log('🔍 Available keys in eventsByVariant:');
-    Object.keys(stats.eventsByVariant).forEach(key => {
-      console.log(`  ${key}: ${stats.eventsByVariant[key]}`);
-    });
-    
-    // Mapowanie kluczy - używaj DOKŁADNIE tych samych kluczy co w localStorage
-    const aViews = stats.eventsByVariant['page_view_sms_verification_test_A'] || 0;
-    const aConversions = stats.eventsByVariant['conversion_sms_verification_test_success_A'] || 0;
-    const aConversionRate = aViews > 0 ? (aConversions / aViews) * 100 : 0;
-    
-    const bViews = stats.eventsByVariant['page_view_sms_verification_test_B'] || 0;
-    const bConversions = stats.eventsByVariant['conversion_sms_verification_test_success_B'] || 0;
-    const bConversionRate = bViews > 0 ? (bConversions / bViews) * 100 : 0;
-    
-    console.log('🔍 Looking for keys:', {
-      aViews: `page_view_sms_verification_test_A = ${aViews}`,
-      aConversions: `conversion_sms_verification_test_success_A = ${aConversions}`,
-      bViews: `page_view_sms_verification_test_B = ${bViews}`,
-      bConversions: `conversion_sms_verification_test_success_B = ${bConversions}`
-    });
-    
-    setVariantA({ users: aViews, views: aViews, conversions: aConversions, conversionRate: aConversionRate });
-    setVariantB({ users: bViews, views: bViews, conversions: bConversions, conversionRate: bConversionRate });
-    setLastUpdate(new Date().toLocaleTimeString());
-    
-    console.log('🎯 Final React state set:');
-    console.log('  Variant A:', { users: aViews, views: aViews, conversions: aConversions, rate: aConversionRate });
-    console.log('  Variant B:', { users: bViews, views: bViews, conversions: bConversions, rate: bConversionRate });
-    console.log('🕐 Last update:', new Date().toLocaleTimeString());
-    
-    console.log('📊 Stats updated:', { 
-      variantA: { views: aViews, conversions: aConversions, rate: aConversionRate }, 
-      variantB: { views: bViews, conversions: bConversions, rate: bConversionRate } 
-    });
   };
 
   const generateTestData = async () => {
@@ -99,14 +90,14 @@ const ABTestStats = () => {
     }
     
     console.log('✅ Test data generated');
-    setTimeout(refreshStats, 1000);
+    setTimeout(() => refreshStats(), 2000); // Zwiększony delay dla Supabase
   };
 
   useEffect(() => {
     refreshStats();
     
-    // Auto-refresh every 2 seconds to catch new events
-    const interval = setInterval(refreshStats, 2000);
+    // Auto-refresh every 5 seconds to catch new events from Supabase
+    const interval = setInterval(refreshStats, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -145,6 +136,30 @@ const ABTestStats = () => {
             </Badge>
           )}
         </div>
+
+        {/* DEBUGGING: Pokaż surowe dane */}
+        {debugInfo && (
+          <Card className="border-yellow-200 bg-yellow-50">
+            <CardHeader>
+              <CardTitle className="text-lg text-yellow-800">🔍 Debug Info - Supabase Data</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-sm text-gray-700 space-y-2">
+                <p><strong>Total Events:</strong> {debugInfo.totalEvents}</p>
+                <p><strong>Unique Sessions:</strong> {debugInfo.uniqueSessions}</p>
+                <p><strong>All Event Keys:</strong></p>
+                <div className="bg-white p-2 rounded text-xs max-h-40 overflow-y-auto">
+                  {Object.entries(debugInfo.eventsByVariant).map(([key, value]) => (
+                    <div key={key} className="flex justify-between">
+                      <span>{key}:</span>
+                      <span className="font-bold">{value as number}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Akcje */}
         <div className="flex justify-center gap-4 flex-wrap">

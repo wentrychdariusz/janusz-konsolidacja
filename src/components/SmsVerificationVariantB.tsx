@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { Clock, AlertCircle } from 'lucide-react';
@@ -27,16 +27,22 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
   const [smsCode, setSmsCode] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationError, setVerificationError] = useState('');
+  
+  // Ref do śledzenia czy już był tracked - DODANE dla konsystencji z wariantem A
+  const hasTrackedPageView = useRef(false);
 
   // Supabase tracking
   const { trackPageView, trackConversion } = useSupabaseTracking();
 
-  // Track page view when component mounts
+  // Track page view when component mounts - TYLKO RAZ
   useEffect(() => {
-    console.log('🎯 SmsVerificationVariantB: Tracking page view for variant B to Supabase');
-    trackPageView('sms_verification_test', 'B', 'sms_verification_test');
-    console.log('📊 Page view tracked for Variant B in Supabase');
-  }, []);
+    if (!hasTrackedPageView.current) {
+      console.log('🎯 SmsVerificationVariantB: Tracking page view for variant B to Supabase');
+      trackPageView('sms_verification_test', 'B', 'sms_verification_test');
+      hasTrackedPageView.current = true;
+      console.log('📊 Page view tracked for Variant B in Supabase');
+    }
+  }, [trackPageView]);
 
   // Countdown hook - 5 minut (300 sekund)
   const {
@@ -87,7 +93,6 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
         // A/B Test conversion tracking (używamy hook'a zamiast bezpośredniego trackConversion)
         console.log('🎯 SMS verification success - tracking via A/B Test hook');
         
-        // A/B Test conversion tracking (jeśli dostępne)
         if (onConversion && typeof onConversion === 'function') {
           try {
             onConversion();

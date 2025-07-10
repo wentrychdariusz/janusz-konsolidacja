@@ -246,21 +246,35 @@ export const useSupabaseTracking = () => {
   };
   
   const getStats = async () => {
+    console.log('📊 Getting stats from Supabase...');
     return await getStatsFromSupabase();
   };
   
   const clearStats = async () => {
+    console.log('🗑️ Clearing all stats from Supabase and localStorage...');
     try {
-      // Wyczyść z Supabase
-      const { error } = await supabase
+      // Wyczyść z Supabase - usuń wszystkie eventy
+      const { error: eventsError } = await supabase
         .from('ab_test_events')
         .delete()
         .neq('id', '00000000-0000-0000-0000-000000000000'); // Usuń wszystkie
       
-      if (error) {
-        console.error('❌ Error clearing Supabase stats:', error);
+      if (eventsError) {
+        console.error('❌ Error clearing Supabase events:', eventsError);
       } else {
-        console.log('📊 Supabase stats cleared');
+        console.log('📊 Supabase events cleared');
+      }
+
+      // Wyczyść sesje z Supabase
+      const { error: sessionsError } = await supabase
+        .from('ab_test_sessions')
+        .delete()
+        .neq('id', '00000000-0000-0000-0000-000000000000'); // Usuń wszystkie
+      
+      if (sessionsError) {
+        console.error('❌ Error clearing Supabase sessions:', sessionsError);
+      } else {
+        console.log('📊 Supabase sessions cleared');
       }
       
       // Wyczyść localStorage
