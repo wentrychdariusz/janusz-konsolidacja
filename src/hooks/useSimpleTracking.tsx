@@ -139,7 +139,9 @@ const getStats = () => {
 export const useSimpleTracking = () => {
   const trackEvent = (eventName: string, variant?: string) => {
     console.log(`🎯 Tracking event: ${eventName} with variant: ${variant}`);
+    console.log(`🔍 Current localStorage events before save:`, localStorage.getItem('simple_tracking_events'));
     saveEvent(eventName, variant);
+    console.log(`🔍 Current localStorage events after save:`, localStorage.getItem('simple_tracking_events'));
   };
   
   const trackPageView = (pageName: string, variant?: string) => {
