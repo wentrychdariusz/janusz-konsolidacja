@@ -104,6 +104,10 @@ const ABTestStats = () => {
 
   useEffect(() => {
     refreshStats();
+    
+    // Auto-refresh every 2 seconds to catch new events
+    const interval = setInterval(refreshStats, 2000);
+    return () => clearInterval(interval);
   }, []);
 
   const chartData = [
