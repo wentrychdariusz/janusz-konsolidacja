@@ -37,6 +37,7 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
   // Track page view when component mounts - TYLKO RAZ
   useEffect(() => {
     if (!hasTrackedPageView.current) {
+      console.log('🎯 SmsVerificationVariantA: Tracking page view for variant A');
       trackPageView('sms_verification_test', 'A');
       hasTrackedPageView.current = true;
       console.log('📊 Page view tracked for Variant A');

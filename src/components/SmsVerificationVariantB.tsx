@@ -33,7 +33,9 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
 
   // Track page view when component mounts
   useEffect(() => {
+    console.log('🎯 SmsVerificationVariantB: Tracking page view for variant B');
     trackPageView('sms_verification_test', 'B');
+    console.log('📊 Page view tracked for Variant B');
   }, []);
 
   // Countdown hook - 5 minut (300 sekund)
