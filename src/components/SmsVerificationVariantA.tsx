@@ -4,7 +4,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp
 import { Clock, AlertCircle } from 'lucide-react';
 import { useCountdown } from '../hooks/useCountdown';
 import LiveNotifications from './LiveNotifications';
-import { useSimpleTracking } from '../hooks/useSimpleTracking';
+import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 
 // Rozszerzenie obiektu window o fbq
 declare global {
@@ -31,16 +31,16 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
   // Ref do śledzenia czy już był tracked
   const hasTrackedPageView = useRef(false);
 
-  // Simple tracking
-  const { trackPageView, trackConversion } = useSimpleTracking();
+  // Supabase tracking
+  const { trackPageView, trackConversion } = useSupabaseTracking();
 
   // Track page view when component mounts - TYLKO RAZ
   useEffect(() => {
     if (!hasTrackedPageView.current) {
-      console.log('🎯 SmsVerificationVariantA: Tracking page view for variant A');
-      trackPageView('sms_verification_test', 'A');
+      console.log('🎯 SmsVerificationVariantA: Tracking page view for variant A to Supabase');
+      trackPageView('sms_verification_test', 'A', 'sms_verification_test');
       hasTrackedPageView.current = true;
-      console.log('📊 Page view tracked for Variant A');
+      console.log('📊 Page view tracked for Variant A in Supabase');
     }
   }, [trackPageView]);
 

@@ -14,7 +14,62 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ab_test_events: {
+        Row: {
+          created_at: string | null
+          event_name: string
+          id: string
+          session_id: string
+          test_name: string | null
+          variant: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_name: string
+          id?: string
+          session_id: string
+          test_name?: string | null
+          variant?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_name?: string
+          id?: string
+          session_id?: string
+          test_name?: string | null
+          variant?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ab_test_events_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "ab_test_sessions"
+            referencedColumns: ["session_id"]
+          },
+        ]
+      }
+      ab_test_sessions: {
+        Row: {
+          created_at: string | null
+          id: string
+          session_id: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          session_id: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          session_id?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

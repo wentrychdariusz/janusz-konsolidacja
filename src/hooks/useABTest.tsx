@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { useSimpleTracking } from './useSimpleTracking';
+import { useSupabaseTracking } from './useSupabaseTracking';
 
 type ABVariant = 'A' | 'B';
 
@@ -27,7 +27,7 @@ interface ABTestStats {
 export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = true }: ABTestConfig) => {
   const [variant, setVariant] = useState<ABVariant>('A');
   const [isLoaded, setIsLoaded] = useState(false);
-  const { trackPageView, trackConversion: simpleTrackConversion, getStats } = useSimpleTracking();
+  const { trackPageView, trackConversion: supabaseTrackConversion, getStats } = useSupabaseTracking();
 
   useEffect(() => {
     console.log('🚀 useABTest hook initializing with config:', { testName, splitRatio, forceVariant, enabled });
@@ -88,13 +88,13 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
       const finalConversionName = conversionName || `${testName}_success`;
       console.log(`🎯 trackConversion called for ${finalConversionName}, variant ${variant}, enabled: ${enabled}`);
       if (enabled) {
-        simpleTrackConversion(finalConversionName, variant);
+        supabaseTrackConversion(finalConversionName, variant, testName);
       }
     },
-    getStats: () => {
-      const stats = getStats();
+    getStats: async () => {
+      const stats = await getStats();
       
-      // Konwertuj z Simple Tracking do formatu ABTestStats
+      // Konwertuj z Supabase Tracking do formatu ABTestStats
       const variantAViews = stats.eventsByVariant[`page_view_${testName}_A`] || 0;
       const variantBViews = stats.eventsByVariant[`page_view_${testName}_B`] || 0;
       

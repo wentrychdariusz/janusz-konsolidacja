@@ -4,7 +4,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp
 import { Clock, AlertCircle } from 'lucide-react';
 import { useCountdown } from '../hooks/useCountdown';
 import LiveNotifications from './LiveNotifications';
-import { useSimpleTracking } from '../hooks/useSimpleTracking';
+import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 
 // Rozszerzenie obiektu window o fbq
 declare global {
@@ -28,14 +28,14 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
   const [isVerifying, setIsVerifying] = useState(false);
   const [verificationError, setVerificationError] = useState('');
 
-  // Simple tracking
-  const { trackPageView, trackConversion } = useSimpleTracking();
+  // Supabase tracking
+  const { trackPageView, trackConversion } = useSupabaseTracking();
 
   // Track page view when component mounts
   useEffect(() => {
-    console.log('🎯 SmsVerificationVariantB: Tracking page view for variant B');
-    trackPageView('sms_verification_test', 'B');
-    console.log('📊 Page view tracked for Variant B');
+    console.log('🎯 SmsVerificationVariantB: Tracking page view for variant B to Supabase');
+    trackPageView('sms_verification_test', 'B', 'sms_verification_test');
+    console.log('📊 Page view tracked for Variant B in Supabase');
   }, []);
 
   // Countdown hook - 5 minut (300 sekund)
