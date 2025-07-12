@@ -40,7 +40,7 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
       return;
     }
 
-    // Sprawdź czy użytkownik już ma przypisany wariant
+    // POPRAWIONE: Sprawdź czy użytkownik już ma przypisany wariant w localStorage
     const storageKey = `ab_test_${testName}`;
     const existingVariant = localStorage.getItem(storageKey) as ABVariant;
     
@@ -49,19 +49,51 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
     let finalVariant: ABVariant;
     
     if (existingVariant && (existingVariant === 'A' || existingVariant === 'B')) {
-      // Użyj nadpisanego wariantu jeśli jest podany
+      // POPRAWKA: Jeśli już ma przypisany wariant, użyj go (chyba że jest force)
       finalVariant = forceVariant || existingVariant;
-      console.log(`🧪 Existing user assigned to variant ${finalVariant} (force: ${forceVariant}, existing: ${existingVariant})`);
+      console.log(`🔄 Existing user - stored variant: ${existingVariant}, force: ${forceVariant}, final: ${finalVariant}`);
     } else {
-      // Przypisz losowo wariant na podstawie splitRatio lub użyj nadpisanego
-      const randomValue = Math.random();
-      finalVariant = forceVariant || (randomValue < splitRatio ? 'A' : 'B');
+      // POPRAWKA: Nowy użytkownik - przypisz wariant na podstawie splitRatio
+      // Używamy hash z sessionId dla lepszej dystrybucji
+      const sessionKey = 'supabase_tracking_session';
+      const sessionData = localStorage.getItem(sessionKey);
+      let sessionId = '';
       
-      console.log(`🎲 Random value: ${randomValue}, splitRatio: ${splitRatio}, assigned variant: ${finalVariant}`);
-      console.log(`🧪 New user assigned to variant ${finalVariant}`);
+      if (sessionData) {
+        try {
+          const parsed = JSON.parse(sessionData);
+          sessionId = parsed.sessionId || '';
+        } catch (e) {
+          console.log('Error parsing session data');
+        }
+      }
+      
+      // Używamy hash z sessionId + testName dla konsystentnego podziału
+      const hashInput = sessionId + testName;
+      let hash = 0;
+      for (let i = 0; i < hashInput.length; i++) {
+        const char = hashInput.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32bit integer
+      }
+      
+      // Normalizujemy hash do 0-1 range
+      const normalizedHash = Math.abs(hash) / 2147483647;
+      
+      finalVariant = forceVariant || (normalizedHash < splitRatio ? 'A' : 'B');
+      
+      console.log(`🎲 New user assignment:`, {
+        sessionId: sessionId.substring(0, 8) + '...',
+        hashInput: hashInput.substring(0, 20) + '...',
+        hash,
+        normalizedHash: normalizedHash.toFixed(4),
+        splitRatio,
+        assignedVariant: finalVariant,
+        forceVariant
+      });
     }
     
-    console.log(`🎯 Final variant before setState: ${finalVariant}`);
+    console.log(`🎯 Final variant assignment: ${finalVariant}`);
     setVariant(finalVariant);
     localStorage.setItem(storageKey, finalVariant);
     

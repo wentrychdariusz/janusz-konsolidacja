@@ -20,6 +20,22 @@ const ABTestSmsVerification = () => {
 
   console.log('🎯 useABTest returned:', { variant, isLoaded, trackConversion: typeof trackConversion });
 
+  // DODAJ DEBUGOWANIE localStorage i sessionStorage
+  console.log('📦 Current localStorage A/B Test data:');
+  console.log('  ab_test_sms_verification_test:', localStorage.getItem('ab_test_sms_verification_test'));
+  
+  console.log('📦 Current session data:');
+  const sessionData = localStorage.getItem('supabase_tracking_session');
+  if (sessionData) {
+    try {
+      const parsed = JSON.parse(sessionData);
+      console.log('  Session ID:', parsed.sessionId?.substring(0, 12) + '...');
+      console.log('  Session timestamp:', new Date(parsed.timestamp).toLocaleTimeString());
+    } catch (e) {
+      console.log('  Error parsing session data');
+    }
+  }
+
   if (!isLoaded) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center">
@@ -35,22 +51,6 @@ const ABTestSmsVerification = () => {
   console.log(`🧪 Settings enabled:`, settings.sms_verification_enabled);
   console.log(`🧪 Force variant:`, settings.sms_verification_force_variant);
   console.log(`🧪 trackConversion function:`, typeof trackConversion);
-
-  // DODAJ DEBUGOWANIE LOCALSTORAGE dla prawdziwego A/B testu
-  console.log('📦 Current localStorage A/B Test stats:');
-  const statsKeys = [
-    'ab_test_sms_verification_test_variant_a_unique_users',
-    'ab_test_sms_verification_test_variant_a_views',
-    'ab_test_sms_verification_test_variant_a_conversions',
-    'ab_test_sms_verification_test_variant_b_unique_users',
-    'ab_test_sms_verification_test_variant_b_views',
-    'ab_test_sms_verification_test_variant_b_conversions'
-  ];
-  
-  statsKeys.forEach(key => {
-    const value = localStorage.getItem(key);
-    console.log(`  ${key}: "${value}"`);
-  });
 
   // Przekaż trackConversion do komponentów
   if (variant === 'A') {
