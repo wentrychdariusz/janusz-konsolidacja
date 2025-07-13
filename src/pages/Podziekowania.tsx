@@ -1,4 +1,5 @@
 
+
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -78,10 +79,10 @@ const Podziekowania = () => {
             </div>
           </div>
 
-          {/* Janusz - Expert Contact Section - Larger on Mobile */}
+          {/* Janusz - Expert Contact Section */}
           <div className="bg-gradient-to-r from-business-blue-600 to-navy-900 text-white p-6 md:p-8 rounded-xl mb-8">
             <div className="flex flex-col items-center space-y-6 md:flex-row md:space-y-0 md:space-x-8">
-              {/* Janusz Photo - Larger on Mobile */}
+              {/* Janusz Photo */}
               <div className="flex-shrink-0">
                 <img 
                   src="/lovable-uploads/85aea4b7-a6c9-428e-9787-3f867bd14c94.png"
@@ -90,7 +91,7 @@ const Podziekowania = () => {
                 />
               </div>
               
-              {/* Janusz Info - Better Mobile Layout */}
+              {/* Janusz Info */}
               <div className="flex-1 text-center md:text-left">
                 <div className="flex items-center justify-center md:justify-start space-x-2 mb-3">
                   <User className="w-6 h-6 text-prestige-gold-400" />
@@ -113,7 +114,7 @@ const Podziekowania = () => {
                   </div>
                 </div>
                 
-                {/* Phone Number - More Prominent */}
+                {/* Phone Number */}
                 <div className="flex items-center justify-center md:justify-start space-x-3 mt-4 bg-white/10 rounded-lg px-4 py-3">
                   <Phone className="w-5 h-5 text-prestige-gold-400" />
                   <span className="font-bold text-base md:text-lg">
@@ -121,10 +122,10 @@ const Podziekowania = () => {
                   </span>
                 </div>
                 
-                {/* Quick Call Back Message */}
+                {/* Personal message */}
                 <div className="mt-4 text-center md:text-left">
                   <p className="text-sm md:text-base text-blue-100 font-medium">
-                    📞 Oddzwonimy najszybciej jak to będzie możliwe
+                    📞 To ja będę do Ciebie dzwonił i prowadził Twoją sprawę
                   </p>
                 </div>
               </div>
@@ -174,3 +175,4 @@ const Podziekowania = () => {
 };
 
 export default Podziekowania;
+
