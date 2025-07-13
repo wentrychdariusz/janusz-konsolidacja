@@ -100,6 +100,9 @@ const Podziekowania = () => {
                     <p className="text-sm md:text-base text-blue-200">
                       Licencja nr 3
                     </p>
+                    <p className="text-sm md:text-base text-prestige-gold-300 font-medium">
+                      Ważność: 08/2030
+                    </p>
                   </div>
                 </div>
                 
