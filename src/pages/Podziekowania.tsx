@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -62,51 +63,17 @@ const Podziekowania = () => {
             </p>
           </div>
 
-          {/* Dariusz and team section */}
+          {/* Dariusz Wentrych Eksperci Finansowi section */}
           <div className="text-center bg-gradient-to-r from-success-600 to-success-500 text-white p-6 rounded-xl mb-8">
             <div className="flex justify-center items-center mb-4">
-              <div className="flex items-center space-x-2">
-                {/* Dariusz main photo */}
-                <img 
-                  src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                  alt="Dariusz Wentrych"
-                  className="w-16 h-16 rounded-full overflow-hidden border-3 border-white shadow-xl object-cover"
-                />
-                
-                {/* Plus icon */}
-                <Plus className="w-3 h-3 text-white" />
-                
-                {/* Team members */}
-                <div className="flex items-center space-x-1">
-                  <Avatar className="w-10 h-10 border-2 border-white">
-                    <AvatarImage 
-                      src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
-                      alt="Członek zespołu"
-                      className="object-cover"
-                    />
-                    <AvatarFallback className="text-xs">KZ</AvatarFallback>
-                  </Avatar>
-                  <Avatar className="w-10 h-10 border-2 border-white">
-                    <AvatarImage 
-                      src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
-                      alt="Członek zespołu"
-                      className="object-cover"
-                    />
-                    <AvatarFallback className="text-xs">MK</AvatarFallback>
-                  </Avatar>
-                  <Avatar className="w-10 h-10 border-2 border-white">
-                    <AvatarImage 
-                      src="/lovable-uploads/73083e2d-4631-4f25-abd0-a482d29bb838.png"
-                      alt="Członek zespołu"
-                      className="object-cover"
-                    />
-                    <AvatarFallback className="text-xs">AS</AvatarFallback>
-                  </Avatar>
-                </div>
-              </div>
+              <img 
+                src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                alt="Dariusz Wentrych"
+                className="w-16 h-16 rounded-full overflow-hidden border-3 border-white shadow-xl object-cover"
+              />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-white">Zespół Ekspertów ds. Oddłużeń</h2>
+              <h2 className="text-lg font-bold text-white">Wentrych Eksperci Finansowi</h2>
               <p className="text-sm text-success-100">Twoje zgłoszenie zostało przyjęte</p>
             </div>
           </div>
