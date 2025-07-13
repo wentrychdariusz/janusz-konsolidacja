@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
@@ -112,45 +111,54 @@ const Podziekowania = () => {
             </div>
           </div>
 
-          {/* Janusz - Expert Contact Section */}
-          <div className="bg-gradient-to-r from-business-blue-600 to-navy-900 text-white p-6 rounded-xl mb-8">
-            <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
-              {/* Janusz Photo */}
+          {/* Janusz - Expert Contact Section - Larger on Mobile */}
+          <div className="bg-gradient-to-r from-business-blue-600 to-navy-900 text-white p-6 md:p-8 rounded-xl mb-8">
+            <div className="flex flex-col items-center space-y-6 md:flex-row md:space-y-0 md:space-x-8">
+              {/* Janusz Photo - Larger on Mobile */}
               <div className="flex-shrink-0">
                 <img 
                   src="/lovable-uploads/85aea4b7-a6c9-428e-9787-3f867bd14c94.png"
                   alt="Janusz Gołba - Ekspert ds. Relacji z Klientem"
-                  className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-4 border-white shadow-xl"
+                  className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border-4 border-white shadow-xl"
                 />
               </div>
               
-              {/* Janusz Info */}
+              {/* Janusz Info - Better Mobile Layout */}
               <div className="flex-1 text-center md:text-left">
-                <div className="flex items-center justify-center md:justify-start space-x-2 mb-2">
-                  <User className="w-5 h-5 text-prestige-gold-400" />
-                  <h3 className="text-lg md:text-xl font-bold">JANUSZ GOŁBA</h3>
+                <div className="flex items-center justify-center md:justify-start space-x-2 mb-3">
+                  <User className="w-6 h-6 text-prestige-gold-400" />
+                  <h3 className="text-xl md:text-2xl font-bold">JANUSZ GOŁBA</h3>
                 </div>
-                <p className="text-sm md:text-base text-blue-100 mb-2">
+                <p className="text-base md:text-lg text-blue-100 mb-3">
                   Ekspert ds. Relacji z Klientem
                 </p>
                 
                 {/* License Info */}
-                <div className="flex items-center justify-center md:justify-start space-x-2 mb-3">
-                  <Award className="w-4 h-4 text-prestige-gold-400" />
-                  <p className="text-xs md:text-sm text-blue-100">
-                    Certyfikowany Doradca Kredyt Studio
-                  </p>
+                <div className="flex items-center justify-center md:justify-start space-x-2 mb-4">
+                  <Award className="w-5 h-5 text-prestige-gold-400" />
+                  <div>
+                    <p className="text-sm md:text-base text-blue-100">
+                      Certyfikowany Doradca Kredyt Studio
+                    </p>
+                    <p className="text-xs md:text-sm text-blue-200">
+                      Licencja nr 3
+                    </p>
+                  </div>
                 </div>
-                <p className="text-xs text-blue-200">
-                  Licencja nr 3
-                </p>
                 
-                {/* Phone Number */}
-                <div className="flex items-center justify-center md:justify-start space-x-2 mt-3 bg-white/10 rounded-lg px-3 py-2">
-                  <Phone className="w-4 h-4 text-prestige-gold-400" />
-                  <span className="font-bold text-sm md:text-base">
+                {/* Phone Number - More Prominent */}
+                <div className="flex items-center justify-center md:justify-start space-x-3 mt-4 bg-white/10 rounded-lg px-4 py-3">
+                  <Phone className="w-5 h-5 text-prestige-gold-400" />
+                  <span className="font-bold text-base md:text-lg">
                     +48 786 107 138
                   </span>
+                </div>
+                
+                {/* Quick Call Back Message */}
+                <div className="mt-4 text-center md:text-left">
+                  <p className="text-sm md:text-base text-blue-100 font-medium">
+                    📞 Oddzwonimy najszybciej jak to będzie możliwe
+                  </p>
                 </div>
               </div>
             </div>
