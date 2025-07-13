@@ -94,9 +94,9 @@ const Podziekowania = () => {
                 
                 {/* License Info */}
                 <div className="flex items-center justify-center md:justify-start space-x-2 mb-4">
-                  <Award className="w-8 h-8 text-prestige-gold-400" />
+                  <Award className="w-12 h-12 text-prestige-gold-400" />
                   <div>
-                    <p className="text-base md:text-lg text-blue-100 font-medium">Certyfikowany Doradca Kredyt Studio (Wentrych Eksperci Finansowi)</p>
+                    <p className="text-base md:text-lg text-blue-100 font-medium">Certyfikowany Doradca Kredyt Studio (Wentrych Eksperti Finansowi)</p>
                     <p className="text-sm md:text-base text-blue-200">
                       Licencja nr 3
                     </p>
