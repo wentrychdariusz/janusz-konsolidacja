@@ -44,7 +44,7 @@ const LiveNotifications = () => {
               <span className="text-green-600">✅ {notification.name}</span> z {notification.location}
             </p>
             <p className="text-xs text-gray-600">
-              zapisał się na konsultację • {notification.time}
+              zapisała się na konsultację • {notification.time}
             </p>
           </div>
         </div>
