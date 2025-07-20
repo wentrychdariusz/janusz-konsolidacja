@@ -60,6 +60,16 @@ const DebtCalculator = () => {
       return;
     }
 
+    // Sprawdzenie minimalnego dochodu
+    if (incomeVal < 3000) {
+      setResult({
+        message: 'Niestety, przy dochodzie poniżej 3000 PLN nie możemy zaproponować skutecznego rozwiązania.',
+        type: 'negative',
+        showForm: false
+      });
+      return;
+    }
+
     // Oznacz kalkulator jako użyty
     localStorage.setItem('debt_calculator_used', 'true');
     setHasUsedCalculator(true);
