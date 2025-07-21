@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Calculator, CheckCircle, AlertCircle, XCircle, Plus, Star, Shield } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import QuickRegistrationForm from './QuickRegistrationForm';
+import { supabase } from '@/integrations/supabase/client';
 
 const DebtCalculator = () => {
   const [income, setIncome] = useState('');
@@ -41,7 +42,23 @@ const DebtCalculator = () => {
   
   const postCostLimit = (income: number) => income * 30;
 
-  const calculate = () => {
+  const saveCalculatorData = async (incomeVal: number, paydayVal: number, bankVal: number) => {
+    try {
+      const sessionId = Date.now().toString() + Math.random().toString(36).substr(2, 9);
+      
+      await supabase
+        .from('calculator_usage')
+        .insert({
+          session_id: sessionId,
+          income: incomeVal,
+          debt_amount: paydayVal + bankVal
+        });
+    } catch (error) {
+      console.error('Błąd podczas zapisywania danych kalkulatora:', error);
+    }
+  };
+
+  const calculate = async () => {
     // Blokada ponownego użycia
     if (hasUsedCalculator) {
       return;
@@ -69,6 +86,9 @@ const DebtCalculator = () => {
       });
       return;
     }
+
+    // Zapisz dane do bazy danych
+    await saveCalculatorData(incomeVal, paydayVal, bankVal);
 
     // Oznacz kalkulator jako użyty
     localStorage.setItem('debt_calculator_used', 'true');

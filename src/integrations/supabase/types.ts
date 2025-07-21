@@ -70,6 +70,30 @@ export type Database = {
         }
         Relationships: []
       }
+      calculator_usage: {
+        Row: {
+          created_at: string
+          debt_amount: number | null
+          id: string
+          income: number
+          session_id: string
+        }
+        Insert: {
+          created_at?: string
+          debt_amount?: number | null
+          id?: string
+          income: number
+          session_id: string
+        }
+        Update: {
+          created_at?: string
+          debt_amount?: number | null
+          id?: string
+          income?: number
+          session_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
