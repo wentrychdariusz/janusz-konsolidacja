@@ -309,7 +309,7 @@ const DebtCalculator = () => {
 
                 <div>
                   <Label htmlFor="payday" className="text-navy-800 font-medium text-sm lg:text-base">
-                    Suma chwilówek/parabanków
+                    Suma wszystkich chwilówek/parabanków
                   </Label>
                   <div className="relative mt-2">
                     <Input
@@ -329,7 +329,7 @@ const DebtCalculator = () => {
 
                 <div>
                   <Label htmlFor="bank" className="text-navy-800 font-medium text-sm lg:text-base">
-                    Suma kredytów bankowych
+                    Suma wszystkich kredytów bankowych
                   </Label>
                   <div className="relative mt-2">
                     <Input
