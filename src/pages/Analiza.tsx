@@ -129,74 +129,76 @@ const Analiza = () => {
       <TopHeader />
       <div className="pt-20 pb-16">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl lg:text-4xl font-bold text-navy-900 mb-4">
+          <div className="text-center mb-6 md:mb-8">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-navy-900 mb-2 md:mb-4 px-2">
               Analiza Kalkulatora Oddłużenia
             </h1>
-            <p className="text-warm-neutral-600 text-lg">
+            <p className="text-warm-neutral-600 text-base md:text-lg px-2">
               Raport dotyczący kwot dochodów użytkowników kalkulatora
             </p>
           </div>
 
           {/* Statystyki ogólne */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Liczba użytkowników</CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
+            <Card className="p-3 md:p-6">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-0 mb-2">
+                <CardTitle className="text-xs sm:text-sm font-medium">Liczba użytkowników</CardTitle>
+                <Users className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{stats.totalUsers}</div>
+              <CardContent className="p-0">
+                <div className="text-lg sm:text-xl md:text-2xl font-bold">{stats.totalUsers}</div>
               </CardContent>
             </Card>
             
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Średni dochód</CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <Card className="p-3 md:p-6">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-0 mb-2">
+                <CardTitle className="text-xs sm:text-sm font-medium">Średni dochód</CardTitle>
+                <DollarSign className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{formatCurrency(stats.avgIncome)}</div>
+              <CardContent className="p-0">
+                <div className="text-sm sm:text-lg md:text-2xl font-bold">{formatCurrency(stats.avgIncome)}</div>
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Minimalny dochód</CardTitle>
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <Card className="p-3 md:p-6">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-0 mb-2">
+                <CardTitle className="text-xs sm:text-sm font-medium">Minimalny dochód</CardTitle>
+                <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{formatCurrency(stats.minIncome)}</div>
+              <CardContent className="p-0">
+                <div className="text-sm sm:text-lg md:text-2xl font-bold">{formatCurrency(stats.minIncome)}</div>
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Maksymalny dochód</CardTitle>
-                <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <Card className="p-3 md:p-6">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-0 mb-2">
+                <CardTitle className="text-xs sm:text-sm font-medium">Maksymalny dochód</CardTitle>
+                <TrendingUp className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
               </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{formatCurrency(stats.maxIncome)}</div>
+              <CardContent className="p-0">
+                <div className="text-sm sm:text-lg md:text-2xl font-bold">{formatCurrency(stats.maxIncome)}</div>
               </CardContent>
             </Card>
           </div>
 
           {/* Wykres słupkowy - przedziały dochodów */}
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle>Rozkład dochodów według przedziałów</CardTitle>
+          <Card className="mb-6 md:mb-8">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-base md:text-lg">Rozkład dochodów według przedziałów</CardTitle>
             </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={400}>
-                <BarChart data={incomeRanges}>
+            <CardContent className="p-2 md:p-6">
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={incomeRanges} margin={{ bottom: 60, left: 10, right: 10 }}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis 
                     dataKey="range" 
                     angle={-45}
                     textAnchor="end"
-                    height={100}
+                    height={80}
+                    fontSize={10}
+                    interval={0}
                   />
-                  <YAxis />
+                  <YAxis fontSize={10} />
                   <Tooltip 
                     formatter={(value: number, name: string) => [
                       name === 'count' ? `${value} osób` : `${value}%`,
@@ -210,20 +212,20 @@ const Analiza = () => {
           </Card>
 
           {/* Wykres kołowy - przedziały dochodów */}
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle>Procentowy rozkład dochodów</CardTitle>
+          <Card className="mb-6 md:mb-8">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-base md:text-lg">Procentowy rozkład dochodów</CardTitle>
             </CardHeader>
-            <CardContent>
-              <ResponsiveContainer width="100%" height={400}>
+            <CardContent className="p-2 md:p-6">
+              <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Pie
                     data={incomeRanges}
                     cx="50%"
                     cy="50%"
                     labelLine={false}
-                    label={({ range, percentage }) => `${range}: ${percentage}%`}
-                    outerRadius={120}
+                    label={({ percentage }) => `${percentage}%`}
+                    outerRadius={80}
                     fill="#8884d8"
                     dataKey="count"
                   >
@@ -232,7 +234,10 @@ const Analiza = () => {
                     ))}
                   </Pie>
                   <Tooltip 
-                    formatter={(value: number) => [`${value} osób`, 'Liczba']}
+                    formatter={(value: number, name: string, props: any) => [
+                      `${value} osób (${props.payload.percentage}%)`, 
+                      props.payload.range
+                    ]}
                   />
                 </PieChart>
               </ResponsiveContainer>
@@ -241,27 +246,27 @@ const Analiza = () => {
 
           {/* Tabela szczegółowych danych */}
           <Card>
-            <CardHeader>
-              <CardTitle>Ostatnie wpisy kalkulatora</CardTitle>
+            <CardHeader className="pb-4">
+              <CardTitle className="text-base md:text-lg">Ostatnie wpisy kalkulatora</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-2 md:p-6">
               <div className="overflow-x-auto">
-                <table className="w-full text-sm">
+                <table className="w-full text-xs sm:text-sm">
                   <thead>
                     <tr className="border-b">
-                      <th className="text-left py-2">Data</th>
-                      <th className="text-left py-2">Dochód</th>
-                      <th className="text-left py-2">Łączne zadłużenie</th>
+                      <th className="text-left py-2 px-1">Data</th>
+                      <th className="text-left py-2 px-1">Dochód</th>
+                      <th className="text-left py-2 px-1">Zadłużenie</th>
                     </tr>
                   </thead>
                   <tbody>
                     {data.slice(0, 20).map((item) => (
                       <tr key={item.id} className="border-b">
-                        <td className="py-2">
+                        <td className="py-2 px-1 whitespace-nowrap">
                           {new Date(item.created_at).toLocaleDateString('pl-PL')}
                         </td>
-                        <td className="py-2">{formatCurrency(Number(item.income))}</td>
-                        <td className="py-2">{formatCurrency(Number(item.debt_amount))}</td>
+                        <td className="py-2 px-1">{formatCurrency(Number(item.income))}</td>
+                        <td className="py-2 px-1">{formatCurrency(Number(item.debt_amount))}</td>
                       </tr>
                     ))}
                   </tbody>
