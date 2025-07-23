@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
 import PolishCitizensNotice from './PolishCitizensNotice';
-import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star, Calculator } from 'lucide-react';
+import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star } from 'lucide-react';
 
 const HeroSection = () => {
-  const navigate = useNavigate();
   const [currentMiniTestimonial, setCurrentMiniTestimonial] = useState(0);
 
   const benefits = [
@@ -298,15 +297,9 @@ const HeroSection = () => {
               </div>
             </div>
             
-            {/* Przycisk do kalkulatora - Mobile */}
-            <div className="animate-fade-in text-center">
-              <button
-                onClick={() => navigate('/kontakt')}
-                className="bg-gradient-to-r from-prestige-gold-500 to-prestige-gold-400 hover:from-prestige-gold-600 hover:to-prestige-gold-500 text-navy-900 font-bold py-6 px-8 rounded-2xl shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:scale-105 text-xl flex items-center justify-center gap-3 mx-auto max-w-sm w-full"
-              >
-                <Calculator className="w-6 h-6" />
-                Sprawdź czy możemy Ci pomóc
-              </button>
+            {/* Calculator Section - Mobile */}
+            <div className="animate-fade-in">
+              <DebtCalculator />
             </div>
           </div>
 
@@ -358,16 +351,10 @@ const HeroSection = () => {
               </div>
             </div>
             
-            {/* Przycisk do kalkulatora - Desktop */}
+            {/* Right Content - 50% */}
             <div className="flex justify-center animate-fade-in">
-              <div className="w-full max-w-md text-center">
-                <button
-                  onClick={() => navigate('/kontakt')}
-                  className="bg-gradient-to-r from-prestige-gold-500 to-prestige-gold-400 hover:from-prestige-gold-600 hover:to-prestige-gold-500 text-navy-900 font-bold py-8 px-10 rounded-2xl shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:scale-105 text-2xl flex items-center justify-center gap-4 w-full"
-                >
-                  <Calculator className="w-8 h-8" />
-                  Sprawdź czy możemy Ci pomóc
-                </button>
+              <div className="w-full">
+                <DebtCalculator />
               </div>
             </div>
           </div>
