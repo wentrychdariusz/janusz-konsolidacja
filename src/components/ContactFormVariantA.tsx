@@ -269,16 +269,6 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
             </div>
           </div>
 
-          {/* Pierwsza i ostatnia szansa */}
-          <div className="bg-red-50 border border-red-200 p-4 rounded-xl mb-6">
-            <p className="text-navy-800 font-bold text-lg text-center mb-2">
-              ⚠️ To Twoja pierwsza i ostatnia szansa
-            </p>
-            <p className="text-warm-neutral-700 text-center leading-relaxed">
-              Formularz możesz wypełnić tylko raz. Jeśli go porzucisz – nie wracamy.
-            </p>
-          </div>
-
           <h2 className="text-2xl font-bold text-navy-900 mb-4">
             Wypełnij formularz i zapisz się na bezpłatną konsultację
           </h2>
