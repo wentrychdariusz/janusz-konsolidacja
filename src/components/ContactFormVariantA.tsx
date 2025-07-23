@@ -200,11 +200,17 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
                 Możesz to odsuwać. Ale ono nie znika. Tylko rośnie – z czasem i z odsetkami.
               </p>
 
-              <div className="border-l-4 border-red-500 pl-4 bg-red-50 p-4 rounded-r-lg">
-                <p className="font-bold text-navy-800 mb-2">Albo działasz teraz.</p>
-                <p>Albo liczysz, że sprawa rozwiąże się sama.</p>
-                <p className="font-semibold">Ale tak się nie dzieje. Zadłużenie nie stoi w miejscu. Zawsze rośnie.</p>
-              </div>
+              <p className="font-bold text-navy-800">
+                Albo działasz teraz.
+              </p>
+              
+              <p>
+                Albo liczysz, że sprawa rozwiąże się sama.
+              </p>
+              
+              <p className="font-semibold">
+                Ale tak się nie dzieje. Zadłużenie nie stoi w miejscu. Zawsze rośnie.
+              </p>
 
               <div className="text-right mt-6">
                 <p className="font-semibold text-navy-800">Z poważaniem,</p>
