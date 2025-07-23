@@ -152,7 +152,7 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
             </div>
             <div className="text-white">
               <h1 className="text-xl font-bold mb-2">Skontaktuj się z nami</h1>
-              <p className="text-base text-blue-100">Bezpłatna konsultacja prawna</p>
+              <p className="text-base text-blue-100">#1 ekspert finansowy oddłużania i konsolidacja</p>
             </div>
           </div>
           
