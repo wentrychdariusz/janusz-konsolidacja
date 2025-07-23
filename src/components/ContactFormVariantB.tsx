@@ -144,8 +144,8 @@ const ContactFormVariantB = ({ onConversion }: ContactFormVariantBProps) => {
         <div className="text-center mb-8">
           <div className="bg-gradient-to-r from-success-600 to-success-500 p-6 rounded-xl mb-6">
             <div className="text-white">
-              <h1 className="text-2xl font-bold mb-2">🎉 Gratulacje!</h1>
-              <p className="text-lg text-success-100">Zakwalifikowałeś się do oddłużenia i konsolidacji</p>
+              <h1 className="text-2xl lg:text-3xl font-bold mb-2">🎉 Gratulacje!</h1>
+              <p className="text-lg lg:text-xl text-success-100">Zakwalifikowałeś się do oddłużenia i konsolidacji</p>
             </div>
           </div>
 
@@ -202,44 +202,44 @@ const ContactFormVariantB = ({ onConversion }: ContactFormVariantBProps) => {
 
           {/* Wartość konsultacji */}
           <div className="bg-blue-50 border border-blue-200 p-6 rounded-xl mb-6">
-            <h3 className="text-xl font-bold text-navy-900 mb-4 text-center">Wartość tej konsultacji?</h3>
+            <h3 className="text-xl lg:text-2xl font-bold text-navy-900 mb-4 text-center">Wartość tej konsultacji?</h3>
             <div className="text-center mb-6">
-              <p className="text-lg text-warm-neutral-700 mb-2">U nas godzina doradztwa kosztuje:</p>
-              <p className="text-3xl font-bold text-red-500 line-through mb-3">500 zł</p>
-              <p className="text-lg text-warm-neutral-700 mb-2">Dla Ciebie teraz:</p>
-              <p className="text-5xl font-bold text-success-600 mb-3">0 zł</p>
-              <p className="text-lg text-red-600 font-bold">Ale tylko raz!</p>
+              <p className="text-lg lg:text-xl text-warm-neutral-700 mb-2">U nas godzina doradztwa kosztuje:</p>
+              <p className="text-3xl lg:text-4xl font-bold text-red-500 line-through mb-3">500 zł</p>
+              <p className="text-lg lg:text-xl text-warm-neutral-700 mb-2">Dla Ciebie teraz:</p>
+              <p className="text-5xl lg:text-6xl font-bold text-success-600 mb-3">0 zł</p>
+              <p className="text-lg lg:text-xl text-red-600 font-bold">Ale tylko raz!</p>
             </div>
             
             <div className="text-left space-y-4">
-              <p className="text-lg font-bold text-navy-900 mb-4">Dlaczego warto? Bo zrobimy coś, czego nie da Ci konkurencja:</p>
+              <p className="text-lg lg:text-xl font-bold text-navy-900 mb-4">Dlaczego warto? Bo zrobimy coś, czego nie da Ci konkurencja:</p>
               
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
                   <span className="text-success-600 font-bold text-lg">✔️</span>
-                  <p className="text-warm-neutral-700">Przeanalizujemy Twoją sytuację i wymyślimy realny plan wyjścia z zadłużenia</p>
+                  <p className="text-base lg:text-lg text-warm-neutral-700">Przeanalizujemy Twoją sytuację i wymyślimy realny plan wyjścia z zadłużenia</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-success-600 font-bold text-lg">✔️</span>
-                  <p className="text-warm-neutral-700">Pokażemy, jak poprawić Twój BIK i zwiększyć zdolność finansową</p>
+                  <p className="text-base lg:text-lg text-warm-neutral-700">Pokażemy, jak poprawić Twój BIK i zwiększyć zdolność finansową</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-success-600 font-bold text-lg">✔️</span>
-                  <p className="text-warm-neutral-700">Pomożemy uzyskać najlepszą możliwą pożyczkę — nie pierwszą z brzegu</p>
+                  <p className="text-base lg:text-lg text-warm-neutral-700">Pomożemy uzyskać najlepszą możliwą pożyczkę — nie pierwszą z brzegu</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-success-600 font-bold text-lg">✔️</span>
-                  <p className="text-warm-neutral-700">Mamy dostęp do prywatnego finansowania, niedostępnego w bankach</p>
+                  <p className="text-base lg:text-lg text-warm-neutral-700">Mamy dostęp do prywatnego finansowania, niedostępnego w bankach</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-success-600 font-bold text-lg">✔️</span>
-                  <p className="text-warm-neutral-700">I wszystko w pełnej dyskrecji — bez ocen, bez nacisku, z pełnym szacunkiem</p>
+                  <p className="text-base lg:text-lg text-warm-neutral-700">I wszystko w pełnej dyskrecji — bez ocen, bez nacisku, z pełnym szacunkiem</p>
                 </div>
               </div>
               
               <div className="mt-6 text-center">
-                <p className="text-lg font-bold text-navy-900 mb-2">To szansa, której nie daje Ci nikt inny.</p>
-                <p className="text-base text-warm-neutral-700">Wypełnij formularz i zobacz, że to działa.</p>
+                <p className="text-lg lg:text-xl font-bold text-navy-900 mb-2">To szansa, której nie daje Ci nikt inny.</p>
+                <p className="text-base lg:text-lg text-warm-neutral-700">Wypełnij formularz i zobacz, że to działa.</p>
               </div>
             </div>
           </div>
