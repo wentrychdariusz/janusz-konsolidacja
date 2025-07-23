@@ -1,3 +1,4 @@
+// Updated to fix build cache issue
 import React, { useState, useEffect } from 'react';
 import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
