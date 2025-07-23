@@ -114,20 +114,14 @@ const DebtCalculator = () => {
     const total = paydayVal + bankVal;
 
     if (total <= baseLim) {
-      setResult({
-        message: 'Jesteśmy w stanie Ci pomóc! Wypełnij dane kontaktowe, a nasz ekspert skontaktuje się z Tobą w ciągu 24 godzin.',
-        type: 'positive',
-        showForm: true
-      });
+      // Przekieruj do strony kontakt zamiast pokazywać formularz
+      window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&result=positive';
       return;
     }
 
     if (total <= maxLim) {
-      setResult({
-        message: 'Jesteśmy w stanie Ci pomóc! Wypełnij dane kontaktowe, a doradca omówi możliwe rozwiązania.',
-        type: 'warning',
-        showForm: true
-      });
+      // Przekieruj do strony kontakt zamiast pokazywać formularz
+      window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&result=warning';
       return;
     }
 
