@@ -193,6 +193,13 @@ const ContactFormVariantB = ({ onConversion }: ContactFormVariantBProps) => {
             </div>
           </div>
 
+          {/* Strzałka w dół */}
+          <div className="flex justify-center mb-6">
+            <div className="bg-business-blue-600 text-white p-3 rounded-full animate-bounce">
+              <ArrowDown className="w-6 h-6" />
+            </div>
+          </div>
+
           {/* Wartość konsultacji */}
           <div className="bg-blue-50 border border-blue-200 p-6 rounded-xl mb-6">
             <h3 className="text-xl font-bold text-navy-900 mb-4 text-center">Wartość tej konsultacji?</h3>
