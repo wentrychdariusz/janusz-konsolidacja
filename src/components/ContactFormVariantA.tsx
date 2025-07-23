@@ -151,7 +151,7 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
 
           {/* Sekcja z ekspertem i firmą */}
           <div className="bg-warm-neutral-50 p-6 rounded-xl mb-8">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
               {/* Dariusz Wentrych */}
               <div className="flex flex-col items-center text-center">
                 <img 
@@ -161,18 +161,34 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
                 />
                 <h3 className="text-lg font-bold text-navy-900">Dariusz Wentrych</h3>
                 <p className="text-sm text-business-blue-600 font-medium">Ekspert finansowy</p>
+                <p className="text-xs text-warm-neutral-600 mt-1">Autor bestsellera</p>
+                <p className="text-xs font-semibold text-navy-800">"Nowe życie bez długów"</p>
+              </div>
+
+              {/* Statystyki */}
+              <div className="flex flex-col items-center text-center">
+                <div className="flex items-center gap-4 mb-3">
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-business-blue-600">15.000+</p>
+                    <p className="text-xs text-warm-neutral-600">zadowolonych klientów</p>
+                  </div>
+                  <div className="w-px h-12 bg-warm-neutral-300"></div>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-business-blue-600">20+</p>
+                    <p className="text-xs text-warm-neutral-600">lat na rynku</p>
+                  </div>
+                </div>
               </div>
 
               {/* Firma pod nadzorem KNF */}
               <div className="flex flex-col items-center text-center">
-                <div className="flex items-center gap-2 mb-2">
-                  <Shield className="w-8 h-8 text-business-blue-600" />
-                  <div className="text-left">
-                    <p className="text-sm font-bold text-navy-900">Firma pod nadzorem</p>
-                    <p className="text-lg font-bold text-business-blue-600">KNF</p>
-                  </div>
-                </div>
-                <p className="text-xs text-warm-neutral-600">Komisja Nadzoru Finansowego</p>
+                <img 
+                  src="/lovable-uploads/e275ad04-dbd9-4823-8abb-025d0d50bda9.png"
+                  alt="KNF - Komisja Nadzoru Finansowego"
+                  className="h-16 w-auto mb-2 object-contain"
+                />
+                <p className="text-xs text-warm-neutral-600">Firma pod nadzorem</p>
+                <p className="text-xs font-semibold text-navy-800">Komisji Nadzoru Finansowego</p>
               </div>
             </div>
           </div>
