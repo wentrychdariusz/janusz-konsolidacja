@@ -1,5 +1,6 @@
 
 import React, { useEffect } from 'react';
+import LoanAmountsBar from '../components/LoanAmountsBar';
 import TopHeader from '../components/TopHeader';
 import HeroSection from '../components/HeroSection';
 import ImagineSection from '../components/ImagineSection';
@@ -27,6 +28,7 @@ const Index = () => {
   
   return (
     <div className="font-lato">
+      <LoanAmountsBar />
       <TopHeader />
       <HeroSection />
       <ImagineSection />

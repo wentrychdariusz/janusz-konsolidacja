@@ -1,7 +1,7 @@
 import React from 'react';
 import OptimizedImage from './OptimizedImage';
 const TopHeader = () => {
-  return <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-sm text-white py-4 px-8 shadow-lg border-b border-slate-700/50 relative overflow-hidden md:hidden">
+  return <div className="fixed top-12 left-0 right-0 z-40 bg-gradient-to-r from-slate-900/95 via-slate-800/95 to-slate-900/95 backdrop-blur-sm text-white py-4 px-8 shadow-lg border-b border-slate-700/50 relative overflow-hidden md:hidden md:top-0 md:z-50">
       
       {/* Background image z Dariuszem - tylko na mobile */}
       <div className="absolute inset-0 hidden">
