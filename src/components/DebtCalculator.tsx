@@ -287,7 +287,7 @@ const DebtCalculator = () => {
               <div className="space-y-3 lg:space-y-4">
                 <div>
                   <Label htmlFor="income" className="text-navy-800 font-medium text-sm lg:text-base">
-                    Twój dochód netto
+                    Twój dochód netto (umowa o pracę)
                   </Label>
                   <div className="relative mt-2">
                     <Input
