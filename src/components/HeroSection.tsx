@@ -77,7 +77,7 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden pt-28 md:pt-16 pb-8 md:pb-12">
+    <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden pt-14 md:pt-16 pb-8 md:pb-12">
       {/* Desktop background - Dariusz image z lazy loading */}
       <div 
         className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"

@@ -3,7 +3,7 @@ import { Banknote } from 'lucide-react';
 
 const LoanAmountsBar = () => {
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-business-blue-600 to-navy-800 text-white py-3 px-4 md:hidden">
+    <div className="bg-gradient-to-r from-business-blue-600 to-navy-800 text-white py-3 px-4 md:hidden">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-3 gap-2 text-center">
           {/* Kolumna 1 */}
