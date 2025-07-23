@@ -140,41 +140,74 @@ const ContactFormVariantB = ({ onConversion }: ContactFormVariantBProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 max-w-lg w-full">
-        {/* Header - Wariant B: Bardziej promocyjny design */}
+        {/* Header - Kwalifikacja */}
         <div className="text-center mb-8">
           <div className="bg-gradient-to-r from-success-600 to-success-500 p-6 rounded-xl mb-6">
-            <div className="flex justify-center items-center mb-4">
-              <img 
-                src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                alt="Dariusz Wentrych"
-                className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg object-cover"
-              />
-            </div>
             <div className="text-white">
-              <h1 className="text-xl font-bold mb-2">🎯 BEZPŁATNA KONSULTACJA</h1>
-              <p className="text-base text-success-100">Sprawdź swoje możliwości już dziś!</p>
+              <h1 className="text-2xl font-bold mb-2">🎉 Gratulacje!</h1>
+              <p className="text-lg text-success-100">Zakwalifikowałeś się do oddłużenia i konsolidacji</p>
+            </div>
+          </div>
+
+          {/* Ekspert i firma */}
+          <div className="bg-warm-neutral-50 p-6 rounded-xl mb-8">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+              {/* Dariusz Wentrych */}
+              <div className="flex flex-col items-center text-center">
+                <img 
+                  src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                  alt="Dariusz Wentrych"
+                  className="w-20 h-20 rounded-full overflow-hidden border-3 border-business-blue-600 shadow-lg object-cover mb-3"
+                />
+                <h3 className="text-lg font-bold text-navy-900">Dariusz Wentrych</h3>
+                <p className="text-sm text-business-blue-600 font-medium">#1 ekspert oddłużeń i konsolidacji</p>
+                <p className="text-xs text-warm-neutral-600 mt-1">Autor bestsellera</p>
+                <p className="text-xs font-semibold text-navy-800">"Nowe życie bez długów"</p>
+              </div>
+
+              {/* Statystyki */}
+              <div className="flex flex-col items-center text-center">
+                <div className="flex items-center gap-4 mb-3">
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-business-blue-600">15.000+</p>
+                    <p className="text-xs text-warm-neutral-600">zadowolonych klientów</p>
+                  </div>
+                  <div className="w-px h-12 bg-warm-neutral-300"></div>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-business-blue-600">20+</p>
+                    <p className="text-xs text-warm-neutral-600">lat na rynku</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Firma pod nadzorem KNF */}
+              <div className="flex flex-col items-center text-center">
+                <img 
+                  src="/lovable-uploads/e275ad04-dbd9-4823-8abb-025d0d50bda9.png"
+                  alt="KNF - Komisja Nadzoru Finansowego"
+                  className="h-20 lg:h-16 w-auto mb-3 object-contain"
+                />
+                <p className="text-sm lg:text-xs text-warm-neutral-600 font-medium">Firma pod nadzorem</p>
+                <p className="text-sm lg:text-xs font-bold text-navy-800">Komisji Nadzoru Finansowego</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Wartość konsultacji */}
+          <div className="bg-blue-50 border border-blue-200 p-6 rounded-xl mb-6">
+            <h3 className="text-xl font-bold text-navy-900 mb-4 text-center">Wartość konsultacji</h3>
+            <div className="text-center">
+              <p className="text-lg text-warm-neutral-700 mb-2">U nas kosztuje godzina doradztwa:</p>
+              <p className="text-3xl font-bold text-red-500 line-through mb-2">500 zł</p>
+              <p className="text-lg text-warm-neutral-700 mb-2">Ty masz ją bezpłatnie:</p>
+              <p className="text-5xl font-bold text-success-600 mb-2">0 zł</p>
+              <p className="text-sm text-red-600 font-bold">Ale tylko raz!</p>
             </div>
           </div>
           
-          <h2 className="text-2xl font-bold text-navy-900 mb-3">
-            Zostaw kontakt - zadzwonimy w 24h
+          <h2 className="text-2xl font-bold text-navy-900 mb-4">
+            Wypełnij formularz i zapisz się na bezpłatną konsultację
           </h2>
-          
-          {/* Social proof */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 mb-6">
-            <div className="flex items-center gap-2 bg-blue-50 px-3 py-2 rounded-lg">
-              <Users className="w-4 h-4 text-business-blue-600" />
-              <span className="text-sm text-business-blue-700 font-medium">15.000+ klientów</span>
-            </div>
-            <div className="flex items-center gap-2 bg-green-50 px-3 py-2 rounded-lg">
-              <Shield className="w-4 h-4 text-success-600" />
-              <span className="text-sm text-success-700 font-medium">100% bezpieczeństwa</span>
-            </div>
-            <div className="flex items-center gap-2 bg-orange-50 px-3 py-2 rounded-lg">
-              <Clock className="w-4 h-4 text-warning-600" />
-              <span className="text-sm text-warning-700 font-medium">24h odpowiedź</span>
-            </div>
-          </div>
         </div>
 
         {/* Form */}
