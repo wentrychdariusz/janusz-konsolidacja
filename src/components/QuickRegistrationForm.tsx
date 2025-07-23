@@ -103,14 +103,14 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
         });
       }
       
-      // Przekierowanie na nową ścieżkę SMS verification z parametrami
+      // Przekierowanie na stronę kontaktu z parametrami
       const params = new URLSearchParams({
         success: 'true',
         name: formData.name,
         email: formData.email,
         phone: formData.phone
       });
-      navigate(`/sms-verification?${params.toString()}`);
+      navigate(`/kontakt?${params.toString()}`);
       
     } catch (error) {
       console.error('❌ Final form submission error:', error);
@@ -125,14 +125,14 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
         });
       }
       
-      // Przekierowanie na nową ścieżkę SMS verification nawet przy błędzie
+      // Przekierowanie na stronę kontaktu nawet przy błędzie
       const params = new URLSearchParams({
         success: 'true',
         name: formData.name,
         email: formData.email,
         phone: formData.phone
       });
-      navigate(`/sms-verification?${params.toString()}`);
+      navigate(`/kontakt?${params.toString()}`);
     } finally {
       setIsSubmitting(false);
     }
