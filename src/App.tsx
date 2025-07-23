@@ -11,6 +11,9 @@ import ThankYou from "./pages/ThankYou";
 import SmsVerification from "./pages/SmsVerification";
 import SmsVerificationA from "./pages/SmsVerificationA";
 import SmsVerificationB from "./pages/SmsVerificationB";
+import ContactForm from "./pages/ContactForm";
+import ContactFormA from "./pages/ContactFormA";
+import ContactFormB from "./pages/ContactFormB";
 import Podziekowania from "./pages/Podziekowania";
 import ABTestStats from "./pages/ABTestStats";
 import AdminLogin from "./pages/AdminLogin";
@@ -34,6 +37,9 @@ const App = () => (
           <Route path="/sms-verification" element={<SmsVerification />} />
           <Route path="/sms-verification-a" element={<SmsVerificationA />} />
           <Route path="/sms-verification-b" element={<SmsVerificationB />} />
+          <Route path="/kontakt" element={<ContactForm />} />
+          <Route path="/kontakt-a" element={<ContactFormA />} />
+          <Route path="/kontakt-b" element={<ContactFormB />} />
           <Route path="/podziekowania" element={<Podziekowania />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/panel" element={

@@ -6,11 +6,15 @@ type ABVariant = 'A' | 'B';
 interface ABTestSettings {
   sms_verification_enabled: boolean;
   sms_verification_force_variant?: ABVariant;
+  contact_form_enabled: boolean;
+  contact_form_force_variant?: ABVariant;
 }
 
 const DEFAULT_SETTINGS: ABTestSettings = {
   sms_verification_enabled: true,
   sms_verification_force_variant: undefined,
+  contact_form_enabled: true,
+  contact_form_force_variant: undefined,
 };
 
 export const useABTestSettings = () => {
