@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Rocket, CheckCircle, Users, Shield, Clock, ArrowDown } from 'lucide-react';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
+import { useFunnelTracking } from '../hooks/useFunnelTracking';
 
 // Rozszerzenie obiektu window o fbq
 declare global {
@@ -18,6 +19,7 @@ const ContactFormVariantB = ({ onConversion }: ContactFormVariantBProps) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { trackEvent } = useSupabaseTracking();
+  const { trackFunnelStep } = useFunnelTracking();
   
   const [formData, setFormData] = useState({
     name: "",
@@ -33,6 +35,7 @@ const ContactFormVariantB = ({ onConversion }: ContactFormVariantBProps) => {
   useEffect(() => {
     // Track page view
     trackEvent('contact_form_variant_b_view');
+    trackFunnelStep('contact_form_view', 'B', 'debt_consolidation_funnel');
     
     // Facebook Pixel
     if (typeof window !== 'undefined' && window.fbq) {
@@ -41,7 +44,7 @@ const ContactFormVariantB = ({ onConversion }: ContactFormVariantBProps) => {
         content_category: 'Lead Generation'
       });
     }
-  }, [trackEvent]);
+  }, [trackEvent, trackFunnelStep]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -79,6 +82,11 @@ const ContactFormVariantB = ({ onConversion }: ContactFormVariantBProps) => {
       // Track conversion - formularz kontaktowy wypełniony
       trackEvent('contact_form_variant_b_conversion');
       trackEvent('contact_form_completed', 'B', 'contact_form_test');
+      trackFunnelStep('contact_form_completed', 'B', 'debt_consolidation_funnel', {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone
+      });
       onConversion?.();
       
       // Facebook Pixel

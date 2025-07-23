@@ -5,6 +5,7 @@ import { Clock, AlertCircle } from 'lucide-react';
 import { useCountdown } from '../hooks/useCountdown';
 import LiveNotifications from './LiveNotifications';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
+import { useFunnelTracking } from '../hooks/useFunnelTracking';
 
 // Rozszerzenie obiektu window o fbq
 declare global {
@@ -33,16 +34,18 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
 
   // Supabase tracking
   const { trackPageView, trackConversion } = useSupabaseTracking();
+  const { trackFunnelStep } = useFunnelTracking();
 
   // Track page view when component mounts - TYLKO RAZ
   useEffect(() => {
     if (!hasTrackedPageView.current) {
       console.log('🎯 SmsVerificationVariantB: Tracking page view for variant B to Supabase');
       trackPageView('sms_verification_test', 'B', 'sms_verification_test');
+      trackFunnelStep('sms_verification_view', 'B', 'debt_consolidation_funnel');
       hasTrackedPageView.current = true;
       console.log('📊 Page view tracked for Variant B in Supabase');
     }
-  }, [trackPageView]);
+  }, [trackPageView, trackFunnelStep]);
 
   // Countdown hook - 5 minut (300 sekund)
   const {
@@ -100,6 +103,10 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
             
             // Track finalną konwersję całego funnelu
             trackConversion('full_funnel_complete', 'B', 'debt_consolidation_funnel');
+            trackFunnelStep('sms_verification_completed', 'B', 'debt_consolidation_funnel', {
+              phone: decodeURIComponent(phone),
+              verificationCode: smsCode
+            });
             console.log('🎯 Full funnel conversion tracked for Variant B');
           } catch (conversionError) {
             console.error('❌ Error tracking A/B test conversion:', conversionError);

@@ -94,6 +94,39 @@ export type Database = {
         }
         Relationships: []
       }
+      user_funnel_tracking: {
+        Row: {
+          created_at: string
+          id: string
+          metadata: Json | null
+          session_id: string
+          step_completed_at: string
+          step_name: string
+          test_name: string | null
+          variant: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          session_id: string
+          step_completed_at?: string
+          step_name: string
+          test_name?: string | null
+          variant?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          session_id?: string
+          step_completed_at?: string
+          step_name?: string
+          test_name?: string | null
+          variant?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
