@@ -280,7 +280,7 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
           </div>
 
           <h2 className="text-2xl font-bold text-navy-900 mb-4">
-            Wypełnij formularz - Dariusz wraz z ekspertami przeanalizuje Twoją sytuację
+            Wypełnij formularz i zapisz się na bezpłatną konsultację
           </h2>
         </div>
 
