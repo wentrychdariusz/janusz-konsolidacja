@@ -49,9 +49,9 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
     let finalVariant: ABVariant;
     
     if (existingVariant && (existingVariant === 'A' || existingVariant === 'B')) {
-      // POPRAWKA: Jeśli już ma przypisany wariant, użyj go (chyba że jest force)
-      finalVariant = forceVariant || existingVariant;
-      console.log(`🔄 Existing user - stored variant: ${existingVariant}, force: ${forceVariant}, final: ${finalVariant}`);
+      // POPRAWKA: Jeśli użytkownik już ma wariant, ZAWSZE go używaj (ignoruj forceVariant dla existing users)
+      finalVariant = existingVariant;
+      console.log(`🔄 Existing user - using stored variant: ${existingVariant} (ignoring force: ${forceVariant})`);
     } else {
       // POPRAWKA: Nowy użytkownik - przypisz wariant na podstawie splitRatio
       // Używamy hash z sessionId dla lepszej dystrybucji
