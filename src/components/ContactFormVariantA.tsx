@@ -204,77 +204,55 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
                 Zadłużenie działa jak nowotwór.
               </p>
               <p>
-                Na początku wydaje się małe i niegroźne.
+                Małe na początku. Groźne, gdy je ignorujesz.
               </p>
               <p>
-                Ale im dłużej je ignorujesz, tym szybciej się rozrasta.
-              </p>
-              <p>
-                Aż w końcu przejmuje kontrolę.
+                W końcu przejmuje kontrolę.
               </p>
               
               <p>
-                I nie ma znaczenia czy zarabiasz 4, 8 czy 15 tysięcy miesięcznie
+                Nie ma znaczenia, czy zarabiasz 4, 8 czy 15 tysięcy miesięcznie.
               </p>
               <p>
-                Nie pyta, czy jesteś lekarzem prowadzącym klinikę, przedsiębiorcą, kierowcą czy pracujesz w sprzedaży
+                Czy prowadzisz klinikę, firmę, jeździsz tirem albo pracujesz w handlu.
               </p>
               
               <p className="font-semibold text-navy-800">
-                Zadłużenie nie wybiera. Po prostu wchodzi i zostaje
+                Dług nie wybiera. Po prostu wchodzi — i zostaje.
               </p>
               
               <p>
-                Jest jak cień. Im mniej mu się przyglądasz, tym bardziej zaczyna przesłaniać wszystko dookoła
-              </p>
-              
-              <p>
-                Można udawać, że go nie ma. Można odkładać działanie
+                Wiem, że boisz się, że rodzina się dowie.
               </p>
               <p>
-                Ale ono nie znika. Tylko rośnie — z każdym dniem i z każdą odsetką
-              </p>
-
-              <p className="font-bold text-navy-800">
-                Zadłużenie nie czeka. Nie ma litości
-              </p>
-              
-              <p>
-                Masz dwa wyjścia
-              </p>
-              <p>
-                Zareagować teraz
-              </p>
-              <p>
-                Albo pozwolić, żeby przejęło kontrolę
-              </p>
-              
-              <p className="font-semibold">
-                I jeśli czytasz te słowa, to znaczy że jeszcze możesz coś zmienić
-              </p>
-
-              <p>
-                Zakwalifikowałeś się na indywidualną konsultację ze mną i moim zespołem
-              </p>
-              <p>
-                Zazwyczaj taka analiza kosztuje 500 zł
+                Ale jeśli nie zareagujesz — i tak się dowie.
               </p>
               <p className="font-bold text-navy-800">
-                Dziś masz ją bezpłatnie
+                Tylko wtedy będzie już późno.
+              </p>
+              
+              <p className="font-semibold text-navy-800">
+                Dziś masz coś wyjątkowego.
+              </p>
+              <p>
+                Bezpłatną konsultację o wartości 500 zł.
+              </p>
+              <p>
+                Dostęp tylko raz. Dla Ciebie. Tutaj.
               </p>
 
               <p>
-                To jednorazowa szansa
+                Wypełnij formularz — i pokaż, że chcesz coś zmienić.
               </p>
               <p>
-                Dlatego jeśli wypełniasz formularz — szanujmy swój czas nawzajem
-              </p>
-              <p>
-                Ja daję Ci uwagę i rozwiązania. Ty dajesz gotowość do działania
+                Wszystko odbywa się w dyskrecji i z pełnym szacunkiem.
               </p>
 
-              <p className="font-bold text-navy-800">
-                Ty decydujesz. Ale zegar już tika
+              <p className="font-semibold text-navy-800">
+                Ja daję Ci czas, uwagę i rozwiązania.
+              </p>
+              <p className="font-semibold text-navy-800">
+                Ty daj decyzję.
               </p>
 
               <div className="text-right mt-6">
