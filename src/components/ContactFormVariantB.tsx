@@ -161,10 +161,10 @@ const ContactFormVariantB = ({ onConversion }: ContactFormVariantBProps) => {
           </h2>
           
           {/* Social proof */}
-          <div className="flex justify-center items-center gap-4 mb-6">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 mb-6">
             <div className="flex items-center gap-2 bg-blue-50 px-3 py-2 rounded-lg">
               <Users className="w-4 h-4 text-business-blue-600" />
-              <span className="text-sm text-business-blue-700 font-medium">500+ klientów</span>
+              <span className="text-sm text-business-blue-700 font-medium">15.000+ klientów</span>
             </div>
             <div className="flex items-center gap-2 bg-green-50 px-3 py-2 rounded-lg">
               <Shield className="w-4 h-4 text-success-600" />
