@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface VariantStats {
   users: number;
@@ -14,313 +12,328 @@ interface VariantStats {
 
 const ABTestStats = () => {
   const { getStats, clearStats, trackPageView, trackConversion } = useSupabaseTracking();
-  const [variantA, setVariantA] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
-  const [variantB, setVariantB] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
-  const [lastUpdate, setLastUpdate] = useState<string>('');
+  
+  // SMS Verification Test Stats
+  const [smsVariantA, setSmsVariantA] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
+  const [smsVariantB, setSmsVariantB] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
+  
+  // Contact Form Test Stats
+  const [contactVariantA, setContactVariantA] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
+  const [contactVariantB, setContactVariantB] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
+  
   const [debugInfo, setDebugInfo] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const refreshStats = async () => {
     console.log('🔄 Refreshing A/B test stats from Supabase...');
-    console.log('🌐 Current domain:', window.location.hostname);
-    console.log('📍 Current URL:', window.location.href);
+    setIsLoading(true);
     
     try {
+      // Dodaj krótkie opóźnienie dla Supabase
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
       const stats = await getStats();
       console.log('📊 All stats from Supabase:', stats);
       
-      // DEBUGGING: Zapisz surowe dane do state
+      // Zapisz dane debug
       setDebugInfo(stats);
-      
-      // DEBUGGING: Sprawdź wszystkie klucze w eventsByVariant
-      console.log('🔍 Available keys in eventsByVariant:');
+
+      // Wypisz wszystkie klucze dla debugowania
       Object.keys(stats.eventsByVariant).forEach(key => {
         console.log(`  ${key}: ${stats.eventsByVariant[key]}`);
       });
+
+      // SMS Verification Test - mapowanie kluczy
+      const smsAViews = stats.eventsByVariant['page_view_sms_verification_test_A'] || 0;
+      const smsAConversions = stats.eventsByVariant['conversion_sms_verification_test_success_A'] || 0;
+      const smsAConversionRate = smsAViews > 0 ? (smsAConversions / smsAViews) * 100 : 0;
       
-      // Mapowanie kluczy - używaj DOKŁADNIE tych samych kluczy co w śledzeniu
-      const aViews = stats.eventsByVariant['page_view_sms_verification_test_A'] || 0;
-      const aConversions = stats.eventsByVariant['conversion_sms_verification_test_success_A'] || 0;
-      const aConversionRate = aViews > 0 ? (aConversions / aViews) * 100 : 0;
+      const smsBViews = stats.eventsByVariant['page_view_sms_verification_test_B'] || 0;
+      const smsBConversions = stats.eventsByVariant['conversion_sms_verification_test_success_B'] || 0;
+      const smsBConversionRate = smsBViews > 0 ? (smsBConversions / smsBViews) * 100 : 0;
+
+      // Contact Form Test - mapowanie kluczy
+      const contactAViews = stats.eventsByVariant['contact_form_variant_a_view'] || 0;
+      const contactAConversions = stats.eventsByVariant['contact_form_variant_a_conversion'] || 0;
+      const contactAConversionRate = contactAViews > 0 ? (contactAConversions / contactAViews) * 100 : 0;
       
-      const bViews = stats.eventsByVariant['page_view_sms_verification_test_B'] || 0;
-      const bConversions = stats.eventsByVariant['conversion_sms_verification_test_success_B'] || 0;
-      const bConversionRate = bViews > 0 ? (bConversions / bViews) * 100 : 0;
+      const contactBViews = stats.eventsByVariant['contact_form_variant_b_view'] || 0;
+      const contactBConversions = stats.eventsByVariant['contact_form_variant_b_conversion'] || 0;
+      const contactBConversionRate = contactBViews > 0 ? (contactBConversions / contactBViews) * 100 : 0;
       
-      console.log('🔍 Looking for keys:', {
-        aViews: `page_view_sms_verification_test_A = ${aViews}`,
-        aConversions: `conversion_sms_verification_test_success_A = ${aConversions}`,
-        bViews: `page_view_sms_verification_test_B = ${bViews}`,
-        bConversions: `conversion_sms_verification_test_success_B = ${bConversions}`
+      console.log('🔍 SMS Test - Looking for keys:', {
+        smsAViews: `page_view_sms_verification_test_A = ${smsAViews}`,
+        smsAConversions: `conversion_sms_verification_test_success_A = ${smsAConversions}`,
+        smsBViews: `page_view_sms_verification_test_B = ${smsBViews}`,
+        smsBConversions: `conversion_sms_verification_test_success_B = ${smsBConversions}`
+      });
+
+      console.log('🔍 Contact Form Test - Looking for keys:', {
+        contactAViews: `contact_form_variant_a_view = ${contactAViews}`,
+        contactAConversions: `contact_form_variant_a_conversion = ${contactAConversions}`,
+        contactBViews: `contact_form_variant_b_view = ${contactBViews}`,
+        contactBConversions: `contact_form_variant_b_conversion = ${contactBConversions}`
       });
       
-      setVariantA({ users: aViews, views: aViews, conversions: aConversions, conversionRate: aConversionRate });
-      setVariantB({ users: bViews, views: bViews, conversions: bConversions, conversionRate: bConversionRate });
-      setLastUpdate(new Date().toLocaleTimeString());
-      
-      console.log('🎯 Final React state set:');
-      console.log('  Variant A:', { users: aViews, views: aViews, conversions: aConversions, rate: aConversionRate });
-      console.log('  Variant B:', { users: bViews, views: bViews, conversions: bConversions, rate: bConversionRate });
-      console.log('🕐 Last update:', new Date().toLocaleTimeString());
-      
+      setSmsVariantA({ 
+        users: stats.uniqueSessions || 0, 
+        views: smsAViews, 
+        conversions: smsAConversions, 
+        conversionRate: smsAConversionRate 
+      });
+      setSmsVariantB({ 
+        users: stats.uniqueSessions || 0, 
+        views: smsBViews, 
+        conversions: smsBConversions, 
+        conversionRate: smsBConversionRate 
+      });
+
+      setContactVariantA({ 
+        users: stats.uniqueSessions || 0, 
+        views: contactAViews, 
+        conversions: contactAConversions, 
+        conversionRate: contactAConversionRate 
+      });
+      setContactVariantB({ 
+        users: stats.uniqueSessions || 0, 
+        views: contactBViews, 
+        conversions: contactBConversions, 
+        conversionRate: contactBConversionRate 
+      });
+
     } catch (error) {
       console.error('❌ Error refreshing stats:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const generateTestData = async () => {
-    console.log('🧪 Generating realistic test data...');
-    
-    // Wyczyść poprzednie dane
+  const handleClearStats = async () => {
+    setIsLoading(true);
     await clearStats();
-    
-    // Symuluj realistyczne dane A/B test - Wariant A (45 użytkowników, 12 konwersji)
-    for (let i = 0; i < 45; i++) {
-      trackPageView('sms_verification_test', 'A', 'sms_verification_test');
-    }
-    for (let i = 0; i < 12; i++) {
-      trackConversion('sms_verification_test_success', 'A', 'sms_verification_test');
-    }
-    
-    // Wariant B (52 użytkowników, 18 konwersji)  
-    for (let i = 0; i < 52; i++) {
-      trackPageView('sms_verification_test', 'B', 'sms_verification_test');
-    }
-    for (let i = 0; i < 18; i++) {
-      trackConversion('sms_verification_test_success', 'B', 'sms_verification_test');
-    }
-    
-    console.log('✅ Test data generated');
-    setTimeout(() => refreshStats(), 2000); // Zwiększony delay dla Supabase
+    await refreshStats();
+  };
+
+  // Funkcje testowe
+  const handleTestSMSViewA = () => {
+    console.log('🧪 Testing SMS A view');
+    trackPageView('sms_verification_test', 'A');
+    setTimeout(() => refreshStats(), 2000);
+  };
+
+  const handleTestSMSConversionA = () => {
+    console.log('🧪 Testing SMS A conversion');
+    trackConversion('sms_verification_test', 'success', 'A');
+    setTimeout(() => refreshStats(), 2000);
+  };
+
+  const handleTestContactViewA = () => {
+    console.log('🧪 Testing Contact A view');
+    trackConversion('contact_form_variant_a_view');
+    setTimeout(() => refreshStats(), 2000);
+  };
+
+  const handleTestContactConversionA = () => {
+    console.log('🧪 Testing Contact A conversion');
+    trackConversion('contact_form_variant_a_conversion');
+    setTimeout(() => refreshStats(), 2000);
   };
 
   useEffect(() => {
     refreshStats();
     
-    // Auto-refresh every 5 seconds to catch new events from Supabase
+    // Auto-refresh co 5 sekund
     const interval = setInterval(refreshStats, 5000);
     return () => clearInterval(interval);
   }, []);
 
-  const chartData = [
-    {
-      name: 'Wariant A',
-      'Użytkownicy': variantA.users,
-      'Konwersje': variantA.conversions,
-    },
-    {
-      name: 'Wariant B', 
-      'Użytkownicy': variantB.users,
-      'Konwersje': variantB.conversions,
-    },
-  ];
-
-  const totalUsers = variantA.users + variantB.users;
-  const totalConversions = variantA.conversions + variantB.conversions;
-  const overallConversionRate = totalUsers > 0 ? (totalConversions / totalUsers) * 100 : 0;
-
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-6xl mx-auto space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 p-4 lg:p-8">
+      <div className="max-w-7xl mx-auto">
         
         {/* Header */}
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            A/B Test - SMS Verification Stats 2025
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-navy-900 mb-2">
+            A/B Test Dashboard 2025
           </h1>
-          <p className="text-gray-600 text-lg">
-            Analiza skuteczności wariantów strony weryfikacji
+          <p className="text-warm-neutral-600">
+            Analiza skuteczności wariantów
           </p>
-          {lastUpdate && (
-            <Badge variant="outline" className="mt-2">
-              Ostatnia aktualizacja: {lastUpdate}
-            </Badge>
-          )}
         </div>
 
-        {/* DEBUGGING: Pokaż surowe dane */}
-        {debugInfo && (
-          <Card className="border-yellow-200 bg-yellow-50">
-            <CardHeader>
-              <CardTitle className="text-lg text-yellow-800">🔍 Debug Info - Supabase Data</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-sm text-gray-700 space-y-2">
-                <p><strong>Total Events:</strong> {debugInfo.totalEvents}</p>
-                <p><strong>Unique Sessions:</strong> {debugInfo.uniqueSessions}</p>
-                <p><strong>All Event Keys:</strong></p>
-                <div className="bg-white p-2 rounded text-xs max-h-40 overflow-y-auto">
-                  {Object.entries(debugInfo.eventsByVariant).map(([key, value]) => (
-                    <div key={key} className="flex justify-between">
-                      <span>{key}:</span>
-                      <span className="font-bold">{value as number}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Akcje */}
-        <div className="flex justify-center gap-4 flex-wrap">
-          <Button onClick={refreshStats} variant="outline" className="bg-green-50 hover:bg-green-100 border-green-200">
-            🔄 Odśwież dane
-          </Button>
-          <Button onClick={generateTestData} className="bg-blue-600 hover:bg-blue-700 text-white">
-            🧪 Wygeneruj testowe dane
-          </Button>
-          <Button onClick={async () => { await clearStats(); await refreshStats(); }} variant="destructive">
-            🗑️ Wyczyść WSZYSTKIE dane (łącznie z thank you page)
-          </Button>
+        {/* Controls */}
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
           <Button 
-            onClick={() => window.location.href = '/admin-logout'} 
+            onClick={refreshStats} 
             variant="outline" 
-            className="bg-red-50 hover:bg-red-100 border-red-200 text-red-700"
+            className="bg-green-50 hover:bg-green-100 border-green-200"
+            disabled={isLoading}
           >
-            🚪 Wyloguj się
+            {isLoading ? 'Ładowanie...' : '🔄 Odśwież dane'}
+          </Button>
+          
+          <Button 
+            onClick={handleClearStats} 
+            variant="destructive"
+            disabled={isLoading}
+          >
+            🗑️ Wyczyść wszystkie dane
           </Button>
         </div>
-
-        {/* Podsumowanie */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="text-center">
-            <CardHeader>
-              <CardTitle className="text-lg">Łączni użytkownicy</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-blue-600">{totalUsers}</div>
-            </CardContent>
-          </Card>
+        
+        {/* SMS Verification Test */}
+        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+          <h2 className="text-xl font-bold text-navy-900 mb-4">
+            📱 Test SMS Verification
+          </h2>
           
-          <Card className="text-center">
-            <CardHeader>
-              <CardTitle className="text-lg">Łączne konwersje</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-green-600">{totalConversions}</div>
-            </CardContent>
-          </Card>
-          
-          <Card className="text-center">
-            <CardHeader>
-              <CardTitle className="text-lg">Średni współczynnik</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-purple-600">{overallConversionRate.toFixed(1)}%</div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Główne porównanie wariantów */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          
-          {/* Wariant A */}
-          <Card className="border-blue-200 bg-blue-50/30">
-            <CardHeader className="bg-blue-100 border-b border-blue-200">
-              <CardTitle className="text-2xl text-blue-800 flex items-center justify-between">
-                Wariant A
-                <Badge className="bg-blue-600 text-white text-lg px-3 py-1">
-                  {variantA.conversionRate.toFixed(1)}%
-                </Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-6">
-              <div className="space-y-4">
-                <div className="flex justify-between items-center py-3 border-b border-blue-100">
-                  <span className="text-lg font-medium text-gray-700">Użytkownicy:</span>
-                  <span className="text-2xl font-bold text-blue-600">{variantA.users}</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            {/* SMS Variant A */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <h3 className="text-lg font-semibold text-blue-800 mb-3">Wariant A (Klasyczny)</h3>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-blue-700">Wyświetlenia:</span>
+                  <span className="font-medium text-blue-900">{smsVariantA.views}</span>
                 </div>
-                <div className="flex justify-between items-center py-3 border-b border-blue-100">
-                  <span className="text-lg font-medium text-gray-700">Wyświetlenia:</span>
-                  <span className="text-2xl font-bold text-blue-600">{variantA.views}</span>
+                <div className="flex justify-between">
+                  <span className="text-blue-700">Konwersje:</span>
+                  <span className="font-medium text-blue-900">{smsVariantA.conversions}</span>
                 </div>
-                <div className="flex justify-between items-center py-3 border-b border-blue-100">
-                  <span className="text-lg font-medium text-gray-700">Konwersje:</span>
-                  <span className="text-2xl font-bold text-green-600">{variantA.conversions}</span>
-                </div>
-                <div className="bg-blue-100 p-4 rounded-lg text-center">
-                  <div className="text-sm text-blue-700 font-medium">% Konwersji</div>
-                  <div className="text-4xl font-bold text-blue-800">{variantA.conversionRate.toFixed(1)}%</div>
+                <div className="flex justify-between border-t border-blue-200 pt-2">
+                  <span className="text-blue-700 font-medium">Wskaźnik konwersji:</span>
+                  <span className="font-bold text-blue-900">{smsVariantA.conversionRate.toFixed(1)}%</span>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* Wariant B */}
-          <Card className="border-red-200 bg-red-50/30">
-            <CardHeader className="bg-red-100 border-b border-red-200">
-              <CardTitle className="text-2xl text-red-800 flex items-center justify-between">
-                Wariant B
-                <Badge className="bg-red-600 text-white text-lg px-3 py-1">
-                  {variantB.conversionRate.toFixed(1)}%
-                </Badge>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-6">
-              <div className="space-y-4">
-                <div className="flex justify-between items-center py-3 border-b border-red-100">
-                  <span className="text-lg font-medium text-gray-700">Użytkownicy:</span>
-                  <span className="text-2xl font-bold text-red-600">{variantB.users}</span>
-                </div>
-                <div className="flex justify-between items-center py-3 border-b border-red-100">
-                  <span className="text-lg font-medium text-gray-700">Wyświetlenia:</span>
-                  <span className="text-2xl font-bold text-red-600">{variantB.views}</span>
-                </div>
-                <div className="flex justify-between items-center py-3 border-b border-red-100">
-                  <span className="text-lg font-medium text-gray-700">Konwersje:</span>
-                  <span className="text-2xl font-bold text-green-600">{variantB.conversions}</span>
-                </div>
-                <div className="bg-red-100 p-4 rounded-lg text-center">
-                  <div className="text-sm text-red-700 font-medium">% Konwersji</div>
-                  <div className="text-4xl font-bold text-red-800">{variantB.conversionRate.toFixed(1)}%</div>
-                </div>
+              <div className="mt-3 space-x-2">
+                <Button size="sm" onClick={handleTestSMSViewA} variant="outline">
+                  Test View
+                </Button>
+                <Button size="sm" onClick={handleTestSMSConversionA} variant="outline">
+                  Test Conv
+                </Button>
               </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Wykres */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-xl">Porównanie wizualne</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={400}>
-              <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Bar dataKey="Użytkownicy" fill="#3b82f6" name="Użytkownicy" />
-                <Bar dataKey="Konwersje" fill="#10b981" name="Konwersje" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-
-        {/* Analiza */}
-        <Card className="border-yellow-200 bg-yellow-50">
-          <CardHeader>
-            <CardTitle className="text-xl text-yellow-800">Wyniki</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-center">
-              <div className="text-2xl font-bold mb-4">
-                {variantB.conversionRate > variantA.conversionRate ? (
-                  <span className="text-red-600">🏆 Wariant B prowadzi o {(variantB.conversionRate - variantA.conversionRate).toFixed(1)}%</span>
-                ) : variantA.conversionRate > variantB.conversionRate ? (
-                  <span className="text-blue-600">🏆 Wariant A prowadzi o {(variantA.conversionRate - variantB.conversionRate).toFixed(1)}%</span>
-                ) : (
-                  <span className="text-gray-600">🤝 Remis</span>
-                )}
-              </div>
-              <p className="text-sm text-gray-600">
-                Różnica w konwersjach: {Math.abs(variantB.conversions - variantA.conversions)} • 
-                Różnica w użytkownikach: {Math.abs(variantB.users - variantA.users)}
-              </p>
             </div>
-          </CardContent>
-        </Card>
+
+            {/* SMS Variant B */}
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <h3 className="text-lg font-semibold text-green-800 mb-3">Wariant B (Zdjęcia klientów)</h3>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-green-700">Wyświetlenia:</span>
+                  <span className="font-medium text-green-900">{smsVariantB.views}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-green-700">Konwersje:</span>
+                  <span className="font-medium text-green-900">{smsVariantB.conversions}</span>
+                </div>
+                <div className="flex justify-between border-t border-green-200 pt-2">
+                  <span className="text-green-700 font-medium">Wskaźnik konwersji:</span>
+                  <span className="font-bold text-green-900">{smsVariantB.conversionRate.toFixed(1)}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* SMS Winner */}
+          <div className="text-center">
+            {smsVariantA.conversionRate > smsVariantB.conversionRate ? (
+              <div className="bg-blue-100 border border-blue-300 rounded-lg p-4">
+                <span className="text-blue-800 font-bold">🏆 Wariant A prowadzi! (+{(smsVariantA.conversionRate - smsVariantB.conversionRate).toFixed(1)} p.p.)</span>
+              </div>
+            ) : smsVariantB.conversionRate > smsVariantA.conversionRate ? (
+              <div className="bg-green-100 border border-green-300 rounded-lg p-4">
+                <span className="text-green-800 font-bold">🏆 Wariant B prowadzi! (+{(smsVariantB.conversionRate - smsVariantA.conversionRate).toFixed(1)} p.p.)</span>
+              </div>
+            ) : (
+              <div className="bg-gray-100 border border-gray-300 rounded-lg p-4">
+                <span className="text-gray-800 font-bold">🤝 Remis - identyczne wyniki</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Contact Form Test */}
+        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+          <h2 className="text-xl font-bold text-navy-900 mb-4">
+            📧 Test Formularza Kontaktowego
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            {/* Contact Variant A */}
+            <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+              <h3 className="text-lg font-semibold text-purple-800 mb-3">Wariant A (Klasyczny)</h3>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-purple-700">Wyświetlenia:</span>
+                  <span className="font-medium text-purple-900">{contactVariantA.views}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-purple-700">Konwersje:</span>
+                  <span className="font-medium text-purple-900">{contactVariantA.conversions}</span>
+                </div>
+                <div className="flex justify-between border-t border-purple-200 pt-2">
+                  <span className="text-purple-700 font-medium">Wskaźnik konwersji:</span>
+                  <span className="font-bold text-purple-900">{contactVariantA.conversionRate.toFixed(1)}%</span>
+                </div>
+              </div>
+              <div className="mt-3 space-x-2">
+                <Button size="sm" onClick={handleTestContactViewA} variant="outline">
+                  Test View
+                </Button>
+                <Button size="sm" onClick={handleTestContactConversionA} variant="outline">
+                  Test Conv
+                </Button>
+              </div>
+            </div>
+
+            {/* Contact Variant B */}
+            <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
+              <h3 className="text-lg font-semibold text-orange-800 mb-3">Wariant B (Promocyjny)</h3>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-orange-700">Wyświetlenia:</span>
+                  <span className="font-medium text-orange-900">{contactVariantB.views}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-orange-700">Konwersje:</span>
+                  <span className="font-medium text-orange-900">{contactVariantB.conversions}</span>
+                </div>
+                <div className="flex justify-between border-t border-orange-200 pt-2">
+                  <span className="text-orange-700 font-medium">Wskaźnik konwersji:</span>
+                  <span className="font-bold text-orange-900">{contactVariantB.conversionRate.toFixed(1)}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form Winner */}
+          <div className="text-center">
+            {contactVariantA.conversionRate > contactVariantB.conversionRate ? (
+              <div className="bg-purple-100 border border-purple-300 rounded-lg p-4">
+                <span className="text-purple-800 font-bold">🏆 Wariant A prowadzi! (+{(contactVariantA.conversionRate - contactVariantB.conversionRate).toFixed(1)} p.p.)</span>
+              </div>
+            ) : contactVariantB.conversionRate > contactVariantA.conversionRate ? (
+              <div className="bg-orange-100 border border-orange-300 rounded-lg p-4">
+                <span className="text-orange-800 font-bold">🏆 Wariant B prowadzi! (+{(contactVariantB.conversionRate - contactVariantA.conversionRate).toFixed(1)} p.p.)</span>
+              </div>
+            ) : (
+              <div className="bg-gray-100 border border-gray-300 rounded-lg p-4">
+                <span className="text-gray-800 font-bold">🤝 Remis - identyczne wyniki</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Debug Info */}
+        {debugInfo && (
+          <div className="bg-gray-100 rounded-lg p-4 mb-8">
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">🔍 Debug Info</h3>
+            <div className="bg-white rounded p-3 text-sm font-mono overflow-auto max-h-64">
+              <pre>{JSON.stringify(debugInfo, null, 2)}</pre>
+            </div>
+          </div>
+        )}
 
       </div>
     </div>
