@@ -46,6 +46,7 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
   };
 
   const handleFinalSubmit = async (e: React.FormEvent) => {
+    console.log('🎯 QUICK REGISTRATION FORM: Formularz został wysłany!');
     e.preventDefault();
     
     if (!formData.name || !formData.email || !formData.phone) return;
@@ -110,6 +111,7 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
         email: formData.email,
         phone: formData.phone
       });
+      console.log('🚀 PRZEKIEROWANIE: Idę na /kontakt z parametrami:', params.toString());
       navigate(`/kontakt?${params.toString()}`);
       
     } catch (error) {
@@ -132,6 +134,7 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
         email: formData.email,
         phone: formData.phone
       });
+      console.log('🚀 PRZEKIEROWANIE BŁĄD: Idę na /kontakt z parametrami:', params.toString());
       navigate(`/kontakt?${params.toString()}`);
     } finally {
       setIsSubmitting(false);
