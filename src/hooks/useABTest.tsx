@@ -53,16 +53,43 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
       finalVariant = existingVariant;
       console.log(`🔄 Existing user - using stored variant: ${existingVariant} (ignoring force: ${forceVariant})`);
     } else {
-      // POPRAWKA: Nowy użytkownik - używamy prostej metody Math.random() dla prawdziwego 50/50
-      // Jeśli jest forceVariant, użyj go, w przeciwnym razie losuj
+      // POPRAWKA: Używamy hash z sessionId dla równomiernego 50/50 podziału
+      const sessionKey = 'supabase_tracking_session';
+      const sessionData = localStorage.getItem(sessionKey);
+      let sessionId = '';
+      
+      if (sessionData) {
+        try {
+          const parsed = JSON.parse(sessionData);
+          sessionId = parsed.sessionId || '';
+        } catch (e) {
+          console.log('Error parsing session data');
+        }
+      }
+      
       if (forceVariant) {
         finalVariant = forceVariant;
         console.log(`🎯 New user with forced variant: ${forceVariant}`);
       } else {
-        // Prawdziwie losowe przypisanie 50/50
-        const randomValue = Math.random();
-        finalVariant = randomValue < splitRatio ? 'A' : 'B';
-        console.log(`🎲 New user random assignment: ${randomValue.toFixed(4)} < ${splitRatio} = ${finalVariant}`);
+        // Używamy hash z sessionId + testName dla konsystentnego 50/50 podziału
+        const hashInput = sessionId + testName;
+        let hash = 0;
+        for (let i = 0; i < hashInput.length; i++) {
+          const char = hashInput.charCodeAt(i);
+          hash = ((hash << 5) - hash) + char;
+          hash = hash & hash;
+        }
+        
+        // Używamy modulo dla idealnego 50/50 podziału
+        const isVariantA = Math.abs(hash) % 2 === 0;
+        finalVariant = isVariantA ? 'A' : 'B';
+        
+        console.log(`🎲 Hash-based 50/50 assignment:`, {
+          sessionId: sessionId.substring(0, 8) + '...',
+          hash: hash,
+          modulo: Math.abs(hash) % 2,
+          finalVariant
+        });
       }
       
     }
