@@ -185,10 +185,10 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
                 <img 
                   src="/lovable-uploads/e275ad04-dbd9-4823-8abb-025d0d50bda9.png"
                   alt="KNF - Komisja Nadzoru Finansowego"
-                  className="h-16 w-auto mb-2 object-contain"
+                  className="h-20 lg:h-16 w-auto mb-3 object-contain"
                 />
-                <p className="text-xs text-warm-neutral-600">Firma pod nadzorem</p>
-                <p className="text-xs font-semibold text-navy-800">Komisji Nadzoru Finansowego</p>
+                <p className="text-sm lg:text-xs text-warm-neutral-600 font-medium">Firma pod nadzorem</p>
+                <p className="text-sm lg:text-xs font-bold text-navy-800">Komisji Nadzoru Finansowego</p>
               </div>
             </div>
           </div>
