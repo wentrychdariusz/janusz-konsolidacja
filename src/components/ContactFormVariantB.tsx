@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Rocket, CheckCircle, Users, Shield, Clock } from 'lucide-react';
+import { Rocket, CheckCircle, Users, Shield, Clock, ArrowDown } from 'lucide-react';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 
 // Rozszerzenie obiektu window o fbq
@@ -234,6 +234,13 @@ const ContactFormVariantB = ({ onConversion }: ContactFormVariantBProps) => {
                 <p className="text-lg font-bold text-navy-900 mb-2">To szansa, której nie daje Ci nikt inny.</p>
                 <p className="text-base text-warm-neutral-700">Wypełnij formularz i zobacz, że to działa.</p>
               </div>
+            </div>
+          </div>
+
+          {/* Strzałka w dół */}
+          <div className="flex justify-center mb-6">
+            <div className="bg-business-blue-600 text-white p-3 rounded-full animate-bounce">
+              <ArrowDown className="w-6 h-6" />
             </div>
           </div>
           
