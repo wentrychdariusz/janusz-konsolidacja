@@ -100,7 +100,7 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
           email: formData.email,
           phone: formData.phone
         });
-        navigate(`/kontakt?${params.toString()}`);
+        navigate(`/sms-verification?${params.toString()}`);
       }, 2000);
       
     } catch (error) {
@@ -115,7 +115,7 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
         email: formData.email,
         phone: formData.phone
       });
-      navigate(`/kontakt?${params.toString()}`);
+      navigate(`/sms-verification?${params.toString()}`);
     } finally {
       setIsSubmitting(false);
     }
