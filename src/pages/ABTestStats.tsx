@@ -52,13 +52,13 @@ const ABTestStats = () => {
       const smsBConversions = stats.eventsByVariant['conversion_sms_verification_test_success_B'] || 0;
       const smsBConversionRate = smsBViews > 0 ? (smsBConversions / smsBViews) * 100 : 0;
 
-      // Contact Form Test - mapowanie kluczy
-      const contactAViews = stats.eventsByVariant['contact_form_variant_a_view'] || 0;
-      const contactAConversions = stats.eventsByVariant['contact_form_variant_a_conversion'] || 0;
+      // Contact Form Test - użyj właściwych kluczy z useABTest
+      const contactAViews = stats.eventsByVariant['page_view_contact_form_test_A'] || 0;
+      const contactAConversions = stats.eventsByVariant['conversion_contact_form_test_success_A'] || 0;
       const contactAConversionRate = contactAViews > 0 ? (contactAConversions / contactAViews) * 100 : 0;
       
-      const contactBViews = stats.eventsByVariant['contact_form_variant_b_view'] || 0;
-      const contactBConversions = stats.eventsByVariant['contact_form_variant_b_conversion'] || 0;
+      const contactBViews = stats.eventsByVariant['page_view_contact_form_test_B'] || 0;
+      const contactBConversions = stats.eventsByVariant['conversion_contact_form_test_success_B'] || 0;
       const contactBConversionRate = contactBViews > 0 ? (contactBConversions / contactBViews) * 100 : 0;
       
       console.log('🔍 SMS Test - Looking for keys:', {
@@ -69,10 +69,10 @@ const ABTestStats = () => {
       });
 
       console.log('🔍 Contact Form Test - Looking for keys:', {
-        contactAViews: `contact_form_variant_a_view = ${contactAViews}`,
-        contactAConversions: `contact_form_variant_a_conversion = ${contactAConversions}`,
-        contactBViews: `contact_form_variant_b_view = ${contactBViews}`,
-        contactBConversions: `contact_form_variant_b_conversion = ${contactBConversions}`
+        contactAViews: `page_view_contact_form_test_A = ${contactAViews}`,
+        contactAConversions: `conversion_contact_form_test_success_A = ${contactAConversions}`,
+        contactBViews: `page_view_contact_form_test_B = ${contactBViews}`,
+        contactBConversions: `conversion_contact_form_test_success_B = ${contactBConversions}`
       });
       
       setSmsVariantA({ 
