@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Rocket, CheckCircle } from 'lucide-react';
+import { Rocket, CheckCircle, ArrowDown, Shield, User } from 'lucide-react';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 
 // Rozszerzenie obiektu window o fbq
@@ -140,66 +140,97 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 max-w-lg w-full">
-        {/* Header - Wariant A: Silny przekaz z metaforą choroby */}
+        {/* Header - Kwalifikacja */}
         <div className="text-center mb-8">
-          <div className="bg-gradient-to-r from-business-blue-600 to-navy-900 p-6 rounded-xl mb-6">
-            <div className="flex justify-center items-center mb-4">
-              <img 
-                src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                alt="Dariusz Wentrych"
-                className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg object-cover"
-              />
-            </div>
+          <div className="bg-gradient-to-r from-success-600 to-success-500 p-6 rounded-xl mb-6">
             <div className="text-white">
-              <h1 className="text-xl font-bold mb-2">Zadłużenie działa jak choroba.</h1>
-              <p className="text-base text-blue-100">Jeśli je zignorujesz – będzie postępować.</p>
+              <h1 className="text-2xl font-bold mb-2">🎉 Gratulacje!</h1>
+              <p className="text-lg text-success-100">Zakwalifikowałeś się do oddłużenia i konsolidacji</p>
             </div>
           </div>
-          
-          {/* Wprowadzenie */}
-          <div className="text-left mb-8 space-y-4">
-            <p className="text-navy-800 font-semibold text-lg">
-              Ten problem nie wybiera.
-            </p>
-            <p className="text-warm-neutral-700 leading-relaxed">
-              Nie interesuje go, ile zarabiasz, w jakim jesteś wieku, czy prowadzisz firmę, czy masz rodzinę.
-            </p>
-            <p className="text-warm-neutral-700 leading-relaxed">
-              Jak każda poważna sprawa – jeśli nie zareagujesz, zacznie przejmować kontrolę.
-            </p>
-            <p className="text-warm-neutral-700 leading-relaxed">
-              Możesz to odsuwać. Ale ono nie znika. Tylko rośnie – z czasem i z odsetkami.
-            </p>
+
+          {/* Sekcja z ekspertem i firmą */}
+          <div className="bg-warm-neutral-50 p-6 rounded-xl mb-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              {/* Dariusz Wentrych */}
+              <div className="flex flex-col items-center text-center">
+                <img 
+                  src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                  alt="Dariusz Wentrych"
+                  className="w-20 h-20 rounded-full overflow-hidden border-3 border-business-blue-600 shadow-lg object-cover mb-3"
+                />
+                <h3 className="text-lg font-bold text-navy-900">Dariusz Wentrych</h3>
+                <p className="text-sm text-business-blue-600 font-medium">Ekspert finansowy</p>
+              </div>
+
+              {/* Firma pod nadzorem KNF */}
+              <div className="flex flex-col items-center text-center">
+                <div className="flex items-center gap-2 mb-2">
+                  <Shield className="w-8 h-8 text-business-blue-600" />
+                  <div className="text-left">
+                    <p className="text-sm font-bold text-navy-900">Firma pod nadzorem</p>
+                    <p className="text-lg font-bold text-business-blue-600">KNF</p>
+                  </div>
+                </div>
+                <p className="text-xs text-warm-neutral-600">Komisja Nadzoru Finansowego</p>
+              </div>
+            </div>
           </div>
 
-          {/* Kluczowy punkt o Darku */}
-          <div className="text-left mb-8 space-y-4 bg-warm-neutral-50 p-6 rounded-xl">
-            <p className="text-navy-800 font-semibold text-lg">
-              Darek od lat pomaga ludziom odzyskać kontrolę nad finansami.
-            </p>
-            <p className="text-warm-neutral-700 leading-relaxed">
-              Nie przez sąd. Nie przez wstyd.
-            </p>
-            <p className="text-warm-neutral-700 leading-relaxed">
-              Tylko w sposób, który działa: dokładna analiza, realistyczny plan, wspólna decyzja.
-            </p>
-            <p className="text-warm-neutral-700 leading-relaxed">
-              Każda sytuacja jest inna. Dlatego nie ma tu miejsca na schematy ani ogólniki.
-            </p>
+          {/* List od Dariusza - graficznie */}
+          <div className="bg-white border-2 border-warm-neutral-200 rounded-xl p-6 mb-8 shadow-inner">
+            <div className="border-l-4 border-business-blue-600 pl-4 mb-6">
+              <h2 className="text-lg font-bold text-navy-900 mb-2">Drogi Kliencie,</h2>
+            </div>
+            
+            <div className="text-left space-y-4 text-warm-neutral-700 leading-relaxed">
+              <p className="font-semibold text-navy-800">
+                Zadłużenie działa jak choroba. Jeśli je zignorujesz – będzie postępować.
+              </p>
+              
+              <p>
+                Ten problem nie wybiera. Nie interesuje go, ile zarabiasz, w jakim jesteś wieku, czy prowadzisz firmę, czy masz rodzinę.
+              </p>
+              
+              <p>
+                Jak każda poważna sprawa – jeśli nie zareagujesz, zacznie przejmować kontrolę.
+              </p>
+              
+              <p>
+                Możesz to odsuwać. Ale ono nie znika. Tylko rośnie – z czasem i z odsetkami.
+              </p>
+
+              <div className="bg-business-blue-50 p-4 rounded-lg my-6">
+                <p className="font-semibold text-navy-800 mb-2">
+                  Od lat pomagam ludziom odzyskać kontrolę nad finansami.
+                </p>
+                <p>Nie przez sąd. Nie przez wstyd.</p>
+                <p>Tylko w sposób, który działa: dokładna analiza, realistyczny plan, wspólna decyzja.</p>
+              </div>
+
+              <div className="border-l-4 border-red-500 pl-4 bg-red-50 p-4 rounded-r-lg">
+                <p className="font-bold text-navy-800 mb-2">Albo działasz teraz.</p>
+                <p>Albo liczysz, że sprawa rozwiąże się sama.</p>
+                <p className="font-semibold">Ale tak się nie dzieje. Zadłużenie nie stoi w miejscu. Zawsze rośnie.</p>
+              </div>
+
+              <div className="text-right mt-6">
+                <p className="font-semibold text-navy-800">Z poważaniem,</p>
+                <p className="font-bold text-business-blue-600">Dariusz Wentrych</p>
+              </div>
+            </div>
           </div>
 
-          {/* Twardy moment decyzji */}
-          <div className="text-left mb-8 space-y-4 border-l-4 border-red-500 pl-6">
-            <p className="text-navy-800 font-bold text-lg">
-              Albo działasz teraz.
-            </p>
-            <p className="text-warm-neutral-700 leading-relaxed">
-              Albo liczysz, że sprawa rozwiąże się sama.
-            </p>
-            <p className="text-warm-neutral-700 leading-relaxed">
-              Ale tak się nie dzieje. Zadłużenie nie stoi w miejscu. Zawsze rośnie.
-            </p>
+          {/* Strzałka w dół */}
+          <div className="flex justify-center mb-6">
+            <div className="bg-business-blue-600 text-white p-3 rounded-full animate-bounce">
+              <ArrowDown className="w-6 h-6" />
+            </div>
           </div>
+
+          <h2 className="text-2xl font-bold text-navy-900 mb-4">
+            Wypełnij formularz - Darek przeanalizuje Twoją sytuację
+          </h2>
         </div>
 
         {/* Form */}
