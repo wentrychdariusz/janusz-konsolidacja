@@ -310,10 +310,10 @@ const ContactFormVariantB = ({ onConversion }: ContactFormVariantBProps) => {
             <button
               type="submit"
               disabled={!formData.name || !formData.email || !formData.phone || isSubmitting}
-              className="w-full bg-gradient-to-r from-success-600 to-success-500 hover:from-success-700 hover:to-success-600 text-white font-bold py-4 px-6 text-base rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-success-700 to-success-600 hover:from-success-800 hover:to-success-700 text-white font-bold py-4 px-6 text-base rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               <Rocket className="w-5 h-5" />
-              {isSubmitting ? "Wysyłanie..." : "🚀 WYŚLIJ - ZADZWONIMY DZIŚ!"}
+              {isSubmitting ? "Wysyłanie..." : "Umów bezpłatną konsultację"}
             </button>
 
             <div className="text-center mt-4">
