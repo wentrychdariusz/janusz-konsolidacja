@@ -200,14 +200,6 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
                 Możesz to odsuwać. Ale ono nie znika. Tylko rośnie – z czasem i z odsetkami.
               </p>
 
-              <div className="bg-business-blue-50 p-4 rounded-lg my-6">
-                <p className="font-semibold text-navy-800 mb-2">
-                  Od lat pomagam ludziom odzyskać kontrolę nad finansami.
-                </p>
-                <p>Nie przez sąd. Nie przez wstyd.</p>
-                <p>Tylko w sposób, który działa: dokładna analiza, realistyczny plan, wspólna decyzja.</p>
-              </div>
-
               <div className="border-l-4 border-red-500 pl-4 bg-red-50 p-4 rounded-r-lg">
                 <p className="font-bold text-navy-800 mb-2">Albo działasz teraz.</p>
                 <p>Albo liczysz, że sprawa rozwiąże się sama.</p>
@@ -293,27 +285,9 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
               {isSubmitting ? "Wysyłanie..." : "Umów bezpłatną konsultację"}
             </button>
 
-            {/* Zamykający akapit - presja + wybór */}
-            <div className="text-center mt-6 space-y-3 bg-red-50 p-6 rounded-xl border border-red-200">
-              <p className="text-navy-800 font-bold text-lg">
-                Formularz możesz wypełnić tylko raz.
-              </p>
-              <p className="text-warm-neutral-700 leading-relaxed">
-                Jeśli go porzucisz – nie wracamy.
-              </p>
-              <p className="text-warm-neutral-700 leading-relaxed">
-                Szanujemy czas tych, którzy są gotowi coś zmienić.
-              </p>
-              <p className="text-warm-neutral-700 leading-relaxed">
-                Jeśli to jesteś Ty – Darek przeanalizuje Twoją sytuację osobiście.
-              </p>
-              <p className="text-warm-neutral-700 leading-relaxed">
-                Ale potrzebuje konkretów. Tak jak lekarz potrzebuje wyników, zanim podejmie decyzję.
-              </p>
-              <p className="text-xs text-gray-500 mt-4">
-                Twoje dane są bezpieczne. Nie wysyłamy spamu.
-              </p>
-            </div>
+            <p className="text-xs text-gray-500 text-center mt-4">
+              Twoje dane są bezpieczne. Nie wysyłamy spamu.
+            </p>
           </div>
         </form>
       </div>
