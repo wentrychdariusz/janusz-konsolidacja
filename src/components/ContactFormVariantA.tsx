@@ -201,35 +201,84 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
             
             <div className="text-left space-y-4 text-warm-neutral-700 leading-relaxed">
               <p className="font-semibold text-navy-800">
-                Zadłużenie działa jak choroba. Jeśli je zignorujesz – będzie postępować.
+                Zadłużenie działa jak nowotwór.
+              </p>
+              <p>
+                Na początku wydaje się małe i niegroźne.
+              </p>
+              <p>
+                Ale im dłużej je ignorujesz, tym szybciej się rozrasta.
+              </p>
+              <p>
+                Aż w końcu przejmuje kontrolę.
               </p>
               
               <p>
-                Ten problem nie wybiera. Nie interesuje go, ile zarabiasz, w jakim jesteś wieku, czy prowadzisz firmę, czy masz rodzinę.
+                I nie ma znaczenia czy zarabiasz 4, 8 czy 15 tysięcy miesięcznie
+              </p>
+              <p>
+                Nie pyta, czy jesteś lekarzem prowadzącym klinikę, przedsiębiorcą, kierowcą czy pracujesz w sprzedaży
+              </p>
+              
+              <p className="font-semibold text-navy-800">
+                Zadłużenie nie wybiera. Po prostu wchodzi i zostaje
               </p>
               
               <p>
-                Jak każda poważna sprawa – jeśli nie zareagujesz, zacznie przejmować kontrolę.
+                Jest jak cień. Im mniej mu się przyglądasz, tym bardziej zaczyna przesłaniać wszystko dookoła
               </p>
               
               <p>
-                Możesz to odsuwać. Ale ono nie znika. Tylko rośnie – z czasem i z odsetkami.
+                Można udawać, że go nie ma. Można odkładać działanie
+              </p>
+              <p>
+                Ale ono nie znika. Tylko rośnie — z każdym dniem i z każdą odsetką
               </p>
 
               <p className="font-bold text-navy-800">
-                Albo działasz teraz.
+                Zadłużenie nie czeka. Nie ma litości
               </p>
               
               <p>
-                Albo liczysz, że sprawa rozwiąże się sama.
+                Masz dwa wyjścia
+              </p>
+              <p>
+                Zareagować teraz
+              </p>
+              <p>
+                Albo pozwolić, żeby przejęło kontrolę
               </p>
               
               <p className="font-semibold">
-                Ale tak się nie dzieje. Zadłużenie nie stoi w miejscu. Zawsze rośnie.
+                I jeśli czytasz te słowa, to znaczy że jeszcze możesz coś zmienić
+              </p>
+
+              <p>
+                Zakwalifikowałeś się na indywidualną konsultację ze mną i moim zespołem
+              </p>
+              <p>
+                Zazwyczaj taka analiza kosztuje 500 zł
+              </p>
+              <p className="font-bold text-navy-800">
+                Dziś masz ją bezpłatnie
+              </p>
+
+              <p>
+                To jednorazowa szansa
+              </p>
+              <p>
+                Dlatego jeśli wypełniasz formularz — szanujmy swój czas nawzajem
+              </p>
+              <p>
+                Ja daję Ci uwagę i rozwiązania. Ty dajesz gotowość do działania
+              </p>
+
+              <p className="font-bold text-navy-800">
+                Ty decydujesz. Ale zegar już tika
               </p>
 
               <div className="text-right mt-6">
-                <p className="font-semibold text-navy-800">Z poważaniem,</p>
+                <p className="font-semibold text-navy-800">Z poważaniem</p>
                 <p className="font-bold text-business-blue-600">Dariusz Wentrych</p>
               </div>
             </div>
