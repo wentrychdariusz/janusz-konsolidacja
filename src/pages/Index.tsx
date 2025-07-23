@@ -23,8 +23,27 @@ const Index = () => {
   const { trackPageView } = useSupabaseTracking();
   
   useEffect(() => {
+    console.log('🏠 Index page: Tracking page view for home page');
     trackPageView('home', undefined, 'main_site');
-  }, []);
+    
+    // Track również czy to nowy czy returning visitor
+    const lastVisit = localStorage.getItem('last_home_visit');
+    const now = Date.now();
+    
+    if (lastVisit) {
+      const timeDiff = now - parseInt(lastVisit);
+      const hoursDiff = timeDiff / (1000 * 60 * 60);
+      
+      if (hoursDiff > 24) {
+        console.log('🔄 Returning visitor after 24+ hours');
+        // Track returning visitor
+        localStorage.setItem('last_home_visit', now.toString());
+      }
+    } else {
+      console.log('✨ First time visitor');
+      localStorage.setItem('last_home_visit', now.toString());
+    }
+  }, [trackPageView]);
   
   return (
     <div className="font-lato">

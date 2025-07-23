@@ -97,6 +97,10 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
           try {
             onConversion();
             console.log('✅ A/B Test: Variant B conversion tracked successfully');
+            
+            // Track finalną konwersję całego funnelu
+            trackConversion('full_funnel_complete', 'B', 'debt_consolidation_funnel');
+            console.log('🎯 Full funnel conversion tracked for Variant B');
           } catch (conversionError) {
             console.error('❌ Error tracking A/B test conversion:', conversionError);
           }

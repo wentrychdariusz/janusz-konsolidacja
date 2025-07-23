@@ -76,8 +76,9 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
         body: JSON.stringify(dataToSend),
       });
       
-      // Track conversion
+      // Track conversion - formularz kontaktowy wypełniony
       trackEvent('contact_form_variant_a_conversion');
+      trackEvent('contact_form_completed', 'A', 'contact_form_test');
       onConversion?.();
       
       // Facebook Pixel

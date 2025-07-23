@@ -114,12 +114,16 @@ const DebtCalculator = () => {
     const total = paydayVal + bankVal;
 
     if (total <= baseLim) {
+      // Track przekierowanie z kalkulatora
+      console.log('🧮 Calculator positive result - tracking redirect to /kontakt');
       // Przekieruj do strony kontakt zamiast pokazywać formularz
       window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&result=positive';
       return;
     }
 
     if (total <= maxLim) {
+      // Track przekierowanie z kalkulatora
+      console.log('🧮 Calculator warning result - tracking redirect to /kontakt');
       // Przekieruj do strony kontakt zamiast pokazywać formularz
       window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&result=warning';
       return;
