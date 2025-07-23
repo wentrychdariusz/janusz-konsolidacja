@@ -110,7 +110,7 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
         email: formData.email,
         phone: formData.phone
       });
-      navigate(`/kontakt?${params.toString()}`);
+      navigate(`/podziekowania?${params.toString()}`);
       
     } catch (error) {
       console.error('❌ Final form submission error:', error);
@@ -132,7 +132,7 @@ const QuickRegistrationForm = ({ calculatorData }: QuickRegistrationFormProps) =
         email: formData.email,
         phone: formData.phone
       });
-      navigate(`/kontakt?${params.toString()}`);
+      navigate(`/podziekowania?${params.toString()}`);
     } finally {
       setIsSubmitting(false);
     }
