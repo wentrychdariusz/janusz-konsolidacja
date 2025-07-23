@@ -140,7 +140,7 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 max-w-lg w-full">
-        {/* Header - Wariant A: Klasyczny design */}
+        {/* Header - Wariant A: Silny przekaz z metaforą choroby */}
         <div className="text-center mb-8">
           <div className="bg-gradient-to-r from-business-blue-600 to-navy-900 p-6 rounded-xl mb-6">
             <div className="flex justify-center items-center mb-4">
@@ -151,17 +151,55 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
               />
             </div>
             <div className="text-white">
-              <h1 className="text-xl font-bold mb-2">Skontaktuj się z nami</h1>
-              <p className="text-base text-blue-100">#1 ekspert finansowy oddłużania i konsolidacja</p>
+              <h1 className="text-xl font-bold mb-2">Zadłużenie działa jak choroba.</h1>
+              <p className="text-base text-blue-100">Jeśli je zignorujesz – będzie postępować.</p>
             </div>
           </div>
           
-          <h2 className="text-2xl font-bold text-navy-900 mb-3">
-            Umów rozmowę z ekspertem
-          </h2>
-          <p className="text-warm-neutral-600 text-base leading-relaxed">
-            Wypełnij formularz, a nasz ekspert skontaktuje się z Tobą w ciągu 24 godzin
-          </p>
+          {/* Wprowadzenie */}
+          <div className="text-left mb-8 space-y-4">
+            <p className="text-navy-800 font-semibold text-lg">
+              Ten problem nie wybiera.
+            </p>
+            <p className="text-warm-neutral-700 leading-relaxed">
+              Nie interesuje go, ile zarabiasz, w jakim jesteś wieku, czy prowadzisz firmę, czy masz rodzinę.
+            </p>
+            <p className="text-warm-neutral-700 leading-relaxed">
+              Jak każda poważna sprawa – jeśli nie zareagujesz, zacznie przejmować kontrolę.
+            </p>
+            <p className="text-warm-neutral-700 leading-relaxed">
+              Możesz to odsuwać. Ale ono nie znika. Tylko rośnie – z czasem i z odsetkami.
+            </p>
+          </div>
+
+          {/* Kluczowy punkt o Darku */}
+          <div className="text-left mb-8 space-y-4 bg-warm-neutral-50 p-6 rounded-xl">
+            <p className="text-navy-800 font-semibold text-lg">
+              Darek od lat pomaga ludziom odzyskać kontrolę nad finansami.
+            </p>
+            <p className="text-warm-neutral-700 leading-relaxed">
+              Nie przez sąd. Nie przez wstyd.
+            </p>
+            <p className="text-warm-neutral-700 leading-relaxed">
+              Tylko w sposób, który działa: dokładna analiza, realistyczny plan, wspólna decyzja.
+            </p>
+            <p className="text-warm-neutral-700 leading-relaxed">
+              Każda sytuacja jest inna. Dlatego nie ma tu miejsca na schematy ani ogólniki.
+            </p>
+          </div>
+
+          {/* Twardy moment decyzji */}
+          <div className="text-left mb-8 space-y-4 border-l-4 border-red-500 pl-6">
+            <p className="text-navy-800 font-bold text-lg">
+              Albo działasz teraz.
+            </p>
+            <p className="text-warm-neutral-700 leading-relaxed">
+              Albo liczysz, że sprawa rozwiąże się sama.
+            </p>
+            <p className="text-warm-neutral-700 leading-relaxed">
+              Ale tak się nie dzieje. Zadłużenie nie stoi w miejscu. Zawsze rośnie.
+            </p>
+          </div>
         </div>
 
         {/* Form */}
@@ -224,9 +262,27 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
               {isSubmitting ? "Wysyłanie..." : "Umów bezpłatną konsultację"}
             </button>
 
-            <p className="text-sm text-gray-500 text-center mt-4">
-              Twoje dane są bezpieczne. Nie wysyłamy spamu.
-            </p>
+            {/* Zamykający akapit - presja + wybór */}
+            <div className="text-center mt-6 space-y-3 bg-red-50 p-6 rounded-xl border border-red-200">
+              <p className="text-navy-800 font-bold text-lg">
+                Formularz możesz wypełnić tylko raz.
+              </p>
+              <p className="text-warm-neutral-700 leading-relaxed">
+                Jeśli go porzucisz – nie wracamy.
+              </p>
+              <p className="text-warm-neutral-700 leading-relaxed">
+                Szanujemy czas tych, którzy są gotowi coś zmienić.
+              </p>
+              <p className="text-warm-neutral-700 leading-relaxed">
+                Jeśli to jesteś Ty – Darek przeanalizuje Twoją sytuację osobiście.
+              </p>
+              <p className="text-warm-neutral-700 leading-relaxed">
+                Ale potrzebuje konkretów. Tak jak lekarz potrzebuje wyników, zanim podejmie decyzję.
+              </p>
+              <p className="text-xs text-gray-500 mt-4">
+                Twoje dane są bezpieczne. Nie wysyłamy spamu.
+              </p>
+            </div>
           </div>
         </form>
       </div>
