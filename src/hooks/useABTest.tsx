@@ -53,44 +53,18 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
       finalVariant = existingVariant;
       console.log(`🔄 Existing user - using stored variant: ${existingVariant} (ignoring force: ${forceVariant})`);
     } else {
-      // POPRAWKA: Nowy użytkownik - przypisz wariant na podstawie splitRatio
-      // Używamy hash z sessionId dla lepszej dystrybucji
-      const sessionKey = 'supabase_tracking_session';
-      const sessionData = localStorage.getItem(sessionKey);
-      let sessionId = '';
-      
-      if (sessionData) {
-        try {
-          const parsed = JSON.parse(sessionData);
-          sessionId = parsed.sessionId || '';
-        } catch (e) {
-          console.log('Error parsing session data');
-        }
+      // POPRAWKA: Nowy użytkownik - używamy prostej metody Math.random() dla prawdziwego 50/50
+      // Jeśli jest forceVariant, użyj go, w przeciwnym razie losuj
+      if (forceVariant) {
+        finalVariant = forceVariant;
+        console.log(`🎯 New user with forced variant: ${forceVariant}`);
+      } else {
+        // Prawdziwie losowe przypisanie 50/50
+        const randomValue = Math.random();
+        finalVariant = randomValue < splitRatio ? 'A' : 'B';
+        console.log(`🎲 New user random assignment: ${randomValue.toFixed(4)} < ${splitRatio} = ${finalVariant}`);
       }
       
-      // Używamy hash z sessionId + testName dla konsystentnego podziału
-      const hashInput = sessionId + testName;
-      let hash = 0;
-      for (let i = 0; i < hashInput.length; i++) {
-        const char = hashInput.charCodeAt(i);
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash; // Convert to 32bit integer
-      }
-      
-      // Normalizujemy hash do 0-1 range
-      const normalizedHash = Math.abs(hash) / 2147483647;
-      
-      finalVariant = forceVariant || (normalizedHash < splitRatio ? 'A' : 'B');
-      
-      console.log(`🎲 New user assignment:`, {
-        sessionId: sessionId.substring(0, 8) + '...',
-        hashInput: hashInput.substring(0, 20) + '...',
-        hash,
-        normalizedHash: normalizedHash.toFixed(4),
-        splitRatio,
-        assignedVariant: finalVariant,
-        forceVariant
-      });
     }
     
     console.log(`🎯 Final variant assignment: ${finalVariant}`);
