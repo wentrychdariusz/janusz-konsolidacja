@@ -9,9 +9,8 @@ import { supabase } from '@/integrations/supabase/client';
 
 const DebtCalculatorBeta = () => {
   const [income, setIncome] = useState('');
-  const [incomeType, setIncomeType] = useState('');
+  const [incomeType, setIncomeType] = useState('umowa_o_prace'); // Domyślnie umowa o pracę
   const [paydayDebt, setPaydayDebt] = useState('');
-  const [bankDebt, setBankDebt] = useState('');
   const [currentStep, setCurrentStep] = useState(1);
   const [hasUsedCalculator, setHasUsedCalculator] = useState(false);
   const [result, setResult] = useState<{
@@ -20,7 +19,7 @@ const DebtCalculatorBeta = () => {
     showForm: boolean;
   }>({ message: '', type: null, showForm: false });
 
-  const totalSteps = 4;
+  const totalSteps = 2;
 
   // Sprawdź czy kalkulator był już używany
   useEffect(() => {
@@ -50,9 +49,8 @@ const DebtCalculatorBeta = () => {
     
     // Zresetuj wszystkie stany
     setIncome('');
-    setIncomeType('');
+    setIncomeType('umowa_o_prace');
     setPaydayDebt('');
-    setBankDebt('');
     setCurrentStep(1);
     setHasUsedCalculator(false);
     setResult({ message: '', type: null, showForm: false });
@@ -101,7 +99,7 @@ const DebtCalculatorBeta = () => {
 
     const incomeVal = parsePLN(income);
     const paydayVal = parsePLN(paydayDebt);
-    const bankVal = parsePLN(bankDebt);
+    const bankVal = 0; // Usunięte pole bankDebt
 
     if (!incomeVal || !paydayVal) {
       setResult({
@@ -221,11 +219,6 @@ const DebtCalculatorBeta = () => {
     }
   };
 
-  const handleBankChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!hasUsedCalculator) {
-      setBankDebt(formatNumber(e.target.value));
-    }
-  };
 
   const getResultIcon = () => {
     switch (result.type) {
@@ -396,148 +389,6 @@ const DebtCalculatorBeta = () => {
 
       case 2:
         return (
-          <div className="text-center animate-fade-in w-full max-w-md mx-auto">
-            {/* Header z instrukcjami */}
-            <div className="mb-8">
-              <div className="w-20 h-20 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <span className="text-white text-3xl">💼</span>
-              </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-navy-900 mb-3">
-                Rodzaj dochodu
-              </h3>
-              <p className="text-base sm:text-lg text-warm-neutral-600 font-medium mb-4">
-                Wybierz źródło swojego dochodu
-              </p>
-              
-              {/* Wyraźna instrukcja */}
-              <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4 mb-6">
-                <p className="text-blue-800 font-semibold text-sm sm:text-base">
-                  👆 Kliknij jedną z opcji poniżej
-                </p>
-              </div>
-            </div>
-
-            {/* Opcje z wyraźniejszymi wskazaniami kliknięcia */}
-            <div className="space-y-4">
-              <div
-                onClick={() => handleIncomeTypeSelect('umowa_o_prace')}
-                className={`relative cursor-pointer transform transition-all duration-200 hover:scale-105 hover:shadow-lg rounded-2xl border-3 p-6 ${
-                  incomeType === 'umowa_o_prace' 
-                    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white border-emerald-400 shadow-lg' 
-                    : 'bg-white hover:bg-blue-50 border-gray-300 hover:border-blue-400 shadow-md'
-                }`}
-              >
-                {/* Wskaźnik kliknięcia */}
-                <div className="absolute top-2 right-2">
-                  {incomeType === 'umowa_o_prace' ? (
-                    <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
-                      <span className="text-emerald-500 text-sm">✓</span>
-                    </div>
-                  ) : (
-                    <div className="w-6 h-6 border-2 border-gray-400 rounded-full hover:border-blue-500"></div>
-                  )}
-                </div>
-                
-                <div className="flex items-center">
-                  <div className="text-3xl mr-4">💼</div>
-                  <div className="text-left">
-                    <div className="text-lg font-bold">Umowa o pracę</div>
-                    <div className={`text-sm ${incomeType === 'umowa_o_prace' ? 'text-emerald-100' : 'text-gray-600'}`}>
-                      Stały miesięczny dochód
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Efekt hover */}
-                <div className="absolute bottom-2 right-2 text-xs opacity-70">
-                  Kliknij aby wybrać
-                </div>
-              </div>
-
-              <div
-                onClick={() => handleIncomeTypeSelect('umowa_zlecenie')}
-                className={`relative cursor-pointer transform transition-all duration-200 hover:scale-105 hover:shadow-lg rounded-2xl border-3 p-6 ${
-                  incomeType === 'umowa_zlecenie' 
-                    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white border-emerald-400 shadow-lg' 
-                    : 'bg-white hover:bg-blue-50 border-gray-300 hover:border-blue-400 shadow-md'
-                }`}
-              >
-                <div className="absolute top-2 right-2">
-                  {incomeType === 'umowa_zlecenie' ? (
-                    <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
-                      <span className="text-emerald-500 text-sm">✓</span>
-                    </div>
-                  ) : (
-                    <div className="w-6 h-6 border-2 border-gray-400 rounded-full hover:border-blue-500"></div>
-                  )}
-                </div>
-                
-                <div className="flex items-center">
-                  <div className="text-3xl mr-4">📋</div>
-                  <div className="text-left">
-                    <div className="text-lg font-bold">Umowa zlecenie</div>
-                    <div className={`text-sm ${incomeType === 'umowa_zlecenie' ? 'text-emerald-100' : 'text-gray-600'}`}>
-                      Współpraca, B2B, freelance
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="absolute bottom-2 right-2 text-xs opacity-70">
-                  Kliknij aby wybrać
-                </div>
-              </div>
-
-              <div
-                onClick={() => handleIncomeTypeSelect('inne')}
-                className={`relative cursor-pointer transform transition-all duration-200 hover:scale-105 hover:shadow-lg rounded-2xl border-3 p-6 ${
-                  incomeType === 'inne' 
-                    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white border-emerald-400 shadow-lg' 
-                    : 'bg-white hover:bg-blue-50 border-gray-300 hover:border-blue-400 shadow-md'
-                }`}
-              >
-                <div className="absolute top-2 right-2">
-                  {incomeType === 'inne' ? (
-                    <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
-                      <span className="text-emerald-500 text-sm">✓</span>
-                    </div>
-                  ) : (
-                    <div className="w-6 h-6 border-2 border-gray-400 rounded-full hover:border-blue-500"></div>
-                  )}
-                </div>
-                
-                <div className="flex items-center">
-                  <div className="text-3xl mr-4">🏛️</div>
-                  <div className="text-left">
-                    <div className="text-lg font-bold">Inne źródła</div>
-                    <div className={`text-sm ${incomeType === 'inne' ? 'text-emerald-100' : 'text-gray-600'}`}>
-                      Renta, emerytura, działalność
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="absolute bottom-2 right-2 text-xs opacity-70">
-                  Kliknij aby wybrać
-                </div>
-              </div>
-            </div>
-
-            {/* Komunikat po wyborze */}
-            {incomeType && (
-              <div className="mt-6 p-4 bg-green-50 border-2 border-green-200 rounded-xl animate-fade-in">
-                <p className="text-green-700 font-semibold text-sm">
-                  ✅ Wybrano: {incomeType === 'umowa_o_prace' ? 'Umowa o pracę' : 
-                              incomeType === 'umowa_zlecenie' ? 'Umowa zlecenie' : 'Inne źródła'}
-                </p>
-                <p className="text-green-600 text-xs mt-1">
-                  Przechodzę do następnego kroku...
-                </p>
-              </div>
-            )}
-          </div>
-        );
-
-      case 3:
-        return (
           <div className="text-center animate-fade-in">
             <div className="mb-6">
               <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -566,86 +417,16 @@ const DebtCalculatorBeta = () => {
                 📍 Podaj dokładną kwotę - to kluczowe dla analizy!
               </p>
             </div>
-            <Button onClick={goToNextStep} disabled={!paydayDebt} className="mt-4 w-full h-12 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white">
-              Dalej →
-            </Button>
-          </div>
-        );
-
-      case 4:
-        return (
-          <div className="text-center animate-fade-in">
-            <div className="mb-6">
-              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl">🏦</span>
-              </div>
-              <h3 className="text-xl font-bold text-navy-900 mb-2">Ostatni krok!</h3>
-              <p className="text-warm-neutral-600 mb-4">
-                Podaj sumę kredytów bankowych (może być 0)
-              </p>
-              
-              {/* Wyraźna instrukcja */}
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-6">
-                <p className="text-blue-800 text-sm font-medium">
-                  💡 To ostatnia dana - potem sprawdzimy Twój wynik!
-                </p>
-              </div>
-            </div>
             
-            <div className="space-y-6">
-              {/* Input section */}
-              <div className="bg-white border-2 border-gray-200 rounded-xl p-4">
-                <Label className="text-navy-800 font-medium text-sm block mb-3">
-                  Suma wszystkich kredytów bankowych
-                </Label>
-                <div className="relative">
-                  <Input
-                    type="text"
-                    value={bankDebt}
-                    onChange={handleBankChange}
-                    placeholder="0"
-                    className="pr-12 text-right h-16 text-xl text-center border-2 border-gray-300 focus:border-blue-500"
-                    autoFocus
-                  />
-                  <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">PLN</span>
-                </div>
-                <p className="text-warm-neutral-500 text-xs mt-2 text-center">
-                  Wpisz 0 jeśli nie masz kredytów bankowych
-                </p>
-              </div>
-              
-              {/* Podsumowanie - wyraźnie oddzielone */}
-              <div className="bg-gradient-to-r from-gray-50 to-blue-50 border-2 border-gray-300 rounded-xl p-4">
-                <h4 className="font-semibold text-navy-900 mb-3 text-center">📋 Twoje dane:</h4>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Dochód:</span>
-                    <span className="font-semibold">{income} PLN</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Typ:</span>
-                    <span className="font-semibold">{getIncomeTypeLabel(incomeType)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Chwilówki:</span>
-                    <span className="font-semibold text-red-600">{paydayDebt || '0'} PLN</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">Kredyty:</span>
-                    <span className="font-semibold text-green-600">{bankDebt || '0'} PLN</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Duży przycisk analizy */}
-              <Button 
-                onClick={calculate} 
-                className="w-full font-bold py-5 text-lg rounded-xl h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105"
-              >
-                <Calculator className="w-6 h-6 mr-3" />
-                🔍 Sprawdź swój wynik
-              </Button>
-            </div>
+            {/* Duży przycisk analizy */}
+            <Button 
+              onClick={calculate} 
+              disabled={!paydayDebt} 
+              className="w-full font-bold py-5 text-lg rounded-xl h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 mt-4"
+            >
+              <Calculator className="w-6 h-6 mr-3" />
+              🔍 Sprawdź swój wynik
+            </Button>
           </div>
         );
 
@@ -659,7 +440,7 @@ const DebtCalculatorBeta = () => {
       <div className="grid grid-cols-1 gap-6 items-start h-full">
         {result.showForm ? (
           <div className="animate-fade-in h-full">
-            <QuickRegistrationForm calculatorData={{ income, paydayDebt, bankDebt }} />
+            <QuickRegistrationForm calculatorData={{ income, paydayDebt, bankDebt: '0' }} />
           </div>
         ) : (
           <div className="bg-white rounded-2xl shadow-xl border-0 p-4 sm:p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[700px] w-full">
