@@ -561,9 +561,11 @@ const DebtCalculatorBeta = () => {
                 PLN
               </span>
             </div>
-            <p className="text-warm-neutral-500 text-sm mt-2">
-              Podaj dokładną kwotę - to kluczowe dla analizy
-            </p>
+            <div className="bg-red-50 border-2 border-red-400 rounded-xl p-4 mt-4 animate-pulse">
+              <p className="text-red-800 font-bold text-lg">
+                📍 Podaj dokładną kwotę - to kluczowe dla analizy!
+              </p>
+            </div>
             <Button onClick={goToNextStep} disabled={!paydayDebt} className="mt-4 w-full h-12 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white">
               Dalej →
             </Button>
