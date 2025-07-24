@@ -9,8 +9,9 @@ import { supabase } from '@/integrations/supabase/client';
 
 const DebtCalculatorBeta = () => {
   const [income, setIncome] = useState('');
-  const [incomeType, setIncomeType] = useState('umowa_o_prace'); // Domyślnie umowa o pracę
+  const [incomeType, setIncomeType] = useState('umowa_o_prace'); 
   const [paydayDebt, setPaydayDebt] = useState('');
+  const [bankDebt, setBankDebt] = useState('');
   const [currentStep, setCurrentStep] = useState(1);
   const [hasUsedCalculator, setHasUsedCalculator] = useState(false);
   const [result, setResult] = useState<{
@@ -19,7 +20,7 @@ const DebtCalculatorBeta = () => {
     showForm: boolean;
   }>({ message: '', type: null, showForm: false });
 
-  const totalSteps = 2;
+  const totalSteps = 3;
 
   // Sprawdź czy kalkulator był już używany
   useEffect(() => {
@@ -51,6 +52,7 @@ const DebtCalculatorBeta = () => {
     setIncome('');
     setIncomeType('umowa_o_prace');
     setPaydayDebt('');
+    setBankDebt('');
     setCurrentStep(1);
     setHasUsedCalculator(false);
     setResult({ message: '', type: null, showForm: false });
@@ -99,7 +101,7 @@ const DebtCalculatorBeta = () => {
 
     const incomeVal = parsePLN(income);
     const paydayVal = parsePLN(paydayDebt);
-    const bankVal = 0; // Usunięte pole bankDebt
+    const bankVal = parsePLN(bankDebt);
 
     if (!incomeVal || !paydayVal) {
       setResult({
@@ -216,6 +218,12 @@ const DebtCalculatorBeta = () => {
   const handlePaydayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
       setPaydayDebt(formatNumber(e.target.value));
+    }
+  };
+
+  const handleBankChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!hasUsedCalculator) {
+      setBankDebt(formatNumber(e.target.value));
     }
   };
 
@@ -418,10 +426,49 @@ const DebtCalculatorBeta = () => {
               </p>
             </div>
             
+            {/* Przycisk dalej */}
+            <Button 
+              onClick={goToNextStep} 
+              disabled={!paydayDebt} 
+              className="w-full font-bold text-lg rounded-xl h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 mt-4"
+            >
+              Dalej →
+            </Button>
+          </div>
+        );
+
+      case 3:
+        return (
+          <div className="text-center animate-fade-in">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">🏦</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Kredyty bankowe</h3>
+              <p className="text-warm-neutral-600">
+                Suma wszystkich kredytów bankowych (może być 0)
+              </p>
+            </div>
+            <div className="relative">
+              <Input
+                type="text"
+                value={bankDebt}
+                onChange={handleBankChange}
+                placeholder="0"
+                className="pr-12 text-right h-16 text-xl text-center"
+                autoFocus
+              />
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">
+                PLN
+              </span>
+            </div>
+            <p className="text-warm-neutral-500 text-sm mt-2">
+              Wpisz 0 jeśli nie masz kredytów bankowych
+            </p>
+            
             {/* Duży przycisk analizy */}
             <Button 
               onClick={calculate} 
-              disabled={!paydayDebt} 
               className="w-full font-bold py-5 text-lg rounded-xl h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 mt-4"
             >
               <Calculator className="w-6 h-6 mr-3" />
@@ -440,7 +487,7 @@ const DebtCalculatorBeta = () => {
       <div className="grid grid-cols-1 gap-6 items-start h-full">
         {result.showForm ? (
           <div className="animate-fade-in h-full">
-            <QuickRegistrationForm calculatorData={{ income, paydayDebt, bankDebt: '0' }} />
+            <QuickRegistrationForm calculatorData={{ income, paydayDebt, bankDebt }} />
           </div>
         ) : (
           <div className="bg-white rounded-2xl shadow-xl border-0 p-4 sm:p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[700px] w-full">
