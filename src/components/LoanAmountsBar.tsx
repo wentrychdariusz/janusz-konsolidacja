@@ -5,6 +5,11 @@ const LoanAmountsBar = () => {
   return (
     <div className="bg-gradient-to-r from-business-blue-600 to-navy-800 text-white py-3 px-4 md:hidden">
       <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-3">
+          <p className="text-xs font-medium text-blue-100">
+            Tak sprawdzamy raport BIK bo dajemy CI w 100% profesjonalną usługę
+          </p>
+        </div>
         <div className="grid grid-cols-3 gap-2 text-center">
           {/* Kolumna 1 */}
           <div className="bg-white/10 rounded-lg p-2 backdrop-blur-sm">
