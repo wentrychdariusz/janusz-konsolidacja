@@ -677,14 +677,14 @@ const DebtCalculatorBeta = () => {
                     <thead>
                       <tr>
                         <th className="text-xl sm:text-2xl font-bold text-navy-900 pb-1">
-                          Kalkulator Oddłużania BETA
+                          Kalkulator Oddłużania
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td className="text-base text-prestige-gold-600 font-semibold pb-1">
-                          W 30 sekund powiemy ci czy możemy pomóc
+                        <td className="text-sm text-prestige-gold-600 font-semibold pb-1">
+                          W 30 sekund powiemy ci czy możemy pomóc!
                         </td>
                       </tr>
                       <tr>
