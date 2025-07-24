@@ -545,83 +545,140 @@ const DebtCalculatorBeta = () => {
             <QuickRegistrationForm calculatorData={{ income, paydayDebt, bankDebt }} />
           </div>
         ) : (
-          <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
+          <div className="bg-white rounded-2xl shadow-xl border-0 p-4 sm:p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[700px] w-full">
             <div>
-              <div className="text-center mb-6">
-                <div className="flex justify-center items-center mb-4">
-                  <div className="bg-gradient-to-r from-navy-900 to-business-blue-600 p-3 rounded-full">
-                    <Calculator className="w-8 h-8 text-white" />
+              {/* Header z większymi elementami */}
+              <div className="text-center mb-4 sm:mb-6">
+                <div className="flex justify-center items-center mb-3 sm:mb-4">
+                  <div className="bg-gradient-to-r from-navy-900 to-business-blue-600 p-3 sm:p-4 rounded-full">
+                    <Calculator className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                   </div>
                 </div>
-                <h2 className="text-2xl font-bold text-navy-900 mb-2">
+                <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-navy-900 mb-2 sm:mb-3">
                   Kalkulator Oddłużania BETA
                 </h2>
-                <p className="text-warm-neutral-600">
+                <p className="text-base sm:text-lg text-warm-neutral-600 font-medium">
                   Krok {currentStep} z {totalSteps}
                 </p>
               </div>
 
-              {renderProgressBar()}
+              {/* Progress bar z większymi elementami */}
+              <div className="mb-4 sm:mb-6">
+                <div className="w-full bg-gray-200 rounded-full h-3 sm:h-4">
+                  <div 
+                    className="bg-gradient-to-r from-navy-900 to-business-blue-600 h-3 sm:h-4 rounded-full transition-all duration-300"
+                    style={{ width: `${(currentStep / totalSteps) * 100}%` }}
+                  />
+                </div>
+                <div className="flex justify-between mt-2 text-sm sm:text-base">
+                  <span className="text-warm-neutral-600">Postęp</span>
+                  <span className="font-bold text-navy-900">{Math.round((currentStep / totalSteps) * 100)}%</span>
+                </div>
+              </div>
 
-              {/* Sekcja z Dariuszem - mniejsza */}
-              <div className="text-center mb-6 bg-gradient-to-r from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 rounded-xl p-3 border border-warm-neutral-200">
-                <div className="flex justify-center items-center mb-2">
-                  <div className="flex items-center space-x-1">
-                    <img 
-                      src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                      alt="Dariusz Wentrych"
-                      className="w-8 h-8 rounded-full border-2 border-prestige-gold-400 object-cover"
-                    />
-                    <Plus className="w-1.5 h-1.5 text-prestige-gold-400" />
-                    <div className="flex items-center space-x-0.5">
-                      <Avatar className="w-5 h-5 border-2 border-prestige-gold-400">
-                        <AvatarImage src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png" className="object-cover" />
-                        <AvatarFallback className="text-xs">KZ</AvatarFallback>
-                      </Avatar>
-                      <Avatar className="w-5 h-5 border-2 border-prestige-gold-400">
-                        <AvatarImage src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png" className="object-cover" />
-                        <AvatarFallback className="text-xs">MK</AvatarFallback>
-                      </Avatar>
+              {/* Sekcja z Dariuszem - większa i bardziej widoczna */}
+              <div className="text-center mb-6 sm:mb-8 bg-gradient-to-r from-navy-50 via-business-blue-50 to-prestige-gold-50 rounded-xl p-4 sm:p-6 border-2 border-prestige-gold-200 shadow-lg">
+                <div className="flex justify-center items-center mb-3 sm:mb-4">
+                  <div className="flex items-center space-x-3 sm:space-x-4">
+                    <div className="relative">
+                      <img 
+                        src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                        alt="Dariusz Wentrych"
+                        className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-3 border-prestige-gold-400 object-cover shadow-lg"
+                      />
+                      {/* Badge ekspert */}
+                      <div className="absolute -bottom-1 -right-1 bg-prestige-gold-500 rounded-full p-1 sm:p-1.5">
+                        <Star className="w-3 h-3 sm:w-4 sm:h-4 text-white fill-white" />
+                      </div>
+                    </div>
+                    <div className="text-left">
+                      <div className="text-base sm:text-lg lg:text-xl font-bold text-navy-900">
+                        Dariusz Wentrych
+                      </div>
+                      <div className="text-sm sm:text-base text-navy-700 font-semibold">
+                        Ekspert w oddłużeniu • 20+ lat
+                      </div>
+                      <div className="flex items-center mt-1 sm:mt-2">
+                        <div className="flex -space-x-1">
+                          <Avatar className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-prestige-gold-400">
+                            <AvatarImage src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png" className="object-cover" />
+                            <AvatarFallback className="text-xs">KZ</AvatarFallback>
+                          </Avatar>
+                          <Avatar className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-prestige-gold-400">
+                            <AvatarImage src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png" className="object-cover" />
+                            <AvatarFallback className="text-xs">MK</AvatarFallback>
+                          </Avatar>
+                        </div>
+                        <span className="text-xs sm:text-sm text-navy-600 ml-2 font-medium">
+                          +5000 zadowolonych klientów
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <p className="text-xs text-navy-800 font-semibold">Eksperci w oddłużeniu • 20+ lat</p>
+                
+                {/* Komunikat motywacyjny */}
+                <div className="bg-white rounded-lg p-3 sm:p-4 border border-prestige-gold-300">
+                  <p className="text-sm sm:text-base text-navy-800 font-semibold">
+                    💪 "Pomogłem już tysiącom Polaków wyjść z długów"
+                  </p>
+                  <p className="text-xs sm:text-sm text-navy-600 mt-1">
+                    Sprawdzę Twoją sytuację i zaproponuję najlepsze rozwiązanie
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div className="flex-1 flex items-center justify-center">
+            {/* Główna zawartość z większymi paddingami */}
+            <div className="flex-1 flex items-center justify-center px-2 sm:px-4">
               {renderStepContent()}
             </div>
 
-            {/* Nawigacja */}
+            {/* Nawigacja z większymi przyciskami */}
             {!hasUsedCalculator && currentStep > 1 && currentStep < 4 && (
-              <div className="flex justify-between mt-6">
+              <div className="flex justify-between items-center mt-6 sm:mt-8">
                 <Button
                   variant="outline"
                   onClick={goToPrevStep}
-                  className="flex items-center"
+                  className="flex items-center h-12 sm:h-14 px-4 sm:px-6 text-base font-medium border-2 hover:bg-gray-50"
                 >
                   ← Cofnij
                 </Button>
-                <div className="text-sm text-warm-neutral-500">
-                  {currentStep}/5
+                <div className="text-base sm:text-lg font-bold text-navy-900">
+                  {currentStep} / {totalSteps}
                 </div>
               </div>
             )}
 
-            {/* Wynik */}
+            {/* Wynik z większymi elementami */}
             {result.message && (
-              <div className={`mt-6 p-4 rounded-xl border-2 ${getResultClasses()} animate-fade-in`}>
-                <div className="flex items-start space-x-3">
-                  {getResultIcon()}
+              <div className={`mt-6 sm:mt-8 p-4 sm:p-6 rounded-xl border-2 ${getResultClasses()} animate-fade-in`}>
+                <div className="flex items-start space-x-3 sm:space-x-4">
+                  <div className="flex-shrink-0 mt-1">
+                    {getResultIcon()}
+                  </div>
                   <div className="flex-1">
-                    <p className="font-medium leading-relaxed">
+                    <p className="font-medium leading-relaxed text-sm sm:text-base lg:text-lg">
                       {result.message}
                     </p>
                   </div>
                 </div>
               </div>
             )}
+
+            {/* Bezpieczeństwo i zaufanie na dole */}
+            <div className="mt-6 sm:mt-8 text-center border-t pt-4 sm:pt-6">
+              <div className="flex items-center justify-center space-x-4 sm:space-x-6 text-xs sm:text-sm text-warm-neutral-600">
+                <div className="flex items-center space-x-1 sm:space-x-2">
+                  <Shield className="w-3 h-3 sm:w-4 sm:h-4 text-green-600" />
+                  <span className="font-medium">100% bezpieczeństwo</span>
+                </div>
+                <div className="flex items-center space-x-1 sm:space-x-2">
+                  <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-green-600" />
+                  <span className="font-medium">Darmowa analiza</span>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
