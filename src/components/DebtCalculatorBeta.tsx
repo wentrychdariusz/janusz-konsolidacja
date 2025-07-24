@@ -6,27 +6,28 @@ import { Calculator, CheckCircle, AlertCircle, XCircle, Plus, Star, Shield, Brie
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import QuickRegistrationForm from './QuickRegistrationForm';
 import { supabase } from '@/integrations/supabase/client';
-
 const DebtCalculatorBeta = () => {
   const [income, setIncome] = useState('');
-  const [incomeType, setIncomeType] = useState(''); 
+  const [incomeType, setIncomeType] = useState('');
   const [paydayDebt, setPaydayDebt] = useState(''); // Puste - placeholder pokaże domyślne
   const [bankDebt, setBankDebt] = useState(''); // Puste - placeholder pokaże domyślne
   const [currentStep, setCurrentStep] = useState(1);
   const [hasUsedCalculator, setHasUsedCalculator] = useState(false);
   const [isInFocusMode, setIsInFocusMode] = useState(false); // Focus mode state
-  
+
   // Tracking podejrzanych zachowań
   const [stepStartTime, setStepStartTime] = useState(Date.now());
   const [stepTimes, setStepTimes] = useState<number[]>([]);
   const [suspiciousFlags, setSuspiciousFlags] = useState<string[]>([]);
-  
   const [result, setResult] = useState<{
     message: string;
     type: 'positive' | 'warning' | 'negative' | null;
     showForm: boolean;
-  }>({ message: '', type: null, showForm: false });
-
+  }>({
+    message: '',
+    type: null,
+    showForm: false
+  });
   const totalSteps = 3;
 
   // Sprawdź czy kalkulator był już używany
@@ -42,7 +43,7 @@ const DebtCalculatorBeta = () => {
   const detectSuspiciousBehavior = (value: string, fieldType: string) => {
     const flags: string[] = [];
     const num = parsePLN(value);
-    
+
     // Wykrywanie zaokrąglonych kwot
     if (num > 0 && num % 10000 === 0) {
       flags.push(`${fieldType}: Zaokrąglona kwota (${value})`);
@@ -50,12 +51,12 @@ const DebtCalculatorBeta = () => {
     if (num > 0 && num % 5000 === 0 && num < 100000) {
       flags.push(`${fieldType}: Bardzo zaokrąglona kwota (${value})`);
     }
-    
+
     // Wykrywanie nierealistycznych kwot
     if (fieldType === 'dochód' && num > 50000) {
       flags.push(`${fieldType}: Bardzo wysoki dochód (${value})`);
     }
-    
+
     // Wykrywanie domyślnych wartości (podejrzane)
     if (fieldType === 'chwilówki' && value === '30 000') {
       flags.push(`${fieldType}: Pozostawiono domyślną wartość (${value})`);
@@ -63,19 +64,16 @@ const DebtCalculatorBeta = () => {
     if (fieldType === 'kredyty bankowe' && value === '20 000') {
       flags.push(`${fieldType}: Pozostawiono domyślną wartość (${value})`);
     }
-    
     return flags;
   };
-
   const trackStepCompletion = () => {
     const timeSpent = Date.now() - stepStartTime;
     setStepTimes(prev => [...prev, timeSpent]);
-    
+
     // Zbyt szybkie wypełnianie (mniej niż 3 sekundy na krok)
     if (timeSpent < 3000) {
       setSuspiciousFlags(prev => [...prev, `Krok ${currentStep}: Zbyt szybko (${timeSpent}ms)`]);
     }
-    
     setStepStartTime(Date.now());
   };
 
@@ -86,17 +84,15 @@ const DebtCalculatorBeta = () => {
       setCurrentStep(prev => prev + 1);
     }
   };
-
   const goToPrevStep = () => {
     if (currentStep > 1 && !hasUsedCalculator) {
       setCurrentStep(prev => prev - 1);
     }
   };
-
   const resetCalculator = () => {
     // Wyczyść localStorage
     localStorage.removeItem('debt_calculator_beta_used');
-    
+
     // Zresetuj wszystkie stany
     setIncome('');
     setIncomeType('');
@@ -105,57 +101,49 @@ const DebtCalculatorBeta = () => {
     setCurrentStep(1);
     setHasUsedCalculator(false);
     setIsInFocusMode(false); // Reset focus mode
-    setResult({ message: '', type: null, showForm: false });
+    setResult({
+      message: '',
+      type: null,
+      showForm: false
+    });
     setSuspiciousFlags([]); // Reset flag
     setStepTimes([]); // Reset czasów
     setStepStartTime(Date.now()); // Reset czasu startowego
-    
+
     console.log('🔄 Kalkulator BETA został zresetowany');
   };
 
   // Stałe z oryginalnego kalkulatora
   const MARGIN = 10000;
-
   const parsePLN = (val: string) => {
     const clean = (val || '').toString().replace(/\s+/g, '').replace(',', '.');
     const num = parseFloat(clean);
     return isNaN(num) ? 0 : num;
   };
-
-  const nonBankLimit = (income: number) => 
-    income <= 3500 ? income * (50000 / 3500) : 50000 + (income - 3500) * 40;
-  
+  const nonBankLimit = (income: number) => income <= 3500 ? income * (50000 / 3500) : 50000 + (income - 3500) * 40;
   const totalLimit = (income: number) => income * 22.5;
-  
   const postCostLimit = (income: number) => income * 30;
-
   const saveCalculatorData = async (incomeVal: number, paydayVal: number, bankVal: number, incomeTypeVal: string) => {
     try {
       const sessionId = Date.now().toString() + Math.random().toString(36).substr(2, 9);
-      
-      await supabase
-        .from('calculator_usage')
-        .insert({
-          session_id: sessionId,
-          income: incomeVal,
-          debt_amount: paydayVal + bankVal,
-          income_type: incomeTypeVal // Dodajemy typ dochodu
-        });
+      await supabase.from('calculator_usage').insert({
+        session_id: sessionId,
+        income: incomeVal,
+        debt_amount: paydayVal + bankVal,
+        income_type: incomeTypeVal // Dodajemy typ dochodu
+      });
     } catch (error) {
       console.error('Błąd podczas zapisywania danych kalkulatora:', error);
     }
   };
-
   const calculate = async () => {
     // Blokada ponownego użycia
     if (hasUsedCalculator) {
       return;
     }
-
     const incomeVal = parsePLN(income);
     const paydayVal = parsePLN(paydayDebt);
     const bankVal = parsePLN(bankDebt);
-
     if (!incomeVal || !paydayVal) {
       setResult({
         message: 'Podaj dochód oraz kwotę chwilówek/parabanków, abyśmy mogli pomóc.',
@@ -164,7 +152,6 @@ const DebtCalculatorBeta = () => {
       });
       return;
     }
-
     if (!incomeType) {
       setResult({
         message: 'Wybierz typ swojego dochodu, aby kontynuować analizę.',
@@ -190,17 +177,13 @@ const DebtCalculatorBeta = () => {
     // Oznacz kalkulator jako użyty
     localStorage.setItem('debt_calculator_beta_used', 'true');
     setHasUsedCalculator(true);
-    
+
     // Wyślij custom event żeby inne komponenty wiedziały o zmianie
     window.dispatchEvent(new CustomEvent('calculatorUsed'));
 
     // Przygotuj dane do przekazania agentowi
-    const baseUrl = '/kontakt?income=' + encodeURIComponent(incomeVal) + 
-      '&paydayDebt=' + encodeURIComponent(paydayVal) + 
-      '&bankDebt=' + encodeURIComponent(bankVal) + 
-      '&incomeType=' + encodeURIComponent(incomeType) + 
-      '&source=beta';
-    
+    const baseUrl = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&incomeType=' + encodeURIComponent(incomeType) + '&source=beta';
+
     // Dodaj flagi podejrzanych zachowań dla agenta
     const suspiciousData = {
       flags: suspiciousFlags,
@@ -232,7 +215,6 @@ const DebtCalculatorBeta = () => {
         maxLim *= 0.6;
         break;
     }
-
     if (paydayVal > nbLim) {
       setResult({
         message: 'Niestety przy tej kwocie chwilówek nie możemy zaoferować bezpiecznej konsolidacji.',
@@ -241,9 +223,7 @@ const DebtCalculatorBeta = () => {
       });
       return;
     }
-
     const total = paydayVal + bankVal;
-
     if (total <= baseLim) {
       // Track przekierowanie z kalkulatora
       console.log('🧮 Calculator Beta positive result - tracking redirect to /kontakt');
@@ -251,7 +231,6 @@ const DebtCalculatorBeta = () => {
       window.location.href = baseUrl + '&result=positive' + suspiciousParams;
       return;
     }
-
     if (total <= maxLim) {
       // Track przekierowanie z kalkulatora
       console.log('🧮 Calculator Beta warning result - tracking redirect to /kontakt');
@@ -259,29 +238,26 @@ const DebtCalculatorBeta = () => {
       window.location.href = baseUrl + '&result=warning' + suspiciousParams;
       return;
     }
-
     setResult({
       message: 'Na ten moment nie możemy zaproponować skutecznego rozwiązania. Zachęcamy do kontaktu, gdyby Twoja sytuacja się zmieniła.',
       type: 'negative',
       showForm: false
     });
   };
-
   const formatNumber = (value: string) => {
     const num = value.replace(/\D/g, '');
     return num.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   };
-
   const handleIncomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
       const newValue = formatNumber(e.target.value);
       setIncome(newValue);
-      
+
       // Activate focus mode when user starts typing
       if (newValue && !isInFocusMode) {
         setIsInFocusMode(true);
       }
-      
+
       // Wykrywanie podejrzanych zachowań
       const flags = detectSuspiciousBehavior(newValue, 'dochód');
       if (flags.length > 0) {
@@ -290,17 +266,15 @@ const DebtCalculatorBeta = () => {
       }
     }
   };
-
   const handleIncomeTypeSelect = (type: string) => {
     setIncomeType(type);
     setTimeout(goToNextStep, 300);
   };
-
   const handlePaydayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
       const newValue = formatNumber(e.target.value);
       setPaydayDebt(newValue);
-      
+
       // Wykrywanie podejrzanych zachowań
       const flags = detectSuspiciousBehavior(newValue, 'chwilówki');
       if (flags.length > 0) {
@@ -309,13 +283,12 @@ const DebtCalculatorBeta = () => {
       }
     }
   };
-
   const handleBankChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
       const newValue = formatNumber(e.target.value);
       setBankDebt(newValue);
       console.log('💳 Bank debt changed:', newValue, 'Current step:', currentStep);
-      
+
       // Wykrywanie podejrzanych zachowań
       const flags = detectSuspiciousBehavior(newValue, 'kredyty bankowe');
       if (flags.length > 0) {
@@ -324,13 +297,10 @@ const DebtCalculatorBeta = () => {
       }
     }
   };
-
   const setNoBankDebt = () => {
     setBankDebt('0');
     setTimeout(() => calculate(), 100);
   };
-
-
   const getResultIcon = () => {
     switch (result.type) {
       case 'positive':
@@ -343,7 +313,6 @@ const DebtCalculatorBeta = () => {
         return null;
     }
   };
-
   const getResultClasses = () => {
     switch (result.type) {
       case 'positive':
@@ -356,7 +325,6 @@ const DebtCalculatorBeta = () => {
         return '';
     }
   };
-
   const getIncomeTypeLabel = (type: string) => {
     switch (type) {
       case 'umowa_o_prace':
@@ -369,20 +337,14 @@ const DebtCalculatorBeta = () => {
         return '';
     }
   };
-
-  const renderProgressBar = () => (
-    <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
-      <div 
-        className="bg-gradient-to-r from-navy-900 to-business-blue-600 h-2 rounded-full transition-all duration-300"
-        style={{ width: `${(currentStep / totalSteps) * 100}%` }}
-      />
-    </div>
-  );
-
+  const renderProgressBar = () => <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
+      <div className="bg-gradient-to-r from-navy-900 to-business-blue-600 h-2 rounded-full transition-all duration-300" style={{
+      width: `${currentStep / totalSteps * 100}%`
+    }} />
+    </div>;
   const renderStepContent = () => {
     if (hasUsedCalculator) {
-      return (
-        <div className="text-center animate-fade-in">
+      return <div className="text-center animate-fade-in">
           <div className="mb-6">
             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Calculator className="w-8 h-8 text-gray-400" />
@@ -405,23 +367,16 @@ const DebtCalculatorBeta = () => {
               <p className="text-yellow-800 text-sm mb-3">
                 🧪 <strong>Tryb testowy:</strong> Możesz zresetować kalkulator
               </p>
-              <Button
-                onClick={resetCalculator}
-                variant="outline"
-                className="w-full h-12 bg-white border-2 border-yellow-400 text-yellow-800 hover:bg-yellow-50 font-semibold"
-              >
+              <Button onClick={resetCalculator} variant="outline" className="w-full h-12 bg-white border-2 border-yellow-400 text-yellow-800 hover:bg-yellow-50 font-semibold">
                 🔄 Reset kalkulatora
               </Button>
             </div>
           </div>
-        </div>
-      );
+        </div>;
     }
-
     switch (currentStep) {
       case 1:
-        return (
-          <div className="text-center animate-fade-in w-full max-w-md mx-auto">
+        return <div className="text-center animate-fade-in w-full max-w-md mx-auto">
             {/* Większy header z migającą ikoną */}
             <div className="mb-8">
               <div className="relative w-20 h-20 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
@@ -444,21 +399,12 @@ const DebtCalculatorBeta = () => {
             {/* Duże pole input z lepszą widocznością */}
             <div className="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-2xl border-2 border-blue-200 mb-6 shadow-lg">
               <div className="relative">
-                <Input
-                  type="text"
-                  value={income}
-                  onChange={handleIncomeChange}
-                  placeholder="4 000"
-                  className="pr-16 text-center h-20 md:h-24 lg:h-28 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold border-4 border-blue-400 focus:border-blue-600 rounded-xl shadow-lg animate-pulse focus:animate-none"
-                  autoFocus
-                />
+                <Input type="text" value={income} onChange={handleIncomeChange} placeholder="4 000" className="pr-16 text-center h-20 md:h-24 lg:h-28 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold border-4 border-blue-400 focus:border-blue-600 rounded-xl shadow-lg animate-pulse focus:animate-none" autoFocus />
                 <span className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 text-blue-600 text-xl md:text-2xl lg:text-3xl font-bold">
                   PLN
                 </span>
                 {/* Migająca animacja dla pustego pola */}
-                {!income && (
-                  <div className="absolute inset-0 rounded-xl animate-pulse border-2 border-yellow-400 pointer-events-none"></div>
-                )}
+                {!income && <div className="absolute inset-0 rounded-xl animate-pulse border-2 border-yellow-400 pointer-events-none"></div>}
               </div>
               
               {/* Wskazówka pod polem */}
@@ -472,78 +418,37 @@ const DebtCalculatorBeta = () => {
             </div>
 
             {/* Szybki wybór typu dochodu */}
-            {income && parsePLN(income) >= 3000 && (
-              <div className="mb-6 animate-fade-in">
+            {income && parsePLN(income) >= 3000 && <div className="mb-6 animate-fade-in">
                 <p className="text-navy-700 font-medium mb-3 text-sm">
                   ⚡ Potwierdź rodzaj dochodu:
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                  <button
-                    onClick={() => setIncomeType('umowa_o_prace')}
-                    className={`w-full sm:w-auto px-6 py-4 rounded-xl text-base font-semibold transition-all transform active:scale-95 ${
-                      incomeType === 'umowa_o_prace'
-                        ? 'bg-emerald-500 text-white shadow-lg scale-105'
-                        : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200 hover:border-gray-300 shadow-md'
-                    }`}
-                  >
+                  <button onClick={() => setIncomeType('umowa_o_prace')} className={`w-full sm:w-auto px-6 py-4 rounded-xl text-base font-semibold transition-all transform active:scale-95 ${incomeType === 'umowa_o_prace' ? 'bg-emerald-500 text-white shadow-lg scale-105' : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200 hover:border-gray-300 shadow-md'}`}>
                     💼 Umowa o pracę
                   </button>
-                  <button
-                    onClick={() => setIncomeType('umowa_zlecenie')}
-                    className={`w-full sm:w-auto px-6 py-4 rounded-xl text-base font-semibold transition-all transform active:scale-95 ${
-                      incomeType === 'umowa_zlecenie'
-                        ? 'bg-emerald-500 text-white shadow-lg scale-105'
-                        : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200 hover:border-gray-300 shadow-md'
-                    }`}
-                  >
+                  <button onClick={() => setIncomeType('umowa_zlecenie')} className={`w-full sm:w-auto px-6 py-4 rounded-xl text-base font-semibold transition-all transform active:scale-95 ${incomeType === 'umowa_zlecenie' ? 'bg-emerald-500 text-white shadow-lg scale-105' : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200 hover:border-gray-300 shadow-md'}`}>
                     📋 Zlecenie/B2B
                   </button>
-                  <button
-                    onClick={() => setIncomeType('inne')}
-                    className={`w-full sm:w-auto px-6 py-4 rounded-xl text-base font-semibold transition-all transform active:scale-95 ${
-                      incomeType === 'inne'
-                        ? 'bg-emerald-500 text-white shadow-lg scale-105'
-                        : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200 hover:border-gray-300 shadow-md'
-                    }`}
-                  >
+                  <button onClick={() => setIncomeType('inne')} className={`w-full sm:w-auto px-6 py-4 rounded-xl text-base font-semibold transition-all transform active:scale-95 ${incomeType === 'inne' ? 'bg-emerald-500 text-white shadow-lg scale-105' : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200 hover:border-gray-300 shadow-md'}`}>
                     🏛️ Renta/inne
                   </button>
                 </div>
-              </div>
-            )}
+              </div>}
 
             {/* Duży przycisk */}
-            <Button 
-              onClick={goToNextStep} 
-              disabled={!income || parsePLN(income) < 3000 || !incomeType}
-              className={`w-full h-16 text-lg font-bold rounded-xl transition-all duration-300 ${
-                income && parsePLN(income) >= 3000 && incomeType
-                  ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 border-0'
-                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              }`}
-            >
-              {!incomeType && income && parsePLN(income) >= 3000
-                ? '⚡ Wybierz rodzaj dochodu' 
-                : income && parsePLN(income) < 3000 
-                ? '⚠️ Minimum 3000 PLN' 
-                : '✅ Dalej →'
-              }
+            <Button onClick={goToNextStep} disabled={!income || parsePLN(income) < 3000 || !incomeType} className={`w-full h-16 text-lg font-bold rounded-xl transition-all duration-300 ${income && parsePLN(income) >= 3000 && incomeType ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 border-0' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}>
+              {!incomeType && income && parsePLN(income) >= 3000 ? '⚡ Wybierz rodzaj dochodu' : income && parsePLN(income) < 3000 ? '⚠️ Minimum 3000 PLN' : '✅ Dalej →'}
             </Button>
 
             {/* Komunikat o minimum */}
-            {income && parsePLN(income) < 3000 && (
-              <div className="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl animate-fade-in">
+            {income && parsePLN(income) < 3000 && <div className="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl animate-fade-in">
                 <p className="text-red-700 font-medium text-sm">
                   ⚠️ Przy dochodzie poniżej 3000 PLN nie możemy pomóc z oddłużeniem
                 </p>
-              </div>
-            )}
-          </div>
-        );
-
+              </div>}
+          </div>;
       case 2:
-        return (
-          <div className="text-center animate-fade-in">
+        return <div className="text-center animate-fade-in">
             <div className="mb-6">
               <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white text-2xl">⚡</span>
@@ -554,14 +459,7 @@ const DebtCalculatorBeta = () => {
               </p>
             </div>
             <div className="relative">
-              <Input
-                type="text"
-                value={paydayDebt}
-                onChange={handlePaydayChange}
-                placeholder="30 000"
-                className="pr-12 md:pr-16 text-right h-16 md:h-20 lg:h-24 text-xl md:text-2xl lg:text-3xl text-center placeholder:text-gray-400 font-bold border-4 border-red-400 focus:border-red-600 rounded-xl shadow-lg animate-pulse focus:animate-none"
-                autoFocus
-              />
+              <Input type="text" value={paydayDebt} onChange={handlePaydayChange} placeholder="30 000" className="pr-12 md:pr-16 text-right h-16 md:h-20 lg:h-24 text-xl md:text-2xl lg:text-3xl text-center placeholder:text-gray-400 font-bold border-4 border-red-400 focus:border-red-600 rounded-xl shadow-lg animate-pulse focus:animate-none" autoFocus />
               <span className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg md:text-xl lg:text-2xl font-bold">
                 PLN
               </span>
@@ -573,19 +471,12 @@ const DebtCalculatorBeta = () => {
             </div>
             
             {/* Przycisk dalej */}
-            <Button 
-              onClick={goToNextStep} 
-              disabled={!paydayDebt} 
-              className="w-full font-bold text-lg rounded-xl h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 mt-4"
-            >
+            <Button onClick={goToNextStep} disabled={!paydayDebt} className="w-full font-bold text-lg rounded-xl h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 mt-4">
               Dalej →
             </Button>
-          </div>
-        );
-
+          </div>;
       case 3:
-        return (
-          <div className="text-center animate-fade-in">
+        return <div className="text-center animate-fade-in">
             <div className="mb-6">
               <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white text-2xl">🏦</span>
@@ -596,74 +487,48 @@ const DebtCalculatorBeta = () => {
               </p>
             </div>
             <div className="relative">
-              <Input
-                type="text"
-                value={bankDebt}
-                onChange={handleBankChange}
-                placeholder="20 000"
-                className="pr-12 md:pr-16 text-right h-16 md:h-20 lg:h-24 text-xl md:text-2xl lg:text-3xl text-center placeholder:text-gray-400 font-bold border-4 border-green-400 focus:border-green-600 rounded-xl shadow-lg animate-pulse focus:animate-none"
-                autoFocus
-              />
+              <Input type="text" value={bankDebt} onChange={handleBankChange} placeholder="20 000" className="pr-12 md:pr-16 text-right h-16 md:h-20 lg:h-24 text-xl md:text-2xl lg:text-3xl text-center placeholder:text-gray-400 font-bold border-4 border-green-400 focus:border-green-600 rounded-xl shadow-lg animate-pulse focus:animate-none" autoFocus />
               <span className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg md:text-xl lg:text-2xl font-bold">
                 PLN
               </span>
             </div>
             <div className="bg-green-100 border-2 border-green-500 rounded-xl p-4 mt-4">
               <p className="text-green-900 font-bold text-lg">
-                💡 Wpisz 0 jeśli nie masz kredytów bankowych<br/>
+                💡 Wpisz 0 jeśli nie masz kredytów bankowych<br />
                 lub wciśnij przycisk "Nie mam kredytów bankowych"
               </p>
             </div>
             
             {/* Przycisk szybkiego wyboru "Nie mam kredytów" */}
             <div className="mt-4 flex flex-col sm:flex-row gap-3">
-              <Button 
-                onClick={setNoBankDebt}
-                variant="outline"
-                className="flex-1 h-12 text-base font-semibold border-2 border-green-400 text-green-700 hover:bg-green-50 hover:border-green-500"
-              >
+              <Button onClick={setNoBankDebt} variant="outline" className="flex-1 h-12 text-base font-semibold border-2 border-green-400 text-green-700 hover:bg-green-50 hover:border-green-500">
                 ✅ Nie mam kredytów bankowych
               </Button>
             </div>
             
             {/* Duży przycisk analizy */}
-            <Button 
-              onClick={calculate} 
-              disabled={!bankDebt && bankDebt !== '0'}
-              className="w-full font-bold py-5 text-lg rounded-xl h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 mt-4"
-            >
+            <Button onClick={calculate} disabled={!bankDebt && bankDebt !== '0'} className="w-full font-bold py-5 text-lg rounded-xl h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 mt-4">
               <Calculator className="w-6 h-6 mr-3" />
               🔍 Sprawdź swój wynik
             </Button>
-          </div>
-        );
-
+          </div>;
       default:
         return null;
     }
   };
-
-  return (
-    <>
+  return <>
       {/* Focus mode overlay - covers entire screen */}
-      {isInFocusMode && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-all duration-700 ease-in-out" />
-      )}
+      {isInFocusMode && <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-all duration-700 ease-in-out" />}
       
-      <div className={`w-full h-full flex flex-col transition-all duration-700 ease-in-out ${
-        isInFocusMode ? 'relative z-50' : ''
-      }`}>
+      <div className={`w-full h-full flex flex-col transition-all duration-700 ease-in-out ${isInFocusMode ? 'relative z-50' : ''}`}>
         <div className="grid grid-cols-1 gap-6 items-start h-full relative">
-          {result.showForm ? (
-            <div className="animate-fade-in h-full">
-              <QuickRegistrationForm calculatorData={{ income, paydayDebt, bankDebt }} />
-            </div>
-          ) : (
-            <div className={`bg-white rounded-2xl shadow-xl border-0 p-4 sm:p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[700px] w-full transition-all duration-700 ease-in-out ${
-              isInFocusMode 
-                ? 'transform scale-105 shadow-2xl ring-8 ring-prestige-gold-400/50 ring-offset-4 ring-offset-prestige-gold-100/30' 
-                : 'hover:shadow-lg'
-            }`}>
+          {result.showForm ? <div className="animate-fade-in h-full">
+              <QuickRegistrationForm calculatorData={{
+            income,
+            paydayDebt,
+            bankDebt
+          }} />
+            </div> : <div className={`bg-white rounded-2xl shadow-xl border-0 p-4 sm:p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[700px] w-full transition-all duration-700 ease-in-out ${isInFocusMode ? 'transform scale-105 shadow-2xl ring-8 ring-prestige-gold-400/50 ring-offset-4 ring-offset-prestige-gold-100/30' : 'hover:shadow-lg'}`}>
             <div>
               {/* Header z większymi elementami */}
               <div className="text-center mb-4 sm:mb-6">
@@ -675,9 +540,7 @@ const DebtCalculatorBeta = () => {
                 <h2 className="text-xl sm:text-2xl font-bold text-navy-900 mb-1">
                   Kalkulator Oddłużania
                 </h2>
-                <p className="text-sm text-prestige-gold-600 font-semibold mb-1">
-                  W 30 sekund powiemy ci czy możemy pomóc!
-                </p>
+                <p className="text-sm text-prestige-gold-600 font-semibold mb-1">W 30 sekund powiemy Ci czy możemy pomóc!</p>
                 <p className="text-sm text-warm-neutral-600">
                   Krok {currentStep} z {totalSteps}
                 </p>
@@ -686,14 +549,13 @@ const DebtCalculatorBeta = () => {
               {/* Progress bar z większymi elementami */}
               <div className="mb-4 sm:mb-6">
                 <div className="w-full bg-gray-200 rounded-full h-3 sm:h-4">
-                  <div 
-                    className="bg-gradient-to-r from-navy-900 to-business-blue-600 h-3 sm:h-4 rounded-full transition-all duration-300"
-                    style={{ width: `${(currentStep / totalSteps) * 100}%` }}
-                  />
+                  <div className="bg-gradient-to-r from-navy-900 to-business-blue-600 h-3 sm:h-4 rounded-full transition-all duration-300" style={{
+                  width: `${currentStep / totalSteps * 100}%`
+                }} />
                 </div>
                 <div className="flex justify-between mt-2 text-sm sm:text-base">
                   <span className="text-warm-neutral-600">Postęp</span>
-                  <span className="font-bold text-navy-900">{Math.round((currentStep / totalSteps) * 100)}%</span>
+                  <span className="font-bold text-navy-900">{Math.round(currentStep / totalSteps * 100)}%</span>
                 </div>
               </div>
 
@@ -702,11 +564,7 @@ const DebtCalculatorBeta = () => {
                  <div className="flex justify-center items-center">
                    <div className="flex items-center space-x-4">
                      <div className="relative group">
-                       <img 
-                         src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                         alt="Dariusz Wentrych"
-                         className="w-12 h-12 rounded-full border-3 border-prestige-gold-400 object-cover shadow-lg hover:scale-110 transition-all duration-300 group-hover:shadow-xl"
-                       />
+                       <img src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" alt="Dariusz Wentrych" className="w-12 h-12 rounded-full border-3 border-prestige-gold-400 object-cover shadow-lg hover:scale-110 transition-all duration-300 group-hover:shadow-xl" />
                        {/* Subtle glow effect on hover */}
                        <div className="absolute inset-0 rounded-full border-3 border-prestige-gold-400 opacity-0 group-hover:opacity-30 group-hover:animate-ping transition-opacity duration-300"></div>
                        
@@ -725,9 +583,7 @@ const DebtCalculatorBeta = () => {
                        <div className="text-base font-bold text-navy-900 flex items-center gap-2">
                          Dariusz Wentrych
                          <div className="flex">
-                           {[1,2,3,4,5].map(i => (
-                             <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400 hover:scale-125 transition-transform duration-200" />
-                           ))}
+                           {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400 hover:scale-125 transition-transform duration-200" />)}
                          </div>
                        </div>
                        <div className="text-sm text-green-700 font-medium">
@@ -750,8 +606,7 @@ const DebtCalculatorBeta = () => {
             {/* Removed back navigation - better UX without it */}
 
             {/* Wynik z większymi elementami */}
-            {result.message && (
-              <div className={`mt-6 sm:mt-8 p-4 sm:p-6 rounded-xl border-2 ${getResultClasses()} animate-fade-in`}>
+            {result.message && <div className={`mt-6 sm:mt-8 p-4 sm:p-6 rounded-xl border-2 ${getResultClasses()} animate-fade-in`}>
                 <div className="flex items-start space-x-3 sm:space-x-4">
                   <div className="flex-shrink-0 mt-1">
                     {getResultIcon()}
@@ -762,8 +617,7 @@ const DebtCalculatorBeta = () => {
                     </p>
                   </div>
                 </div>
-              </div>
-            )}
+              </div>}
 
             {/* Bezpieczeństwo i zaufanie na dole */}
             <div className="mt-6 sm:mt-8 text-center border-t pt-4 sm:pt-6">
@@ -778,12 +632,9 @@ const DebtCalculatorBeta = () => {
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          </div>}
       </div>
     </div>
-    </>
-  );
+    </>;
 };
-
 export default DebtCalculatorBeta;
