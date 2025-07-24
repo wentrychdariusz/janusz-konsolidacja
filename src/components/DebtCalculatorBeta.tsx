@@ -538,154 +538,35 @@ const DebtCalculatorBeta = () => {
 
       case 3:
         return (
-          <div className="text-center animate-fade-in w-full max-w-lg mx-auto">
-            {/* Header z wyjaśnieniem */}
-            <div className="mb-8">
-              <div className="w-20 h-20 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <span className="text-white text-3xl">⚡</span>
+          <div className="text-center animate-fade-in">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">⚡</span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-navy-900 mb-3">
-                Chwilówki i parabanki
-              </h3>
-              <p className="text-base sm:text-lg text-warm-neutral-600 font-medium mb-6">
-                Suma wszystkich pożyczek pozabankowych
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Chwilówki i parabanki</h3>
+              <p className="text-warm-neutral-600">
+                Suma wszystkich chwilówek i pożyczek pozabankowych
               </p>
-
-              {/* Tabela z przykładami */}
-              <div className="bg-red-50 border-2 border-red-200 rounded-xl p-4 mb-6 text-left">
-                <h4 className="text-center font-bold text-red-800 mb-4 text-lg">
-                  📋 Co zaliczamy do chwilówek?
-                </h4>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                  <div className="bg-white rounded-lg p-3 border border-red-200">
-                    <div className="flex items-center mb-2">
-                      <span className="text-red-600 mr-2">⚡</span>
-                      <span className="font-semibold text-red-800">Chwilówki online:</span>
-                    </div>
-                    <ul className="text-xs text-gray-700 space-y-1">
-                      <li>• Vivus, Ferratum</li>
-                      <li>• Provident, Kuki</li>
-                      <li>• MoneyMan, SmartPożyczka</li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-white rounded-lg p-3 border border-red-200">
-                    <div className="flex items-center mb-2">
-                      <span className="text-red-600 mr-2">🏪</span>
-                      <span className="font-semibold text-red-800">Parabanki:</span>
-                    </div>
-                    <ul className="text-xs text-gray-700 space-y-1">
-                      <li>• Ekspres Cash</li>
-                      <li>• Skok, Easyfinance</li>
-                      <li>• Pożyczki lombardowe</li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-white rounded-lg p-3 border border-red-200">
-                    <div className="flex items-center mb-2">
-                      <span className="text-red-600 mr-2">📱</span>
-                      <span className="font-semibold text-red-800">Aplikacje:</span>
-                    </div>
-                    <ul className="text-xs text-gray-700 space-y-1">
-                      <li>• PayU, Twisto</li>
-                      <li>• Allegro Pay</li>
-                      <li>• BLIK płatności odroczone</li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-white rounded-lg p-3 border border-red-200">
-                    <div className="flex items-center mb-2">
-                      <span className="text-red-600 mr-2">❌</span>
-                      <span className="font-semibold text-red-800">NIE zaliczamy:</span>
-                    </div>
-                    <ul className="text-xs text-gray-700 space-y-1">
-                      <li>• Kredyty bankowe</li>
-                      <li>• Karty kredytowe</li>
-                      <li>• Kredyty hipoteczne</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
             </div>
-
-            {/* Pole input z lepszymi wskazówkami */}
-            <div className="bg-gradient-to-r from-red-50 to-orange-50 p-6 rounded-2xl border-2 border-red-200 mb-6 shadow-lg">
-              <div className="mb-4">
-                <p className="text-red-800 font-bold text-base mb-2">
-                  💰 Wpisz CAŁKOWITĄ kwotę do spłaty:
-                </p>
-                <p className="text-red-700 text-sm">
-                  (suma kapitału + odsetki + opłaty)
-                </p>
-              </div>
-
-              <div className="relative">
-                <Input
-                  type="text"
-                  value={paydayDebt}
-                  onChange={handlePaydayChange}
-                  placeholder="65 000"
-                  className="pr-16 text-center h-20 text-2xl sm:text-3xl font-bold border-3 border-red-300 focus:border-red-500 rounded-xl shadow-inner bg-white"
-                  autoFocus
-                />
-                <span className="absolute right-6 top-1/2 transform -translate-y-1/2 text-red-600 text-xl font-bold">
-                  PLN
-                </span>
-                
-                {/* Migająca animacja dla pustego pola */}
-                {!paydayDebt && (
-                  <div className="absolute inset-0 rounded-xl animate-pulse border-2 border-yellow-400 pointer-events-none"></div>
-                )}
-              </div>
-
-              {/* Przykład kalkulacji */}
-              <div className="mt-4 bg-white rounded-lg p-3 border border-red-300">
-                <p className="text-xs text-red-700 font-medium mb-2">
-                  📝 Przykład: Jeśli masz 3 chwilówki:
-                </p>
-                <div className="text-xs text-gray-700 space-y-1">
-                  <div className="flex justify-between">
-                    <span>Vivus (do spłaty):</span>
-                    <span className="font-medium">25 000 PLN</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Ferratum (do spłaty):</span>
-                    <span className="font-medium">30 000 PLN</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Provident (do spłaty):</span>
-                    <span className="font-medium">10 000 PLN</span>
-                  </div>
-                  <div className="border-t pt-1 mt-2 flex justify-between font-bold text-red-700">
-                    <span>SUMA:</span>
-                    <span>65 000 PLN</span>
-                  </div>
-                </div>
-              </div>
+            <div className="relative">
+              <Input
+                type="text"
+                value={paydayDebt}
+                onChange={handlePaydayChange}
+                placeholder="70 000"
+                className="pr-12 text-right h-16 text-xl text-center"
+                autoFocus
+              />
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">
+                PLN
+              </span>
             </div>
-
-            {/* Przycisk z warunkiem */}
-            <div className="space-y-4">
-              <Button 
-                onClick={goToNextStep} 
-                disabled={!paydayDebt} 
-                className={`w-full h-16 text-lg font-bold rounded-xl transition-all duration-300 ${
-                  paydayDebt
-                    ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                }`}
-              >
-                {paydayDebt ? '✅ Dalej do kredytów bankowych →' : '💭 Wpisz kwotę chwilówek'}
-              </Button>
-
-              {/* Info o opcji "0" */}
-              <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4">
-                <p className="text-blue-800 font-medium text-sm">
-                  ℹ️ <strong>Nie masz chwilówek?</strong> Wpisz "0" i przejdź dalej
-                </p>
-              </div>
-            </div>
+            <p className="text-warm-neutral-500 text-sm mt-2">
+              Podaj dokładną kwotę - to kluczowe dla analizy
+            </p>
+            <Button onClick={goToNextStep} disabled={!paydayDebt} className="mt-4 w-full h-12 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white">
+              Dalej →
+            </Button>
           </div>
         );
 
