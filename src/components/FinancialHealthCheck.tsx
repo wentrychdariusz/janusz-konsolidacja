@@ -47,61 +47,94 @@ const FinancialHealthCheck = () => {
     return num.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   };
 
-  const calculateStepScore = (step: number, answer: any) => {
-    switch (step) {
-      case 1: // Dochód
-        const income = parsePLN(answer);
-        if (income >= 6000) return 20;
-        if (income >= 4000) return 15;
-        if (income >= 3000) return 10;
-        return 5;
+  // Algorytm oddłużenia - używamy tego samego co w kalkulatorze
+  const MARGIN = 10000;
+  
+  const nonBankLimit = (income: number) => 
+    income <= 3500 ? income * (50000 / 3500) : 50000 + (income - 3500) * 40;
+  
+  const totalLimit = (income: number) => income * 22.5;
+  
+  const postCostLimit = (income: number) => income * 30;
 
-      case 2: // Typ dochodu
-        if (answer === 'umowa_o_prace') return 15;
-        if (answer === 'umowa_zlecenie') return 10;
-        return 5;
+  const calculateHealthScore = (allAnswers: any) => {
+    const income = parsePLN(allAnswers.income);
+    const debts = parsePLN(allAnswers.debts) || 0;
+    const expenses = parsePLN(allAnswers.expenses) || 0;
+    const savings = parsePLN(allAnswers.savings) || 0;
 
-      case 3: // Wydatki vs dochód
-        const expenses = parsePLN(answer);
-        const incomeVal = parsePLN(answers.income);
-        const ratio = expenses / incomeVal;
-        if (ratio <= 0.6) return 15;
-        if (ratio <= 0.8) return 10;
-        return 5;
+    let score = 0;
 
-      case 4: // Oszczędności
-        const savings = parsePLN(answer);
-        const monthlyIncome = parsePLN(answers.income);
-        const savingsMonths = savings / monthlyIncome;
-        if (savingsMonths >= 6) return 15;
-        if (savingsMonths >= 3) return 10;
-        if (savingsMonths >= 1) return 5;
-        return 0;
+    // 1. Dochód (0-25 pkt) - wyższy dochód = więcej punktów
+    if (income >= 6000) score += 25;
+    else if (income >= 4000) score += 20;
+    else if (income >= 3000) score += 15;
+    else score += 5;
 
-      case 5: // Długi
-        const debts = parsePLN(answer);
-        const income2 = parsePLN(answers.income);
-        const debtRatio = debts / (income2 * 12);
-        if (debtRatio <= 1) return 15;
-        if (debtRatio <= 3) return 10;
-        if (debtRatio <= 5) return 5;
-        return 0;
+    // 2. Typ dochodu (0-15 pkt) - stabilność
+    if (allAnswers.incomeType === 'umowa_o_prace') score += 15;
+    else if (allAnswers.incomeType === 'umowa_zlecenie') score += 10;
+    else score += 5;
 
-      case 6: // Typ długów
-        if (answer === 'brak') return 15;
-        if (answer === 'bankowe') return 10;
-        if (answer === 'chwilowki') return 0;
-        return 5;
+    // 3. Wydatki vs dochód (0-15 pkt)
+    const expenseRatio = expenses / income;
+    if (expenseRatio <= 0.6) score += 15;
+    else if (expenseRatio <= 0.8) score += 10;
+    else score += 5;
 
-      case 7: // Ocena kredytowa
-        if (answer === 'bardzo_dobra') return 10;
-        if (answer === 'dobra') return 7;
-        if (answer === 'srednia') return 5;
-        return 2;
+    // 4. Oszczędności (0-10 pkt)
+    const savingsMonths = savings / income;
+    if (savingsMonths >= 6) score += 10;
+    else if (savingsMonths >= 3) score += 7;
+    else if (savingsMonths >= 1) score += 5;
 
-      default:
-        return 0;
+    // 5. Algorytm oddłużenia - główny wskaźnik kwalifikacji (0-30 pkt)
+    if (debts > 0) {
+      // Modyfikacja limitów w zależności od typu dochodu
+      let nbLim = nonBankLimit(income) + MARGIN;
+      let baseLim = totalLimit(income) + MARGIN;
+      let maxLim = postCostLimit(income) + MARGIN;
+
+      switch (allAnswers.incomeType) {
+        case 'umowa_zlecenie':
+          nbLim *= 0.75;
+          baseLim *= 0.75;
+          maxLim *= 0.75;
+          break;
+        case 'inne':
+          nbLim *= 0.6;
+          baseLim *= 0.6;
+          maxLim *= 0.6;
+          break;
+      }
+
+      // Tylko chwilówki/parabanki
+      const paydayDebt = allAnswers.debtTypes === 'chwilowki' ? debts : 0;
+      // Kredyty bankowe
+      const bankDebt = allAnswers.debtTypes === 'bankowe' ? debts : 0;
+      
+      if (paydayDebt > nbLim) {
+        score += 0; // Nie można pomóc
+      } else {
+        const totalDebt = paydayDebt + bankDebt;
+        if (totalDebt <= baseLim) {
+          score += 30; // Idealna sytuacja
+        } else if (totalDebt <= maxLim) {
+          score += 20; // Można pomóc z ograniczeniami
+        } else {
+          score += 5; // Trudny przypadek
+        }
+      }
+    } else {
+      score += 25; // Brak długów to duży plus
     }
+
+    // 6. Typ długów (0-5 pkt)
+    if (allAnswers.debtTypes === 'brak') score += 5;
+    else if (allAnswers.debtTypes === 'bankowe') score += 3;
+    else if (allAnswers.debtTypes === 'chwilowki') score += 0;
+
+    return Math.min(score, 100);
   };
 
   const handleAnswer = (value: string) => {
@@ -110,17 +143,15 @@ const FinancialHealthCheck = () => {
     newAnswers[stepKey] = value;
     setAnswers(newAnswers);
 
-    // Oblicz punkty dla tego kroku
-    const stepScore = calculateStepScore(currentStep, value);
-    const newScore = score + stepScore;
-    setScore(newScore);
-
-    // Auto przejście do następnego kroku (z małym opóźnieniem dla efektu)
+    // Przejście do następnego kroku
     setTimeout(() => {
       if (currentStep < totalSteps) {
         setCurrentStep(prev => prev + 1);
       } else {
-        completeHealthCheck(newScore, newAnswers);
+        // Na końcu oblicz finalny wynik
+        const finalScore = calculateHealthScore(newAnswers);
+        setScore(finalScore);
+        completeHealthCheck(finalScore, newAnswers);
       }
     }, 800);
   };
@@ -131,7 +162,39 @@ const FinancialHealthCheck = () => {
   };
 
   const completeHealthCheck = async (finalScore: number, finalAnswers: any) => {
-    const qualified = finalScore >= 80;
+    // Kwalifikacja bazuje na algorytmie oddłużenia
+    const income = parsePLN(finalAnswers.income);
+    const debts = parsePLN(finalAnswers.debts) || 0;
+    
+    let qualified = false;
+    
+    if (debts > 0) {
+      // Używamy tego samego algorytmu co w kalkulatorze
+      let nbLim = nonBankLimit(income) + MARGIN;
+      let baseLim = totalLimit(income) + MARGIN;
+      
+      // Modyfikacja limitów w zależności od typu dochodu
+      switch (finalAnswers.incomeType) {
+        case 'umowa_zlecenie':
+          nbLim *= 0.75;
+          baseLim *= 0.75;
+          break;
+        case 'inne':
+          nbLim *= 0.6;
+          baseLim *= 0.6;
+          break;
+      }
+      
+      const paydayDebt = finalAnswers.debtTypes === 'chwilowki' ? debts : 0;
+      const bankDebt = finalAnswers.debtTypes === 'bankowe' ? debts : 0;
+      const totalDebt = paydayDebt + bankDebt;
+      
+      // Kwalifikacja jeśli możemy pomóc
+      qualified = paydayDebt <= nbLim && totalDebt <= baseLim;
+    } else {
+      // Brak długów - automatyczna kwalifikacja jeśli dochód > 3000
+      qualified = income >= 3000;
+    }
     let level = '';
     let message = '';
 
@@ -166,24 +229,24 @@ const FinancialHealthCheck = () => {
     try {
       const sessionId = Date.now().toString() + Math.random().toString(36).substr(2, 9);
       
-      await supabase
-        .from('calculator_usage')
-        .insert({
-          session_id: sessionId,
-          income: parsePLN(finalAnswers.income),
-          debt_amount: parsePLN(finalAnswers.debts),
-          income_type: finalAnswers.incomeType,
-          health_check_score: finalScore,
-          qualified: qualified
-        });
+        await supabase
+          .from('calculator_usage')
+          .insert({
+            session_id: sessionId,
+            income: parsePLN(finalAnswers.income),
+            debt_amount: parsePLN(finalAnswers.debts) || 0,
+            income_type: finalAnswers.incomeType,
+            health_check_score: finalScore,
+            qualified: qualified
+          });
 
-      // Przekieruj kwalifikowane leady
-      if (qualified) {
-        console.log('🎯 Health Check - qualified lead, redirecting to contact');
-        setTimeout(() => {
-          window.location.href = `/kontakt?source=healthcheck&score=${finalScore}&qualified=true`;
-        }, 3000);
-      }
+        // Przekieruj kwalifikowane leady (bazując na algorytmie, nie tylko score)
+        if (qualified) {
+          console.log('🎯 Health Check - qualified by debt algorithm, redirecting to contact');
+          setTimeout(() => {
+            window.location.href = `/kontakt?source=healthcheck&score=${finalScore}&qualified=true&income=${parsePLN(finalAnswers.income)}&debts=${parsePLN(finalAnswers.debts) || 0}`;
+          }, 3000);
+        }
     } catch (error) {
       console.error('Błąd podczas zapisywania health check:', error);
     }
