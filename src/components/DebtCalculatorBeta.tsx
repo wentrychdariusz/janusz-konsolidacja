@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Calculator, CheckCircle, AlertCircle, XCircle, Plus, Star, Shield, Briefcase, Users, Building } from 'lucide-react';
+import { Calculator, CheckCircle, AlertCircle, XCircle, Plus, Star, Shield, Briefcase, Users, Building, MessageCircle, Heart } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import QuickRegistrationForm from './QuickRegistrationForm';
 import { supabase } from '@/integrations/supabase/client';
@@ -636,14 +636,49 @@ const DebtCalculatorBeta = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full flex flex-col relative">
+      {/* Animated Avatar - Mogę Ci Pomóc */}
+      <div className="absolute -top-8 left-4 z-20">
+        <div className="relative">
+          {/* Speech bubble */}
+          <div className="bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 text-white px-4 py-2 rounded-2xl shadow-lg mb-2 animate-bounce">
+            <div className="flex items-center gap-2">
+              <Heart className="w-4 h-4 text-red-300 animate-pulse" />
+              <span className="font-bold text-sm whitespace-nowrap">Mogę Ci Pomóc!</span>
+              <MessageCircle className="w-4 h-4" />
+            </div>
+            {/* Arrow pointing down */}
+            <div className="absolute -bottom-2 left-6 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-prestige-gold-500"></div>
+          </div>
+          
+          {/* Avatar */}
+          <div className="relative">
+            <div className="w-16 h-16 rounded-full border-4 border-prestige-gold-400 shadow-xl bg-white overflow-hidden hover:scale-110 transition-all duration-300 animate-pulse">
+              <img 
+                src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                alt="Dariusz Wentrych - Mogę Ci Pomóc"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            
+            {/* Glow effect */}
+            <div className="absolute inset-0 rounded-full border-4 border-prestige-gold-400 opacity-20 animate-ping"></div>
+            
+            {/* Online indicator */}
+            <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
+              <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 gap-6 items-start h-full">
         {result.showForm ? (
           <div className="animate-fade-in h-full">
             <QuickRegistrationForm calculatorData={{ income, paydayDebt, bankDebt }} />
           </div>
         ) : (
-          <div className="bg-white rounded-2xl shadow-xl border-0 p-4 sm:p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[700px] w-full">
+          <div className="bg-white rounded-2xl shadow-xl border-0 p-4 sm:p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[700px] w-full mt-8">
             <div>
               {/* Header z większymi elementami */}
               <div className="text-center mb-4 sm:mb-6">
@@ -674,21 +709,35 @@ const DebtCalculatorBeta = () => {
                 </div>
               </div>
 
-              {/* Sekcja z Dariuszem - większa i bardziej widoczna */}
-               <div className="text-center mb-4 bg-white rounded-lg p-3 border border-gray-200">
+              {/* Enhanced trust section with Dariusz */}
+               <div className="text-center mb-6 bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-4 border-2 border-blue-200">
                  <div className="flex justify-center items-center">
-                   <div className="flex items-center space-x-3">
-                     <img 
-                       src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                       alt="Dariusz Wentrych"
-                       className="w-10 h-10 rounded-full border-2 border-gray-300 object-cover"
-                     />
-                     <div className="text-left">
-                       <div className="text-sm font-semibold text-navy-900">
-                         Dariusz Wentrych
+                   <div className="flex items-center space-x-4">
+                     <div className="relative">
+                       <img 
+                         src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                         alt="Dariusz Wentrych"
+                         className="w-12 h-12 rounded-full border-3 border-prestige-gold-400 object-cover shadow-lg"
+                       />
+                       {/* Trust badge */}
+                       <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
+                         <CheckCircle className="w-3 h-3 text-white" />
                        </div>
-                       <div className="text-xs text-gray-600">
-                         Ekspert w oddłużeniu • 15.000+ klientów
+                     </div>
+                     <div className="text-left">
+                       <div className="text-base font-bold text-navy-900 flex items-center gap-2">
+                         Dariusz Wentrych
+                         <div className="flex">
+                           {[1,2,3,4,5].map(i => (
+                             <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                           ))}
+                         </div>
+                       </div>
+                       <div className="text-sm text-green-700 font-medium">
+                         ✅ Ekspert nr 1 w oddłużeniu • 15.000+ zadowolonych klientów
+                       </div>
+                       <div className="text-xs text-blue-600 font-medium mt-1">
+                         💬 "Pomagam od 20 lat - sprawdź, czy mogę pomóc również Tobie!"
                        </div>
                      </div>
                    </div>
