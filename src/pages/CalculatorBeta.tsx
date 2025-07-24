@@ -15,7 +15,7 @@ const CalculatorBeta = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-6">
             <h1 className="text-3xl font-bold text-navy-900 mb-2 transition-all duration-700">
-              Kalkulator Oddłużania BETA
+              Kalkulator Oddłużania BETA w 30 sekund powiemy ci czy możemy pomóc
             </h1>
             <p className="text-warm-neutral-600 transition-all duration-700">
               Wersja testowa z rozszerzonym formularzem
