@@ -373,7 +373,7 @@ const DebtCalculatorBeta = () => {
               disabled={!income || parsePLN(income) < 3000} 
               className={`w-full h-16 text-lg font-bold rounded-xl transition-all duration-300 ${
                 income && parsePLN(income) >= 3000
-                  ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
+                  ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 border-0'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}
             >
