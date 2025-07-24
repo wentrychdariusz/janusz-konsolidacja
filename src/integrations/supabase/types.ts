@@ -76,6 +76,7 @@ export type Database = {
           debt_amount: number | null
           id: string
           income: number
+          income_type: string | null
           session_id: string
         }
         Insert: {
@@ -83,6 +84,7 @@ export type Database = {
           debt_amount?: number | null
           id?: string
           income: number
+          income_type?: string | null
           session_id: string
         }
         Update: {
@@ -90,6 +92,7 @@ export type Database = {
           debt_amount?: number | null
           id?: string
           income?: number
+          income_type?: string | null
           session_id?: string
         }
         Relationships: []
