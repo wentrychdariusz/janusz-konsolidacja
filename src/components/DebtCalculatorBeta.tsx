@@ -462,9 +462,11 @@ const DebtCalculatorBeta = () => {
                 PLN
               </span>
             </div>
-            <p className="text-warm-neutral-500 text-sm mt-2">
-              Wpisz 0 jeśli nie masz kredytów bankowych
-            </p>
+            <div className="bg-green-50 border-2 border-green-400 rounded-xl p-4 mt-4">
+              <p className="text-green-800 font-bold text-lg">
+                💡 Wpisz 0 jeśli nie masz kredytów bankowych
+              </p>
+            </div>
             
             {/* Duży przycisk analizy */}
             <Button 
