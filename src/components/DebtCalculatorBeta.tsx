@@ -20,7 +20,7 @@ const DebtCalculatorBeta = () => {
     showForm: boolean;
   }>({ message: '', type: null, showForm: false });
 
-  const totalSteps = 5;
+  const totalSteps = 4;
 
   // Sprawdź czy kalkulator był już używany
   useEffect(() => {
@@ -190,12 +190,7 @@ const DebtCalculatorBeta = () => {
 
   const handleIncomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
-      const newValue = formatNumber(e.target.value);
-      setIncome(newValue);
-      // Auto przejście do następnego kroku gdy wpisana kwota > 0
-      if (newValue && parsePLN(newValue) >= 1000 && currentStep === 1) {
-        setTimeout(goToNextStep, 500);
-      }
+      setIncome(formatNumber(e.target.value));
     }
   };
 
@@ -206,23 +201,13 @@ const DebtCalculatorBeta = () => {
 
   const handlePaydayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
-      const newValue = formatNumber(e.target.value);
-      setPaydayDebt(newValue);
-      // Auto przejście gdy wpisana kwota
-      if (newValue && parsePLN(newValue) > 0 && currentStep === 3) {
-        setTimeout(goToNextStep, 500);
-      }
+      setPaydayDebt(formatNumber(e.target.value));
     }
   };
 
   const handleBankChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
-      const newValue = formatNumber(e.target.value);
-      setBankDebt(newValue);
-      // Auto przejście gdy wpisana kwota (może być 0)
-      if (currentStep === 4) {
-        setTimeout(goToNextStep, 500);
-      }
+      setBankDebt(formatNumber(e.target.value));
     }
   };
 
@@ -302,39 +287,6 @@ const DebtCalculatorBeta = () => {
           <div className="text-center animate-fade-in">
             <div className="mb-6">
               <div className="w-16 h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl">💰</span>
-              </div>
-              <h3 className="text-xl font-bold text-navy-900 mb-2">Jaki jest Twój dochód?</h3>
-              <p className="text-warm-neutral-600">
-                Podaj miesięczny dochód netto
-              </p>
-            </div>
-            <div className="relative">
-              <Input
-                type="text"
-                value={income}
-                onChange={handleIncomeChange}
-                placeholder="4 000"
-                className="pr-12 text-right h-16 text-xl text-center"
-                autoFocus
-              />
-              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">
-                PLN
-              </span>
-            </div>
-            {income && parsePLN(income) < 3000 && (
-              <p className="text-red-600 text-sm mt-2">
-                ⚠️ Minimalna kwota to 3000 PLN
-              </p>
-            )}
-          </div>
-        );
-
-      case 2:
-        return (
-          <div className="text-center animate-fade-in">
-            <div className="mb-6">
-              <div className="w-16 h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white text-2xl">💼</span>
               </div>
               <h3 className="text-xl font-bold text-navy-900 mb-2">Rodzaj dochodu</h3>
@@ -409,6 +361,33 @@ const DebtCalculatorBeta = () => {
           </div>
         );
 
+      case 2:
+        return (
+          <div className="text-center animate-fade-in">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">💰</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Jaki jest Twój dochód?</h3>
+              <p className="text-warm-neutral-600">Podaj miesięczny dochód netto</p>
+            </div>
+            <div className="relative">
+              <Input
+                type="text"
+                value={income}
+                onChange={handleIncomeChange}
+                placeholder="4 000"
+                className="pr-12 text-right h-16 text-xl text-center"
+                autoFocus
+              />
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">PLN</span>
+            </div>
+            <Button onClick={goToNextStep} disabled={!income || parsePLN(income) < 3000} className="mt-4 w-full h-12 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white">
+              Dalej →
+            </Button>
+          </div>
+        );
+
       case 3:
         return (
           <div className="text-center animate-fade-in">
@@ -437,6 +416,9 @@ const DebtCalculatorBeta = () => {
             <p className="text-warm-neutral-500 text-sm mt-2">
               Podaj dokładną kwotę - to kluczowe dla analizy
             </p>
+            <Button onClick={goToNextStep} disabled={!paydayDebt} className="mt-4 w-full h-12 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white">
+              Dalej →
+            </Button>
           </div>
         );
 
@@ -452,64 +434,43 @@ const DebtCalculatorBeta = () => {
                 Suma wszystkich kredytów z banków (opcjonalne)
               </p>
             </div>
-            <div className="relative">
-              <Input
-                type="text"
-                value={bankDebt}
-                onChange={handleBankChange}
-                placeholder="0"
-                className="pr-12 text-right h-16 text-xl text-center"
-                autoFocus
-              />
-              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">
-                PLN
-              </span>
-            </div>
-            <p className="text-warm-neutral-500 text-sm mt-2">
-              Możesz wpisać 0 jeśli nie masz kredytów bankowych
-            </p>
-          </div>
-        );
+            <div className="space-y-4">
+              <div className="relative">
+                <Input
+                  type="text"
+                  value={bankDebt}
+                  onChange={handleBankChange}
+                  placeholder="0"
+                  className="pr-12 text-right h-16 text-xl text-center"
+                  autoFocus
+                />
+                <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">PLN</span>
+              </div>
+              
+              <div className="bg-gray-50 rounded-lg p-4 text-left space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Dochód:</span>
+                  <span className="font-semibold">{income} PLN</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Typ:</span>
+                  <span className="font-semibold">{getIncomeTypeLabel(incomeType)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Chwilówki:</span>
+                  <span className="font-semibold text-red-600">{paydayDebt || '0'} PLN</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Kredyty:</span>
+                  <span className="font-semibold">{bankDebt || '0'} PLN</span>
+                </div>
+              </div>
 
-      case 5:
-        return (
-          <div className="text-center animate-fade-in">
-            <div className="mb-6">
-              <div className="w-16 h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Calculator className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-navy-900 mb-2">Analiza gotowa!</h3>
-              <p className="text-warm-neutral-600 mb-6">
-                Kliknij aby sprawdzić czy możemy Ci pomóc
-              </p>
+              <Button onClick={calculate} className="w-full font-bold py-4 text-lg rounded-xl h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white">
+                <Calculator className="w-5 h-5 mr-2" />
+                Sprawdź wynik
+              </Button>
             </div>
-            
-            <div className="bg-gray-50 rounded-lg p-4 mb-6 text-left space-y-2">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Dochód:</span>
-                <span className="font-semibold">{income} PLN</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Typ:</span>
-                <span className="font-semibold">{getIncomeTypeLabel(incomeType)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Chwilówki:</span>
-                <span className="font-semibold text-red-600">{paydayDebt || '0'} PLN</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Kredyty:</span>
-                <span className="font-semibold">{bankDebt || '0'} PLN</span>
-              </div>
-            </div>
-
-            <Button
-              onClick={calculate}
-              className="w-full font-bold py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white"
-            >
-              <Calculator className="w-5 h-5 mr-2" />
-              Sprawdź czy Ci pomożemy
-            </Button>
           </div>
         );
 
@@ -575,7 +536,7 @@ const DebtCalculatorBeta = () => {
             </div>
 
             {/* Nawigacja */}
-            {!hasUsedCalculator && currentStep > 1 && currentStep < 5 && (
+            {!hasUsedCalculator && currentStep > 1 && currentStep < 4 && (
               <div className="flex justify-between mt-6">
                 <Button
                   variant="outline"
