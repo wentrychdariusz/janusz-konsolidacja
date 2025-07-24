@@ -636,49 +636,14 @@ const DebtCalculatorBeta = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col relative">
-      {/* Animated Avatar - Mogę Ci Pomóc */}
-      <div className="absolute -top-8 left-4 z-20">
-        <div className="relative">
-          {/* Speech bubble */}
-          <div className="bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 text-white px-4 py-2 rounded-2xl shadow-lg mb-2 animate-bounce">
-            <div className="flex items-center gap-2">
-              <Heart className="w-4 h-4 text-red-300 animate-pulse" />
-              <span className="font-bold text-sm whitespace-nowrap">Mogę Ci Pomóc!</span>
-              <MessageCircle className="w-4 h-4" />
-            </div>
-            {/* Arrow pointing down */}
-            <div className="absolute -bottom-2 left-6 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-prestige-gold-500"></div>
-          </div>
-          
-          {/* Avatar */}
-          <div className="relative">
-            <div className="w-16 h-16 rounded-full border-4 border-prestige-gold-400 shadow-xl bg-white overflow-hidden hover:scale-110 transition-all duration-300 animate-pulse">
-              <img 
-                src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                alt="Dariusz Wentrych - Mogę Ci Pomóc"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            
-            {/* Glow effect */}
-            <div className="absolute inset-0 rounded-full border-4 border-prestige-gold-400 opacity-20 animate-ping"></div>
-            
-            {/* Online indicator */}
-            <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
-              <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+    <div className="w-full h-full flex flex-col">
       <div className="grid grid-cols-1 gap-6 items-start h-full">
         {result.showForm ? (
           <div className="animate-fade-in h-full">
             <QuickRegistrationForm calculatorData={{ income, paydayDebt, bankDebt }} />
           </div>
         ) : (
-          <div className="bg-white rounded-2xl shadow-xl border-0 p-4 sm:p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[700px] w-full mt-8">
+          <div className="bg-white rounded-2xl shadow-xl border-0 p-4 sm:p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[700px] w-full">
             <div>
               {/* Header z większymi elementami */}
               <div className="text-center mb-4 sm:mb-6">
@@ -709,19 +674,28 @@ const DebtCalculatorBeta = () => {
                 </div>
               </div>
 
-              {/* Enhanced trust section with Dariusz */}
-               <div className="text-center mb-6 bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-4 border-2 border-blue-200">
+              {/* Enhanced trust section with animated Dariusz */}
+               <div className="text-center mb-6 bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-4 border-2 border-blue-200 hover:shadow-lg transition-all duration-300">
                  <div className="flex justify-center items-center">
                    <div className="flex items-center space-x-4">
-                     <div className="relative">
+                     <div className="relative group">
                        <img 
                          src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
                          alt="Dariusz Wentrych"
-                         className="w-12 h-12 rounded-full border-3 border-prestige-gold-400 object-cover shadow-lg"
+                         className="w-12 h-12 rounded-full border-3 border-prestige-gold-400 object-cover shadow-lg hover:scale-110 transition-all duration-300 group-hover:shadow-xl"
                        />
-                       {/* Trust badge */}
-                       <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
+                       {/* Subtle glow effect on hover */}
+                       <div className="absolute inset-0 rounded-full border-3 border-prestige-gold-400 opacity-0 group-hover:opacity-30 group-hover:animate-ping transition-opacity duration-300"></div>
+                       
+                       {/* Trust badge with pulse */}
+                       <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center border-2 border-white animate-pulse">
                          <CheckCircle className="w-3 h-3 text-white" />
+                       </div>
+                       
+                       {/* Speech bubble on hover */}
+                       <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-prestige-gold-500 text-white px-3 py-1 rounded-lg text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                         Mogę Ci pomóc!
+                         <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-l-transparent border-r-transparent border-t-prestige-gold-500"></div>
                        </div>
                      </div>
                      <div className="text-left">
@@ -729,7 +703,7 @@ const DebtCalculatorBeta = () => {
                          Dariusz Wentrych
                          <div className="flex">
                            {[1,2,3,4,5].map(i => (
-                             <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                             <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400 hover:scale-125 transition-transform duration-200" />
                            ))}
                          </div>
                        </div>
