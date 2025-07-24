@@ -44,6 +44,22 @@ const DebtCalculatorBeta = () => {
     }
   };
 
+  const resetCalculator = () => {
+    // Wyczyść localStorage
+    localStorage.removeItem('debt_calculator_beta_used');
+    
+    // Zresetuj wszystkie stany
+    setIncome('');
+    setIncomeType('');
+    setPaydayDebt('');
+    setBankDebt('');
+    setCurrentStep(1);
+    setHasUsedCalculator(false);
+    setResult({ message: '', type: null, showForm: false });
+    
+    console.log('🔄 Kalkulator BETA został zresetowany');
+  };
+
   // Stałe z oryginalnego kalkulatora
   const MARGIN = 10000;
 
@@ -268,14 +284,31 @@ const DebtCalculatorBeta = () => {
               <Calculator className="w-8 h-8 text-gray-400" />
             </div>
             <h3 className="text-xl font-bold text-navy-900 mb-2">Kalkulator wykorzystany</h3>
-            <p className="text-warm-neutral-600">
-              Kalkulator może być użyty tylko raz
+            <p className="text-warm-neutral-600 mb-6">
+              Kalkulator może być użyty tylko raz na sesję
             </p>
           </div>
-          <div className="p-4 rounded-xl border-2 bg-blue-50 border-blue-200 text-blue-700">
-            <p className="font-medium">
-              📞 Masz pytania? Zadzwoń: <strong>+48 663 024 522</strong>
-            </p>
+          
+          <div className="space-y-4">
+            <div className="p-4 rounded-xl border-2 bg-blue-50 border-blue-200 text-blue-700">
+              <p className="font-medium">
+                📞 Masz pytania? Zadzwoń: <strong>+48 663 024 522</strong>
+              </p>
+            </div>
+            
+            {/* Przycisk reset do testowania */}
+            <div className="p-4 rounded-xl border-2 bg-yellow-50 border-yellow-200">
+              <p className="text-yellow-800 text-sm mb-3">
+                🧪 <strong>Tryb testowy:</strong> Możesz zresetować kalkulator
+              </p>
+              <Button
+                onClick={resetCalculator}
+                variant="outline"
+                className="w-full h-12 bg-white border-2 border-yellow-400 text-yellow-800 hover:bg-yellow-50 font-semibold"
+              >
+                🔄 Reset kalkulatora
+              </Button>
+            </div>
           </div>
         </div>
       );
