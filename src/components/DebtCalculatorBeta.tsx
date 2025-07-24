@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Calculator, CheckCircle, AlertCircle, XCircle, Plus, Star, Shield, Briefcase } from 'lucide-react';
+import { Calculator, CheckCircle, AlertCircle, XCircle, Plus, Star, Shield, Briefcase, Users, Building } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import QuickRegistrationForm from './QuickRegistrationForm';
 import { supabase } from '@/integrations/supabase/client';
@@ -127,22 +126,10 @@ const DebtCalculatorBeta = () => {
         // Najwyższe limity - stabilny dochód
         break;
       case 'umowa_zlecenie':
-        // Obniżone limity o 20%
-        nbLim *= 0.8;
-        baseLim *= 0.8;
-        maxLim *= 0.8;
-        break;
-      case 'dzialalnosc_gospodarcza':
-        // Obniżone limity o 30%
-        nbLim *= 0.7;
-        baseLim *= 0.7;
-        maxLim *= 0.7;
-        break;
-      case 'renta_emerytura':
-        // Obniżone limity o 15%
-        nbLim *= 0.85;
-        baseLim *= 0.85;
-        maxLim *= 0.85;
+        // Obniżone limity o 25%
+        nbLim *= 0.75;
+        baseLim *= 0.75;
+        maxLim *= 0.75;
         break;
       case 'inne':
         // Obniżone limity o 40%
@@ -245,12 +232,8 @@ const DebtCalculatorBeta = () => {
         return 'Umowa o pracę';
       case 'umowa_zlecenie':
         return 'Umowa zlecenie';
-      case 'dzialalnosc_gospodarcza':
-        return 'Działalność gospodarcza';
-      case 'renta_emerytura':
-        return 'Renta/Emerytura';
       case 'inne':
-        return 'Inne źródła';
+        return 'Inne źródła dochodu';
       default:
         return '';
     }
@@ -373,58 +356,83 @@ const DebtCalculatorBeta = () => {
                   </div>
                 </div>
 
-                {/* Wybór typu dochodu - pokazuje się po wpisaniu kwoty */}
+                {/* Wybór typu dochodu - mobilne przyciski */}
                 {showIncomeTypeSelect && (
                   <div className="animate-fade-in">
-                    <Label htmlFor="incomeType" className="text-navy-800 font-medium text-sm lg:text-base">
+                    <Label className="text-navy-800 font-medium text-sm lg:text-base mb-3 block">
                       Rodzaj Twojego dochodu
                     </Label>
-                    <div className="relative mt-2">
-                      <Select value={incomeType} onValueChange={setIncomeType}>
-                        <SelectTrigger className="h-12 lg:h-14 text-base lg:text-lg">
-                          <div className="flex items-center">
-                            <Briefcase className="w-4 h-4 mr-2 text-warm-neutral-500" />
-                            <SelectValue placeholder="Wybierz rodzaj dochodu" />
+                    <div className="grid grid-cols-1 gap-3">
+                      <Button
+                        type="button"
+                        variant={incomeType === 'umowa_o_prace' ? 'default' : 'outline'}
+                        onClick={() => setIncomeType('umowa_o_prace')}
+                        className={`h-16 w-full text-left justify-start p-4 text-base ${
+                          incomeType === 'umowa_o_prace' 
+                            ? 'bg-gradient-to-r from-navy-900 to-business-blue-600 text-white border-navy-900' 
+                            : 'hover:bg-blue-50 border-2 border-gray-300'
+                        }`}
+                      >
+                        <div className="flex items-center w-full">
+                          <div className="text-2xl mr-4">💼</div>
+                          <div>
+                            <div className="font-semibold">Umowa o pracę</div>
+                            <div className={`text-sm ${incomeType === 'umowa_o_prace' ? 'text-blue-100' : 'text-gray-500'}`}>
+                              Stały miesięczny dochód
+                            </div>
                           </div>
-                        </SelectTrigger>
-                        <SelectContent className="bg-white">
-                          <SelectItem value="umowa_o_prace">
-                            <div className="flex items-center">
-                              <span className="mr-2">💼</span>
-                              Umowa o pracę
+                        </div>
+                      </Button>
+
+                      <Button
+                        type="button"
+                        variant={incomeType === 'umowa_zlecenie' ? 'default' : 'outline'}
+                        onClick={() => setIncomeType('umowa_zlecenie')}
+                        className={`h-16 w-full text-left justify-start p-4 text-base ${
+                          incomeType === 'umowa_zlecenie' 
+                            ? 'bg-gradient-to-r from-navy-900 to-business-blue-600 text-white border-navy-900' 
+                            : 'hover:bg-blue-50 border-2 border-gray-300'
+                        }`}
+                      >
+                        <div className="flex items-center w-full">
+                          <div className="text-2xl mr-4">📋</div>
+                          <div>
+                            <div className="font-semibold">Umowa zlecenie</div>
+                            <div className={`text-sm ${incomeType === 'umowa_zlecenie' ? 'text-blue-100' : 'text-gray-500'}`}>
+                              Współpraca, B2B, freelance
                             </div>
-                          </SelectItem>
-                          <SelectItem value="umowa_zlecenie">
-                            <div className="flex items-center">
-                              <span className="mr-2">📋</span>
-                              Umowa zlecenie
+                          </div>
+                        </div>
+                      </Button>
+
+                      <Button
+                        type="button"
+                        variant={incomeType === 'inne' ? 'default' : 'outline'}
+                        onClick={() => setIncomeType('inne')}
+                        className={`h-16 w-full text-left justify-start p-4 text-base ${
+                          incomeType === 'inne' 
+                            ? 'bg-gradient-to-r from-navy-900 to-business-blue-600 text-white border-navy-900' 
+                            : 'hover:bg-blue-50 border-2 border-gray-300'
+                        }`}
+                      >
+                        <div className="flex items-center w-full">
+                          <div className="text-2xl mr-4">🏛️</div>
+                          <div>
+                            <div className="font-semibold">Inne źródła</div>
+                            <div className={`text-sm ${incomeType === 'inne' ? 'text-blue-100' : 'text-gray-500'}`}>
+                              Renta, emerytura, działalność
                             </div>
-                          </SelectItem>
-                          <SelectItem value="dzialalnosc_gospodarcza">
-                            <div className="flex items-center">
-                              <span className="mr-2">🏢</span>
-                              Działalność gospodarcza
-                            </div>
-                          </SelectItem>
-                          <SelectItem value="renta_emerytura">
-                            <div className="flex items-center">
-                              <span className="mr-2">🏛️</span>
-                              Renta/Emerytura
-                            </div>
-                          </SelectItem>
-                          <SelectItem value="inne">
-                            <div className="flex items-center">
-                              <span className="mr-2">❓</span>
-                              Inne źródła
-                            </div>
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
+                          </div>
+                        </div>
+                      </Button>
                     </div>
+                    
                     {incomeType && (
-                      <p className="text-xs text-warm-neutral-600 mt-1">
-                        Wybrałeś: <strong>{getIncomeTypeLabel(incomeType)}</strong>
-                      </p>
+                      <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
+                        <p className="text-sm text-green-700 font-medium">
+                          ✓ Wybrałeś: <strong>{getIncomeTypeLabel(incomeType)}</strong>
+                        </p>
+                      </div>
                     )}
                   </div>
                 )}
