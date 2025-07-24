@@ -643,23 +643,26 @@ const DebtCalculatorBeta = () => {
   };
 
   return (
-    <div className={`w-full h-full flex flex-col transition-all duration-500 ${
-      isInFocusMode ? 'relative z-10' : ''
-    }`}>
-      {/* Focus mode overlay */}
+    <>
+      {/* Focus mode overlay - covers entire screen */}
       {isInFocusMode && (
-        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-0 transition-all duration-500" />
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-all duration-700 ease-in-out" />
       )}
       
-      <div className="grid grid-cols-1 gap-6 items-start h-full relative z-10">
-        {result.showForm ? (
-          <div className="animate-fade-in h-full">
-            <QuickRegistrationForm calculatorData={{ income, paydayDebt, bankDebt }} />
-          </div>
-        ) : (
-          <div className={`bg-white rounded-2xl shadow-xl border-0 p-4 sm:p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[700px] w-full transition-all duration-500 ${
-            isInFocusMode ? 'scale-105 shadow-2xl ring-4 ring-prestige-gold-400/30' : ''
-          }`}>
+      <div className={`w-full h-full flex flex-col transition-all duration-700 ease-in-out ${
+        isInFocusMode ? 'relative z-50' : ''
+      }`}>
+        <div className="grid grid-cols-1 gap-6 items-start h-full relative">
+          {result.showForm ? (
+            <div className="animate-fade-in h-full">
+              <QuickRegistrationForm calculatorData={{ income, paydayDebt, bankDebt }} />
+            </div>
+          ) : (
+            <div className={`bg-white rounded-2xl shadow-xl border-0 p-4 sm:p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[700px] w-full transition-all duration-700 ease-in-out ${
+              isInFocusMode 
+                ? 'transform scale-105 shadow-2xl ring-8 ring-prestige-gold-400/50 ring-offset-4 ring-offset-prestige-gold-100/30' 
+                : 'hover:shadow-lg'
+            }`}>
             <div>
               {/* Header z większymi elementami */}
               <div className="text-center mb-4 sm:mb-6">
@@ -789,6 +792,7 @@ const DebtCalculatorBeta = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
 
