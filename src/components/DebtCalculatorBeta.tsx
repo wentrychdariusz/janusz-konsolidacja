@@ -610,7 +610,7 @@ const DebtCalculatorBeta = () => {
                           </Avatar>
                         </div>
                         <span className="text-xs sm:text-sm text-navy-600 ml-2 font-medium">
-                          +5000 zadowolonych klientów
+                          15.000+ klientów
                         </span>
                       </div>
                     </div>
