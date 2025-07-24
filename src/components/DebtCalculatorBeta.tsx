@@ -10,8 +10,8 @@ import { supabase } from '@/integrations/supabase/client';
 const DebtCalculatorBeta = () => {
   const [income, setIncome] = useState('');
   const [incomeType, setIncomeType] = useState(''); 
-  const [paydayDebt, setPaydayDebt] = useState('');
-  const [bankDebt, setBankDebt] = useState('');
+  const [paydayDebt, setPaydayDebt] = useState('30 000'); // Domyślnie 30k
+  const [bankDebt, setBankDebt] = useState('20 000'); // Domyślnie 20k
   const [currentStep, setCurrentStep] = useState(1);
   const [hasUsedCalculator, setHasUsedCalculator] = useState(false);
   
@@ -55,6 +55,14 @@ const DebtCalculatorBeta = () => {
       flags.push(`${fieldType}: Bardzo wysoki dochód (${value})`);
     }
     
+    // Wykrywanie domyślnych wartości (podejrzane)
+    if (fieldType === 'chwilówki' && value === '30 000') {
+      flags.push(`${fieldType}: Pozostawiono domyślną wartość (${value})`);
+    }
+    if (fieldType === 'kredyty bankowe' && value === '20 000') {
+      flags.push(`${fieldType}: Pozostawiono domyślną wartość (${value})`);
+    }
+    
     return flags;
   };
 
@@ -91,11 +99,14 @@ const DebtCalculatorBeta = () => {
     // Zresetuj wszystkie stany
     setIncome('');
     setIncomeType('');
-    setPaydayDebt('');
-    setBankDebt('');
+    setPaydayDebt('30 000'); // Domyślne wartości
+    setBankDebt('20 000'); // Domyślne wartości
     setCurrentStep(1);
     setHasUsedCalculator(false);
     setResult({ message: '', type: null, showForm: false });
+    setSuspiciousFlags([]); // Reset flag
+    setStepTimes([]); // Reset czasów
+    setStepStartTime(Date.now()); // Reset czasu startowego
     
     console.log('🔄 Kalkulator BETA został zresetowany');
   };
