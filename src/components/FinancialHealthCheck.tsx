@@ -25,11 +25,14 @@ const FinancialHealthCheck = () => {
 
   const totalSteps = 4;
 
-  // Sprawdź czy test był już robiony
+  // Sprawdź czy test był już robiony i zawsze zacznij od kroku 1
   useEffect(() => {
     const completed = localStorage.getItem('health_check_completed');
     if (completed === 'true') {
       setHasCompleted(true);
+    } else {
+      // Upewnij się, że zaczynamy od kroku 1 (kwota zarobków)
+      setCurrentStep(1);
     }
   }, []);
 
