@@ -14,6 +14,7 @@ const DebtCalculatorBeta = () => {
   const [bankDebt, setBankDebt] = useState(''); // Puste - placeholder pokaże domyślne
   const [currentStep, setCurrentStep] = useState(1);
   const [hasUsedCalculator, setHasUsedCalculator] = useState(false);
+  const [isInFocusMode, setIsInFocusMode] = useState(false); // Focus mode state
   
   // Tracking podejrzanych zachowań
   const [stepStartTime, setStepStartTime] = useState(Date.now());
@@ -103,6 +104,7 @@ const DebtCalculatorBeta = () => {
     setBankDebt(''); // Puste - placeholder pokaże domyślne
     setCurrentStep(1);
     setHasUsedCalculator(false);
+    setIsInFocusMode(false); // Reset focus mode
     setResult({ message: '', type: null, showForm: false });
     setSuspiciousFlags([]); // Reset flag
     setStepTimes([]); // Reset czasów
@@ -274,6 +276,11 @@ const DebtCalculatorBeta = () => {
     if (!hasUsedCalculator) {
       const newValue = formatNumber(e.target.value);
       setIncome(newValue);
+      
+      // Activate focus mode when user starts typing
+      if (newValue && !isInFocusMode) {
+        setIsInFocusMode(true);
+      }
       
       // Wykrywanie podejrzanych zachowań
       const flags = detectSuspiciousBehavior(newValue, 'dochód');
@@ -636,14 +643,23 @@ const DebtCalculatorBeta = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col">
-      <div className="grid grid-cols-1 gap-6 items-start h-full">
+    <div className={`w-full h-full flex flex-col transition-all duration-500 ${
+      isInFocusMode ? 'relative z-10' : ''
+    }`}>
+      {/* Focus mode overlay */}
+      {isInFocusMode && (
+        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-0 transition-all duration-500" />
+      )}
+      
+      <div className="grid grid-cols-1 gap-6 items-start h-full relative z-10">
         {result.showForm ? (
           <div className="animate-fade-in h-full">
             <QuickRegistrationForm calculatorData={{ income, paydayDebt, bankDebt }} />
           </div>
         ) : (
-          <div className="bg-white rounded-2xl shadow-xl border-0 p-4 sm:p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[700px] w-full">
+          <div className={`bg-white rounded-2xl shadow-xl border-0 p-4 sm:p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[700px] w-full transition-all duration-500 ${
+            isInFocusMode ? 'scale-105 shadow-2xl ring-4 ring-prestige-gold-400/30' : ''
+          }`}>
             <div>
               {/* Header z większymi elementami */}
               <div className="text-center mb-4 sm:mb-6">
