@@ -9,7 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 
 const DebtCalculatorBeta = () => {
   const [income, setIncome] = useState('');
-  const [incomeType, setIncomeType] = useState('umowa_o_prace'); 
+  const [incomeType, setIncomeType] = useState(''); 
   const [paydayDebt, setPaydayDebt] = useState('');
   const [bankDebt, setBankDebt] = useState('');
   const [currentStep, setCurrentStep] = useState(1);
@@ -50,7 +50,7 @@ const DebtCalculatorBeta = () => {
     
     // Zresetuj wszystkie stany
     setIncome('');
-    setIncomeType('umowa_o_prace');
+    setIncomeType('');
     setPaydayDebt('');
     setBankDebt('');
     setCurrentStep(1);
@@ -412,14 +412,16 @@ const DebtCalculatorBeta = () => {
             {/* Duży przycisk */}
             <Button 
               onClick={goToNextStep} 
-              disabled={!income || parsePLN(income) < 3000} 
+              disabled={!income || parsePLN(income) < 3000 || !incomeType}
               className={`w-full h-16 text-lg font-bold rounded-xl transition-all duration-300 ${
-                income && parsePLN(income) >= 3000
+                income && parsePLN(income) >= 3000 && incomeType
                   ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 border-0'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}
             >
-              {income && parsePLN(income) < 3000 
+              {!incomeType && income && parsePLN(income) >= 3000
+                ? '⚡ Wybierz rodzaj dochodu' 
+                : income && parsePLN(income) < 3000 
                 ? '⚠️ Minimum 3000 PLN' 
                 : '✅ Dalej →'
               }
