@@ -368,6 +368,47 @@ const DebtCalculatorBeta = () => {
               </div>
             </div>
 
+            {/* Szybki wybór typu dochodu */}
+            {income && parsePLN(income) >= 3000 && (
+              <div className="mb-6 animate-fade-in">
+                <p className="text-navy-700 font-medium mb-3 text-sm">
+                  ⚡ Potwierdź rodzaj dochodu:
+                </p>
+                <div className="flex flex-wrap gap-2 justify-center">
+                  <button
+                    onClick={() => setIncomeType('umowa_o_prace')}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      incomeType === 'umowa_o_prace'
+                        ? 'bg-emerald-500 text-white shadow-md'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    💼 Umowa o pracę
+                  </button>
+                  <button
+                    onClick={() => setIncomeType('umowa_zlecenie')}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      incomeType === 'umowa_zlecenie'
+                        ? 'bg-emerald-500 text-white shadow-md'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    📋 Zlecenie/B2B
+                  </button>
+                  <button
+                    onClick={() => setIncomeType('inne')}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      incomeType === 'inne'
+                        ? 'bg-emerald-500 text-white shadow-md'
+                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    }`}
+                  >
+                    🏛️ Renta/inne
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* Duży przycisk */}
             <Button 
               onClick={goToNextStep} 
