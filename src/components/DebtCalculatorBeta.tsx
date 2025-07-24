@@ -744,21 +744,7 @@ const DebtCalculatorBeta = () => {
               {renderStepContent()}
             </div>
 
-            {/* Nawigacja z większymi przyciskami */}
-            {!hasUsedCalculator && currentStep > 1 && currentStep < 4 && (
-              <div className="flex justify-between items-center mt-6 sm:mt-8">
-                <Button
-                  variant="outline"
-                  onClick={goToPrevStep}
-                  className="flex items-center h-12 sm:h-14 px-4 sm:px-6 text-base font-medium border-2 hover:bg-gray-50"
-                >
-                  ← Cofnij
-                </Button>
-                <div className="text-base sm:text-lg font-bold text-navy-900">
-                  {currentStep} / {totalSteps}
-                </div>
-              </div>
-            )}
+            {/* Removed back navigation - better UX without it */}
 
             {/* Wynik z większymi elementami */}
             {result.message && (
