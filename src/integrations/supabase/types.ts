@@ -74,25 +74,31 @@ export type Database = {
         Row: {
           created_at: string
           debt_amount: number | null
+          health_check_score: number | null
           id: string
           income: number
           income_type: string | null
+          qualified: boolean | null
           session_id: string
         }
         Insert: {
           created_at?: string
           debt_amount?: number | null
+          health_check_score?: number | null
           id?: string
           income: number
           income_type?: string | null
+          qualified?: boolean | null
           session_id: string
         }
         Update: {
           created_at?: string
           debt_amount?: number | null
+          health_check_score?: number | null
           id?: string
           income?: number
           income_type?: string | null
+          qualified?: boolean | null
           session_id?: string
         }
         Relationships: []
