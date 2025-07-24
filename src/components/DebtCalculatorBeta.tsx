@@ -672,29 +672,15 @@ const DebtCalculatorBeta = () => {
                     <Calculator className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                   </div>
                 </div>
-                <div className="bg-white/80 backdrop-blur-sm rounded-xl border border-warm-neutral-200 shadow-lg p-4 mb-2">
-                  <table className="w-full">
-                    <thead>
-                      <tr>
-                        <th className="text-xl sm:text-2xl font-bold text-navy-900 pb-1">
-                          Kalkulator Oddłużania
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="text-sm text-prestige-gold-600 font-semibold pb-1">
-                          W 30 sekund powiemy ci czy możemy pomóc!
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="text-sm text-warm-neutral-600">
-                          Krok {currentStep} z {totalSteps}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <h2 className="text-xl sm:text-2xl font-bold text-navy-900 mb-1">
+                  Kalkulator Oddłużania
+                </h2>
+                <p className="text-sm text-prestige-gold-600 font-semibold mb-1">
+                  W 30 sekund powiemy ci czy możemy pomóc!
+                </p>
+                <p className="text-sm text-warm-neutral-600">
+                  Krok {currentStep} z {totalSteps}
+                </p>
               </div>
 
               {/* Progress bar z większymi elementami */}
