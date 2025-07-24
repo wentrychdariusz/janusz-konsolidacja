@@ -317,28 +317,80 @@ const DebtCalculatorBeta = () => {
     switch (currentStep) {
       case 1:
         return (
-          <div className="text-center animate-fade-in">
-            <div className="mb-6">
-              <div className="w-16 h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl">💰</span>
+          <div className="text-center animate-fade-in w-full max-w-md mx-auto">
+            {/* Większy header z migającą ikoną */}
+            <div className="mb-8">
+              <div className="relative w-20 h-20 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <span className="text-white text-3xl">💰</span>
+                {/* Migająca ikona wskazująca */}
+                <div className="absolute -top-2 -right-2 animate-bounce">
+                  <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center shadow-lg">
+                    <span className="text-xs">👆</span>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-navy-900 mb-2">Jaki jest Twój dochód?</h3>
-              <p className="text-warm-neutral-600">Podaj miesięczny dochód netto</p>
+              <h3 className="text-2xl sm:text-3xl font-bold text-navy-900 mb-3">
+                Jaki jest Twój dochód?
+              </h3>
+              <p className="text-base sm:text-lg text-warm-neutral-600 font-medium">
+                Podaj miesięczny dochód netto
+              </p>
             </div>
-            <div className="relative">
-              <Input
-                type="text"
-                value={income}
-                onChange={handleIncomeChange}
-                placeholder="4 000"
-                className="pr-12 text-right h-16 text-xl text-center"
-                autoFocus
-              />
-              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">PLN</span>
+
+            {/* Duże pole input z lepszą widocznością */}
+            <div className="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-2xl border-2 border-blue-200 mb-6 shadow-lg">
+              <div className="relative">
+                <Input
+                  type="text"
+                  value={income}
+                  onChange={handleIncomeChange}
+                  placeholder="4 000"
+                  className="pr-16 text-center h-20 text-2xl sm:text-3xl font-bold border-3 border-blue-300 focus:border-blue-500 rounded-xl shadow-inner"
+                  autoFocus
+                />
+                <span className="absolute right-6 top-1/2 transform -translate-y-1/2 text-blue-600 text-xl font-bold">
+                  PLN
+                </span>
+                {/* Migająca animacja dla pustego pola */}
+                {!income && (
+                  <div className="absolute inset-0 rounded-xl animate-pulse border-2 border-yellow-400 pointer-events-none"></div>
+                )}
+              </div>
+              
+              {/* Wskazówka pod polem */}
+              <div className="mt-4 flex items-center justify-center space-x-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <p className="text-sm text-navy-700 font-medium">
+                  Wpisz swoją kwotę tutaj ⬆️
+                </p>
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              </div>
             </div>
-            <Button onClick={goToNextStep} disabled={!income || parsePLN(income) < 3000} className="mt-4 w-full h-12 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white">
-              Dalej →
+
+            {/* Duży przycisk */}
+            <Button 
+              onClick={goToNextStep} 
+              disabled={!income || parsePLN(income) < 3000} 
+              className={`w-full h-16 text-lg font-bold rounded-xl transition-all duration-300 ${
+                income && parsePLN(income) >= 3000
+                  ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white shadow-lg hover:shadow-xl transform hover:scale-105'
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
+            >
+              {income && parsePLN(income) < 3000 
+                ? '⚠️ Minimum 3000 PLN' 
+                : '✅ Dalej →'
+              }
             </Button>
+
+            {/* Komunikat o minimum */}
+            {income && parsePLN(income) < 3000 && (
+              <div className="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl animate-fade-in">
+                <p className="text-red-700 font-medium text-sm">
+                  ⚠️ Przy dochodzie poniżej 3000 PLN nie możemy pomóc z oddłużeniem
+                </p>
+              </div>
+            )}
           </div>
         );
 
@@ -596,22 +648,10 @@ const DebtCalculatorBeta = () => {
                         Dariusz Wentrych
                       </div>
                       <div className="text-sm sm:text-base text-navy-700 font-semibold">
-                        Ekspert w oddłużeniu • 20+ lat
+                        Ekspert w oddłużeniu • 20+ lat doświadczenia
                       </div>
-                      <div className="flex items-center mt-1 sm:mt-2">
-                        <div className="flex -space-x-1">
-                          <Avatar className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-prestige-gold-400">
-                            <AvatarImage src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png" className="object-cover" />
-                            <AvatarFallback className="text-xs">KZ</AvatarFallback>
-                          </Avatar>
-                          <Avatar className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-prestige-gold-400">
-                            <AvatarImage src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png" className="object-cover" />
-                            <AvatarFallback className="text-xs">MK</AvatarFallback>
-                          </Avatar>
-                        </div>
-                        <span className="text-xs sm:text-sm text-navy-600 ml-2 font-medium">
-                          15.000+ klientów
-                        </span>
+                      <div className="text-xs sm:text-sm text-navy-600 mt-1 font-medium">
+                        15.000+ zadowolonych klientów
                       </div>
                     </div>
                   </div>
