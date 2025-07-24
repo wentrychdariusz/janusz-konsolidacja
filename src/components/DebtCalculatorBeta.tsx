@@ -602,7 +602,8 @@ const DebtCalculatorBeta = () => {
             </div>
             <div className="bg-green-50 border-2 border-green-400 rounded-xl p-4 mt-4">
               <p className="text-green-800 font-bold text-lg">
-                💡 Wpisz 0 jeśli nie masz kredytów bankowych
+                💡 Wpisz 0 jeśli nie masz kredytów bankowych<br/>
+                lub wciśnij przycisk "Nie mam kredytów bankowych"
               </p>
             </div>
             
