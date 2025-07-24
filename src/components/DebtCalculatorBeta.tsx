@@ -567,44 +567,25 @@ const DebtCalculatorBeta = () => {
               </div>
 
               {/* Sekcja z Dariuszem - większa i bardziej widoczna */}
-              <div className="text-center mb-6 sm:mb-8 bg-gradient-to-r from-navy-50 via-business-blue-50 to-prestige-gold-50 rounded-xl p-4 sm:p-6 border-2 border-prestige-gold-200 shadow-lg">
-                <div className="flex justify-center items-center mb-3 sm:mb-4">
-                  <div className="flex items-center space-x-3 sm:space-x-4">
-                    <div className="relative">
-                      <img 
-                        src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                        alt="Dariusz Wentrych"
-                        className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-3 border-prestige-gold-400 object-cover shadow-lg"
-                      />
-                      {/* Badge ekspert */}
-                      <div className="absolute -bottom-1 -right-1 bg-prestige-gold-500 rounded-full p-1 sm:p-1.5">
-                        <Star className="w-3 h-3 sm:w-4 sm:h-4 text-white fill-white" />
-                      </div>
-                    </div>
-                    <div className="text-left">
-                      <div className="text-base sm:text-lg lg:text-xl font-bold text-navy-900">
-                        Dariusz Wentrych
-                      </div>
-                      <div className="text-sm sm:text-base text-navy-700 font-semibold">
-                        Ekspert w oddłużeniu • 20+ lat doświadczenia
-                      </div>
-                      <div className="text-xs sm:text-sm text-navy-600 mt-1 font-medium">
-                        15.000+ zadowolonych klientów
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Komunikat motywacyjny */}
-                <div className="bg-white rounded-lg p-3 sm:p-4 border border-prestige-gold-300">
-                  <p className="text-sm sm:text-base text-navy-800 font-semibold">
-                    💪 "Pomogłem już tysiącom Polaków wyjść z długów"
-                  </p>
-                  <p className="text-xs sm:text-sm text-navy-600 mt-1">
-                    Sprawdzę Twoją sytuację i zaproponuję najlepsze rozwiązanie
-                  </p>
-                </div>
-              </div>
+               <div className="text-center mb-4 bg-white rounded-lg p-3 border border-gray-200">
+                 <div className="flex justify-center items-center">
+                   <div className="flex items-center space-x-3">
+                     <img 
+                       src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                       alt="Dariusz Wentrych"
+                       className="w-10 h-10 rounded-full border-2 border-gray-300 object-cover"
+                     />
+                     <div className="text-left">
+                       <div className="text-sm font-semibold text-navy-900">
+                         Dariusz Wentrych
+                       </div>
+                       <div className="text-xs text-gray-600">
+                         Ekspert w oddłużeniu • 15.000+ klientów
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               </div>
             </div>
 
             {/* Główna zawartość z większymi paddingami */}
