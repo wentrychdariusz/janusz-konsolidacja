@@ -14,6 +14,12 @@ const DebtCalculatorBeta = () => {
   const [bankDebt, setBankDebt] = useState('');
   const [currentStep, setCurrentStep] = useState(1);
   const [hasUsedCalculator, setHasUsedCalculator] = useState(false);
+  
+  // Tracking podejrzanych zachowań
+  const [stepStartTime, setStepStartTime] = useState(Date.now());
+  const [stepTimes, setStepTimes] = useState<number[]>([]);
+  const [suspiciousFlags, setSuspiciousFlags] = useState<string[]>([]);
+  
   const [result, setResult] = useState<{
     message: string;
     type: 'positive' | 'warning' | 'negative' | null;
@@ -31,9 +37,43 @@ const DebtCalculatorBeta = () => {
     }
   }, []);
 
+  // Funkcje wykrywania podejrzanych zachowań
+  const detectSuspiciousBehavior = (value: string, fieldType: string) => {
+    const flags: string[] = [];
+    const num = parsePLN(value);
+    
+    // Wykrywanie zaokrąglonych kwot
+    if (num > 0 && num % 10000 === 0) {
+      flags.push(`${fieldType}: Zaokrąglona kwota (${value})`);
+    }
+    if (num > 0 && num % 5000 === 0 && num < 100000) {
+      flags.push(`${fieldType}: Bardzo zaokrąglona kwota (${value})`);
+    }
+    
+    // Wykrywanie nierealistycznych kwot
+    if (fieldType === 'dochód' && num > 50000) {
+      flags.push(`${fieldType}: Bardzo wysoki dochód (${value})`);
+    }
+    
+    return flags;
+  };
+
+  const trackStepCompletion = () => {
+    const timeSpent = Date.now() - stepStartTime;
+    setStepTimes(prev => [...prev, timeSpent]);
+    
+    // Zbyt szybkie wypełnianie (mniej niż 3 sekundy na krok)
+    if (timeSpent < 3000) {
+      setSuspiciousFlags(prev => [...prev, `Krok ${currentStep}: Zbyt szybko (${timeSpent}ms)`]);
+    }
+    
+    setStepStartTime(Date.now());
+  };
+
   // Auto-przejście do następnego kroku
   const goToNextStep = () => {
     if (currentStep < totalSteps && !hasUsedCalculator) {
+      trackStepCompletion();
       setCurrentStep(prev => prev + 1);
     }
   };
@@ -206,7 +246,15 @@ const DebtCalculatorBeta = () => {
 
   const handleIncomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
-      setIncome(formatNumber(e.target.value));
+      const newValue = formatNumber(e.target.value);
+      setIncome(newValue);
+      
+      // Wykrywanie podejrzanych zachowań
+      const flags = detectSuspiciousBehavior(newValue, 'dochód');
+      if (flags.length > 0) {
+        setSuspiciousFlags(prev => [...prev, ...flags]);
+        console.log('🚨 Podejrzane zachowanie:', flags);
+      }
     }
   };
 
@@ -217,14 +265,35 @@ const DebtCalculatorBeta = () => {
 
   const handlePaydayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
-      setPaydayDebt(formatNumber(e.target.value));
+      const newValue = formatNumber(e.target.value);
+      setPaydayDebt(newValue);
+      
+      // Wykrywanie podejrzanych zachowań
+      const flags = detectSuspiciousBehavior(newValue, 'chwilówki');
+      if (flags.length > 0) {
+        setSuspiciousFlags(prev => [...prev, ...flags]);
+        console.log('🚨 Podejrzane zachowanie:', flags);
+      }
     }
   };
 
   const handleBankChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
-      setBankDebt(formatNumber(e.target.value));
+      const newValue = formatNumber(e.target.value);
+      setBankDebt(newValue);
+      
+      // Wykrywanie podejrzanych zachowań
+      const flags = detectSuspiciousBehavior(newValue, 'kredyty bankowe');
+      if (flags.length > 0) {
+        setSuspiciousFlags(prev => [...prev, ...flags]);
+        console.log('🚨 Podejrzane zachowanie:', flags);
+      }
     }
+  };
+
+  const setNoBankDebt = () => {
+    setBankDebt('0');
+    setTimeout(() => calculate(), 100);
   };
 
 
@@ -511,9 +580,21 @@ const DebtCalculatorBeta = () => {
               </p>
             </div>
             
+            {/* Przycisk szybkiego wyboru "Nie mam kredytów" */}
+            <div className="mt-4 flex flex-col sm:flex-row gap-3">
+              <Button 
+                onClick={setNoBankDebt}
+                variant="outline"
+                className="flex-1 h-12 text-base font-semibold border-2 border-green-400 text-green-700 hover:bg-green-50 hover:border-green-500"
+              >
+                ✅ Nie mam kredytów bankowych
+              </Button>
+            </div>
+            
             {/* Duży przycisk analizy */}
             <Button 
               onClick={calculate} 
+              disabled={!bankDebt && bankDebt !== '0'}
               className="w-full font-bold py-5 text-lg rounded-xl h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 mt-4"
             >
               <Calculator className="w-6 h-6 mr-3" />
