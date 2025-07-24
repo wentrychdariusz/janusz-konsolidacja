@@ -12,11 +12,7 @@ const FinancialHealthCheck = () => {
   const [answers, setAnswers] = useState({
     income: '',
     incomeType: '',
-    expenses: '',
-    savings: '',
-    debts: '',
-    debtTypes: '',
-    creditScore: ''
+    debts: ''
   });
   const [hasCompleted, setHasCompleted] = useState(false);
   const [finalResult, setFinalResult] = useState<{
@@ -26,7 +22,7 @@ const FinancialHealthCheck = () => {
     message: string;
   } | null>(null);
 
-  const totalSteps = 7;
+  const totalSteps = 3;
 
   // Sprawdź czy test był już robiony
   useEffect(() => {
@@ -60,35 +56,21 @@ const FinancialHealthCheck = () => {
   const calculateHealthScore = (allAnswers: any) => {
     const income = parsePLN(allAnswers.income);
     const debts = parsePLN(allAnswers.debts) || 0;
-    const expenses = parsePLN(allAnswers.expenses) || 0;
-    const savings = parsePLN(allAnswers.savings) || 0;
 
     let score = 0;
 
-    // 1. Dochód (0-25 pkt) - wyższy dochód = więcej punktów
-    if (income >= 6000) score += 25;
-    else if (income >= 4000) score += 20;
-    else if (income >= 3000) score += 15;
-    else score += 5;
+    // 1. Dochód (0-40 pkt) - najważniejszy parametr
+    if (income >= 6000) score += 40;
+    else if (income >= 4000) score += 35;
+    else if (income >= 3000) score += 25;
+    else score += 10;
 
-    // 2. Typ dochodu (0-15 pkt) - stabilność
-    if (allAnswers.incomeType === 'umowa_o_prace') score += 15;
-    else if (allAnswers.incomeType === 'umowa_zlecenie') score += 10;
-    else score += 5;
+    // 2. Typ dochodu (0-20 pkt) - stabilność zatrudnienia
+    if (allAnswers.incomeType === 'umowa_o_prace') score += 20;
+    else if (allAnswers.incomeType === 'umowa_zlecenie') score += 15;
+    else score += 10;
 
-    // 3. Wydatki vs dochód (0-15 pkt)
-    const expenseRatio = expenses / income;
-    if (expenseRatio <= 0.6) score += 15;
-    else if (expenseRatio <= 0.8) score += 10;
-    else score += 5;
-
-    // 4. Oszczędności (0-10 pkt)
-    const savingsMonths = savings / income;
-    if (savingsMonths >= 6) score += 10;
-    else if (savingsMonths >= 3) score += 7;
-    else if (savingsMonths >= 1) score += 5;
-
-    // 5. Algorytm oddłużenia - główny wskaźnik kwalifikacji (0-30 pkt)
+    // 3. Algorytm oddłużenia - główny wskaźnik kwalifikacji (0-40 pkt)
     if (debts > 0) {
       // Modyfikacja limitów w zależności od typu dochodu
       let nbLim = nonBankLimit(income) + MARGIN;
@@ -108,31 +90,21 @@ const FinancialHealthCheck = () => {
           break;
       }
 
-      // Tylko chwilówki/parabanki
-      const paydayDebt = allAnswers.debtTypes === 'chwilowki' ? debts : 0;
-      // Kredyty bankowe
-      const bankDebt = allAnswers.debtTypes === 'bankowe' ? debts : 0;
+      // Zakładamy że długi to głównie chwilówki (najgorszy scenariusz)
+      const paydayDebt = debts;
       
       if (paydayDebt > nbLim) {
         score += 0; // Nie można pomóc
+      } else if (paydayDebt <= baseLim) {
+        score += 40; // Idealna sytuacja - możemy pomóc
+      } else if (paydayDebt <= maxLim) {
+        score += 25; // Można pomóc z ograniczeniami
       } else {
-        const totalDebt = paydayDebt + bankDebt;
-        if (totalDebt <= baseLim) {
-          score += 30; // Idealna sytuacja
-        } else if (totalDebt <= maxLim) {
-          score += 20; // Można pomóc z ograniczeniami
-        } else {
-          score += 5; // Trudny przypadek
-        }
+        score += 10; // Trudny przypadek
       }
     } else {
-      score += 25; // Brak długów to duży plus
+      score += 35; // Brak długów to duży plus, ale nie maksimum
     }
-
-    // 6. Typ długów (0-5 pkt)
-    if (allAnswers.debtTypes === 'brak') score += 5;
-    else if (allAnswers.debtTypes === 'bankowe') score += 3;
-    else if (allAnswers.debtTypes === 'chwilowki') score += 0;
 
     return Math.min(score, 100);
   };
@@ -157,7 +129,7 @@ const FinancialHealthCheck = () => {
   };
 
   const getStepKey = (step: number) => {
-    const keys = ['income', 'incomeType', 'expenses', 'savings', 'debts', 'debtTypes', 'creditScore'];
+    const keys = ['income', 'incomeType', 'debts'];
     return keys[step - 1];
   };
 
@@ -185,12 +157,11 @@ const FinancialHealthCheck = () => {
           break;
       }
       
-      const paydayDebt = finalAnswers.debtTypes === 'chwilowki' ? debts : 0;
-      const bankDebt = finalAnswers.debtTypes === 'bankowe' ? debts : 0;
-      const totalDebt = paydayDebt + bankDebt;
+      // Zakładamy że długi to głównie chwilówki (najgorszy scenariusz dla kwalifikacji)
+      const paydayDebt = debts;
       
-      // Kwalifikacja jeśli możemy pomóc
-      qualified = paydayDebt <= nbLim && totalDebt <= baseLim;
+      // Kwalifikacja jeśli możemy pomóc z chwilówkami
+      qualified = paydayDebt <= nbLim;
     } else {
       // Brak długów - automatyczna kwalifikacja jeśli dochód > 3000
       qualified = income >= 3000;
@@ -260,11 +231,7 @@ const FinancialHealthCheck = () => {
     setAnswers({
       income: '',
       incomeType: '',
-      expenses: '',
-      savings: '',
-      debts: '',
-      debtTypes: '',
-      creditScore: ''
+      debts: ''
     });
     setFinalResult(null);
   };
@@ -427,20 +394,20 @@ const FinancialHealthCheck = () => {
         return (
           <div className="text-center animate-fade-in">
             <div className="mb-6">
-              <div className="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl">🛒</span>
+              <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">⚡</span>
               </div>
-              <h3 className="text-xl font-bold text-navy-900 mb-2">Miesięczne wydatki</h3>
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Twoje długi (chwilówki/parabanki)</h3>
               <p className="text-warm-neutral-600">
-                Niższe wydatki = lepsza kondycja
+                To decyduje o możliwości pomocy
               </p>
             </div>
             <div className="relative">
               <Input
                 type="text"
-                value={answers.expenses}
-                onChange={(e) => setAnswers({...answers, expenses: formatNumber(e.target.value)})}
-                placeholder="3 000"
+                value={answers.debts}
+                onChange={(e) => setAnswers({...answers, debts: formatNumber(e.target.value)})}
+                placeholder="0"
                 className="pr-12 text-right h-16 text-xl text-center"
                 autoFocus
               />
@@ -448,12 +415,14 @@ const FinancialHealthCheck = () => {
                 PLN
               </span>
             </div>
+            <p className="text-warm-neutral-500 text-sm mt-2">
+              Wpisz 0 jeśli nie masz długów
+            </p>
             <Button 
-              onClick={() => handleAnswer(answers.expenses)} 
-              disabled={!answers.expenses}
-              className="mt-4 w-full h-12 bg-gradient-to-r from-yellow-500 to-orange-500 text-white"
+              onClick={() => handleAnswer(answers.debts)} 
+              className="mt-4 w-full h-12 bg-gradient-to-r from-red-500 to-orange-500 text-white"
             >
-              Dalej →
+              Sprawdź wynik →
             </Button>
           </div>
         );
