@@ -12,27 +12,37 @@ const DebtCalculatorBeta = () => {
   const [incomeType, setIncomeType] = useState('');
   const [paydayDebt, setPaydayDebt] = useState('');
   const [bankDebt, setBankDebt] = useState('');
+  const [currentStep, setCurrentStep] = useState(1);
   const [hasUsedCalculator, setHasUsedCalculator] = useState(false);
-  const [showIncomeTypeSelect, setShowIncomeTypeSelect] = useState(false);
   const [result, setResult] = useState<{
     message: string;
     type: 'positive' | 'warning' | 'negative' | null;
     showForm: boolean;
   }>({ message: '', type: null, showForm: false });
 
+  const totalSteps = 5;
+
   // Sprawdź czy kalkulator był już używany
   useEffect(() => {
     const calculatorUsed = localStorage.getItem('debt_calculator_beta_used');
     if (calculatorUsed === 'true') {
       setHasUsedCalculator(true);
+      setCurrentStep(6); // Pokaż końcowy ekran
     }
   }, []);
 
-  // Pokaż wybór typu dochodu gdy dochód > 0
-  useEffect(() => {
-    const incomeVal = parsePLN(income);
-    setShowIncomeTypeSelect(incomeVal > 0 && !hasUsedCalculator);
-  }, [income, hasUsedCalculator]);
+  // Auto-przejście do następnego kroku
+  const goToNextStep = () => {
+    if (currentStep < totalSteps && !hasUsedCalculator) {
+      setCurrentStep(prev => prev + 1);
+    }
+  };
+
+  const goToPrevStep = () => {
+    if (currentStep > 1 && !hasUsedCalculator) {
+      setCurrentStep(prev => prev - 1);
+    }
+  };
 
   // Stałe z oryginalnego kalkulatora
   const MARGIN = 10000;
@@ -180,23 +190,39 @@ const DebtCalculatorBeta = () => {
 
   const handleIncomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
-      setIncome(formatNumber(e.target.value));
-      // Reset typu dochodu gdy zmienia się kwota
-      if (formatNumber(e.target.value) === '') {
-        setIncomeType('');
+      const newValue = formatNumber(e.target.value);
+      setIncome(newValue);
+      // Auto przejście do następnego kroku gdy wpisana kwota > 0
+      if (newValue && parsePLN(newValue) >= 1000 && currentStep === 1) {
+        setTimeout(goToNextStep, 500);
       }
     }
   };
 
+  const handleIncomeTypeSelect = (type: string) => {
+    setIncomeType(type);
+    setTimeout(goToNextStep, 300);
+  };
+
   const handlePaydayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
-      setPaydayDebt(formatNumber(e.target.value));
+      const newValue = formatNumber(e.target.value);
+      setPaydayDebt(newValue);
+      // Auto przejście gdy wpisana kwota
+      if (newValue && parsePLN(newValue) > 0 && currentStep === 3) {
+        setTimeout(goToNextStep, 500);
+      }
     }
   };
 
   const handleBankChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
-      setBankDebt(formatNumber(e.target.value));
+      const newValue = formatNumber(e.target.value);
+      setBankDebt(newValue);
+      // Auto przejście gdy wpisana kwota (może być 0)
+      if (currentStep === 4) {
+        setTimeout(goToNextStep, 500);
+      }
     }
   };
 
@@ -239,280 +265,345 @@ const DebtCalculatorBeta = () => {
     }
   };
 
+  const renderProgressBar = () => (
+    <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
+      <div 
+        className="bg-gradient-to-r from-navy-900 to-business-blue-600 h-2 rounded-full transition-all duration-300"
+        style={{ width: `${(currentStep / totalSteps) * 100}%` }}
+      />
+    </div>
+  );
+
+  const renderStepContent = () => {
+    if (hasUsedCalculator) {
+      return (
+        <div className="text-center animate-fade-in">
+          <div className="mb-6">
+            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Calculator className="w-8 h-8 text-gray-400" />
+            </div>
+            <h3 className="text-xl font-bold text-navy-900 mb-2">Kalkulator wykorzystany</h3>
+            <p className="text-warm-neutral-600">
+              Kalkulator może być użyty tylko raz
+            </p>
+          </div>
+          <div className="p-4 rounded-xl border-2 bg-blue-50 border-blue-200 text-blue-700">
+            <p className="font-medium">
+              📞 Masz pytania? Zadzwoń: <strong>+48 663 024 522</strong>
+            </p>
+          </div>
+        </div>
+      );
+    }
+
+    switch (currentStep) {
+      case 1:
+        return (
+          <div className="text-center animate-fade-in">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">💰</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Jaki jest Twój dochód?</h3>
+              <p className="text-warm-neutral-600">
+                Podaj miesięczny dochód netto
+              </p>
+            </div>
+            <div className="relative">
+              <Input
+                type="text"
+                value={income}
+                onChange={handleIncomeChange}
+                placeholder="4 000"
+                className="pr-12 text-right h-16 text-xl text-center"
+                autoFocus
+              />
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">
+                PLN
+              </span>
+            </div>
+            {income && parsePLN(income) < 3000 && (
+              <p className="text-red-600 text-sm mt-2">
+                ⚠️ Minimalna kwota to 3000 PLN
+              </p>
+            )}
+          </div>
+        );
+
+      case 2:
+        return (
+          <div className="text-center animate-fade-in">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">💼</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Rodzaj dochodu</h3>
+              <p className="text-warm-neutral-600">
+                Wybierz źródło swojego dochodu
+              </p>
+            </div>
+            <div className="space-y-3">
+              <Button
+                type="button"
+                variant={incomeType === 'umowa_o_prace' ? 'default' : 'outline'}
+                onClick={() => handleIncomeTypeSelect('umowa_o_prace')}
+                className={`h-16 w-full text-left justify-start p-4 text-base ${
+                  incomeType === 'umowa_o_prace' 
+                    ? 'bg-gradient-to-r from-navy-900 to-business-blue-600 text-white' 
+                    : 'hover:bg-blue-50 border-2'
+                }`}
+              >
+                <div className="flex items-center w-full">
+                  <div className="text-2xl mr-4">💼</div>
+                  <div>
+                    <div className="font-semibold">Umowa o pracę</div>
+                    <div className={`text-sm ${incomeType === 'umowa_o_prace' ? 'text-blue-100' : 'text-gray-500'}`}>
+                      Stały miesięczny dochód
+                    </div>
+                  </div>
+                </div>
+              </Button>
+
+              <Button
+                type="button"
+                variant={incomeType === 'umowa_zlecenie' ? 'default' : 'outline'}
+                onClick={() => handleIncomeTypeSelect('umowa_zlecenie')}
+                className={`h-16 w-full text-left justify-start p-4 text-base ${
+                  incomeType === 'umowa_zlecenie' 
+                    ? 'bg-gradient-to-r from-navy-900 to-business-blue-600 text-white' 
+                    : 'hover:bg-blue-50 border-2'
+                }`}
+              >
+                <div className="flex items-center w-full">
+                  <div className="text-2xl mr-4">📋</div>
+                  <div>
+                    <div className="font-semibold">Umowa zlecenie</div>
+                    <div className={`text-sm ${incomeType === 'umowa_zlecenie' ? 'text-blue-100' : 'text-gray-500'}`}>
+                      Współpraca, B2B, freelance
+                    </div>
+                  </div>
+                </div>
+              </Button>
+
+              <Button
+                type="button"
+                variant={incomeType === 'inne' ? 'default' : 'outline'}
+                onClick={() => handleIncomeTypeSelect('inne')}
+                className={`h-16 w-full text-left justify-start p-4 text-base ${
+                  incomeType === 'inne' 
+                    ? 'bg-gradient-to-r from-navy-900 to-business-blue-600 text-white' 
+                    : 'hover:bg-blue-50 border-2'
+                }`}
+              >
+                <div className="flex items-center w-full">
+                  <div className="text-2xl mr-4">🏛️</div>
+                  <div>
+                    <div className="font-semibold">Inne źródła</div>
+                    <div className={`text-sm ${incomeType === 'inne' ? 'text-blue-100' : 'text-gray-500'}`}>
+                      Renta, emerytura, działalność
+                    </div>
+                  </div>
+                </div>
+              </Button>
+            </div>
+          </div>
+        );
+
+      case 3:
+        return (
+          <div className="text-center animate-fade-in">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">⚡</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Chwilówki i parabanki</h3>
+              <p className="text-warm-neutral-600">
+                Suma wszystkich chwilówek i pożyczek pozabankowych
+              </p>
+            </div>
+            <div className="relative">
+              <Input
+                type="text"
+                value={paydayDebt}
+                onChange={handlePaydayChange}
+                placeholder="70 000"
+                className="pr-12 text-right h-16 text-xl text-center"
+                autoFocus
+              />
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">
+                PLN
+              </span>
+            </div>
+            <p className="text-warm-neutral-500 text-sm mt-2">
+              Podaj dokładną kwotę - to kluczowe dla analizy
+            </p>
+          </div>
+        );
+
+      case 4:
+        return (
+          <div className="text-center animate-fade-in">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">🏦</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Kredyty bankowe</h3>
+              <p className="text-warm-neutral-600">
+                Suma wszystkich kredytów z banków (opcjonalne)
+              </p>
+            </div>
+            <div className="relative">
+              <Input
+                type="text"
+                value={bankDebt}
+                onChange={handleBankChange}
+                placeholder="0"
+                className="pr-12 text-right h-16 text-xl text-center"
+                autoFocus
+              />
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">
+                PLN
+              </span>
+            </div>
+            <p className="text-warm-neutral-500 text-sm mt-2">
+              Możesz wpisać 0 jeśli nie masz kredytów bankowych
+            </p>
+          </div>
+        );
+
+      case 5:
+        return (
+          <div className="text-center animate-fade-in">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Calculator className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Analiza gotowa!</h3>
+              <p className="text-warm-neutral-600 mb-6">
+                Kliknij aby sprawdzić czy możemy Ci pomóc
+              </p>
+            </div>
+            
+            <div className="bg-gray-50 rounded-lg p-4 mb-6 text-left space-y-2">
+              <div className="flex justify-between">
+                <span className="text-gray-600">Dochód:</span>
+                <span className="font-semibold">{income} PLN</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Typ:</span>
+                <span className="font-semibold">{getIncomeTypeLabel(incomeType)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Chwilówki:</span>
+                <span className="font-semibold text-red-600">{paydayDebt || '0'} PLN</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Kredyty:</span>
+                <span className="font-semibold">{bankDebt || '0'} PLN</span>
+              </div>
+            </div>
+
+            <Button
+              onClick={calculate}
+              className="w-full font-bold py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white"
+            >
+              <Calculator className="w-5 h-5 mr-2" />
+              Sprawdź czy Ci pomożemy
+            </Button>
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 items-start h-full">
-        {/* Formularz rejestracyjny - pokazuje się automatycznie po pozytywnym wyniku */}
+      <div className="grid grid-cols-1 gap-6 items-start h-full">
         {result.showForm ? (
           <div className="animate-fade-in h-full">
             <QuickRegistrationForm calculatorData={{ income, paydayDebt, bankDebt }} />
           </div>
         ) : (
-          <>
-            {/* Kalkulator BETA - nowa wersja z wyborem typu dochodu */}
-            <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
-              <div>
-                <div className="text-center mb-3 lg:mb-4">
-                  <div className="flex justify-center items-center mb-2 lg:mb-3">
-                    <div className="bg-gradient-to-r from-navy-900 to-business-blue-600 p-2 lg:p-3 rounded-full">
-                      <Calculator className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
-                    </div>
-                  </div>
-                  <h2 className="text-lg lg:text-xl xl:text-2xl font-bold text-navy-900 mb-1 lg:mb-2">
-                    Kalkulator Oddłużania BETA
-                  </h2>
-                  <p className="text-warm-neutral-600 text-sm lg:text-base leading-relaxed">
-                    {hasUsedCalculator ? 
-                      "Kalkulator został już wykorzystany" : 
-                      "Sprawdź, czy możemy Ci pomóc w konsolidacji chwilówek"
-                    }
-                  </p>
-                </div>
-
-                {/* Sekcja z Dariuszem i zespołem */}
-                <div className="text-center mb-3 lg:mb-4 bg-gradient-to-r from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 rounded-xl p-2 lg:p-3 border border-warm-neutral-200">
-                  <div className="flex justify-center items-center mb-1 lg:mb-2">
-                    <div className="flex items-center space-x-1">
-                      <img 
-                        src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                        alt="Dariusz Wentrych"
-                        className="w-8 h-8 lg:w-10 lg:h-10 rounded-full overflow-hidden border-2 border-prestige-gold-400 shadow-md object-cover"
-                      />
-                      
-                      <Plus className="w-1.5 h-1.5 lg:w-2 lg:h-2 text-prestige-gold-400" />
-                      
-                      <div className="flex items-center space-x-0.5">
-                        <Avatar className="w-5 h-5 lg:w-6 lg:h-6 border-2 border-prestige-gold-400">
-                          <AvatarImage 
-                            src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
-                            alt="Członek zespołu"
-                            className="object-cover"
-                          />
-                          <AvatarFallback className="text-xs">KZ</AvatarFallback>
-                        </Avatar>
-                        <Avatar className="w-5 h-5 lg:w-6 lg:h-6 border-2 border-prestige-gold-400">
-                          <AvatarImage 
-                            src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
-                            alt="Członek zespołu"
-                            className="object-cover"
-                          />
-                          <AvatarFallback className="text-xs">MK</AvatarFallback>
-                        </Avatar>
-                        <Avatar className="w-5 h-5 lg:w-6 lg:h-6 border-2 border-prestige-gold-400">
-                          <AvatarImage 
-                            src="/lovable-uploads/73083e2d-4631-4f25-abd0-a482d29bb838.png"
-                            alt="Członek zespołu"
-                            className="object-cover"
-                          />
-                          <AvatarFallback className="text-xs">AS</AvatarFallback>
-                        </Avatar>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mb-1">
-                    <h3 className="text-xs lg:text-sm font-semibold text-navy-800">Eksperci w oddłużeniu</h3>
-                    <p className="text-xs text-warm-neutral-600">20+ lat doświadczenia</p>
+          <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
+            <div>
+              <div className="text-center mb-6">
+                <div className="flex justify-center items-center mb-4">
+                  <div className="bg-gradient-to-r from-navy-900 to-business-blue-600 p-3 rounded-full">
+                    <Calculator className="w-8 h-8 text-white" />
                   </div>
                 </div>
-
-                {/* Informacja BETA */}
-                {!hasUsedCalculator && (
-                  <div className="mt-3 mb-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-300 rounded-xl shadow-md">
-                    <div className="flex items-center justify-center">
-                      <div className="bg-blue-100 p-2 rounded-full mr-3">
-                        <Star className="w-5 h-5 text-blue-600" />
-                      </div>
-                      <div className="text-center">
-                        <p className="text-blue-800 text-sm font-bold">
-                          🚀 Wersja BETA - Rozszerzona analiza typu dochodu
-                        </p>
-                        <p className="text-blue-700 text-xs mt-1">
-                          Dokładniejsza ocena Twojej sytuacji finansowej
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                <h2 className="text-2xl font-bold text-navy-900 mb-2">
+                  Kalkulator Oddłużania BETA
+                </h2>
+                <p className="text-warm-neutral-600">
+                  Krok {currentStep} z {totalSteps}
+                </p>
               </div>
 
-              <div className="space-y-3 lg:space-y-4">
-                <div>
-                  <Label htmlFor="income" className="text-navy-800 font-medium text-sm lg:text-base">
-                    Twój dochód netto miesięczny
-                  </Label>
-                  <div className="relative mt-2">
-                    <Input
-                      id="income"
-                      type="text"
-                      value={income}
-                      onChange={handleIncomeChange}
-                      placeholder="4 000"
-                      disabled={hasUsedCalculator}
-                      className={`pr-12 text-right h-12 lg:h-14 text-base lg:text-lg ${hasUsedCalculator ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+              {renderProgressBar()}
+
+              {/* Sekcja z Dariuszem - mniejsza */}
+              <div className="text-center mb-6 bg-gradient-to-r from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 rounded-xl p-3 border border-warm-neutral-200">
+                <div className="flex justify-center items-center mb-2">
+                  <div className="flex items-center space-x-1">
+                    <img 
+                      src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                      alt="Dariusz Wentrych"
+                      className="w-8 h-8 rounded-full border-2 border-prestige-gold-400 object-cover"
                     />
-                    <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-sm lg:text-base">
-                      PLN
-                    </span>
-                  </div>
-                </div>
-
-                {/* Wybór typu dochodu - mobilne przyciski */}
-                {showIncomeTypeSelect && (
-                  <div className="animate-fade-in">
-                    <Label className="text-navy-800 font-medium text-sm lg:text-base mb-3 block">
-                      Rodzaj Twojego dochodu
-                    </Label>
-                    <div className="grid grid-cols-1 gap-3">
-                      <Button
-                        type="button"
-                        variant={incomeType === 'umowa_o_prace' ? 'default' : 'outline'}
-                        onClick={() => setIncomeType('umowa_o_prace')}
-                        className={`h-16 w-full text-left justify-start p-4 text-base ${
-                          incomeType === 'umowa_o_prace' 
-                            ? 'bg-gradient-to-r from-navy-900 to-business-blue-600 text-white border-navy-900' 
-                            : 'hover:bg-blue-50 border-2 border-gray-300'
-                        }`}
-                      >
-                        <div className="flex items-center w-full">
-                          <div className="text-2xl mr-4">💼</div>
-                          <div>
-                            <div className="font-semibold">Umowa o pracę</div>
-                            <div className={`text-sm ${incomeType === 'umowa_o_prace' ? 'text-blue-100' : 'text-gray-500'}`}>
-                              Stały miesięczny dochód
-                            </div>
-                          </div>
-                        </div>
-                      </Button>
-
-                      <Button
-                        type="button"
-                        variant={incomeType === 'umowa_zlecenie' ? 'default' : 'outline'}
-                        onClick={() => setIncomeType('umowa_zlecenie')}
-                        className={`h-16 w-full text-left justify-start p-4 text-base ${
-                          incomeType === 'umowa_zlecenie' 
-                            ? 'bg-gradient-to-r from-navy-900 to-business-blue-600 text-white border-navy-900' 
-                            : 'hover:bg-blue-50 border-2 border-gray-300'
-                        }`}
-                      >
-                        <div className="flex items-center w-full">
-                          <div className="text-2xl mr-4">📋</div>
-                          <div>
-                            <div className="font-semibold">Umowa zlecenie</div>
-                            <div className={`text-sm ${incomeType === 'umowa_zlecenie' ? 'text-blue-100' : 'text-gray-500'}`}>
-                              Współpraca, B2B, freelance
-                            </div>
-                          </div>
-                        </div>
-                      </Button>
-
-                      <Button
-                        type="button"
-                        variant={incomeType === 'inne' ? 'default' : 'outline'}
-                        onClick={() => setIncomeType('inne')}
-                        className={`h-16 w-full text-left justify-start p-4 text-base ${
-                          incomeType === 'inne' 
-                            ? 'bg-gradient-to-r from-navy-900 to-business-blue-600 text-white border-navy-900' 
-                            : 'hover:bg-blue-50 border-2 border-gray-300'
-                        }`}
-                      >
-                        <div className="flex items-center w-full">
-                          <div className="text-2xl mr-4">🏛️</div>
-                          <div>
-                            <div className="font-semibold">Inne źródła</div>
-                            <div className={`text-sm ${incomeType === 'inne' ? 'text-blue-100' : 'text-gray-500'}`}>
-                              Renta, emerytura, działalność
-                            </div>
-                          </div>
-                        </div>
-                      </Button>
-                    </div>
-                    
-                    {incomeType && (
-                      <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded-lg">
-                        <p className="text-sm text-green-700 font-medium">
-                          ✓ Wybrałeś: <strong>{getIncomeTypeLabel(incomeType)}</strong>
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                <div>
-                  <Label htmlFor="payday" className="text-navy-800 font-medium text-sm lg:text-base">
-                    Suma wszystkich chwilówek/parabanków
-                  </Label>
-                  <div className="relative mt-2">
-                    <Input
-                      id="payday"
-                      type="text"
-                      value={paydayDebt}
-                      onChange={handlePaydayChange}
-                      placeholder="70 000"
-                      disabled={hasUsedCalculator}
-                      className={`pr-12 text-right h-12 lg:h-14 text-base lg:text-lg ${hasUsedCalculator ? 'bg-gray-100 cursor-not-allowed' : ''}`}
-                    />
-                    <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-sm lg:text-base">
-                      PLN
-                    </span>
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="bank" className="text-navy-800 font-medium text-sm lg:text-base">
-                    Suma wszystkich kredytów bankowych
-                  </Label>
-                  <div className="relative mt-2">
-                    <Input
-                      id="bank"
-                      type="text"
-                      value={bankDebt}
-                      onChange={handleBankChange}
-                      placeholder="50 000"
-                      disabled={hasUsedCalculator}
-                      className={`pr-12 text-right h-12 lg:h-14 text-base lg:text-lg ${hasUsedCalculator ? 'bg-gray-100 cursor-not-allowed' : ''}`}
-                    />
-                    <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-sm lg:text-base">
-                      PLN
-                    </span>
-                  </div>
-                </div>
-
-                <Button
-                  onClick={calculate}
-                  disabled={hasUsedCalculator}
-                  className={`w-full font-bold py-4 lg:py-5 text-base lg:text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 h-14 lg:h-16 ${
-                    hasUsedCalculator 
-                      ? 'bg-gray-400 cursor-not-allowed' 
-                      : 'bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white'
-                  }`}
-                >
-                  <Calculator className="w-4 h-4 lg:w-5 lg:h-5 mr-2" />
-                  {hasUsedCalculator ? 'Kalkulator został wykorzystany' : 'Sprawdź czy Ci pomożemy'}
-                </Button>
-
-                {hasUsedCalculator && !result.showForm && (
-                  <div className="p-3 lg:p-4 rounded-xl border-2 bg-blue-50 border-blue-200 text-blue-700">
-                    <p className="font-medium leading-relaxed text-sm lg:text-base text-center">
-                      📞 Masz pytania? Zadzwoń bezpośrednio: <strong>+48 663 024 522</strong>
-                    </p>
-                  </div>
-                )}
-
-                {result.message && !result.showForm && (
-                  <div className={`p-3 lg:p-4 rounded-xl border-2 ${getResultClasses()}`}>
-                    <div className="flex items-start space-x-3">
-                      {getResultIcon()}
-                      <div className="flex-1">
-                        <p className="font-medium leading-relaxed text-sm lg:text-base">
-                          {result.message}
-                        </p>
-                      </div>
+                    <Plus className="w-1.5 h-1.5 text-prestige-gold-400" />
+                    <div className="flex items-center space-x-0.5">
+                      <Avatar className="w-5 h-5 border-2 border-prestige-gold-400">
+                        <AvatarImage src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png" className="object-cover" />
+                        <AvatarFallback className="text-xs">KZ</AvatarFallback>
+                      </Avatar>
+                      <Avatar className="w-5 h-5 border-2 border-prestige-gold-400">
+                        <AvatarImage src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png" className="object-cover" />
+                        <AvatarFallback className="text-xs">MK</AvatarFallback>
+                      </Avatar>
                     </div>
                   </div>
-                )}
+                </div>
+                <p className="text-xs text-navy-800 font-semibold">Eksperci w oddłużeniu • 20+ lat</p>
               </div>
             </div>
-          </>
+
+            <div className="flex-1 flex items-center justify-center">
+              {renderStepContent()}
+            </div>
+
+            {/* Nawigacja */}
+            {!hasUsedCalculator && currentStep > 1 && currentStep < 5 && (
+              <div className="flex justify-between mt-6">
+                <Button
+                  variant="outline"
+                  onClick={goToPrevStep}
+                  className="flex items-center"
+                >
+                  ← Cofnij
+                </Button>
+                <div className="text-sm text-warm-neutral-500">
+                  {currentStep}/5
+                </div>
+              </div>
+            )}
+
+            {/* Wynik */}
+            {result.message && (
+              <div className={`mt-6 p-4 rounded-xl border-2 ${getResultClasses()} animate-fade-in`}>
+                <div className="flex items-start space-x-3">
+                  {getResultIcon()}
+                  <div className="flex-1">
+                    <p className="font-medium leading-relaxed">
+                      {result.message}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </div>
