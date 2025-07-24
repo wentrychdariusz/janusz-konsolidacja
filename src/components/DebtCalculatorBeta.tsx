@@ -374,33 +374,33 @@ const DebtCalculatorBeta = () => {
                 <p className="text-navy-700 font-medium mb-3 text-sm">
                   ⚡ Potwierdź rodzaj dochodu:
                 </p>
-                <div className="flex flex-wrap gap-2 justify-center">
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
                   <button
                     onClick={() => setIncomeType('umowa_o_prace')}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    className={`w-full sm:w-auto px-6 py-4 rounded-xl text-base font-semibold transition-all transform active:scale-95 ${
                       incomeType === 'umowa_o_prace'
-                        ? 'bg-emerald-500 text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-emerald-500 text-white shadow-lg scale-105'
+                        : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200 hover:border-gray-300 shadow-md'
                     }`}
                   >
                     💼 Umowa o pracę
                   </button>
                   <button
                     onClick={() => setIncomeType('umowa_zlecenie')}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    className={`w-full sm:w-auto px-6 py-4 rounded-xl text-base font-semibold transition-all transform active:scale-95 ${
                       incomeType === 'umowa_zlecenie'
-                        ? 'bg-emerald-500 text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-emerald-500 text-white shadow-lg scale-105'
+                        : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200 hover:border-gray-300 shadow-md'
                     }`}
                   >
                     📋 Zlecenie/B2B
                   </button>
                   <button
                     onClick={() => setIncomeType('inne')}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                    className={`w-full sm:w-auto px-6 py-4 rounded-xl text-base font-semibold transition-all transform active:scale-95 ${
                       incomeType === 'inne'
-                        ? 'bg-emerald-500 text-white shadow-md'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-emerald-500 text-white shadow-lg scale-105'
+                        : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200 hover:border-gray-300 shadow-md'
                     }`}
                   >
                     🏛️ Renta/inne
