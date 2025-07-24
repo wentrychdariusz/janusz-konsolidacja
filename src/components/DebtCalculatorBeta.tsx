@@ -320,6 +320,33 @@ const DebtCalculatorBeta = () => {
           <div className="text-center animate-fade-in">
             <div className="mb-6">
               <div className="w-16 h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">💰</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Jaki jest Twój dochód?</h3>
+              <p className="text-warm-neutral-600">Podaj miesięczny dochód netto</p>
+            </div>
+            <div className="relative">
+              <Input
+                type="text"
+                value={income}
+                onChange={handleIncomeChange}
+                placeholder="4 000"
+                className="pr-12 text-right h-16 text-xl text-center"
+                autoFocus
+              />
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">PLN</span>
+            </div>
+            <Button onClick={goToNextStep} disabled={!income || parsePLN(income) < 3000} className="mt-4 w-full h-12 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white">
+              Dalej →
+            </Button>
+          </div>
+        );
+
+      case 2:
+        return (
+          <div className="text-center animate-fade-in">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white text-2xl">💼</span>
               </div>
               <h3 className="text-xl font-bold text-navy-900 mb-2">Rodzaj dochodu</h3>
@@ -391,33 +418,6 @@ const DebtCalculatorBeta = () => {
                 </div>
               </Button>
             </div>
-          </div>
-        );
-
-      case 2:
-        return (
-          <div className="text-center animate-fade-in">
-            <div className="mb-6">
-              <div className="w-16 h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl">💰</span>
-              </div>
-              <h3 className="text-xl font-bold text-navy-900 mb-2">Jaki jest Twój dochód?</h3>
-              <p className="text-warm-neutral-600">Podaj miesięczny dochód netto</p>
-            </div>
-            <div className="relative">
-              <Input
-                type="text"
-                value={income}
-                onChange={handleIncomeChange}
-                placeholder="4 000"
-                className="pr-12 text-right h-16 text-xl text-center"
-                autoFocus
-              />
-              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">PLN</span>
-            </div>
-            <Button onClick={goToNextStep} disabled={!income || parsePLN(income) < 3000} className="mt-4 w-full h-12 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white">
-              Dalej →
-            </Button>
           </div>
         );
 
