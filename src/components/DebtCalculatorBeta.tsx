@@ -396,80 +396,143 @@ const DebtCalculatorBeta = () => {
 
       case 2:
         return (
-          <div className="text-center animate-fade-in">
-            <div className="mb-6">
-              <div className="w-16 h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl">💼</span>
+          <div className="text-center animate-fade-in w-full max-w-md mx-auto">
+            {/* Header z instrukcjami */}
+            <div className="mb-8">
+              <div className="w-20 h-20 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <span className="text-white text-3xl">💼</span>
               </div>
-              <h3 className="text-xl font-bold text-navy-900 mb-2">Rodzaj dochodu</h3>
-              <p className="text-warm-neutral-600">
+              <h3 className="text-2xl sm:text-3xl font-bold text-navy-900 mb-3">
+                Rodzaj dochodu
+              </h3>
+              <p className="text-base sm:text-lg text-warm-neutral-600 font-medium mb-4">
                 Wybierz źródło swojego dochodu
               </p>
+              
+              {/* Wyraźna instrukcja */}
+              <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4 mb-6">
+                <p className="text-blue-800 font-semibold text-sm sm:text-base">
+                  👆 Kliknij jedną z opcji poniżej
+                </p>
+              </div>
             </div>
-            <div className="space-y-3">
-              <Button
-                type="button"
-                variant={incomeType === 'umowa_o_prace' ? 'default' : 'outline'}
+
+            {/* Opcje z wyraźniejszymi wskazaniami kliknięcia */}
+            <div className="space-y-4">
+              <div
                 onClick={() => handleIncomeTypeSelect('umowa_o_prace')}
-                className={`h-16 w-full text-left justify-start p-4 text-base ${
+                className={`relative cursor-pointer transform transition-all duration-200 hover:scale-105 hover:shadow-lg rounded-2xl border-3 p-6 ${
                   incomeType === 'umowa_o_prace' 
-                    ? 'bg-gradient-to-r from-navy-900 to-business-blue-600 text-white' 
-                    : 'hover:bg-blue-50 border-2'
+                    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white border-emerald-400 shadow-lg' 
+                    : 'bg-white hover:bg-blue-50 border-gray-300 hover:border-blue-400 shadow-md'
                 }`}
               >
-                <div className="flex items-center w-full">
-                  <div className="text-2xl mr-4">💼</div>
-                  <div>
-                    <div className="font-semibold">Umowa o pracę</div>
-                    <div className={`text-sm ${incomeType === 'umowa_o_prace' ? 'text-blue-100' : 'text-gray-500'}`}>
+                {/* Wskaźnik kliknięcia */}
+                <div className="absolute top-2 right-2">
+                  {incomeType === 'umowa_o_prace' ? (
+                    <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                      <span className="text-emerald-500 text-sm">✓</span>
+                    </div>
+                  ) : (
+                    <div className="w-6 h-6 border-2 border-gray-400 rounded-full hover:border-blue-500"></div>
+                  )}
+                </div>
+                
+                <div className="flex items-center">
+                  <div className="text-3xl mr-4">💼</div>
+                  <div className="text-left">
+                    <div className="text-lg font-bold">Umowa o pracę</div>
+                    <div className={`text-sm ${incomeType === 'umowa_o_prace' ? 'text-emerald-100' : 'text-gray-600'}`}>
                       Stały miesięczny dochód
                     </div>
                   </div>
                 </div>
-              </Button>
+                
+                {/* Efekt hover */}
+                <div className="absolute bottom-2 right-2 text-xs opacity-70">
+                  Kliknij aby wybrać
+                </div>
+              </div>
 
-              <Button
-                type="button"
-                variant={incomeType === 'umowa_zlecenie' ? 'default' : 'outline'}
+              <div
                 onClick={() => handleIncomeTypeSelect('umowa_zlecenie')}
-                className={`h-16 w-full text-left justify-start p-4 text-base ${
+                className={`relative cursor-pointer transform transition-all duration-200 hover:scale-105 hover:shadow-lg rounded-2xl border-3 p-6 ${
                   incomeType === 'umowa_zlecenie' 
-                    ? 'bg-gradient-to-r from-navy-900 to-business-blue-600 text-white' 
-                    : 'hover:bg-blue-50 border-2'
+                    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white border-emerald-400 shadow-lg' 
+                    : 'bg-white hover:bg-blue-50 border-gray-300 hover:border-blue-400 shadow-md'
                 }`}
               >
-                <div className="flex items-center w-full">
-                  <div className="text-2xl mr-4">📋</div>
-                  <div>
-                    <div className="font-semibold">Umowa zlecenie</div>
-                    <div className={`text-sm ${incomeType === 'umowa_zlecenie' ? 'text-blue-100' : 'text-gray-500'}`}>
+                <div className="absolute top-2 right-2">
+                  {incomeType === 'umowa_zlecenie' ? (
+                    <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                      <span className="text-emerald-500 text-sm">✓</span>
+                    </div>
+                  ) : (
+                    <div className="w-6 h-6 border-2 border-gray-400 rounded-full hover:border-blue-500"></div>
+                  )}
+                </div>
+                
+                <div className="flex items-center">
+                  <div className="text-3xl mr-4">📋</div>
+                  <div className="text-left">
+                    <div className="text-lg font-bold">Umowa zlecenie</div>
+                    <div className={`text-sm ${incomeType === 'umowa_zlecenie' ? 'text-emerald-100' : 'text-gray-600'}`}>
                       Współpraca, B2B, freelance
                     </div>
                   </div>
                 </div>
-              </Button>
+                
+                <div className="absolute bottom-2 right-2 text-xs opacity-70">
+                  Kliknij aby wybrać
+                </div>
+              </div>
 
-              <Button
-                type="button"
-                variant={incomeType === 'inne' ? 'default' : 'outline'}
+              <div
                 onClick={() => handleIncomeTypeSelect('inne')}
-                className={`h-16 w-full text-left justify-start p-4 text-base ${
+                className={`relative cursor-pointer transform transition-all duration-200 hover:scale-105 hover:shadow-lg rounded-2xl border-3 p-6 ${
                   incomeType === 'inne' 
-                    ? 'bg-gradient-to-r from-navy-900 to-business-blue-600 text-white' 
-                    : 'hover:bg-blue-50 border-2'
+                    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white border-emerald-400 shadow-lg' 
+                    : 'bg-white hover:bg-blue-50 border-gray-300 hover:border-blue-400 shadow-md'
                 }`}
               >
-                <div className="flex items-center w-full">
-                  <div className="text-2xl mr-4">🏛️</div>
-                  <div>
-                    <div className="font-semibold">Inne źródła</div>
-                    <div className={`text-sm ${incomeType === 'inne' ? 'text-blue-100' : 'text-gray-500'}`}>
+                <div className="absolute top-2 right-2">
+                  {incomeType === 'inne' ? (
+                    <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                      <span className="text-emerald-500 text-sm">✓</span>
+                    </div>
+                  ) : (
+                    <div className="w-6 h-6 border-2 border-gray-400 rounded-full hover:border-blue-500"></div>
+                  )}
+                </div>
+                
+                <div className="flex items-center">
+                  <div className="text-3xl mr-4">🏛️</div>
+                  <div className="text-left">
+                    <div className="text-lg font-bold">Inne źródła</div>
+                    <div className={`text-sm ${incomeType === 'inne' ? 'text-emerald-100' : 'text-gray-600'}`}>
                       Renta, emerytura, działalność
                     </div>
                   </div>
                 </div>
-              </Button>
+                
+                <div className="absolute bottom-2 right-2 text-xs opacity-70">
+                  Kliknij aby wybrać
+                </div>
+              </div>
             </div>
+
+            {/* Komunikat po wyborze */}
+            {incomeType && (
+              <div className="mt-6 p-4 bg-green-50 border-2 border-green-200 rounded-xl animate-fade-in">
+                <p className="text-green-700 font-semibold text-sm">
+                  ✅ Wybrano: {incomeType === 'umowa_o_prace' ? 'Umowa o pracę' : 
+                              incomeType === 'umowa_zlecenie' ? 'Umowa zlecenie' : 'Inne źródła'}
+                </p>
+                <p className="text-green-600 text-xs mt-1">
+                  Przechodzę do następnego kroku...
+                </p>
+              </div>
+            )}
           </div>
         );
 
