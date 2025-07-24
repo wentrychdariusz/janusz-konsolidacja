@@ -12,7 +12,8 @@ const FinancialHealthCheck = () => {
   const [answers, setAnswers] = useState({
     income: '',
     incomeType: '',
-    debts: ''
+    paydayDebts: '',
+    bankDebts: ''
   });
   const [hasCompleted, setHasCompleted] = useState(false);
   const [finalResult, setFinalResult] = useState<{
@@ -22,7 +23,7 @@ const FinancialHealthCheck = () => {
     message: string;
   } | null>(null);
 
-  const totalSteps = 3;
+  const totalSteps = 4;
 
   // Sprawdź czy test był już robiony
   useEffect(() => {
@@ -55,7 +56,8 @@ const FinancialHealthCheck = () => {
 
   const calculateHealthScore = (allAnswers: any) => {
     const income = parsePLN(allAnswers.income);
-    const debts = parsePLN(allAnswers.debts) || 0;
+    const paydayDebts = parsePLN(allAnswers.paydayDebts) || 0;
+    const bankDebts = parsePLN(allAnswers.bankDebts) || 0;
 
     let score = 0;
 
@@ -71,7 +73,8 @@ const FinancialHealthCheck = () => {
     else score += 10;
 
     // 3. Algorytm oddłużenia - główny wskaźnik kwalifikacji (0-40 pkt)
-    if (debts > 0) {
+    const totalDebts = paydayDebts + bankDebts;
+    if (totalDebts > 0) {
       // Modyfikacja limitów w zależności od typu dochodu
       let nbLim = nonBankLimit(income) + MARGIN;
       let baseLim = totalLimit(income) + MARGIN;
@@ -90,17 +93,18 @@ const FinancialHealthCheck = () => {
           break;
       }
 
-      // Zakładamy że długi to głównie chwilówki (najgorszy scenariusz)
-      const paydayDebt = debts;
-      
-      if (paydayDebt > nbLim) {
-        score += 0; // Nie można pomóc
-      } else if (paydayDebt <= baseLim) {
-        score += 40; // Idealna sytuacja - możemy pomóc
-      } else if (paydayDebt <= maxLim) {
-        score += 25; // Można pomóc z ograniczeniami
+      // Sprawdzamy czy możemy pomóc zgodnie z algorytmem
+      if (paydayDebts > nbLim) {
+        score += 0; // Nie można pomóc - za dużo chwilówek
       } else {
-        score += 10; // Trudny przypadek
+        const totalDebt = paydayDebts + bankDebts;
+        if (totalDebt <= baseLim) {
+          score += 40; // Idealna sytuacja - możemy pomóc
+        } else if (totalDebt <= maxLim) {
+          score += 25; // Można pomóc z ograniczeniami
+        } else {
+          score += 10; // Trudny przypadek
+        }
       }
     } else {
       score += 35; // Brak długów to duży plus, ale nie maksimum
@@ -129,18 +133,19 @@ const FinancialHealthCheck = () => {
   };
 
   const getStepKey = (step: number) => {
-    const keys = ['income', 'incomeType', 'debts'];
+    const keys = ['income', 'incomeType', 'paydayDebts', 'bankDebts'];
     return keys[step - 1];
   };
 
   const completeHealthCheck = async (finalScore: number, finalAnswers: any) => {
     // Kwalifikacja bazuje na algorytmie oddłużenia
     const income = parsePLN(finalAnswers.income);
-    const debts = parsePLN(finalAnswers.debts) || 0;
+    const paydayDebts = parsePLN(finalAnswers.paydayDebts) || 0;
+    const bankDebts = parsePLN(finalAnswers.bankDebts) || 0;
     
     let qualified = false;
     
-    if (debts > 0) {
+    if (paydayDebts > 0 || bankDebts > 0) {
       // Używamy tego samego algorytmu co w kalkulatorze
       let nbLim = nonBankLimit(income) + MARGIN;
       let baseLim = totalLimit(income) + MARGIN;
@@ -157,11 +162,11 @@ const FinancialHealthCheck = () => {
           break;
       }
       
-      // Zakładamy że długi to głównie chwilówki (najgorszy scenariusz dla kwalifikacji)
-      const paydayDebt = debts;
+      // Sprawdzamy zgodnie z algorytmem oddłużenia
+      const totalDebt = paydayDebts + bankDebts;
       
-      // Kwalifikacja jeśli możemy pomóc z chwilówkami
-      qualified = paydayDebt <= nbLim;
+      // Kwalifikacja jeśli możemy pomóc (chwilówki w limicie)
+      qualified = paydayDebts <= nbLim && totalDebt <= baseLim;
     } else {
       // Brak długów - automatyczna kwalifikacja jeśli dochód > 3000
       qualified = income >= 3000;
@@ -203,19 +208,19 @@ const FinancialHealthCheck = () => {
         await supabase
           .from('calculator_usage')
           .insert({
-            session_id: sessionId,
-            income: parsePLN(finalAnswers.income),
-            debt_amount: parsePLN(finalAnswers.debts) || 0,
-            income_type: finalAnswers.incomeType,
-            health_check_score: finalScore,
-            qualified: qualified
+          session_id: sessionId,
+          income: parsePLN(finalAnswers.income),
+          debt_amount: (parsePLN(finalAnswers.paydayDebts) || 0) + (parsePLN(finalAnswers.bankDebts) || 0),
+          income_type: finalAnswers.incomeType,
+          health_check_score: finalScore,
+          qualified: qualified
           });
 
         // Przekieruj kwalifikowane leady (bazując na algorytmie, nie tylko score)
         if (qualified) {
           console.log('🎯 Health Check - qualified by debt algorithm, redirecting to contact');
           setTimeout(() => {
-            window.location.href = `/kontakt?source=healthcheck&score=${finalScore}&qualified=true&income=${parsePLN(finalAnswers.income)}&debts=${parsePLN(finalAnswers.debts) || 0}`;
+            window.location.href = `/kontakt?source=healthcheck&score=${finalScore}&qualified=true&income=${parsePLN(finalAnswers.income)}&paydayDebts=${parsePLN(finalAnswers.paydayDebts) || 0}&bankDebts=${parsePLN(finalAnswers.bankDebts) || 0}`;
           }, 3000);
         }
     } catch (error) {
@@ -231,7 +236,8 @@ const FinancialHealthCheck = () => {
     setAnswers({
       income: '',
       incomeType: '',
-      debts: ''
+      paydayDebts: '',
+      bankDebts: ''
     });
     setFinalResult(null);
   };
@@ -397,16 +403,16 @@ const FinancialHealthCheck = () => {
               <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white text-2xl">⚡</span>
               </div>
-              <h3 className="text-xl font-bold text-navy-900 mb-2">Twoje długi (chwilówki/parabanki)</h3>
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Chwilówki i parabanki</h3>
               <p className="text-warm-neutral-600">
-                To decyduje o możliwości pomocy
+                Suma wszystkich pożyczek pozabankowych
               </p>
             </div>
             <div className="relative">
               <Input
                 type="text"
-                value={answers.debts}
-                onChange={(e) => setAnswers({...answers, debts: formatNumber(e.target.value)})}
+                value={answers.paydayDebts}
+                onChange={(e) => setAnswers({...answers, paydayDebts: formatNumber(e.target.value)})}
                 placeholder="0"
                 className="pr-12 text-right h-16 text-xl text-center"
                 autoFocus
@@ -416,11 +422,48 @@ const FinancialHealthCheck = () => {
               </span>
             </div>
             <p className="text-warm-neutral-500 text-sm mt-2">
-              Wpisz 0 jeśli nie masz długów
+              Wpisz 0 jeśli nie masz chwilówek
             </p>
             <Button 
-              onClick={() => handleAnswer(answers.debts)} 
+              onClick={() => handleAnswer(answers.paydayDebts)} 
               className="mt-4 w-full h-12 bg-gradient-to-r from-red-500 to-orange-500 text-white"
+            >
+              Dalej →
+            </Button>
+          </div>
+        );
+
+      case 4:
+        return (
+          <div className="text-center animate-fade-in">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">🏦</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Kredyty bankowe</h3>
+              <p className="text-warm-neutral-600">
+                Suma wszystkich kredytów z banków
+              </p>
+            </div>
+            <div className="relative">
+              <Input
+                type="text"
+                value={answers.bankDebts}
+                onChange={(e) => setAnswers({...answers, bankDebts: formatNumber(e.target.value)})}
+                placeholder="0"
+                className="pr-12 text-right h-16 text-xl text-center"
+                autoFocus
+              />
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">
+                PLN
+              </span>
+            </div>
+            <p className="text-warm-neutral-500 text-sm mt-2">
+              Wpisz 0 jeśli nie masz kredytów bankowych
+            </p>
+            <Button 
+              onClick={() => handleAnswer(answers.bankDebts)} 
+              className="mt-4 w-full h-12 bg-gradient-to-r from-green-500 to-blue-500 text-white"
             >
               Sprawdź wynik →
             </Button>
