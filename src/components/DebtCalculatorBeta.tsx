@@ -10,8 +10,8 @@ import { supabase } from '@/integrations/supabase/client';
 const DebtCalculatorBeta = () => {
   const [income, setIncome] = useState('');
   const [incomeType, setIncomeType] = useState(''); 
-  const [paydayDebt, setPaydayDebt] = useState('30 000'); // Domyślnie 30k
-  const [bankDebt, setBankDebt] = useState('20 000'); // Domyślnie 20k
+  const [paydayDebt, setPaydayDebt] = useState(''); // Puste - placeholder pokaże domyślne
+  const [bankDebt, setBankDebt] = useState(''); // Puste - placeholder pokaże domyślne
   const [currentStep, setCurrentStep] = useState(1);
   const [hasUsedCalculator, setHasUsedCalculator] = useState(false);
   
@@ -99,8 +99,8 @@ const DebtCalculatorBeta = () => {
     // Zresetuj wszystkie stany
     setIncome('');
     setIncomeType('');
-    setPaydayDebt('30 000'); // Domyślne wartości
-    setBankDebt('20 000'); // Domyślne wartości
+    setPaydayDebt(''); // Puste - placeholder pokaże domyślne
+    setBankDebt(''); // Puste - placeholder pokaże domyślne
     setCurrentStep(1);
     setHasUsedCalculator(false);
     setResult({ message: '', type: null, showForm: false });
@@ -550,8 +550,8 @@ const DebtCalculatorBeta = () => {
                 type="text"
                 value={paydayDebt}
                 onChange={handlePaydayChange}
-                placeholder="70 000"
-                className="pr-12 text-right h-16 text-xl text-center"
+                placeholder="30 000"
+                className="pr-12 text-right h-16 text-xl text-center placeholder:text-gray-400"
                 autoFocus
               />
               <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">
@@ -592,8 +592,8 @@ const DebtCalculatorBeta = () => {
                 type="text"
                 value={bankDebt}
                 onChange={handleBankChange}
-                placeholder="0"
-                className="pr-12 text-right h-16 text-xl text-center"
+                placeholder="20 000"
+                className="pr-12 text-right h-16 text-xl text-center placeholder:text-gray-400"
                 autoFocus
               />
               <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">
