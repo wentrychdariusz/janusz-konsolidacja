@@ -314,6 +314,7 @@ const DebtCalculatorBeta = () => {
     if (!hasUsedCalculator) {
       const newValue = formatNumber(e.target.value);
       setBankDebt(newValue);
+      console.log('💳 Bank debt changed:', newValue, 'Current step:', currentStep);
       
       // Wykrywanie podejrzanych zachowań
       const flags = detectSuspiciousBehavior(newValue, 'kredyty bankowe');
