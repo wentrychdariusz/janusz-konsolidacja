@@ -61,11 +61,16 @@ const FinancialHealthCheck = () => {
 
     let score = 0;
 
-    // 1. Dochód (0-40 pkt) - najważniejszy parametr
-    if (income >= 6000) score += 40;
-    else if (income >= 4000) score += 35;
-    else if (income >= 3000) score += 25;
-    else score += 10;
+    // 1. Dochód (0-40 pkt) - zgodnie z algorytmem kalkulatora
+    if (income < 3000) {
+      score += 0; // Poniżej 3000 PLN nie możemy pomóc
+    } else if (income >= 6000) {
+      score += 40;
+    } else if (income >= 4000) {
+      score += 35;
+    } else {
+      score += 25; // 3000-3999 PLN
+    }
 
     // 2. Typ dochodu (0-20 pkt) - stabilność zatrudnienia
     if (allAnswers.incomeType === 'umowa_o_prace') score += 20;
@@ -174,14 +179,18 @@ const FinancialHealthCheck = () => {
     let level = '';
     let message = '';
 
-    if (finalScore >= 90) {
-      level = 'Finansowy Mistrz';
-      message = qualified ? 
-        'Gratulacje! Twoja kondycja finansowa jest doskonała. Zakwalifikowałeś się do naszych najlepszych ofert konsolidacyjnych!' :
-        'Świetna kondycja finansowa! Jesteś na dobrej drodze.';
-    } else if (finalScore >= 80) {
-      level = 'Finansowy Ekspert';
-      message = 'Bardzo dobra kondycja! Zakwalifikowałeś się do programu konsolidacji długów z preferencyjnymi warunkami.';
+    if (income < 3000) {
+      level = 'Nie kwalifikujesz się';
+      message = 'Niestety, przy dochodzie poniżej 3000 PLN nie możemy zaproponować skutecznego rozwiązania oddłużeniowego.';
+      qualified = false;
+    } else if (qualified) {
+      if (finalScore >= 90) {
+        level = 'Finansowy Mistrz';
+        message = 'Gratulacje! Twoja kondycja finansowa jest doskonała. Zakwalifikowałeś się do naszych najlepszych ofert konsolidacyjnych!';
+      } else {
+        level = 'Finansowy Ekspert';
+        message = 'Bardzo dobra kondycja! Zakwalifikowałeś się do programu konsolidacji długów z preferencyjnymi warunkami.';
+      }
     } else if (finalScore >= 60) {
       level = 'Finansowy Praktyk';
       message = 'Dobra kondycja z potencjałem na więcej. Skontaktuj się z nami - możemy pomóc poprawić Twoją sytuację.';
@@ -332,11 +341,23 @@ const FinancialHealthCheck = () => {
             </div>
             <Button 
               onClick={() => handleAnswer(answers.income)} 
-              disabled={!answers.income || parsePLN(answers.income) < 1000}
-              className="mt-4 w-full h-12 bg-gradient-to-r from-green-500 to-blue-500 text-white"
+              disabled={!answers.income || parsePLN(answers.income) < 3000}
+              className={`mt-4 w-full h-12 ${
+                answers.income && parsePLN(answers.income) < 3000
+                  ? 'bg-red-500 text-white cursor-not-allowed'
+                  : 'bg-gradient-to-r from-green-500 to-blue-500 text-white'
+              }`}
             >
-              Dalej →
+              {answers.income && parsePLN(answers.income) < 3000 
+                ? 'Minimum 3000 PLN' 
+                : 'Dalej →'
+              }
             </Button>
+            {answers.income && parsePLN(answers.income) < 3000 && (
+              <p className="text-red-600 text-sm mt-2 text-center">
+                ⚠️ Przy dochodzie poniżej 3000 PLN nie możemy pomóc
+              </p>
+            )}
           </div>
         );
 
