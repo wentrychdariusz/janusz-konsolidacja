@@ -171,7 +171,7 @@ const DebtCalculatorBeta = () => {
       return;
     }
 
-    // Zapisz dane do bazy danych z typem dochodu
+    // Zapisz dane do bazy danych z typem dochodu i flagami podejrzanych zachowań
     await saveCalculatorData(incomeVal, paydayVal, bankVal, incomeType);
 
     // Oznacz kalkulator jako użyty
@@ -180,6 +180,21 @@ const DebtCalculatorBeta = () => {
     
     // Wyślij custom event żeby inne komponenty wiedziały o zmianie
     window.dispatchEvent(new CustomEvent('calculatorUsed'));
+
+    // Przygotuj dane do przekazania agentowi
+    const baseUrl = '/kontakt?income=' + encodeURIComponent(incomeVal) + 
+      '&paydayDebt=' + encodeURIComponent(paydayVal) + 
+      '&bankDebt=' + encodeURIComponent(bankVal) + 
+      '&incomeType=' + encodeURIComponent(incomeType) + 
+      '&source=beta';
+    
+    // Dodaj flagi podejrzanych zachowań dla agenta
+    const suspiciousData = {
+      flags: suspiciousFlags,
+      stepTimes: stepTimes,
+      totalTime: stepTimes.reduce((a, b) => a + b, 0)
+    };
+    const suspiciousParams = '&suspicious=' + encodeURIComponent(JSON.stringify(suspiciousData));
 
     // Limity z marginesem (można je modyfikować w zależności od typu dochodu)
     let nbLim = nonBankLimit(incomeVal) + MARGIN;
@@ -219,16 +234,16 @@ const DebtCalculatorBeta = () => {
     if (total <= baseLim) {
       // Track przekierowanie z kalkulatora
       console.log('🧮 Calculator Beta positive result - tracking redirect to /kontakt');
-      // Przekieruj do strony kontakt zamiast pokazywać formularz
-      window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&incomeType=' + encodeURIComponent(incomeType) + '&result=positive&source=beta';
+      // Przekieruj do strony kontakt z informacjami dla agenta
+      window.location.href = baseUrl + '&result=positive' + suspiciousParams;
       return;
     }
 
     if (total <= maxLim) {
       // Track przekierowanie z kalkulatora
       console.log('🧮 Calculator Beta warning result - tracking redirect to /kontakt');
-      // Przekieruj do strony kontakt zamiast pokazywać formularz
-      window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&incomeType=' + encodeURIComponent(incomeType) + '&result=warning&source=beta';
+      // Przekieruj do strony kontakt z informacjami dla agenta
+      window.location.href = baseUrl + '&result=warning' + suspiciousParams;
       return;
     }
 
