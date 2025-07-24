@@ -449,7 +449,7 @@ const DebtCalculatorBeta = () => {
                   value={income}
                   onChange={handleIncomeChange}
                   placeholder="4 000"
-                  className="pr-16 text-center h-20 md:h-24 lg:h-28 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold border-3 border-blue-300 focus:border-blue-500 rounded-xl shadow-inner"
+                  className="pr-16 text-center h-20 md:h-24 lg:h-28 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold border-4 border-blue-400 focus:border-blue-600 rounded-xl shadow-lg"
                   autoFocus
                 />
                 <span className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 text-blue-600 text-xl md:text-2xl lg:text-3xl font-bold">
@@ -559,7 +559,7 @@ const DebtCalculatorBeta = () => {
                 value={paydayDebt}
                 onChange={handlePaydayChange}
                 placeholder="30 000"
-                className="pr-12 md:pr-16 text-right h-16 md:h-20 lg:h-24 text-xl md:text-2xl lg:text-3xl text-center placeholder:text-gray-400 font-bold border-3 border-red-300 focus:border-red-500 rounded-xl"
+                className="pr-12 md:pr-16 text-right h-16 md:h-20 lg:h-24 text-xl md:text-2xl lg:text-3xl text-center placeholder:text-gray-400 font-bold border-4 border-red-400 focus:border-red-600 rounded-xl shadow-lg"
                 autoFocus
               />
               <span className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg md:text-xl lg:text-2xl font-bold">
@@ -601,7 +601,7 @@ const DebtCalculatorBeta = () => {
                 value={bankDebt}
                 onChange={handleBankChange}
                 placeholder="20 000"
-                className="pr-12 md:pr-16 text-right h-16 md:h-20 lg:h-24 text-xl md:text-2xl lg:text-3xl text-center placeholder:text-gray-400 font-bold border-3 border-green-300 focus:border-green-500 rounded-xl"
+                className="pr-12 md:pr-16 text-right h-16 md:h-20 lg:h-24 text-xl md:text-2xl lg:text-3xl text-center placeholder:text-gray-400 font-bold border-4 border-green-400 focus:border-green-600 rounded-xl shadow-lg"
                 autoFocus
               />
               <span className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg md:text-xl lg:text-2xl font-bold">
