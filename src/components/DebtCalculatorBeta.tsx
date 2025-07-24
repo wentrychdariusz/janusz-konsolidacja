@@ -565,7 +565,7 @@ const DebtCalculatorBeta = () => {
                 PLN
               </span>
             </div>
-            <div className="bg-red-50 border-2 border-red-400 rounded-xl p-4 mt-4 animate-pulse">
+            <div className="bg-red-50 border-2 border-red-400 rounded-xl p-4 mt-4">
               <p className="text-red-800 font-bold text-lg">
                 📍 Podaj dokładną kwotę - to kluczowe dla analizy!
               </p>
