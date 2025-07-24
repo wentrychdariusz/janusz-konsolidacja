@@ -429,46 +429,71 @@ const DebtCalculatorBeta = () => {
               <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-white text-2xl">🏦</span>
               </div>
-              <h3 className="text-xl font-bold text-navy-900 mb-2">Kredyty bankowe</h3>
-              <p className="text-warm-neutral-600">
-                Suma wszystkich kredytów z banków (opcjonalne)
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Ostatni krok!</h3>
+              <p className="text-warm-neutral-600 mb-4">
+                Podaj sumę kredytów bankowych (może być 0)
               </p>
+              
+              {/* Wyraźna instrukcja */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-6">
+                <p className="text-blue-800 text-sm font-medium">
+                  💡 To ostatnia dana - potem sprawdzimy Twój wynik!
+                </p>
+              </div>
             </div>
-            <div className="space-y-4">
-              <div className="relative">
-                <Input
-                  type="text"
-                  value={bankDebt}
-                  onChange={handleBankChange}
-                  placeholder="0"
-                  className="pr-12 text-right h-16 text-xl text-center"
-                  autoFocus
-                />
-                <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">PLN</span>
+            
+            <div className="space-y-6">
+              {/* Input section */}
+              <div className="bg-white border-2 border-gray-200 rounded-xl p-4">
+                <Label className="text-navy-800 font-medium text-sm block mb-3">
+                  Suma wszystkich kredytów bankowych
+                </Label>
+                <div className="relative">
+                  <Input
+                    type="text"
+                    value={bankDebt}
+                    onChange={handleBankChange}
+                    placeholder="0"
+                    className="pr-12 text-right h-16 text-xl text-center border-2 border-gray-300 focus:border-blue-500"
+                    autoFocus
+                  />
+                  <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-lg">PLN</span>
+                </div>
+                <p className="text-warm-neutral-500 text-xs mt-2 text-center">
+                  Wpisz 0 jeśli nie masz kredytów bankowych
+                </p>
               </div>
               
-              <div className="bg-gray-50 rounded-lg p-4 text-left space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Dochód:</span>
-                  <span className="font-semibold">{income} PLN</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Typ:</span>
-                  <span className="font-semibold">{getIncomeTypeLabel(incomeType)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Chwilówki:</span>
-                  <span className="font-semibold text-red-600">{paydayDebt || '0'} PLN</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Kredyty:</span>
-                  <span className="font-semibold">{bankDebt || '0'} PLN</span>
+              {/* Podsumowanie - wyraźnie oddzielone */}
+              <div className="bg-gradient-to-r from-gray-50 to-blue-50 border-2 border-gray-300 rounded-xl p-4">
+                <h4 className="font-semibold text-navy-900 mb-3 text-center">📋 Twoje dane:</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Dochód:</span>
+                    <span className="font-semibold">{income} PLN</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Typ:</span>
+                    <span className="font-semibold">{getIncomeTypeLabel(incomeType)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Chwilówki:</span>
+                    <span className="font-semibold text-red-600">{paydayDebt || '0'} PLN</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Kredyty:</span>
+                    <span className="font-semibold text-green-600">{bankDebt || '0'} PLN</span>
+                  </div>
                 </div>
               </div>
 
-              <Button onClick={calculate} className="w-full font-bold py-4 text-lg rounded-xl h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white">
-                <Calculator className="w-5 h-5 mr-2" />
-                Sprawdź wynik
+              {/* Duży przycisk analizy */}
+              <Button 
+                onClick={calculate} 
+                className="w-full font-bold py-5 text-lg rounded-xl h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105"
+              >
+                <Calculator className="w-6 h-6 mr-3" />
+                🔍 Sprawdź swój wynik
               </Button>
             </div>
           </div>
