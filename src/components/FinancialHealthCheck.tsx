@@ -240,7 +240,7 @@ const FinancialHealthCheck = () => {
   const resetHealthCheck = () => {
     localStorage.removeItem('health_check_completed');
     setHasCompleted(false);
-    setCurrentStep(1);
+    setCurrentStep(1); // Zawsze zaczynam od kroku 1 - kwota zarobków
     setScore(0);
     setAnswers({
       income: '',
