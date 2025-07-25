@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoanAmountsBar from '../components/LoanAmountsBar';
 import TopHeader from '../components/TopHeader';
 import HeroSection from '../components/HeroSection';
@@ -16,10 +16,12 @@ import CalculatorSection from '../components/CalculatorSection';
 import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
+import PersonalizedOfferModal from '../components/PersonalizedOfferModal';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 
 const GlownaKopia = () => {
   const { trackPageView } = useSupabaseTracking();
+  const [showOfferModal, setShowOfferModal] = useState(false);
   
   useEffect(() => {
     console.log('🏠 GlownaKopia page: Tracking page view for glowna kopia page');
@@ -42,6 +44,13 @@ const GlownaKopia = () => {
       console.log('✨ First time visitor');
       localStorage.setItem('last_glowna_kopia_visit', now.toString());
     }
+
+    // Show personalized offer modal after 3 seconds
+    const timer = setTimeout(() => {
+      setShowOfferModal(true);
+    }, 3000);
+
+    return () => clearTimeout(timer);
   }, [trackPageView]);
   
   return (
@@ -63,6 +72,11 @@ const GlownaKopia = () => {
       <GuaranteeSection />
       <FloatingAvatar />
       <Footer />
+      
+      <PersonalizedOfferModal 
+        isOpen={showOfferModal} 
+        onClose={() => setShowOfferModal(false)} 
+      />
     </div>
   );
 };
