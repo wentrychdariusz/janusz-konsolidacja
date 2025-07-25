@@ -79,9 +79,9 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
           {!showOffer ? (
             <>
               {/* Progress button */}
-              <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 px-3 sm:px-6 py-3 sm:py-4 -mx-3 sm:-mx-6 -mt-3 sm:-mt-6 border-b border-prestige-gold-200">
+              <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 px-4 py-3 -mx-3 -mt-3 border-b border-prestige-gold-200 sm:px-6 sm:py-4 sm:-mx-6 sm:-mt-6">
                 <div className="flex flex-col items-center gap-2 sm:gap-3">
-                  <div className="text-navy-900 font-bold text-sm sm:text-lg text-center leading-tight">
+                  <div className="text-navy-900 font-bold text-sm sm:text-lg text-center leading-tight px-2">
                     ➡️ Wypełnij kwotę aby zobaczyć co możemy dla ciebie zrobić
                   </div>
                   <div className="w-full max-w-xs sm:max-w-full bg-gray-200 rounded-full h-2 sm:h-3">
@@ -125,7 +125,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                 </div>
 
                 {/* Mobile-enhanced table */}
-                <div className="bg-white rounded-xl border-2 border-prestige-gold-300 overflow-hidden shadow-lg mx-1 sm:mx-2">
+                <div className="bg-white rounded-xl border-2 border-prestige-gold-300 overflow-hidden shadow-lg mx-0 sm:mx-2">
                   <table className="w-full">
                     <thead>
                       <tr className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200">
