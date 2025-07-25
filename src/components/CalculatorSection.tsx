@@ -24,8 +24,8 @@ const CalculatorSection = () => {
         
         <div 
           ref={ref}
-          className={`max-w-4xl mx-auto transition-all duration-700 ease-out cursor-pointer 
-            md:hover:scale-105 
+          className={`max-w-4xl mx-auto p-4 transition-all duration-700 ease-out cursor-pointer 
+            md:hover:scale-110 
             ${inView ? 'scale-105 md:scale-100' : 'scale-95 opacity-80'}`}
         >
           <DebtCalculator />
