@@ -82,7 +82,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
               <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 px-4 sm:px-6 py-4 sm:py-3 -mx-3 sm:-mx-6 -mt-3 sm:-mt-6 border-b border-prestige-gold-200">
                 <div className="flex flex-col items-center gap-3">
                   <div className="text-navy-900 font-bold text-base sm:text-lg flex items-center gap-2">
-                    ➡️ Otrzymaj spersonalizowaną ofertę
+                    ➡️ Wypełnij kwotę aby zobaczyć co możemy dla ciebie zrobić
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-3">
                     <div className="bg-prestige-gold-500 h-3 rounded-full transition-all duration-300" style={{width: '50%'}}></div>
