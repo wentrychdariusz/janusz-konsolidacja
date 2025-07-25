@@ -125,15 +125,17 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                 <div className="bg-white rounded-xl border-2 border-prestige-gold-300 overflow-hidden shadow-lg">
                   <table className="w-full">
                     <thead>
-                      <tr className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200 animate-pulse">
-                        <th className="px-3 py-3 sm:px-4 sm:py-4 text-center text-base sm:text-lg font-bold text-navy-900">
+                      <tr className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200 relative">
+                        <div className="absolute inset-0 bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200 animate-pulse opacity-30"></div>
+                        <th className="px-3 py-3 sm:px-4 sm:py-4 text-center text-base sm:text-lg font-bold text-navy-900 relative z-10">
                           💰 Wpisz zarobki i sprawdź spersonalizowaną ofertę
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr className="bg-gradient-to-r from-blue-50 to-green-50 animate-pulse">
-                        <td className="px-3 py-4 sm:px-6 sm:py-6">
+                      <tr className="bg-gradient-to-r from-blue-50 to-green-50 relative">
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-green-50 animate-pulse opacity-20"></div>
+                        <td className="px-3 py-4 sm:px-6 sm:py-6 relative z-10">
                           <div className="space-y-6">
                             {/* Input field - stronger colors */}
                             <div className="relative">
