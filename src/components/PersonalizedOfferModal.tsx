@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { X, Shield, Users, Award } from 'lucide-react';
+import { X, Shield, Award, CheckCircle, Star, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import expertPortrait from '../assets/dariusz-expert-portrait.jpg';
 
 interface PersonalizedOfferModalProps {
   isOpen: boolean;
@@ -72,119 +73,139 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
           </Button>
         </DialogHeader>
 
-        <div className="px-6 pb-6">
+        <div className="px-0 pb-0">
           {!showOffer ? (
             <>
-              {/* Trust Header */}
-              <div className="text-center mb-6">
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-4 border-prestige-gold-200">
-                  <img 
-                    src="/lovable-uploads/d8efef9d-ca92-4814-9618-8b5105db9432.png" 
-                    alt="Dariusz Woźniak" 
-                    className="w-full h-full object-cover"
-                  />
+              {/* Hero Section */}
+              <div className="relative bg-gradient-to-br from-navy-900 via-navy-800 to-navy-900 text-white px-8 py-8 -mx-6 -mt-6 rounded-t-2xl">
+                <div className="absolute top-4 right-4">
+                  <div className="bg-prestige-gold-400 text-navy-900 px-3 py-1 rounded-full text-xs font-bold">
+                    #1 EKSPERT
+                  </div>
                 </div>
-                <h3 className="font-montserrat text-xl font-bold text-navy-900 mb-2">
-                  Dariusz Woźniak
-                </h3>
-                <p className="text-warm-neutral-600 text-sm mb-4">
-                  Ekspert oddłużeniowy z 15-letnim doświadczeniem
-                </p>
                 
-                {/* Trust indicators */}
-                <div className="flex justify-center items-center gap-4 mb-6">
-                  <div className="flex items-center gap-1 text-xs text-warm-neutral-600">
-                    <Users className="h-4 w-4 text-prestige-gold-400" />
-                    <span>1000+ klientów</span>
+                <div className="text-center">
+                  <div className="relative w-24 h-24 mx-auto mb-4">
+                    <img 
+                      src={expertPortrait} 
+                      alt="Dariusz Wentrych - Ekspert nr 1" 
+                      className="w-full h-full object-cover rounded-full border-4 border-prestige-gold-400"
+                    />
+                    <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-prestige-gold-400 rounded-full flex items-center justify-center">
+                      <Star className="h-4 w-4 text-navy-900 fill-current" />
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1 text-xs text-warm-neutral-600">
-                    <Award className="h-4 w-4 text-prestige-gold-400" />
-                    <span>Certyfikowany</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-xs text-warm-neutral-600">
-                    <Shield className="h-4 w-4 text-prestige-gold-400" />
-                    <span>100% bezpieczne</span>
+                  
+                  <h3 className="font-montserrat text-2xl font-bold mb-1">
+                    Dariusz Wentrych
+                  </h3>
+                  <p className="text-prestige-gold-200 text-sm mb-4">
+                    Ekspert nr 1 w Polsce w oddłużaniu i konsolidacji
+                  </p>
+                  
+                  {/* Stats */}
+                  <div className="grid grid-cols-3 gap-4 mb-6">
+                    <div className="text-center">
+                      <div className="text-prestige-gold-400 font-bold text-lg">5000+</div>
+                      <div className="text-xs text-gray-300">Klientów</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-prestige-gold-400 font-bold text-lg">98%</div>
+                      <div className="text-xs text-gray-300">Sukces</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-prestige-gold-400 font-bold text-lg">15 lat</div>
+                      <div className="text-xs text-gray-300">Doświadczenie</div>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Salary Input */}
-              <div className="space-y-4">
-                <div className="text-center">
-                  <h4 className="font-montserrat text-xl font-bold text-navy-900 mb-2">
-                    💰 Ile możesz zaoszczędzić?
+              {/* Offer Section */}
+              <div className="px-8 py-6">
+                <div className="text-center mb-6">
+                  <h4 className="font-montserrat text-2xl font-bold text-navy-900 mb-3">
+                    Sprawdź swoją spersonalizowaną ofertę
                   </h4>
-                  <p className="text-warm-neutral-600 text-sm mb-4">
-                    <span className="font-semibold text-prestige-gold-600">TYLKO 30 SEKUND!</span> Wpisz zarobki i zobacz swoją dokładną oszczędność
+                  <p className="text-warm-neutral-600 text-sm leading-relaxed">
+                    Podaj swoje miesięczne zarobki netto, a przedstawię Ci dokładną analizę 
+                    <strong className="text-prestige-gold-600"> oszczędności</strong>
                   </p>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <div className="relative">
                     <Input
                       type="number"
-                      placeholder="Wpisz swoje zarobki netto"
+                      placeholder="np. 5000"
                       value={salary}
                       onChange={(e) => setSalary(e.target.value)}
-                      className="text-center text-lg font-semibold border-2 border-warm-neutral-200 focus:border-prestige-gold-400"
+                      className="text-center text-xl font-bold border-2 border-warm-neutral-200 focus:border-prestige-gold-400 h-14 rounded-xl"
                     />
-                    <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-warm-neutral-500">
-                      zł
+                    <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 font-semibold">
+                      zł netto
                     </span>
                   </div>
                   
                   <Button 
                     onClick={handleSalarySubmit}
                     disabled={!salary || parseInt(salary) <= 0}
-                    className="w-full bg-prestige-gold-400 hover:bg-prestige-gold-500 text-navy-900 font-semibold py-3 rounded-xl"
+                    className="w-full bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 hover:from-prestige-gold-500 hover:to-prestige-gold-600 text-navy-900 font-bold py-4 rounded-xl text-lg shadow-lg transform transition hover:scale-105"
                   >
-                    Pokaż moją ofertę
+                    Sprawdź moją ofertę →
                   </Button>
                 </div>
 
-                <p className="text-xs text-warm-neutral-500 text-center">
-                  <Shield className="inline h-3 w-3 mr-1" />
-                  Twoje dane są w 100% bezpieczne i poufne
-                </p>
+                <div className="flex items-center justify-center gap-2 mt-4 text-xs text-warm-neutral-500">
+                  <Shield className="h-4 w-4 text-prestige-gold-400" />
+                  <span>100% bezpieczne</span>
+                  <span>•</span>
+                  <CheckCircle className="h-4 w-4 text-prestige-gold-400" />
+                  <span>Bez zobowiązań</span>
+                </div>
               </div>
             </>
           ) : (
             <>
-              {/* Personalized Offer */}
-              <div className="text-center space-y-4">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden border-3 border-prestige-gold-200">
-                  <img 
-                    src="/lovable-uploads/d8efef9d-ca92-4814-9618-8b5105db9432.png" 
-                    alt="Dariusz Woźniak" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <div className="bg-gradient-to-br from-prestige-gold-50 to-warm-neutral-50 p-4 rounded-xl border border-prestige-gold-200">
-                  <h4 className="font-montserrat text-lg font-bold text-navy-900 mb-2">
-                    {offer?.title}
-                  </h4>
-                  <p className="text-warm-neutral-700 text-sm mb-3">
-                    {offer?.message}
-                  </p>
-                  <div className="bg-prestige-gold-100 px-3 py-2 rounded-lg">
-                    <p className="font-semibold text-prestige-gold-700 text-sm">
-                      🎯 {offer?.highlight}
+              {/* Results Section */}
+              <div className="px-8 py-6">
+                <div className="text-center mb-6">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden border-3 border-prestige-gold-400">
+                    <img 
+                      src={expertPortrait} 
+                      alt="Dariusz Wentrych" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
+                  <div className="bg-gradient-to-br from-prestige-gold-50 to-warm-neutral-50 p-6 rounded-2xl border-2 border-prestige-gold-200">
+                    <h4 className="font-montserrat text-xl font-bold text-navy-900 mb-3">
+                      {offer?.title}
+                    </h4>
+                    <p className="text-warm-neutral-700 mb-4 leading-relaxed">
+                      {offer?.message}
                     </p>
+                    <div className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200 px-4 py-3 rounded-xl">
+                      <p className="font-bold text-prestige-gold-800 text-lg">
+                        💎 {offer?.highlight}
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <Button 
                     onClick={handleGoToCalculator}
-                    className="w-full bg-prestige-gold-400 hover:bg-prestige-gold-500 text-navy-900 font-semibold py-3 rounded-xl"
+                    className="w-full bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 hover:from-prestige-gold-500 hover:to-prestige-gold-600 text-navy-900 font-bold py-4 rounded-xl text-lg shadow-lg"
                   >
-                    Sprawdź szczegóły w kalkulatorze
+                    Zobacz szczegółowy kalkulator →
                   </Button>
                   
-                  <p className="text-xs text-warm-neutral-500">
-                    Bezpłatna analiza • Bez zobowiązań • 100% poufne
-                  </p>
+                  <div className="text-center">
+                    <p className="text-xs text-warm-neutral-500">
+                      Bezpłatna analiza • Brak ukrytych kosztów • Gwarancja rezultatu
+                    </p>
+                  </div>
                 </div>
               </div>
             </>
