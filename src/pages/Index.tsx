@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoanAmountsBar from '../components/LoanAmountsBar';
 import TopHeader from '../components/TopHeader';
 import HeroSection from '../components/HeroSection';
@@ -17,10 +17,12 @@ import CalculatorSection from '../components/CalculatorSection';
 import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
+import PersonalizedOfferModal from '../components/PersonalizedOfferModal';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 
 const Index = () => {
   const { trackPageView } = useSupabaseTracking();
+  const [showOfferModal, setShowOfferModal] = useState(false);
   
   useEffect(() => {
     console.log('🏠 Index page: Tracking page view for home page');
@@ -36,13 +38,19 @@ const Index = () => {
       
       if (hoursDiff > 24) {
         console.log('🔄 Returning visitor after 24+ hours');
-        // Track returning visitor
         localStorage.setItem('last_home_visit', now.toString());
       }
     } else {
       console.log('✨ First time visitor');
       localStorage.setItem('last_home_visit', now.toString());
     }
+
+    // Show personalized offer modal after 5 seconds  
+    const timer = setTimeout(() => {
+      setShowOfferModal(true);
+    }, 5000);
+
+    return () => clearTimeout(timer);
   }, [trackPageView]);
   
   return (
@@ -64,6 +72,11 @@ const Index = () => {
       <GuaranteeSection />
       <FloatingAvatar />
       <Footer />
+      
+      <PersonalizedOfferModal 
+        isOpen={showOfferModal} 
+        onClose={() => setShowOfferModal(false)} 
+      />
     </div>
   );
 };

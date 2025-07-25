@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { X, Shield, Award, CheckCircle, Star, Users } from 'lucide-react';
@@ -62,11 +62,13 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
     <Dialog open={isOpen} onOpenChange={onClose}>
       <div className="fixed inset-0 z-50 bg-black/10 backdrop-blur-[2px]" />
       <DialogContent className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-md translate-x-[-50%] translate-y-[-50%] gap-4 border bg-white p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-2xl border-0 shadow-2xl">
-        <DialogHeader className="relative pb-2">
+        <DialogHeader className="sr-only">
+          <DialogTitle>Spersonalizowana oferta oddłużeniowa</DialogTitle>
+          <DialogDescription>Wprowadź swoje zarobki aby otrzymać spersonalizowaną ofertę</DialogDescription>
           <Button
             variant="ghost"
             size="sm"
-            className="absolute -top-2 -right-2 h-8 w-8 rounded-full"
+            className="absolute -top-2 -right-2 h-8 w-8 rounded-full z-10"
             onClick={onClose}
           >
             <X className="h-4 w-4" />
@@ -139,27 +141,47 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="relative">
-                    <Input
-                      type="number"
-                      placeholder="np. 5000"
-                      value={salary}
-                      onChange={(e) => setSalary(e.target.value)}
-                      className="text-center text-xl font-bold border-2 border-prestige-gold-300 focus:border-prestige-gold-500 h-14 rounded-xl animate-pulse focus:animate-none transition-all duration-300 shadow-lg hover:shadow-xl"
-                    />
-                    <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-prestige-gold-600 font-bold">
-                      zł netto
-                    </span>
-                  </div>
-                  
-                  <Button 
-                    onClick={handleSalarySubmit}
-                    disabled={!salary || parseInt(salary) <= 0}
-                    className="w-full bg-gradient-to-r from-prestige-gold-400 via-prestige-gold-500 to-prestige-gold-600 hover:from-prestige-gold-500 hover:via-prestige-gold-600 hover:to-prestige-gold-700 text-navy-900 font-bold py-4 rounded-xl text-lg shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-3xl active:scale-95 disabled:opacity-50 disabled:transform-none border-2 border-prestige-gold-600"
-                  >
-                    ✨ Sprawdź moją ofertę ✨
-                  </Button>
+                {/* Table with input and button */}
+                <div className="bg-white rounded-xl border-2 border-prestige-gold-200 overflow-hidden shadow-lg">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200">
+                        <th className="px-4 py-3 text-left text-sm font-bold text-navy-900">
+                          Twoje zarobki netto
+                        </th>
+                        <th className="px-4 py-3 text-center text-sm font-bold text-navy-900">
+                          Akcja
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-t border-prestige-gold-200">
+                        <td className="px-4 py-4">
+                          <div className="relative">
+                            <Input
+                              type="number"
+                              placeholder="np. 5000"
+                              value={salary}
+                              onChange={(e) => setSalary(e.target.value)}
+                              className="text-center text-xl font-bold border-2 border-prestige-gold-300 focus:border-prestige-gold-500 h-12 rounded-lg animate-pulse focus:animate-none transition-all duration-300 shadow-md hover:shadow-lg w-full"
+                            />
+                            <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-prestige-gold-600 font-bold text-sm">
+                              zł
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-4">
+                          <Button 
+                            onClick={handleSalarySubmit}
+                            disabled={!salary || parseInt(salary) <= 0}
+                            className="w-full bg-gradient-to-r from-prestige-gold-400 via-prestige-gold-500 to-prestige-gold-600 hover:from-prestige-gold-500 hover:via-prestige-gold-600 hover:to-prestige-gold-700 text-navy-900 font-bold py-3 rounded-lg text-sm shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl active:scale-95 disabled:opacity-50 disabled:transform-none border-2 border-prestige-gold-600"
+                          >
+                            ✨ Sprawdź ✨
+                          </Button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
 
                 <div className="flex items-center justify-center gap-2 mt-4 text-xs text-warm-neutral-500">
