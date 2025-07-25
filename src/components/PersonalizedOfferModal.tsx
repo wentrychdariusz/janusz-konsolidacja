@@ -128,7 +128,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                       <tr className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200 relative">
                         <div className="absolute inset-0 bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200 animate-pulse opacity-30"></div>
                         <th className="px-3 py-3 sm:px-4 sm:py-4 text-center text-base sm:text-lg font-bold text-navy-900 relative z-10">
-                          💰 Wpisz zarobki i sprawdź spersonalizowaną ofertę
+                          Wpisz miesięczne zarobki netto
                         </th>
                       </tr>
                     </thead>
@@ -160,7 +160,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                                 className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 sm:py-5 md:py-6 rounded-lg text-base sm:text-lg md:text-xl shadow-2xl transition-all duration-300 disabled:opacity-50 min-h-[60px] sm:min-h-[70px] border-2 border-green-400 hover:scale-105 hover:shadow-3xl animate-pulse"
                                 style={{animationDuration: '3s'}}
                               >
-                                Pokaż spersonalizowaną ofertę
+                                Zobacz jak możemy Ci pomóc!
                               </Button>
                             </div>
                           </div>
