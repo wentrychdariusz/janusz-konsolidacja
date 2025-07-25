@@ -59,10 +59,16 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
     onClose();
   };
 
+  const handleClose = () => {
+    setShowOffer(false);
+    setSalary('');
+    onClose();
+  };
+
   const offer = salary ? getPersonalizedOffer(parseInt(salary)) : null;
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={handleClose}>
       <div className="fixed inset-0 z-50 bg-black/10 backdrop-blur-[2px]" />
       <DialogContent className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-md translate-x-[-50%] translate-y-[-50%] gap-4 border bg-white p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-2xl border-0 shadow-2xl">
         <DialogHeader className="sr-only">
@@ -157,8 +163,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                               <Button 
                                 onClick={handleSalarySubmit}
                                 disabled={!salary || parseInt(salary) <= 0}
-                                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 sm:py-5 md:py-6 rounded-lg text-base sm:text-lg md:text-xl shadow-2xl transition-all duration-300 disabled:opacity-50 min-h-[60px] sm:min-h-[70px] border-2 border-green-400 hover:scale-105 hover:shadow-3xl animate-pulse"
-                                style={{animationDuration: '3s'}}
+                                className="w-full bg-gradient-to-r from-green-400 to-green-500 hover:from-green-500 hover:to-green-600 text-white font-bold py-4 sm:py-5 md:py-6 rounded-lg text-base sm:text-lg md:text-xl shadow-2xl transition-all duration-500 disabled:opacity-50 min-h-[60px] sm:min-h-[70px] border-2 border-green-300 hover:scale-110 hover:shadow-3xl animate-[pulse_2s_ease-in-out_infinite] hover:animate-none"
                               >
                                 Zobacz jak możemy Ci pomóc!
                               </Button>
