@@ -11,15 +11,15 @@ const HeroSectionBeta = () => {
   const benefits = [
     {
       icon: <CheckCircle className="w-5 h-5 text-green-600" />,
-      text: "Za darmo zastępujemy wszystkie chwilówki jedną, niską ratą bankową"
+      text: "Nr 1 w Polsce - Lider w branży oddłużeniowej z 20-letnim doświadczeniem"
     },
     {
-      icon: <Shield className="w-5 h-5 text-blue-600" />,
-      text: "Kończymy lawiny naliczanych odsetek i prowizji"
+      icon: <Users className="w-5 h-5 text-blue-600" />,
+      text: "15.000 zadowolonych klientów - Mojej firmie zaufało już 15.000 zadowolonych klientów"
     },
     {
-      icon: <Award className="w-5 h-5 text-yellow-600" />,
-      text: "Dostajemy Ci kredyt bankowy nawet z BIK i KRD"
+      icon: <Car className="w-5 h-5 text-yellow-600" />,
+      text: "Dojeżdzamy do Ciebie - Umów się na bezpłatne spotkania w 16 miastach lub indywidualne spotkanie u Ciebie"
     }
   ];
 
@@ -94,20 +94,25 @@ const HeroSectionBeta = () => {
 
             <h1 className="font-montserrat font-black text-3xl md:text-4xl lg:text-5xl text-center leading-tight">
               <span className="bg-gradient-to-r from-navy-900 via-business-blue-700 to-prestige-gold-600 bg-clip-text text-transparent">
-                ZASTĘPUJEMY WSZYSTKIE CHWILÓWKI
+                Zamień długi w
               </span>
               <br />
-              <span className="text-navy-900">JEDNĄ NISKĄ RATĄ BANKOWĄ</span>
+              <span className="text-navy-900">jedną wygodną ratę</span>
             </h1>
             
             <div className="bg-gradient-to-r from-success-50 via-business-blue-50 to-prestige-gold-50 p-4 md:p-6 rounded-2xl shadow-lg border-2 border-success-300 max-w-2xl mx-auto">
               <p className="text-navy-700 text-lg md:text-xl font-semibold text-center leading-relaxed">
-                <span className="bg-gradient-to-r from-prestige-gold-600 to-prestige-gold-500 bg-clip-text text-transparent font-black">
-                  GWARANTUJEMY
-                </span>
-                {" "}obniżenie rat o{" "}
-                <span className="text-success-700 font-black text-xl md:text-2xl">30-70%</span>
-                {" "}lub zwracamy pieniądze
+                Masz długi, chwilówki, komornika na karku? Nie jesteś sam. Od 20 lat pomagamy tam, gdzie inni zawiedli.
+              </p>
+            </div>
+
+            {/* Dodatkowy nagłówek */}
+            <div className="text-center">
+              <h2 className="font-montserrat font-bold text-xl md:text-2xl text-navy-900 leading-tight">
+                WSPIERAMY KLIENTÓW TAM, GDZIE INNI NIE POTRAFILI ZNALEŹĆ ROZWIĄZAŃ.
+              </h2>
+              <p className="text-navy-700 text-base md:text-lg mt-2">
+                Zamień chaos w jedną ratę i odzyskaj kontrolę nad życiem.
               </p>
             </div>
 
@@ -140,7 +145,7 @@ const HeroSectionBeta = () => {
                 <span className="text-navy-700 font-bold">4.9/5</span>
               </div>
               <p className="text-navy-600 text-sm">
-                <strong>Ponad 3000 zadowolonych klientów</strong> uwolnionych od długów
+                <strong>15.000 zadowolonych klientów</strong> uwolnionych od długów
               </p>
             </div>
 
@@ -148,7 +153,7 @@ const HeroSectionBeta = () => {
             <div className="grid grid-cols-3 gap-2 max-w-lg mx-auto">
               <div className="bg-white/70 backdrop-blur-sm p-2 rounded-lg text-center shadow-sm border border-white/50">
                 <Users className="w-5 h-5 text-business-blue-600 mx-auto mb-1" />
-                <p className="text-xs font-semibold text-navy-700">3000+</p>
+                <p className="text-xs font-semibold text-navy-700">15000</p>
                 <p className="text-xs text-navy-600">Klientów</p>
               </div>
               <div className="bg-white/70 backdrop-blur-sm p-2 rounded-lg text-center shadow-sm border border-white/50">
@@ -182,20 +187,25 @@ const HeroSectionBeta = () => {
           <div className="space-y-3 md:space-y-4 animate-fade-in">
             <h1 className="font-montserrat font-black text-4xl lg:text-5xl xl:text-6xl text-left leading-tight">
               <span className="bg-gradient-to-r from-navy-900 via-business-blue-700 to-prestige-gold-600 bg-clip-text text-transparent">
-                ZASTĘPUJEMY WSZYSTKIE CHWILÓWKI
+                Zamień długi w
               </span>
               <br />
-              <span className="text-navy-900">JEDNĄ NISKĄ RATĄ BANKOWĄ</span>
+              <span className="text-navy-900">jedną wygodną ratę</span>
             </h1>
             
             <div className="bg-gradient-to-r from-success-50 via-business-blue-50 to-prestige-gold-50 p-6 rounded-2xl shadow-lg border-2 border-success-300">
               <p className="text-navy-700 text-xl font-semibold text-left leading-relaxed">
-                <span className="bg-gradient-to-r from-prestige-gold-600 to-prestige-gold-500 bg-clip-text text-transparent font-black">
-                  GWARANTUJEMY
-                </span>
-                {" "}obniżenie rat o{" "}
-                <span className="text-success-700 font-black text-2xl">30-70%</span>
-                {" "}lub zwracamy pieniądze
+                Masz długi, chwilówki, komornika na karku? Nie jesteś sam. Od 20 lat pomagamy tam, gdzie inni zawiedli.
+              </p>
+            </div>
+
+            {/* Dodatkowy nagłówek - Desktop */}
+            <div className="text-left">
+              <h2 className="font-montserrat font-bold text-2xl text-navy-900 leading-tight">
+                WSPIERAMY KLIENTÓW TAM, GDZIE INNI NIE POTRAFILI ZNALEŹĆ ROZWIĄZAŃ.
+              </h2>
+              <p className="text-navy-700 text-lg mt-2">
+                Zamień chaos w jedną ratę i odzyskaj kontrolę nad życiem.
               </p>
             </div>
 
@@ -228,7 +238,7 @@ const HeroSectionBeta = () => {
                 <span className="text-navy-700 font-bold text-xl">4.9/5</span>
               </div>
               <p className="text-navy-600 text-lg">
-                <strong>Ponad 3000 zadowolonych klientów</strong> uwolnionych od długów
+                <strong>15.000 zadowolonych klientów</strong> uwolnionych od długów
               </p>
             </div>
 
@@ -236,7 +246,7 @@ const HeroSectionBeta = () => {
             <div className="grid grid-cols-3 gap-4">
               <div className="bg-white/70 backdrop-blur-sm p-4 rounded-lg text-center shadow-sm border border-white/50">
                 <Users className="w-8 h-8 text-business-blue-600 mx-auto mb-2" />
-                <p className="text-lg font-semibold text-navy-700">3000+</p>
+                <p className="text-lg font-semibold text-navy-700">15000</p>
                 <p className="text-sm text-navy-600">Zadowolonych klientów</p>
               </div>
               <div className="bg-white/70 backdrop-blur-sm p-4 rounded-lg text-center shadow-sm border border-white/50">
