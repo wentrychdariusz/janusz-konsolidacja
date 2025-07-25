@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import LoanAmountsBar from '../components/LoanAmountsBar';
+import DebtCalculatorBeta from '../components/DebtCalculatorBeta';
 import TopHeader from '../components/TopHeader';
 import HeroSection from '../components/HeroSection';
 import ImagineSection from '../components/ImagineSection';
@@ -59,6 +60,24 @@ const Gratulacje4000_6000 = () => {
       <LoanAmountsBar />
       <TopHeader />
       <GratulacjeHeader />
+      
+      {/* Kalkulator oddłużania */}
+      <div className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-navy-900 mb-4">
+                🧮 Sprawdź dokładnie swoje możliwości oddłużenia
+              </h2>
+              <p className="text-xl text-warm-neutral-600">
+                Skorzystaj z naszego kalkulatora, aby poznać szczegóły
+              </p>
+            </div>
+            <DebtCalculatorBeta />
+          </div>
+        </div>
+      </div>
+      
       <HeroSection />
       <ImagineSection />
       <VideoSection />
