@@ -96,7 +96,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
               <div className="text-center px-8 py-6">
                 <div className="relative w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-4 border-prestige-gold-400 group">
                   <img 
-                    src={expertPortrait} 
+                    src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" 
                     alt="Dariusz Wentrych" 
                     className="w-full h-full object-cover hover:scale-110 transition-all duration-300"
                   />
@@ -141,14 +141,31 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                   </div>
                 </div>
                 
-                {/* Simple Button */}
-                <Button 
-                  onClick={handleSalarySubmit}
-                  disabled={!salary || parseInt(salary) <= 0}
-                  className="w-full bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-600 hover:from-prestige-gold-500 hover:to-prestige-gold-700 text-navy-900 font-bold py-4 rounded-xl text-lg shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50"
-                >
-                  Sprawdź spersonalizowaną ofertę
-                </Button>
+                {/* Table with button */}
+                <div className="bg-white rounded-xl border-2 border-prestige-gold-300 overflow-hidden shadow-lg">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200">
+                        <th className="px-4 py-3 text-center text-sm font-bold text-navy-900">
+                          Sprawdź swoją spersonalizowaną ofertę
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="px-4 py-4">
+                          <Button 
+                            onClick={handleSalarySubmit}
+                            disabled={!salary || parseInt(salary) <= 0}
+                            className="w-full bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-600 hover:from-prestige-gold-500 hover:to-prestige-gold-700 text-navy-900 font-bold py-4 rounded-xl text-lg shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50"
+                          >
+                            ✨ Sprawdź teraz ✨
+                          </Button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </>
           ) : (
@@ -168,7 +185,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
               <div className="px-8 py-6 text-center">
                 <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden border-3 border-prestige-gold-400">
                   <img 
-                    src={expertPortrait} 
+                    src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" 
                     alt="Dariusz Wentrych" 
                     className="w-full h-full object-cover"
                   />
