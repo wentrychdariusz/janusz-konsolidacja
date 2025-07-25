@@ -16,6 +16,8 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
   const [showOffer, setShowOffer] = useState(false);
   const navigate = useNavigate();
 
+  console.log('🔧 PersonalizedOfferModal render - isOpen:', isOpen, 'salary:', salary);
+
   const getPersonalizedOffer = (salaryAmount: number) => {
     if (salaryAmount >= 8000) {
       return {
