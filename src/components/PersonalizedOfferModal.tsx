@@ -155,8 +155,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                               <Button 
                                 onClick={handleSalarySubmit}
                                 disabled={!salary || parseInt(salary) <= 0}
-                                className="w-full bg-gradient-to-r from-prestige-gold-500 to-prestige-gold-700 hover:from-prestige-gold-600 hover:to-prestige-gold-800 text-white font-bold py-4 sm:py-5 md:py-6 rounded-lg text-base sm:text-lg md:text-xl shadow-xl transition-all duration-200 disabled:opacity-50 min-h-[60px] sm:min-h-[70px] animate-bounce border-2 border-prestige-gold-600"
-                                style={{animationDuration: '2s', animationIterationCount: 'infinite'}}
+                                className="w-full bg-gradient-to-r from-prestige-gold-500 to-prestige-gold-700 hover:from-prestige-gold-600 hover:to-prestige-gold-800 text-white font-bold py-4 sm:py-5 md:py-6 rounded-lg text-base sm:text-lg md:text-xl shadow-xl transition-all duration-200 disabled:opacity-50 min-h-[60px] sm:min-h-[70px] border-2 border-prestige-gold-600"
                               >
                                 Pokaż spersonalizowaną ofertę
                               </Button>
