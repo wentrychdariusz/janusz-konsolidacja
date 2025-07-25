@@ -16,7 +16,7 @@ const CalculatorSection = () => {
           </p>
         </div>
         
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto transition-transform duration-300 hover:scale-105 cursor-pointer">
           <DebtCalculator />
         </div>
       </div>
