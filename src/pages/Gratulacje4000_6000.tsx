@@ -41,7 +41,7 @@ const Gratulacje4000_6000 = () => {
           Twoje zarobki 4000-6000 zł dają świetne możliwości oddłużenia!
         </p>
         <p className="text-lg sm:text-xl">
-          ✅ Możemy zmniejszyć Twoje raty nawet o 40-60%
+          ✅ Możemy zmniejszyć Twoje raty ✅ Spłacić chwilówki ✅ Zrobić kredyt w banku
         </p>
         <div className="mt-6 bg-white/20 inline-block px-6 py-4 rounded-lg">
           <p className="text-xl font-bold">

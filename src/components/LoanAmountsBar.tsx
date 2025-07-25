@@ -1,6 +1,6 @@
 import React from 'react';
 import { Banknote } from 'lucide-react';
 const LoanAmountsBar = () => {
-  return;
+  return null;
 };
 export default LoanAmountsBar;
