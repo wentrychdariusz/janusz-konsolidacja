@@ -82,17 +82,32 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
             <>
               {/* Simple Header */}
               <div className="text-center px-8 py-6">
-                <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-4 border-prestige-gold-400">
+                <div className="relative w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-4 border-prestige-gold-400 group">
                   <img 
                     src={expertPortrait} 
                     alt="Dariusz Wentrych" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover hover:scale-110 transition-all duration-300"
                   />
+                  {/* Trust badge */}
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center border-2 border-white animate-pulse">
+                    <CheckCircle className="w-3 h-3 text-white" />
+                  </div>
                 </div>
                 
-                <h3 className="font-montserrat text-2xl font-bold text-navy-900 mb-6">
-                  Dariusz Wentrych
-                </h3>
+                <div className="text-center mb-6">
+                  <h3 className="font-montserrat text-2xl font-bold text-navy-900 mb-2 flex items-center justify-center gap-2">
+                    Dariusz Wentrych
+                    <div className="flex">
+                      {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}
+                    </div>
+                  </h3>
+                  <div className="text-sm text-green-700 font-bold mb-2">
+                    ✅ Ekspert nr 1 w oddłużeniu • 15.000+ zadowolonych klientów
+                  </div>
+                  <div className="text-sm text-blue-600 font-medium italic mb-4">
+                    💬 "Pomagam od 20 lat - sprawdź, czy mogę pomóc również Tobie!"
+                  </div>
+                </div>
 
                 {/* Large Input Field */}
                 <div className="mb-6">
