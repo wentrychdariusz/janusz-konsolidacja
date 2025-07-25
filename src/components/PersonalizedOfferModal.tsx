@@ -69,13 +69,13 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-[95vw] sm:max-w-lg translate-x-[-50%] translate-y-[-50%] gap-2 border bg-white p-3 sm:p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-2xl border-0 shadow-2xl [&>button]:hidden">
+      <DialogContent className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-[95vw] sm:max-w-lg translate-x-[-50%] translate-y-[-50%] gap-0 border bg-white p-0 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-2xl border-0 shadow-2xl [&>button]:hidden">
         <DialogHeader className="sr-only">
           <DialogTitle>Spersonalizowana oferta oddłużeniowa</DialogTitle>
           <DialogDescription>Wprowadź swoje zarobki aby otrzymać spersonalizowaną ofertę</DialogDescription>
         </DialogHeader>
 
-        <div className="px-0 pb-0">
+        <div className="">
           {!showOffer ? (
             <>
               {/* Progress button */}
@@ -89,7 +89,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
               </div>
               
               {/* Mobile-enhanced Header */}
-              <div className="text-center px-3 sm:px-4 py-4 sm:py-4">
+              <div className="text-center px-4 sm:px-6 py-4 sm:py-4">
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-3">
                   <div className="relative w-16 h-16 sm:w-16 sm:h-16 rounded-full overflow-hidden border-3 border-prestige-gold-400">
                     <img 
