@@ -8,6 +8,16 @@ import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star } from 'lu
 const HeroSectionBeta = () => {
   const [currentMiniTestimonial, setCurrentMiniTestimonial] = useState(0);
 
+  // Obrazy dla mozaiki mobilnej (z oryginalnego HeroSection)
+  const mobileBackgroundImages = [
+    "/lovable-uploads/a353743c-9479-4b4f-845a-c5763107af50.png",
+    "/lovable-uploads/c432fd37-2b35-4462-9077-b3a0ad7fb614.png",
+    "/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png",
+    "/lovable-uploads/cc2d25e5-05d2-41e1-a933-15662005a373.png",
+    "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png",
+    "/lovable-uploads/eb7b2854-6ce9-4318-8cb5-7f866eb59ef8.png"
+  ];
+
   const benefits = [
     {
       icon: <CheckCircle className="w-5 h-5 text-green-600" />,
@@ -40,27 +50,48 @@ const HeroSectionBeta = () => {
   }, [miniTestimonials.length]);
 
   return (
-    <section className="pt-6 pb-8 md:pt-8 md:pb-12 lg:pt-10 lg:pb-16 xl:pt-12 xl:pb-20 bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 relative">
-      <div className="px-4 md:px-8 max-w-7xl mx-auto">
-        
-        {/* Floating Success Elements */}
-        <div className="absolute left-4 top-16 animate-bounce hidden lg:block">
-          <div className="bg-green-100 p-3 rounded-full shadow-lg">
-            <Trophy className="w-6 h-6 text-green-600" />
+    <section className="relative min-h-screen bg-black text-white overflow-hidden">
+      {/* Background mozaika - Mobile */}
+      <div className="md:hidden absolute inset-0">
+        {/* Mozaika bez przerw - 400px wysokości */}
+        <div className="absolute top-0 left-0 right-0" style={{ height: '400px' }}>
+          <div className="grid grid-cols-10 h-full" style={{ gap: '0px' }}>
+            {Array.from({ length: 200 }, (_, index) => {
+              const imageIndex = index % mobileBackgroundImages.length;
+              return (
+                <div key={index} className="w-full h-full block leading-none">
+                  <OptimizedImage
+                    src={mobileBackgroundImages[imageIndex]}
+                    alt=""
+                    className="w-full h-full object-cover opacity-50 block"
+                    priority={index < 20}
+                    width={40}
+                    height={40}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
         
-        <div className="absolute right-4 top-24 animate-bounce hidden lg:block" style={{animationDelay: '1s'}}>
-          <div className="bg-blue-100 p-3 rounded-full shadow-lg">
-            <Target className="w-6 h-6 text-blue-600" />
-          </div>
-        </div>
-
-        <div className="absolute left-16 bottom-32 animate-bounce hidden lg:block" style={{animationDelay: '2s'}}>
-          <div className="bg-yellow-100 p-3 rounded-full shadow-lg">
-            <Car className="w-6 h-6 text-yellow-600" />
-          </div>
-        </div>
+        {/* Czarna przezroczystość na całej mozaice */}
+        <div className="absolute top-0 left-0 right-0 bg-black/50" style={{ height: '400px' }}></div>
+        
+        {/* Płynne przejście tonalne od mozaiki do czerni */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/50 to-black" style={{ top: '200px' }}></div>
+        
+        {/* Dodatkowy gradient dla mocniejszego przejścia */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-black" style={{ top: '300px' }}></div>
+      </div>
+      
+      {/* Enhanced gradient overlay with smooth tonal transition - desktop */}
+      <div className="hidden md:block absolute inset-0 bg-gradient-to-b from-black/30 via-black/40 to-black"></div>
+      
+      {/* Additional gradient for smoother bottom transition - desktop */}
+      <div className="hidden md:block absolute bottom-0 left-0 right-0 h-96 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+      
+      <div className="relative z-10">
+        <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-2 md:py-4">
 
         {/* Mobile and Tablet Layout - Stacked */}
         <div className="xl:hidden">
@@ -93,11 +124,11 @@ const HeroSectionBeta = () => {
             </div>
 
             <h1 className="font-montserrat font-black text-3xl md:text-4xl lg:text-5xl text-center leading-tight">
-              <span className="bg-gradient-to-r from-navy-900 via-business-blue-700 to-prestige-gold-600 bg-clip-text text-transparent">
+              <span className="text-white">
                 Zamień długi w
               </span>
               <br />
-              <span className="text-navy-900">jedną wygodną ratę</span>
+              <span className="text-white">jedną wygodną ratę</span>
             </h1>
             
             <div className="bg-gradient-to-r from-success-50 via-business-blue-50 to-prestige-gold-50 p-4 md:p-6 rounded-2xl shadow-lg border-2 border-success-300 max-w-2xl mx-auto">
@@ -272,6 +303,7 @@ const HeroSectionBeta = () => {
             <div className="w-full">
               <DebtCalculatorBeta />
             </div>
+          </div>
           </div>
         </div>
       </div>
