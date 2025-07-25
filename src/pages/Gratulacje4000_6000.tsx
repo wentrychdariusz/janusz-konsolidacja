@@ -40,9 +40,11 @@ const Gratulacje4000_6000 = () => {
         <p className="text-xl sm:text-2xl mb-2">
           Twoje zarobki 4000-6000 zł dają świetne możliwości oddłużenia!
         </p>
-        <p className="text-lg sm:text-xl">
-          ✅ Możemy zmniejszyć Twoje raty ✅ Spłacić chwilówki ✅ Zrobić kredyt w banku
-        </p>
+        <div className="text-lg sm:text-xl space-y-2">
+          <p>✅ Możemy zmniejszyć Twoje raty</p>
+          <p>✅ Spłacić chwilówki</p>
+          <p>✅ Zrobić kredyt w banku</p>
+        </div>
         <div className="mt-6 bg-white/20 inline-block px-6 py-4 rounded-lg">
           <p className="text-xl font-bold">
             💰 To może być nawet 1200 zł miesięcznie więcej w Twojej kieszeni!
