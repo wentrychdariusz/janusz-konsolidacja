@@ -164,7 +164,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                                 disabled={!salary || parseInt(salary) <= 0}
                                 className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-6 rounded-lg text-xl shadow-lg transition-all duration-200 disabled:opacity-50 min-h-[70px] border-2 border-green-400 hover:scale-105 hover:shadow-xl"
                               >
-                                Zobacz jak możemy Ci pomóc!
+                                Zobacz spersonalizowaną ofertę
                               </Button>
                             </div>
                           </div>
