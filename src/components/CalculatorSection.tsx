@@ -5,7 +5,7 @@ import DebtCalculator from './DebtCalculator';
 
 const CalculatorSection = () => {
   const { ref, inView } = useInView({
-    threshold: 0.3,
+    threshold: 0.1,
     triggerOnce: true,
   });
 
@@ -24,9 +24,9 @@ const CalculatorSection = () => {
         
         <div 
           ref={ref}
-          className={`max-w-4xl mx-auto transition-transform duration-500 cursor-pointer 
+          className={`max-w-4xl mx-auto transition-all duration-700 ease-out cursor-pointer 
             md:hover:scale-105 
-            ${inView ? 'md:scale-100 scale-105' : 'scale-100'}`}
+            ${inView ? 'scale-105 md:scale-100' : 'scale-95 opacity-80'}`}
         >
           <DebtCalculator />
         </div>
