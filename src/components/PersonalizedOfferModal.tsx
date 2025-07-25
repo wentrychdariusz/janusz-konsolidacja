@@ -74,95 +74,87 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
         <DialogHeader className="sr-only">
           <DialogTitle>Spersonalizowana oferta oddłużeniowa</DialogTitle>
           <DialogDescription>Wprowadź swoje zarobki aby otrzymać spersonalizowaną ofertę</DialogDescription>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="absolute -top-2 -right-2 h-8 w-8 rounded-full z-10"
-            onClick={onClose}
-          >
-            <X className="h-4 w-4" />
-          </Button>
         </DialogHeader>
 
         <div className="px-0 pb-0">
           {!showOffer ? (
             <>
-              {/* Progress indicator */}
-              <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 px-6 py-3 -mx-6 -mt-6 border-b border-prestige-gold-200">
+              {/* Enhanced progress indicator */}
+              <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 px-4 sm:px-6 py-4 sm:py-3 -mx-3 sm:-mx-6 -mt-3 sm:-mt-6 border-b border-prestige-gold-200">
                 <div className="flex items-center justify-between">
-                  <div className="text-navy-900 font-bold text-sm">KROK 1 z 2</div>
+                  <div className="text-navy-900 font-bold text-base sm:text-sm">KROK 1 z 2</div>
                   <div className="flex space-x-2">
-                    <div className="w-6 h-2 bg-prestige-gold-500 rounded-full"></div>
-                    <div className="w-6 h-2 bg-prestige-gold-200 rounded-full"></div>
+                    <div className="w-8 h-3 sm:w-6 sm:h-2 bg-prestige-gold-500 rounded-full"></div>
+                    <div className="w-8 h-3 sm:w-6 sm:h-2 bg-prestige-gold-200 rounded-full"></div>
                   </div>
                 </div>
               </div>
               
-              {/* Mobile-optimized Header */}
-              <div className="text-center px-2 sm:px-4 py-2 sm:py-4">
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 mb-3">
-                  <div className="relative w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 sm:border-3 border-prestige-gold-400">
+              {/* Mobile-enhanced Header */}
+              <div className="text-center px-3 sm:px-4 py-4 sm:py-4">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-3">
+                  <div className="relative w-16 h-16 sm:w-16 sm:h-16 rounded-full overflow-hidden border-3 border-prestige-gold-400">
                     <img 
                       src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" 
                       alt="Dariusz Wentrych" 
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute -bottom-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
-                      <CheckCircle className="w-2 h-2 sm:w-3 sm:h-3 text-white" />
+                    <div className="absolute -bottom-1 -right-1 w-6 h-6 sm:w-5 sm:h-5 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
+                      <CheckCircle className="w-3 h-3 text-white" />
                     </div>
                   </div>
                   
                   <div className="text-center sm:text-left">
-                    <h3 className="font-montserrat text-base sm:text-xl font-bold text-navy-900 flex items-center justify-center sm:justify-start gap-1 sm:gap-2">
+                    <h3 className="font-montserrat text-lg sm:text-xl font-bold text-navy-900 flex items-center justify-center sm:justify-start gap-2">
                       Dariusz Wentrych
                       <div className="flex">
-                        {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-2 h-2 sm:w-3 sm:h-3 fill-yellow-400 text-yellow-400" />)}
+                        {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
                       </div>
                     </h3>
-                    <div className="text-xs text-green-700 font-bold">
+                    <div className="text-sm sm:text-xs text-green-700 font-bold">
                       ✅ Ekspert nr 1 w oddłużeniu
                     </div>
-                    <div className="text-xs text-blue-600 font-medium">
+                    <div className="text-sm sm:text-xs text-blue-600 font-medium">
                       💬 "15.000+ zadowolonych klientów"
                     </div>
                   </div>
                 </div>
 
-                {/* Mobile-optimized table */}
+                {/* Mobile-enhanced table */}
                 <div className="bg-white rounded-xl border-2 border-prestige-gold-300 overflow-hidden shadow-lg mx-1 sm:mx-2">
                   <table className="w-full">
                     <thead>
                       <tr className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200">
-                        <th className="px-2 sm:px-4 py-3 sm:py-4 text-center text-sm sm:text-lg font-bold text-navy-900">
+                        <th className="px-3 sm:px-4 py-4 sm:py-4 text-center text-base sm:text-lg font-bold text-navy-900">
                           Wpisz miesięczne zarobki netto
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr className="bg-gradient-to-r from-blue-50 to-green-50">
-                        <td className="px-3 sm:px-6 py-4 sm:py-8">
-                          <div className="space-y-4 sm:space-y-6">
-                            {/* Mobile-optimized input */}
+                        <td className="px-4 sm:px-6 py-8 sm:py-8">
+                          <div className="space-y-6">
+                            {/* Mobile-enhanced input */}
                             <div className="relative">
                               <Input
                                 type="number"
                                 placeholder="4000"
                                 value={salary}
                                 onChange={(e) => setSalary(e.target.value)}
-                                className="text-center text-lg sm:text-2xl font-medium border-2 border-navy-400 focus:border-navy-600 h-12 sm:h-16 rounded-lg transition-colors duration-200 text-navy-700 bg-white w-full shadow-md placeholder:text-navy-400"
+                                className="text-center text-2xl sm:text-2xl font-medium border-2 border-navy-400 focus:border-navy-600 h-16 sm:h-16 rounded-lg transition-colors duration-200 text-navy-700 bg-white w-full shadow-md placeholder:text-navy-400"
                                 autoFocus
                               />
-                              <span className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-navy-600 text-lg sm:text-2xl font-medium">
+                              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-navy-600 text-2xl font-medium">
                                 zł
                               </span>
                             </div>
                             
-                            {/* Mobile-optimized button */}
+                            {/* Mobile-enhanced button */}
                             <div>
                               <Button 
                                 onClick={handleSalarySubmit}
                                 disabled={!salary || parseInt(salary) <= 0}
-                                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 sm:py-6 rounded-lg text-sm sm:text-xl shadow-lg transition-all duration-200 disabled:opacity-50 min-h-[50px] sm:min-h-[70px] border-2 border-green-400 hover:scale-105 hover:shadow-xl"
+                                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-6 sm:py-6 rounded-lg text-lg sm:text-xl shadow-lg transition-all duration-200 disabled:opacity-50 min-h-[70px] border-2 border-green-400 hover:scale-105 hover:shadow-xl"
                               >
                                 Zobacz spersonalizowaną ofertę
                               </Button>
