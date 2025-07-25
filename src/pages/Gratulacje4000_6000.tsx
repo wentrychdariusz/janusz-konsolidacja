@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import LoanAmountsBar from '../components/LoanAmountsBar';
 import DebtCalculatorBeta from '../components/DebtCalculatorBeta';
+import PolishCitizensNotice from '../components/PolishCitizensNotice';
 import TopHeader from '../components/TopHeader';
 import HeroSection from '../components/HeroSection';
 import ImagineSection from '../components/ImagineSection';
@@ -67,8 +68,9 @@ const Gratulacje4000_6000 = () => {
       <MentorSection />
       <BeforeAfterSection />
       <ClientSection />
+      <PolishCitizensNotice />
       
-      {/* Kalkulator oddłużania zamiast TrustedClientsSection */}
+      {/* Kalkulator oddłużania po PolishCitizensNotice */}
       <div className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
