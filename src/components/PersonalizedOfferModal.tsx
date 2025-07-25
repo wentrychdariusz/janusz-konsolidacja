@@ -17,6 +17,19 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
   const [showOffer, setShowOffer] = useState(false);
   const navigate = useNavigate();
 
+  // Funkcja formatowania liczb (jak w DebtCalculator)
+  const formatNumber = (value: string) => {
+    const num = value.replace(/\D/g, '');
+    return num.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  };
+
+  // Parsowanie PLN (jak w DebtCalculator)
+  const parsePLN = (val: string) => {
+    const clean = (val || '').toString().replace(/\s+/g, '').replace(',', '.');
+    const num = parseFloat(clean);
+    return isNaN(num) ? 0 : num;
+  };
+
   console.log('🔧 PersonalizedOfferModal render - isOpen:', isOpen, 'salary:', salary);
 
   const getPersonalizedOffer = (salaryAmount: number) => {
@@ -48,7 +61,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
   };
 
   const handleSalarySubmit = () => {
-    const salaryNum = parseInt(salary);
+    const salaryNum = parsePLN(salary);
     if (salaryNum && salaryNum > 0) {
       // Sprawdź czy zarobki są w przedziale 4000-6000 PLN
       if (salaryNum >= 4000 && salaryNum <= 6000) {
@@ -59,6 +72,10 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
       }
       setShowOffer(true);
     }
+  };
+
+  const handleSalaryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSalary(formatNumber(e.target.value));
   };
 
   const handleGoToCalculator = () => {
@@ -72,7 +89,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
     onClose();
   };
 
-  const offer = salary ? getPersonalizedOffer(parseInt(salary)) : null;
+  const offer = salary ? getPersonalizedOffer(parsePLN(salary)) : null;
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
@@ -144,10 +161,10 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                           {/* Mobile-enhanced input */}
                           <div className="relative">
                             <Input
-                              type="number"
-                              placeholder="4000"
+                              type="text"
+                              placeholder="4 000"
                               value={salary}
-                              onChange={(e) => setSalary(e.target.value)}
+                              onChange={handleSalaryChange}
                               className="text-center text-2xl sm:text-5xl font-medium border-2 border-navy-400 focus:border-navy-600 h-16 sm:h-24 rounded-lg transition-colors duration-200 text-navy-700 bg-white w-full shadow-md placeholder:text-2xl sm:placeholder:text-5xl placeholder:text-navy-400"
                               autoFocus
                             />
@@ -160,7 +177,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                           <div>
                             <Button 
                               onClick={handleSalarySubmit}
-                              disabled={!salary || parseInt(salary) <= 0}
+                              disabled={!salary || parsePLN(salary) <= 0}
                               className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-6 sm:py-6 rounded-lg text-lg sm:text-xl shadow-lg transition-all duration-200 disabled:opacity-50 min-h-[70px] border-2 border-green-400 hover:scale-105 hover:shadow-xl"
                             >
                               Zobacz spersonalizowaną ofertę
