@@ -69,8 +69,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <div className="fixed inset-0 z-50 bg-black/10 backdrop-blur-[2px]" />
-      <DialogContent className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-[95vw] sm:max-w-lg translate-x-[-50%] translate-y-[-50%] gap-2 border bg-white p-3 sm:p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-2xl border-0 shadow-2xl">
+      <DialogContent className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-[95vw] sm:max-w-lg translate-x-[-50%] translate-y-[-50%] gap-2 border bg-white p-3 sm:p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-2xl border-0 shadow-2xl [&>button]:hidden">
         <DialogHeader className="sr-only">
           <DialogTitle>Spersonalizowana oferta oddłużeniowa</DialogTitle>
           <DialogDescription>Wprowadź swoje zarobki aby otrzymać spersonalizowaną ofertę</DialogDescription>
@@ -79,12 +78,16 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
         <div className="px-0 pb-0">
           {!showOffer ? (
             <>
-              {/* Enhanced progress indicator */}
+              {/* Progress button */}
               <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 px-4 sm:px-6 py-4 sm:py-3 -mx-3 sm:-mx-6 -mt-3 sm:-mt-6 border-b border-prestige-gold-200">
-                <div className="flex items-center justify-center">
+                <div className="flex flex-col items-center gap-3">
                   <div className="text-navy-900 font-bold text-base sm:text-lg flex items-center gap-2">
                     ➡️ Otrzymaj spersonalizowaną ofertę
                   </div>
+                  <div className="w-full bg-gray-200 rounded-full h-3">
+                    <div className="bg-prestige-gold-500 h-3 rounded-full transition-all duration-300" style={{width: '50%'}}></div>
+                  </div>
+                  <div className="text-navy-700 text-sm font-medium">50% ukończone</div>
                 </div>
               </div>
               
