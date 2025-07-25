@@ -60,8 +60,15 @@ const Gratulacje4000_6000 = () => {
       <LoanAmountsBar />
       <TopHeader />
       <GratulacjeHeader />
+      <HeroSection />
+      <ImagineSection />
+      <VideoSection />
+      <DariuszLetterSection />
+      <MentorSection />
+      <BeforeAfterSection />
+      <ClientSection />
       
-      {/* Kalkulator oddłużania */}
+      {/* Kalkulator oddłużania zamiast TrustedClientsSection */}
       <div className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
@@ -78,14 +85,6 @@ const Gratulacje4000_6000 = () => {
         </div>
       </div>
       
-      <HeroSection />
-      <ImagineSection />
-      <VideoSection />
-      <DariuszLetterSection />
-      <MentorSection />
-      <BeforeAfterSection />
-      <ClientSection />
-      <TrustedClientsSection />
       <HeroesSection />
       <BookSection />
       <TeamSection />
