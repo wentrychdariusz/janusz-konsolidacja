@@ -81,11 +81,9 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
             <>
               {/* Enhanced progress indicator */}
               <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 px-4 sm:px-6 py-4 sm:py-3 -mx-3 sm:-mx-6 -mt-3 sm:-mt-6 border-b border-prestige-gold-200">
-                <div className="flex items-center justify-between">
-                  <div className="text-navy-900 font-bold text-base sm:text-sm">KROK 1 z 2</div>
-                  <div className="flex space-x-2">
-                    <div className="w-8 h-3 sm:w-6 sm:h-2 bg-prestige-gold-500 rounded-full"></div>
-                    <div className="w-8 h-3 sm:w-6 sm:h-2 bg-prestige-gold-200 rounded-full"></div>
+                <div className="flex items-center justify-center">
+                  <div className="text-navy-900 font-bold text-base sm:text-lg flex items-center gap-2">
+                    ➡️ Otrzymaj spersonalizowaną ofertę
                   </div>
                 </div>
               </div>
@@ -117,6 +115,9 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                     <div className="text-sm sm:text-xs text-blue-600 font-medium">
                       📚 Autor bestsellera "Nowe życie bez długów"
                     </div>
+                    <div className="text-sm sm:text-xs text-purple-600 font-medium">
+                      💼 20+ lat doświadczenia w finansach
+                    </div>
                   </div>
                 </div>
 
@@ -141,7 +142,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                                 placeholder="4000"
                                 value={salary}
                                 onChange={(e) => setSalary(e.target.value)}
-                                className="text-center text-2xl sm:text-2xl font-medium border-2 border-navy-400 focus:border-navy-600 h-16 sm:h-16 rounded-lg transition-colors duration-200 text-navy-700 bg-white w-full shadow-md placeholder:text-navy-400"
+                                className="text-center text-2xl sm:text-4xl font-medium border-2 border-navy-400 focus:border-navy-600 h-16 sm:h-20 rounded-lg transition-colors duration-200 text-navy-700 bg-white w-full shadow-md placeholder:text-navy-400"
                                 autoFocus
                               />
                               <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-navy-600 text-2xl font-medium">
