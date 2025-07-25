@@ -60,7 +60,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm" />
+      <div className="fixed inset-0 z-50 bg-black/10 backdrop-blur-[2px]" />
       <DialogContent className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-md translate-x-[-50%] translate-y-[-50%] gap-4 border bg-white p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-2xl border-0 shadow-2xl">
         <DialogHeader className="relative pb-2">
           <Button
@@ -125,12 +125,18 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
               <div className="px-8 py-6">
                 <div className="text-center mb-6">
                   <h4 className="font-montserrat text-2xl font-bold text-navy-900 mb-3">
-                    Sprawdź swoją spersonalizowaną ofertę
+                    Wpisz ile zarabiasz
                   </h4>
-                  <p className="text-warm-neutral-600 text-sm leading-relaxed">
-                    Podaj swoje miesięczne zarobki netto, a przedstawię Ci dokładną analizę 
-                    <strong className="text-prestige-gold-600"> oszczędności</strong>
-                  </p>
+                  <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 p-4 rounded-xl border border-prestige-gold-200 mb-4">
+                    <p className="text-navy-900 text-sm font-semibold mb-2">
+                      ⚡ Natychmiast zobaczysz:
+                    </p>
+                    <ul className="text-xs text-warm-neutral-700 space-y-1">
+                      <li>• Dokładną kwotę którą możesz zaoszczędzić miesięcznie</li>
+                      <li>• Ile to będzie rocznie więcej w Twojej kieszeni</li>
+                      <li>• Spersonalizowany plan oddłużenia</li>
+                    </ul>
+                  </div>
                 </div>
 
                 <div className="space-y-4">
