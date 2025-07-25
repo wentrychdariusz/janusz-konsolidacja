@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from './ui/dialog';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
+import { Label } from './ui/label';
 import { X, Shield, Award, CheckCircle, Star, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import expertPortrait from '../assets/dariusz-expert-portrait.jpg';
@@ -80,6 +81,17 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
         <div className="px-0 pb-0">
           {!showOffer ? (
             <>
+              {/* Progress indicator */}
+              <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 px-6 py-3 -mx-6 -mt-6 border-b border-prestige-gold-200">
+                <div className="flex items-center justify-between">
+                  <div className="text-navy-900 font-bold text-sm">KROK 1 z 2</div>
+                  <div className="flex space-x-2">
+                    <div className="w-6 h-2 bg-prestige-gold-500 rounded-full"></div>
+                    <div className="w-6 h-2 bg-prestige-gold-200 rounded-full"></div>
+                  </div>
+                </div>
+              </div>
+              
               {/* Simple Header */}
               <div className="text-center px-8 py-6">
                 <div className="relative w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-4 border-prestige-gold-400 group">
@@ -109,15 +121,24 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                   </div>
                 </div>
 
-                {/* Large Input Field */}
-                <div className="mb-6">
-                  <Input
-                    type="number"
-                    placeholder="Wpisz swoje zarobki"
-                    value={salary}
-                    onChange={(e) => setSalary(e.target.value)}
-                    className="text-center text-2xl font-bold border-3 border-prestige-gold-400 focus:border-prestige-gold-600 h-16 rounded-xl animate-pulse focus:animate-none transition-all duration-300 shadow-lg text-navy-900"
-                  />
+                {/* Large Input Field with better visibility */}
+                <div className="mb-6 bg-gradient-to-r from-blue-50 to-green-50 p-4 rounded-xl border-2 border-blue-300">
+                  <Label className="block text-center text-navy-900 font-bold mb-3 text-lg">
+                    💰 Wpisz swoje miesięczne zarobki netto:
+                  </Label>
+                  <div className="relative">
+                    <Input
+                      type="number"
+                      placeholder="np. 5000"
+                      value={salary}
+                      onChange={(e) => setSalary(e.target.value)}
+                      className="text-center text-3xl font-bold border-4 border-blue-400 focus:border-blue-600 h-20 rounded-xl animate-pulse focus:animate-none transition-all duration-300 shadow-xl text-navy-900 bg-white"
+                      autoFocus
+                    />
+                    <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-blue-600 text-2xl font-bold">
+                      PLN
+                    </span>
+                  </div>
                 </div>
                 
                 {/* Simple Button */}
@@ -132,6 +153,17 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
             </>
           ) : (
             <>
+              {/* Progress indicator for step 2 */}
+              <div className="bg-gradient-to-r from-green-50 to-green-100 px-6 py-3 -mx-6 -mt-6 border-b border-green-200">
+                <div className="flex items-center justify-between">
+                  <div className="text-navy-900 font-bold text-sm">KROK 2 z 2</div>
+                  <div className="flex space-x-2">
+                    <div className="w-6 h-2 bg-green-500 rounded-full"></div>
+                    <div className="w-6 h-2 bg-green-500 rounded-full"></div>
+                  </div>
+                </div>
+              </div>
+              
               {/* Results */}
               <div className="px-8 py-6 text-center">
                 <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden border-3 border-prestige-gold-400">
