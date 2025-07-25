@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import LoanAmountsBar from '../components/LoanAmountsBar';
 import TopHeader from '../components/TopHeader';
-import HeroSection from '../components/HeroSection';
+import HeroSectionBeta from '../components/HeroSectionBeta';
 import ImagineSection from '../components/ImagineSection';
 import VideoSection from '../components/VideoSection';
 import DariuszLetterSection from '../components/DariuszLetterSection';
@@ -59,7 +59,7 @@ const Gratulacje4000_6000 = () => {
       <LoanAmountsBar />
       <TopHeader />
       <GratulacjeHeader />
-      <HeroSection />
+      <HeroSectionBeta />
       <ImagineSection />
       <VideoSection />
       <DariuszLetterSection />
