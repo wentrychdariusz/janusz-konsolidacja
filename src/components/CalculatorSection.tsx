@@ -1,8 +1,14 @@
 
 import React from 'react';
+import { useInView } from 'react-intersection-observer';
 import DebtCalculator from './DebtCalculator';
 
 const CalculatorSection = () => {
+  const { ref, inView } = useInView({
+    threshold: 0.3,
+    triggerOnce: true,
+  });
+
   return (
     <section className="py-16 md:py-24 bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50">
       <div className="px-4 md:px-8 max-w-7xl mx-auto">
@@ -16,7 +22,12 @@ const CalculatorSection = () => {
           </p>
         </div>
         
-        <div className="max-w-4xl mx-auto transition-transform duration-300 md:hover:scale-105 cursor-pointer animate-pulse md:animate-none">
+        <div 
+          ref={ref}
+          className={`max-w-4xl mx-auto transition-transform duration-500 cursor-pointer 
+            md:hover:scale-105 
+            ${inView ? 'md:scale-100 scale-105' : 'scale-100'}`}
+        >
           <DebtCalculator />
         </div>
       </div>
