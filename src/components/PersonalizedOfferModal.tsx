@@ -121,46 +121,44 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                   </div>
                 </div>
 
-                {/* Large Input Field with better visibility */}
-                <div className="mb-6 bg-gradient-to-r from-blue-50 to-green-50 p-4 rounded-xl border-2 border-blue-300">
-                  <Label className="block text-center text-navy-900 font-bold mb-3 text-lg">
-                    💰 Wpisz swoje miesięczne zarobki netto:
-                  </Label>
-                  <div className="relative">
-                    <Input
-                      type="number"
-                      placeholder="np. 5000"
-                      value={salary}
-                      onChange={(e) => setSalary(e.target.value)}
-                      className="text-center text-3xl font-bold border-4 border-blue-400 focus:border-blue-600 h-20 rounded-xl animate-pulse focus:animate-none transition-all duration-300 shadow-xl text-navy-900 bg-white"
-                      autoFocus
-                    />
-                    <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-blue-600 text-2xl font-bold">
-                      PLN
-                    </span>
-                  </div>
-                </div>
-                
-                {/* Table with button */}
+                {/* Single table with input and button */}
                 <div className="bg-white rounded-xl border-2 border-prestige-gold-300 overflow-hidden shadow-lg">
                   <table className="w-full">
                     <thead>
                       <tr className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200">
-                        <th className="px-4 py-3 text-center text-sm font-bold text-navy-900">
-                          Sprawdź swoją spersonalizowaną ofertę
+                        <th className="px-4 py-3 text-center text-base font-bold text-navy-900">
+                          💰 Wpisz zarobki i sprawdź spersonalizowaną ofertę
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <td className="px-4 py-4">
-                          <Button 
-                            onClick={handleSalarySubmit}
-                            disabled={!salary || parseInt(salary) <= 0}
-                            className="w-full bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-600 hover:from-prestige-gold-500 hover:to-prestige-gold-700 text-navy-900 font-bold py-4 rounded-xl text-lg shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50"
-                          >
-                            ✨ Sprawdź teraz ✨
-                          </Button>
+                          <div className="space-y-3">
+                            {/* Input field */}
+                            <div className="relative">
+                              <Input
+                                type="number"
+                                placeholder="4000"
+                                value={salary}
+                                onChange={(e) => setSalary(e.target.value)}
+                                className="text-center text-2xl font-bold border-2 border-blue-300 focus:border-blue-500 h-14 rounded-lg transition-colors duration-200 text-navy-900 bg-blue-50"
+                                autoFocus
+                              />
+                              <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-600 text-lg font-bold">
+                                zł
+                              </span>
+                            </div>
+                            
+                            {/* Button */}
+                            <Button 
+                              onClick={handleSalarySubmit}
+                              disabled={!salary || parseInt(salary) <= 0}
+                              className="w-full bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-600 hover:from-prestige-gold-500 hover:to-prestige-gold-700 text-navy-900 font-bold py-3 rounded-lg text-base shadow-lg transition-colors duration-200 disabled:opacity-50"
+                            >
+                              Sprawdź moją ofertę
+                            </Button>
+                          </div>
                         </td>
                       </tr>
                     </tbody>
