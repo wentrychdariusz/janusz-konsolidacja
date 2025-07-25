@@ -50,6 +50,13 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
   const handleSalarySubmit = () => {
     const salaryNum = parseInt(salary);
     if (salaryNum && salaryNum > 0) {
+      // Sprawdź czy zarobki są w przedziale 4000-6000 PLN
+      if (salaryNum >= 4000 && salaryNum <= 6000) {
+        // Przekieruj na stronę /4000_6000
+        navigate('/4000_6000');
+        onClose();
+        return;
+      }
       setShowOffer(true);
     }
   };
