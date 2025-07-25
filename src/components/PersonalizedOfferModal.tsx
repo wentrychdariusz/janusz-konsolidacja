@@ -144,10 +144,10 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                                 placeholder="4000"
                                 value={salary}
                                 onChange={(e) => setSalary(e.target.value)}
-                                className="text-center text-2xl sm:text-3xl md:text-4xl font-bold border-3 border-navy-500 focus:border-navy-700 h-12 sm:h-14 md:h-16 rounded-lg transition-colors duration-200 text-navy-900 bg-white w-full shadow-lg"
+                                className="text-center text-xl sm:text-2xl md:text-3xl font-medium border-2 border-navy-400 focus:border-navy-600 h-12 sm:h-14 md:h-16 rounded-lg transition-colors duration-200 text-navy-700 bg-white w-full shadow-md placeholder:text-navy-400"
                                 autoFocus
                               />
-                              <span className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 text-navy-700 text-lg sm:text-xl md:text-2xl font-bold">
+                              <span className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 text-navy-600 text-lg sm:text-xl md:text-2xl font-medium">
                                 zł
                               </span>
                             </div>
@@ -157,7 +157,8 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                               <Button 
                                 onClick={handleSalarySubmit}
                                 disabled={!salary || parseInt(salary) <= 0}
-                                className="w-full bg-gradient-to-r from-navy-700 to-navy-900 hover:from-navy-800 hover:to-navy-950 text-white font-bold py-4 sm:py-5 md:py-6 rounded-lg text-base sm:text-lg md:text-xl shadow-2xl transition-all duration-200 disabled:opacity-50 min-h-[60px] sm:min-h-[70px] border-3 border-prestige-gold-500"
+                                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 sm:py-5 md:py-6 rounded-lg text-base sm:text-lg md:text-xl shadow-2xl transition-all duration-300 disabled:opacity-50 min-h-[60px] sm:min-h-[70px] border-2 border-green-400 hover:scale-105 hover:shadow-3xl animate-pulse"
+                                style={{animationDuration: '3s'}}
                               >
                                 Pokaż spersonalizowaną ofertę
                               </Button>
