@@ -163,7 +163,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                               <Button 
                                 onClick={handleSalarySubmit}
                                 disabled={!salary || parseInt(salary) <= 0}
-                                className="w-full bg-gradient-to-r from-green-400 to-green-500 hover:from-green-500 hover:to-green-600 text-white font-bold py-4 sm:py-5 md:py-6 rounded-lg text-base sm:text-lg md:text-xl shadow-2xl transition-all duration-500 disabled:opacity-50 min-h-[60px] sm:min-h-[70px] border-2 border-green-300 hover:scale-110 hover:shadow-3xl animate-[pulse_2s_ease-in-out_infinite] hover:animate-none"
+                                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 sm:py-5 md:py-6 rounded-lg text-base sm:text-lg md:text-xl shadow-2xl transition-all duration-500 disabled:opacity-50 min-h-[60px] sm:min-h-[70px] border-2 border-green-400 hover:scale-110 hover:shadow-3xl animate-[pulse_2s_ease-in-out_infinite] hover:animate-none"
                               >
                                 Zobacz jak możemy Ci pomóc!
                               </Button>
