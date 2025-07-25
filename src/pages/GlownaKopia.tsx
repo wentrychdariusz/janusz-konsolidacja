@@ -45,12 +45,8 @@ const GlownaKopia = () => {
       localStorage.setItem('last_glowna_kopia_visit', now.toString());
     }
 
-    // Show personalized offer modal after 3 seconds
-    const timer = setTimeout(() => {
-      setShowOfferModal(true);
-    }, 3000);
-
-    return () => clearTimeout(timer);
+    // Show personalized offer modal immediately
+    setShowOfferModal(true);
   }, [trackPageView]);
   
   return (
