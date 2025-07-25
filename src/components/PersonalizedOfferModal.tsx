@@ -146,9 +146,9 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                       placeholder="np. 5000"
                       value={salary}
                       onChange={(e) => setSalary(e.target.value)}
-                      className="text-center text-xl font-bold border-2 border-warm-neutral-200 focus:border-prestige-gold-400 h-14 rounded-xl"
+                      className="text-center text-xl font-bold border-2 border-prestige-gold-300 focus:border-prestige-gold-500 h-14 rounded-xl animate-pulse focus:animate-none transition-all duration-300 shadow-lg hover:shadow-xl"
                     />
-                    <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 font-semibold">
+                    <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-prestige-gold-600 font-bold">
                       zł netto
                     </span>
                   </div>
@@ -156,9 +156,9 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                   <Button 
                     onClick={handleSalarySubmit}
                     disabled={!salary || parseInt(salary) <= 0}
-                    className="w-full bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 hover:from-prestige-gold-500 hover:to-prestige-gold-600 text-navy-900 font-bold py-4 rounded-xl text-lg shadow-lg transform transition hover:scale-105"
+                    className="w-full bg-gradient-to-r from-prestige-gold-400 via-prestige-gold-500 to-prestige-gold-600 hover:from-prestige-gold-500 hover:via-prestige-gold-600 hover:to-prestige-gold-700 text-navy-900 font-bold py-4 rounded-xl text-lg shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-3xl active:scale-95 disabled:opacity-50 disabled:transform-none border-2 border-prestige-gold-600"
                   >
-                    Sprawdź moją ofertę →
+                    ✨ Sprawdź moją ofertę ✨
                   </Button>
                 </div>
 
