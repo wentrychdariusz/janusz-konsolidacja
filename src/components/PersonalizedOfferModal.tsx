@@ -125,14 +125,14 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                 <div className="bg-white rounded-xl border-2 border-prestige-gold-300 overflow-hidden shadow-lg">
                   <table className="w-full">
                     <thead>
-                      <tr className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200" style={{animation: 'pulse 3s ease-in-out infinite'}}>
+                      <tr className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200 animate-pulse">
                         <th className="px-3 py-3 sm:px-4 sm:py-4 text-center text-base sm:text-lg font-bold text-navy-900">
                           💰 Wpisz zarobki i sprawdź spersonalizowaną ofertę
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr className="bg-gradient-to-r from-blue-50 to-green-50" style={{animation: 'pulse 3s ease-in-out infinite'}}>
+                      <tr className="bg-gradient-to-r from-blue-50 to-green-50 animate-pulse">
                         <td className="px-3 py-4 sm:px-6 sm:py-6">
                           <div className="space-y-6">
                             {/* Input field - stronger colors */}
@@ -142,8 +142,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                                 placeholder="4000"
                                 value={salary}
                                 onChange={(e) => setSalary(e.target.value)}
-                                className="text-center text-2xl sm:text-3xl md:text-4xl font-bold border-3 border-navy-500 focus:border-navy-700 h-12 sm:h-14 md:h-16 rounded-lg transition-colors duration-200 text-navy-900 bg-white w-full animate-pulse shadow-lg"
-                                style={{animationDuration: '2s'}}
+                                className="text-center text-2xl sm:text-3xl md:text-4xl font-bold border-3 border-navy-500 focus:border-navy-700 h-12 sm:h-14 md:h-16 rounded-lg transition-colors duration-200 text-navy-900 bg-white w-full shadow-lg"
                                 autoFocus
                               />
                               <span className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 text-navy-700 text-lg sm:text-xl md:text-2xl font-bold">
@@ -156,7 +155,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                               <Button 
                                 onClick={handleSalarySubmit}
                                 disabled={!salary || parseInt(salary) <= 0}
-                                className="w-full bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-600 hover:from-prestige-gold-500 hover:to-prestige-gold-700 text-navy-900 font-bold py-4 sm:py-5 md:py-6 rounded-lg text-base sm:text-lg md:text-xl shadow-lg transition-all duration-200 disabled:opacity-50 min-h-[60px] sm:min-h-[70px] animate-bounce"
+                                className="w-full bg-gradient-to-r from-prestige-gold-500 to-prestige-gold-700 hover:from-prestige-gold-600 hover:to-prestige-gold-800 text-white font-bold py-4 sm:py-5 md:py-6 rounded-lg text-base sm:text-lg md:text-xl shadow-xl transition-all duration-200 disabled:opacity-50 min-h-[60px] sm:min-h-[70px] animate-bounce border-2 border-prestige-gold-600"
                                 style={{animationDuration: '2s', animationIterationCount: 'infinite'}}
                               >
                                 Pokaż spersonalizowaną ofertę
