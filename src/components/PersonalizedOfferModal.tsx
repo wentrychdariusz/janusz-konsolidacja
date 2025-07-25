@@ -165,7 +165,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                               placeholder="4 000"
                               value={salary}
                               onChange={handleSalaryChange}
-                              className="text-center text-2xl sm:text-5xl font-medium border-2 border-navy-400 focus:border-navy-600 h-16 sm:h-24 rounded-lg transition-colors duration-200 text-navy-700 bg-white w-full shadow-md placeholder:text-2xl sm:placeholder:text-5xl placeholder:text-navy-400"
+                              className="text-center text-3xl sm:text-5xl font-bold border-2 border-navy-400 focus:border-navy-600 h-16 sm:h-24 rounded-lg transition-colors duration-200 text-navy-700 bg-white w-full shadow-md placeholder:text-3xl sm:placeholder:text-5xl placeholder:text-navy-400 placeholder:font-bold"
                               autoFocus
                             />
                             <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-navy-600 text-2xl sm:text-4xl font-medium">
