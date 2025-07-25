@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import GlownaKopia from "./pages/GlownaKopia";
 import Calculator from "./pages/Calculator";
 import CalculatorBeta from "./pages/CalculatorBeta";
-import HealthCheck from "./pages/HealthCheck";
 import Analiza from "./pages/Analiza";
 import ThankYou from "./pages/ThankYou";
 import SmsVerification from "./pages/SmsVerification";
@@ -37,7 +36,6 @@ const App = () => (
           <Route path="/glownakopia" element={<GlownaKopia />} />
           <Route path="/kalkulator" element={<Calculator />} />
           <Route path="/kalkulator-beta" element={<CalculatorBeta />} />
-          <Route path="/health-check" element={<HealthCheck />} />
           <Route path="/analiza" element={<Analiza />} />
           <Route path="/formularz" element={<ThankYou />} />
           <Route path="/sms-verification" element={<SmsVerification />} />
