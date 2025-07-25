@@ -59,7 +59,8 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md mx-auto bg-white rounded-2xl border-0 shadow-2xl">
+      <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm" />
+      <DialogContent className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-md translate-x-[-50%] translate-y-[-50%] gap-4 border bg-white p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-2xl border-0 shadow-2xl">
         <DialogHeader className="relative pb-2">
           <Button
             variant="ghost"
@@ -110,11 +111,11 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
               {/* Salary Input */}
               <div className="space-y-4">
                 <div className="text-center">
-                  <h4 className="font-montserrat text-lg font-semibold text-navy-900 mb-2">
-                    Sprawdź swoją spersonalizowaną ofertę
+                  <h4 className="font-montserrat text-xl font-bold text-navy-900 mb-2">
+                    💰 Ile możesz zaoszczędzić?
                   </h4>
                   <p className="text-warm-neutral-600 text-sm mb-4">
-                    Podaj swoje zarobki netto, a pokażę Ci dokładnie, jak możemy Ci pomóc
+                    <span className="font-semibold text-prestige-gold-600">TYLKO 30 SEKUND!</span> Wpisz zarobki i zobacz swoją dokładną oszczędność
                   </p>
                 </div>
 
