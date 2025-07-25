@@ -70,7 +70,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <div className="fixed inset-0 z-50 bg-black/10 backdrop-blur-[2px]" />
-      <DialogContent className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-md translate-x-[-50%] translate-y-[-50%] gap-4 border bg-white p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-2xl border-0 shadow-2xl">
+      <DialogContent className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-white p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-2xl border-0 shadow-2xl">
         <DialogHeader className="sr-only">
           <DialogTitle>Spersonalizowana oferta oddłużeniowa</DialogTitle>
           <DialogDescription>Wprowadź swoje zarobki aby otrzymać spersonalizowaną ofertę</DialogDescription>
@@ -98,72 +98,71 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                 </div>
               </div>
               
-              {/* Simple Header */}
-              <div className="text-center px-8 py-6">
-                <div className="relative w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-4 border-prestige-gold-400 group">
-                  <img 
-                    src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" 
-                    alt="Dariusz Wentrych" 
-                    className="w-full h-full object-cover hover:scale-110 transition-all duration-300"
-                  />
-                  {/* Trust badge */}
-                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center border-2 border-white animate-pulse">
-                    <CheckCircle className="w-3 h-3 text-white" />
-                  </div>
-                </div>
-                
-                <div className="text-center mb-6">
-                  <h3 className="font-montserrat text-2xl font-bold text-navy-900 mb-2 flex items-center justify-center gap-2">
-                    Dariusz Wentrych
-                    <div className="flex">
-                      {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}
+              {/* Optimized Header */}
+              <div className="text-center px-4 py-4">
+                <div className="flex items-center justify-center gap-4 mb-4">
+                  <div className="relative w-16 h-16 rounded-full overflow-hidden border-3 border-prestige-gold-400">
+                    <img 
+                      src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" 
+                      alt="Dariusz Wentrych" 
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
+                      <CheckCircle className="w-3 h-3 text-white" />
                     </div>
-                  </h3>
-                  <div className="text-sm text-green-700 font-bold mb-2">
-                    ✅ Ekspert nr 1 w oddłużeniu • 15.000+ zadowolonych klientów
                   </div>
-                  <div className="text-sm text-blue-600 font-medium italic mb-4">
-                    💬 "Pomagam od 20 lat - sprawdź, czy mogę pomóc również Tobie!"
+                  
+                  <div className="text-left">
+                    <h3 className="font-montserrat text-xl font-bold text-navy-900 flex items-center gap-2">
+                      Dariusz Wentrych
+                      <div className="flex">
+                        {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
+                      </div>
+                    </h3>
+                    <div className="text-xs text-green-700 font-bold">
+                      ✅ Ekspert nr 1 w oddłużeniu
+                    </div>
+                    <div className="text-xs text-blue-600 font-medium">
+                      💬 "15.000+ zadowolonych klientów"
+                    </div>
                   </div>
                 </div>
 
-                {/* Single table with input and button */}
-                <div className="bg-white rounded-xl border-2 border-prestige-gold-300 overflow-hidden shadow-lg">
+                {/* Enlarged table with input and button */}
+                <div className="bg-white rounded-xl border-2 border-prestige-gold-300 overflow-hidden shadow-lg mx-2">
                   <table className="w-full">
                     <thead>
-                      <tr className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200 relative">
-                        <div className="absolute inset-0 bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200 animate-pulse opacity-30"></div>
-                        <th className="px-3 py-3 sm:px-4 sm:py-4 text-center text-base sm:text-lg font-bold text-navy-900 relative z-10">
+                      <tr className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200">
+                        <th className="px-4 py-4 text-center text-lg font-bold text-navy-900">
                           Wpisz miesięczne zarobki netto
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr className="bg-gradient-to-r from-blue-50 to-green-50 relative">
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-green-50 animate-pulse opacity-20"></div>
-                        <td className="px-3 py-4 sm:px-6 sm:py-6 relative z-10">
+                      <tr className="bg-gradient-to-r from-blue-50 to-green-50">
+                        <td className="px-6 py-8">
                           <div className="space-y-6">
-                            {/* Input field - stronger colors */}
+                            {/* Input field */}
                             <div className="relative">
                               <Input
                                 type="number"
                                 placeholder="4000"
                                 value={salary}
                                 onChange={(e) => setSalary(e.target.value)}
-                                className="text-center text-xl sm:text-2xl md:text-3xl font-medium border-2 border-navy-400 focus:border-navy-600 h-12 sm:h-14 md:h-16 rounded-lg transition-colors duration-200 text-navy-700 bg-white w-full shadow-md placeholder:text-navy-400"
+                                className="text-center text-2xl font-medium border-2 border-navy-400 focus:border-navy-600 h-16 rounded-lg transition-colors duration-200 text-navy-700 bg-white w-full shadow-md placeholder:text-navy-400"
                                 autoFocus
                               />
-                              <span className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 text-navy-600 text-lg sm:text-xl md:text-2xl font-medium">
+                              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-navy-600 text-2xl font-medium">
                                 zł
                               </span>
                             </div>
                             
-                            {/* Extra space for bouncing button */}
-                            <div className="py-4">
+                            {/* Button */}
+                            <div>
                               <Button 
                                 onClick={handleSalarySubmit}
                                 disabled={!salary || parseInt(salary) <= 0}
-                                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 sm:py-5 md:py-6 rounded-lg text-base sm:text-lg md:text-xl shadow-lg transition-all duration-200 disabled:opacity-50 min-h-[60px] sm:min-h-[70px] border-2 border-green-400 hover:scale-105 hover:shadow-xl"
+                                className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-6 rounded-lg text-xl shadow-lg transition-all duration-200 disabled:opacity-50 min-h-[70px] border-2 border-green-400 hover:scale-105 hover:shadow-xl"
                               >
                                 Zobacz jak możemy Ci pomóc!
                               </Button>
