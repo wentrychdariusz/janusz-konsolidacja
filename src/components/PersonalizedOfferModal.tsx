@@ -79,7 +79,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
           {!showOffer ? (
             <>
               {/* Progress button */}
-              <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 px-3 py-3 border-b border-prestige-gold-200 sm:px-6 sm:py-4">
+              <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 px-3 py-3 -mx-3 -mt-3 border-b border-prestige-gold-200 sm:px-6 sm:py-4 sm:-mx-6 sm:-mt-6">
                 <div className="flex flex-col items-center gap-2">
                   <div className="w-full bg-gray-200 rounded-full h-2 sm:h-3">
                     <div className="bg-prestige-gold-500 h-2 sm:h-3 rounded-full transition-all duration-300" style={{width: '50%'}}></div>
