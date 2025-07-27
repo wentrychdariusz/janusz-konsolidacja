@@ -1,5 +1,5 @@
 import React from 'react';
-import dariuszImage from '../assets/dariusz-expert-portrait.jpg';
+import dariuszImage from '/lovable-uploads/566df42e-2936-4526-804a-90b8512b4e83.png';
 
 const DariuszCongratulationsSection = () => {
   return (
@@ -20,16 +20,35 @@ const DariuszCongratulationsSection = () => {
           <div className="p-8">
             <div className="flex flex-col lg:flex-row items-start gap-8">
               
-              {/* Wizerunek Dariusza */}
+              {/* Wizerunek Dariusza z opisem */}
               <div className="flex-shrink-0 mx-auto lg:mx-0">
                 <div className="relative">
                   <img 
                     src={dariuszImage} 
-                    alt="Dariusz Wentrych - Ekspert oddłużeniowy"
+                    alt="Dariusz Wentrych - Ekspert oddłużeniowy nr 1 w Polsce"
                     className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-success-400 shadow-xl"
                   />
                   <div className="absolute -bottom-2 -right-2 bg-success-500 text-white p-3 rounded-full shadow-lg">
                     <span className="text-2xl">💼</span>
+                  </div>
+                </div>
+                
+                {/* Opis Dariusza */}
+                <div className="mt-4 text-center">
+                  <h3 className="text-xl font-bold text-navy-800 mb-2">Dariusz Wentrych</h3>
+                  <div className="bg-prestige-gold-100 p-3 rounded-lg border border-prestige-gold-300">
+                    <p className="text-navy-700 font-semibold text-sm mb-1">
+                      🏆 Nr 1 w oddłużeniu i konsolidacji
+                    </p>
+                    <p className="text-navy-600 text-sm mb-1">
+                      👥 15.000+ zadowolonych klientów
+                    </p>
+                    <p className="text-navy-600 text-sm mb-1">
+                      ⏰ 20+ lat doświadczenia
+                    </p>
+                    <p className="text-navy-600 text-sm">
+                      📖 Autor bestsellera <br/><em>"Nowe życie bez długów"</em>
+                    </p>
                   </div>
                 </div>
               </div>
