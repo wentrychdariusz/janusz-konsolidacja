@@ -114,15 +114,15 @@ const FloatingAvatar = () => {
         {/* Avatar Container z napisem */}
         <div className="relative group flex items-center space-x-2 md:space-x-3">
           {/* Napis po lewej stronie awatara */}
-          <div className="bg-white rounded-lg md:rounded-xl shadow-lg p-2 md:p-3 border-2 border-prestige-gold-400 transition-all duration-300 whitespace-nowrap animate-fade-in relative">
-            <div className="text-navy-900 font-semibold text-xs md:text-sm relative z-0">
+          <div className="bg-white rounded-lg md:rounded-xl shadow-lg p-3 md:p-4 border-2 border-prestige-gold-400 transition-all duration-300 whitespace-nowrap animate-fade-in relative min-w-[200px] md:min-w-[240px]">
+            <div className="text-navy-900 font-bold text-sm md:text-lg relative z-0 mb-1">
               Zobacz czy ci pomogę
             </div>
-            <div className="text-prestige-gold-600 font-medium text-xs relative z-0">
-              Wypełnij kalkulator
+            <div className="text-prestige-gold-600 font-semibold text-xs md:text-base relative z-0">
+              Wypełnij kalkulator oddłużenia
             </div>
             {/* Strzałka wskazująca na awatar */}
-            <div className="absolute right-0 top-1/2 w-0 h-0 border-t-2 border-b-2 border-l-2 md:border-t-4 md:border-b-4 md:border-l-4 border-t-transparent border-b-transparent border-l-white transform -translate-y-1/2 translate-x-full z-0"></div>
+            <div className="absolute right-0 top-1/2 w-0 h-0 border-t-3 border-b-3 border-l-3 md:border-t-5 md:border-b-5 md:border-l-5 border-t-transparent border-b-transparent border-l-white transform -translate-y-1/2 translate-x-full z-0"></div>
           </div>
           
           {/* Avatar Image */}
