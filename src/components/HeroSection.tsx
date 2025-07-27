@@ -251,6 +251,7 @@ const HeroSection = () => {
         </div>
 
         <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-2 md:py-4">
+          <PolishCitizensNotice />
           {/* Mobile/Tablet Layout - Stacked */}
           <div className="block xl:hidden space-y-4">
             {/* Content Section */}
