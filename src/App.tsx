@@ -12,6 +12,7 @@ import Gratulacje4000_6000 from "./pages/Gratulacje4000_6000";
 import Calculator from "./pages/Calculator";
 import CalculatorBeta from "./pages/CalculatorBeta";
 import Analiza from "./pages/Analiza";
+import SuspiciousAnalysis from "./pages/SuspiciousAnalysis";
 import ThankYou from "./pages/ThankYou";
 import SmsVerification from "./pages/SmsVerification";
 import SmsVerificationA from "./pages/SmsVerificationA";
@@ -42,7 +43,8 @@ const App = () => (
           <Route path="/4000_6000" element={<Gratulacje4000_6000 />} />
           <Route path="/kalkulator" element={<Calculator />} />
           <Route path="/kalkulator-beta" element={<CalculatorBeta />} />
-          <Route path="/analiza" element={<Analiza />} />
+          <Route path="/analiza" element={<SuspiciousAnalysis />} />
+          <Route path="/analiza-old" element={<Analiza />} />
           <Route path="/formularz" element={<ThankYou />} />
           <Route path="/sms-verification" element={<SmsVerification />} />
           <Route path="/sms-verification-a" element={<SmsVerificationA />} />
