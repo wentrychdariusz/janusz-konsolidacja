@@ -235,7 +235,6 @@ const DebtCalculatorBeta = () => {
         break;
     }
     const total = paydayVal + bankVal;
-    
     if (total <= baseLim) {
       // Track przekierowanie z kalkulatora
       console.log('🧮 Calculator Beta positive result - tracking redirect to /kontakt');
@@ -250,7 +249,7 @@ const DebtCalculatorBeta = () => {
       window.location.href = baseUrl + '&result=warning' + suspiciousParams;
       return;
     }
-    
+
     // Dla bardzo wysokich długów - przekieruj do konsultanta zamiast odrzucać
     console.log('🧮 Calculator Beta high debt - redirect to consultant');
     window.location.href = baseUrl + '&result=consultant&reason=high_debt' + suspiciousParams;
@@ -494,9 +493,7 @@ const DebtCalculatorBeta = () => {
                 <span className="text-white text-2xl">🏦</span>
               </div>
               <h3 className="text-xl font-bold text-navy-900 mb-2">Kredyty bankowe</h3>
-              <p className="text-warm-neutral-600">
-                Suma wszystkich kredytów bankowych (może być 0)
-              </p>
+              <p className="text-warm-neutral-600">Suma wszystkich kredytów bankowych </p>
             </div>
             <div className="relative">
               <Input type="text" value={bankDebt} onChange={handleBankChange} placeholder="20 000" className="pr-12 md:pr-16 text-right h-16 md:h-20 lg:h-24 text-xl md:text-2xl lg:text-3xl text-center placeholder:text-gray-400 font-bold border-4 border-green-400 focus:border-green-600 rounded-xl shadow-lg animate-pulse focus:animate-none" autoFocus />
@@ -513,9 +510,7 @@ const DebtCalculatorBeta = () => {
             
             {/* Przycisk szybkiego wyboru "Nie mam kredytów" */}
             <div className="mt-4 flex flex-col sm:flex-row gap-3">
-              <Button onClick={setNoBankDebt} variant="outline" className="flex-1 h-12 text-base font-semibold border-2 border-green-400 text-green-700 hover:bg-green-50 hover:border-green-500">
-                ✅ Nie mam kredytów bankowych
-              </Button>
+              
             </div>
             
             {/* Duży przycisk analizy */}
