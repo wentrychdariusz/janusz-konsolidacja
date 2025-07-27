@@ -215,15 +215,8 @@ const DebtCalculatorBeta = () => {
         maxLim *= 0.6;
         break;
     }
-    if (paydayVal > nbLim) {
-      setResult({
-        message: 'Niestety przy tej kwocie chwilówek nie możemy zaoferować bezpiecznej konsolidacji.',
-        type: 'negative',
-        showForm: false
-      });
-      return;
-    }
     const total = paydayVal + bankVal;
+    
     if (total <= baseLim) {
       // Track przekierowanie z kalkulatora
       console.log('🧮 Calculator Beta positive result - tracking redirect to /kontakt');
@@ -238,11 +231,11 @@ const DebtCalculatorBeta = () => {
       window.location.href = baseUrl + '&result=warning' + suspiciousParams;
       return;
     }
-    setResult({
-      message: 'Na ten moment nie możemy zaproponować skutecznego rozwiązania. Zachęcamy do kontaktu, gdyby Twoja sytuacja się zmieniła.',
-      type: 'negative',
-      showForm: false
-    });
+    
+    // Dla bardzo wysokich długów - przekieruj do konsultanta zamiast odrzucać
+    console.log('🧮 Calculator Beta high debt - redirect to consultant');
+    window.location.href = baseUrl + '&result=consultant&reason=high_debt' + suspiciousParams;
+    return;
   };
   const formatNumber = (value: string) => {
     const num = value.replace(/\D/g, '');
