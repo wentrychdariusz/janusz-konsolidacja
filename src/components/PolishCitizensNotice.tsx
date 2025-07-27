@@ -6,7 +6,7 @@ const PolishCitizensNotice = () => {
         <div className="w-full h-1/2 bg-white"></div>
         <div className="w-full h-1/2 bg-red-600"></div>
       </div>
-      <span className="text-xs">Oferujemy usługi tylko obywatelom RP</span>
+      <span className="text-sm">Oferujemy usługi tylko obywatelom RP</span>
     </div>
   );
 };
