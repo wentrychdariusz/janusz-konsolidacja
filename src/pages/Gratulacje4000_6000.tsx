@@ -12,7 +12,7 @@ import TrustedClientsSection from '../components/TrustedClientsSection';
 import HeroesSection from '../components/HeroesSection';
 import BookSection from '../components/BookSection';
 import TeamSection from '../components/TeamSection';
-import CalculatorSection from '../components/CalculatorSection';
+import CalculatorSection4000 from '../components/CalculatorSection4000';
 import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
@@ -58,7 +58,7 @@ const Gratulacje4000_6000 = () => {
       <HeroesSection />
       <BookSection />
       <TeamSection />
-      <CalculatorSection />
+      <CalculatorSection4000 />
       <GuaranteeSection />
       <FloatingAvatar />
       <Footer />
