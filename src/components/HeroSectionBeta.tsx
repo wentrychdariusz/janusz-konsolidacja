@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import DebtCalculatorBeta from './DebtCalculatorBeta';
 import OptimizedImage from './OptimizedImage';
-import PolishCitizensNotice from './PolishCitizensNotice';
+
 import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star } from 'lucide-react';
 
 const HeroSectionBeta = () => {
@@ -198,11 +198,6 @@ const HeroSectionBeta = () => {
                 <p className="text-xs text-navy-600">Lat</p>
               </div>
             </div>
-            
-            {/* Polish Citizens Notice - Mobile */}
-            <div className="mt-6">
-              <PolishCitizensNotice />
-            </div>
           </div>
           
           {/* Calculator Section - Mobile */}
@@ -290,11 +285,6 @@ const HeroSectionBeta = () => {
                 <p className="text-lg font-semibold text-navy-700">20+</p>
                 <p className="text-sm text-navy-600">Lat doświadczenia</p>
               </div>
-            </div>
-            
-            {/* Polish Citizens Notice - Desktop */}
-            <div className="mt-6">
-              <PolishCitizensNotice />
             </div>
           </div>
           
