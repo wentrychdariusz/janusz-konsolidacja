@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import LoanAmountsBar from '../components/LoanAmountsBar';
 import TopHeader from '../components/TopHeader';
-import HeroSectionBeta from '../components/HeroSectionBeta';
+import HeroSection from '../components/HeroSection';
 import ImagineSection from '../components/ImagineSection';
 import VideoSection from '../components/VideoSection';
 import DariuszLetterSection from '../components/DariuszLetterSection';
@@ -12,54 +12,48 @@ import TrustedClientsSection from '../components/TrustedClientsSection';
 import HeroesSection from '../components/HeroesSection';
 import BookSection from '../components/BookSection';
 import TeamSection from '../components/TeamSection';
-import CalculatorSectionBeta from '../components/CalculatorSectionBeta';
+import CalculatorSection from '../components/CalculatorSection';
 import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
+import PersonalizedOfferModal from '../components/PersonalizedOfferModal';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 
 const Gratulacje4000_6000 = () => {
   const { trackPageView } = useSupabaseTracking();
+  const [showOfferModal, setShowOfferModal] = useState(false);
   
   useEffect(() => {
-    console.log('🎉 Gratulacje4000_6000 page: Tracking page view');
-    trackPageView('gratulacje_4000_6000', undefined, 'gratulacje_page');
+    console.log('🎉 Gratulacje4000_6000 page: Tracking page view for 4000-6000 page');
+    trackPageView('gratulacje_4000_6000', undefined, 'main_site');
     
-    // Track visit for analytics
+    // Track również czy to nowy czy returning visitor
+    const lastVisit = localStorage.getItem('last_gratulacje_visit');
     const now = Date.now();
-    localStorage.setItem('last_gratulacje_visit', now.toString());
-  }, [trackPageView]);
+    
+    if (lastVisit) {
+      const timeDiff = now - parseInt(lastVisit);
+      const hoursDiff = timeDiff / (1000 * 60 * 60);
+      
+      if (hoursDiff > 24) {
+        console.log('🔄 Returning visitor after 24+ hours');
+        // Track returning visitor
+        localStorage.setItem('last_gratulacje_visit', now.toString());
+      }
+    } else {
+      console.log('✨ First time visitor');
+      localStorage.setItem('last_gratulacje_visit', now.toString());
+    }
 
-  // Komponenty gratulacji na górze strony
-  const GratulacjeHeader = () => (
-    <div className="bg-gradient-to-r from-green-500 to-green-600 text-white py-8 text-center">
-      <div className="container mx-auto px-4">
-        <h1 className="text-3xl sm:text-5xl font-bold mb-4">
-          🎉 GRATULACJE! 🎉
-        </h1>
-        <p className="text-xl sm:text-2xl mb-2">
-          Twoje zarobki 4000-6000 zł dają świetne możliwości oddłużenia!
-        </p>
-        <div className="text-lg sm:text-xl space-y-2">
-          <p>✅ Możemy zmniejszyć Twoje raty</p>
-          <p>✅ Spłacić chwilówki</p>
-          <p>✅ Zrobić kredyt w banku</p>
-        </div>
-        <div className="mt-6 bg-white/20 inline-block px-6 py-4 rounded-lg">
-          <p className="text-xl font-bold">
-            💰 To może być nawet 1200 zł miesięcznie więcej w Twojej kieszeni!
-          </p>
-        </div>
-      </div>
-    </div>
-  );
+    // Show personalized offer modal immediately
+    setShowOfferModal(true);
+  }, [trackPageView]);
   
   return (
     <div className="font-lato">
       <LoanAmountsBar />
       <TopHeader />
-      <GratulacjeHeader />
-      <HeroSectionBeta />
+      <HeroSection />
       <ImagineSection />
       <VideoSection />
       <DariuszLetterSection />
@@ -70,10 +64,15 @@ const Gratulacje4000_6000 = () => {
       <HeroesSection />
       <BookSection />
       <TeamSection />
-      <CalculatorSectionBeta />
+      <CalculatorSection />
       <GuaranteeSection />
       <FloatingAvatar />
       <Footer />
+      
+      <PersonalizedOfferModal 
+        isOpen={showOfferModal} 
+        onClose={() => setShowOfferModal(false)} 
+      />
     </div>
   );
 };
