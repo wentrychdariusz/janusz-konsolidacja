@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
-import DebtCalculator from './DebtCalculator';
+import DebtCalculatorBeta from './DebtCalculatorBeta';
 
 const FloatingAvatar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -116,7 +116,10 @@ const FloatingAvatar = () => {
           {/* Napis po lewej stronie awatara */}
           <div className="bg-white rounded-lg md:rounded-xl shadow-lg p-2 md:p-3 border-2 border-prestige-gold-400 transition-all duration-300 whitespace-nowrap animate-fade-in relative">
             <div className="text-navy-900 font-semibold text-xs md:text-sm relative z-0">
-              Zobacz, czy Ci pomogę?
+              Zobacz czy ci pomogę
+            </div>
+            <div className="text-prestige-gold-600 font-medium text-xs relative z-0">
+              Wypełnij kalkulator
             </div>
             {/* Strzałka wskazująca na awatar */}
             <div className="absolute right-0 top-1/2 w-0 h-0 border-t-2 border-b-2 border-l-2 md:border-t-4 md:border-b-4 md:border-l-4 border-t-transparent border-b-transparent border-l-white transform -translate-y-1/2 translate-x-full z-0"></div>
@@ -163,7 +166,7 @@ const FloatingAvatar = () => {
             
             {/* Calculator Content */}
             <div className="flex-1 overflow-y-auto p-3 md:p-6">
-              <DebtCalculator />
+              <DebtCalculatorBeta />
             </div>
           </div>
         </div>
