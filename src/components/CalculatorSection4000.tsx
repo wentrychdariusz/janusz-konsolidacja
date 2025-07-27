@@ -1,5 +1,5 @@
 import React from 'react';
-import DebtCalculator4000 from './DebtCalculator4000';
+import DebtCalculatorBeta from './DebtCalculatorBeta';
 
 const CalculatorSection4000 = () => {
   return (
@@ -16,7 +16,7 @@ const CalculatorSection4000 = () => {
         </div>
         
         <div className="max-w-4xl mx-auto">
-          <DebtCalculator4000 />
+          <DebtCalculatorBeta />
         </div>
       </div>
     </section>
