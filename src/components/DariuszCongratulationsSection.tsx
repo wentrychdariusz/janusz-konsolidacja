@@ -63,13 +63,7 @@ const DariuszCongratulationsSection = () => {
                     🔸 Lub zaufać zespołowi, który rozmawia z bankami <em>inaczej</em>
                   </p>
 
-                  <div className="bg-red-50 p-4 rounded-lg border-l-4 border-red-400 mb-6">
-                    <p className="font-bold text-red-800 mb-2">⚠️ To nie jest oferta dla niezdecydowanych</p>
-                    <p className="text-red-700">
-                      Jeśli chcesz tylko "się rozejrzeć" – zamknij stronę. 
-                      My pracujemy z tymi, którzy chcą zmiany <strong>tu i teraz</strong>.
-                    </p>
-                  </div>
+                  
 
                   <div className="bg-prestige-gold-50 p-6 rounded-lg">
                     <p className="font-bold text-lg mb-3">💼 Co zyskujesz za darmo:</p>
