@@ -5,10 +5,10 @@ const DariuszCongratulationsSection = () => {
   return (
     <section className="py-16 bg-gradient-to-br from-success-50 to-business-blue-50">
       <div className="container mx-auto px-4 max-w-4xl">
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border-4 border-success-200">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
           
           {/* Header z gratulacjami */}
-          <div className="bg-gradient-to-r from-success-600 to-emerald-600 text-white text-center py-6">
+          <div className="bg-gradient-to-r from-success-600 to-emerald-600 text-white text-center py-8">
             <h2 className="text-3xl md:text-4xl font-bold mb-2">
               🎉 Gratulacje!
             </h2>
@@ -34,125 +34,67 @@ const DariuszCongratulationsSection = () => {
                 </div>
                 
                 {/* Opis Dariusza */}
-                <div className="mt-4 text-center">
-                  <h3 className="text-xl font-bold text-navy-800 mb-2">Dariusz Wentrych</h3>
-                  <div className="bg-prestige-gold-100 p-3 rounded-lg border border-prestige-gold-300">
-                    <p className="text-navy-700 font-semibold text-sm mb-1">
-                      🏆 Nr 1 w oddłużeniu i konsolidacji
-                    </p>
-                    <p className="text-navy-600 text-sm mb-1">
-                      👥 15.000+ zadowolonych klientów
-                    </p>
-                    <p className="text-navy-600 text-sm mb-1">
-                      ⏰ 20+ lat doświadczenia
-                    </p>
-                    <p className="text-navy-600 text-sm">
-                      📖 Autor bestsellera <br/><em>"Nowe życie bez długów"</em>
-                    </p>
+                <div className="mt-6 text-center">
+                  <h3 className="text-xl font-bold text-navy-800 mb-3">Dariusz Wentrych</h3>
+                  <div className="space-y-1 text-sm text-navy-600">
+                    <p className="font-semibold text-prestige-gold-600">🏆 Nr 1 w oddłużeniu i konsolidacji</p>
+                    <p>👥 15.000+ klientów</p>
+                    <p>⏰ 20+ lat doświadczenia</p>
+                    <p>📖 Autor <em>"Nowe życie bez długów"</em></p>
                   </div>
                 </div>
               </div>
 
               {/* Treść komunikatu */}
-              <div className="flex-1 space-y-6">
+              <div className="flex-1 space-y-6 text-navy-700">
                 
-                {/* Warunki kwalifikacji */}
-                <div className="bg-success-50 p-4 rounded-xl border-l-4 border-success-500">
-                  <p className="text-navy-800 font-medium mb-3">
-                    Jeśli zarabiasz od 4000 zł netto, spełniasz warunki, by:
+                <div className="text-lg leading-relaxed">
+                  <p className="mb-4">
+                    Jeśli zarabiasz <strong>od 4000 zł netto</strong>, możesz:
                   </p>
-                  <ul className="space-y-2">
-                    <li className="flex items-center text-navy-700">
-                      <span className="text-success-600 font-bold mr-2">✅</span>
-                      Połączyć wszystkie swoje zobowiązania w jedną, łatwiejszą ratę
-                    </li>
-                    <li className="flex items-center text-navy-700">
-                      <span className="text-success-600 font-bold mr-2">✅</span>
-                      Odzyskać spokój i kontrolę nad finansami
-                    </li>
-                    <li className="flex items-center text-navy-700">
-                      <span className="text-success-600 font-bold mr-2">✅</span>
-                      Przestać martwić się o telefony z banków, windykację, zaległości
-                    </li>
-                  </ul>
-                </div>
+                  
+                  <p className="mb-4">
+                    ✅ Połączyć wszystkie zobowiązania w jedną ratę<br/>
+                    ✅ Odzyskać spokój i kontrolę nad finansami<br/>
+                    ✅ Przestać martwić się o windykację i zaległości
+                  </p>
 
-                {/* Pytanie kluczowe */}
-                <div className="bg-yellow-50 p-4 rounded-xl border-l-4 border-yellow-500">
-                  <p className="text-navy-800 font-bold text-lg mb-2">
+                  <p className="text-xl font-bold text-navy-800 mb-3">
                     🧠 Pytanie brzmi: czy chcesz coś z tym zrobić?
                   </p>
-                  <p className="text-navy-700">
-                    Nie musisz mieć komornika ani ogromnych długów.
-                    Wystarczy, że zaczynasz tracić kontrolę nad finansami – my wiemy, jak to zatrzymać.
-                  </p>
-                </div>
 
-                {/* Dwa wyjścia */}
-                <div className="bg-blue-50 p-4 rounded-xl border-l-4 border-blue-500">
-                  <p className="text-navy-800 font-bold mb-3">🚪 Masz dwa wyjścia:</p>
-                  <div className="space-y-2">
-                    <p className="text-navy-700">
-                      <span className="font-medium">🔸 Pójść do konkurencji</span>, słuchać marketingowych bajek i tracić czas
-                    </p>
-                    <p className="text-center font-bold text-navy-800 py-2">albo:</p>
-                    <p className="text-navy-700">
-                      <span className="font-medium">🔸 Zaufać zespołowi Dariusza Wentrycha</span> – ludziom, którzy rozmawiają z bankami inaczej niż wszyscy.
+                  <p className="mb-4">
+                    Nie musisz mieć komornika ani ogromnych długów. 
+                    Wystarczy, że zaczynasz tracić kontrolę nad finansami.
+                  </p>
+
+                  <p className="mb-6">
+                    <strong>Masz dwa wyjścia:</strong><br/>
+                    🔸 Iść do konkurencji i tracić czas na marketingowe bajki<br/>
+                    🔸 Lub zaufać zespołowi, który rozmawia z bankami <em>inaczej</em>
+                  </p>
+
+                  <div className="bg-red-50 p-4 rounded-lg border-l-4 border-red-400 mb-6">
+                    <p className="font-bold text-red-800 mb-2">⚠️ To nie jest oferta dla niezdecydowanych</p>
+                    <p className="text-red-700">
+                      Jeśli chcesz tylko "się rozejrzeć" – zamknij stronę. 
+                      My pracujemy z tymi, którzy chcą zmiany <strong>tu i teraz</strong>.
                     </p>
                   </div>
-                </div>
 
-                {/* Ostrzeżenie */}
-                <div className="bg-red-50 p-4 rounded-xl border-l-4 border-red-500">
-                  <p className="text-red-800 font-bold mb-2">⚠️ Ale uwaga:</p>
-                  <p className="text-red-700 mb-2">
-                    To nie jest oferta dla osób niezdecydowanych.
-                  </p>
-                  <p className="text-red-700 mb-2">
-                    Jeśli brakuje Ci motywacji i chcesz tylko „się rozejrzeć" – zamknij stronę.
-                    Nie marnuj czasu swojego ani naszego.
-                  </p>
-                  <p className="text-red-800 font-semibold">
-                    My pracujemy z tymi, którzy chcą konkretnej zmiany. Tu i teraz.
-                  </p>
-                </div>
+                  <div className="bg-prestige-gold-50 p-6 rounded-lg">
+                    <p className="font-bold text-lg mb-3">💼 Co zyskujesz za darmo:</p>
+                    <p className="mb-2">🔹 Konsultację wartą 1000 zł</p>
+                    <p className="mb-2">🔹 Analizę przez zespół ekspertów</p>
+                    <p className="mb-4">🔹 Plan oddłużeniowy na miarę</p>
+                    
+                    <div className="text-center mt-6 p-4 bg-red-500 text-white rounded-lg">
+                      <p className="font-bold text-lg">🔥 Zostało 20 miejsc</p>
+                      <p>Nie daj sobie odebrać tej szansy</p>
+                    </div>
+                  </div>
 
-                {/* Co zyskujesz */}
-                <div className="bg-prestige-gold-50 p-4 rounded-xl border-l-4 border-prestige-gold-500">
-                  <p className="text-navy-800 font-bold text-lg mb-3">💼 Co zyskujesz?</p>
-                  <ul className="space-y-2">
-                    <li className="flex items-start text-navy-700">
-                      <span className="text-prestige-gold-600 font-bold mr-2 mt-1">🔹</span>
-                      <span>Konsultację o wartości 1000 zł – <strong>ZA DARMO</strong></span>
-                    </li>
-                    <li className="flex items-start text-navy-700">
-                      <span className="text-prestige-gold-600 font-bold mr-2 mt-1">🔹</span>
-                      <span>Indywidualną analizę Twojej sytuacji przez zespół ekspertów</span>
-                    </li>
-                    <li className="flex items-start text-navy-700">
-                      <span className="text-prestige-gold-600 font-bold mr-2 mt-1">🔹</span>
-                      <span>Jasny plan oddłużeniowy dopasowany do Twoich realnych możliwości</span>
-                    </li>
-                    <li className="flex items-start text-navy-700">
-                      <span className="text-prestige-gold-600 font-bold mr-2 mt-1">🔹</span>
-                      <span>Opcję połączenia długów w jedną niższą ratę</span>
-                    </li>
-                    <li className="flex items-start text-navy-700">
-                      <span className="text-prestige-gold-600 font-bold mr-2 mt-1">🔹</span>
-                      <span>Pomoc w zatrzymaniu windykacji, negocjacjach z bankami, a jeśli trzeba – również z komornikiem</span>
-                    </li>
-                  </ul>
                 </div>
-
-                {/* Finalny call to action */}
-                <div className="bg-gradient-to-r from-red-500 to-red-600 text-white p-6 rounded-xl text-center">
-                  <p className="text-xl font-bold mb-2">🔥 Zostało tylko 20 miejsc na darmową konsultację</p>
-                  <p className="text-lg mb-2">Kto pierwszy, ten wychodzi z długów szybciej.</p>
-                  <p className="text-lg font-semibold">
-                    Nie daj sobie odebrać szansy, która może już się nie powtórzyć.
-                  </p>
-                </div>
-
               </div>
             </div>
           </div>
