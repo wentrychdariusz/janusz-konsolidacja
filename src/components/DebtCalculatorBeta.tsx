@@ -171,6 +171,16 @@ const DebtCalculatorBeta = () => {
       return;
     }
 
+    // Sprawdzenie minimalnego zadłużenia w chwilówkach
+    if (paydayVal > 0 && paydayVal < 5000) {
+      setResult({
+        message: 'Kalkulator jest przeznaczony dla osób z zadłużeniem w chwilówkach powyżej 5000 PLN. Jeśli masz mniejsze zadłużenie, skontaktuj się bezpośrednio z naszym konsultantem.',
+        type: 'negative',
+        showForm: true
+      });
+      return;
+    }
+
     // Zapisz dane do bazy danych z typem dochodu i flagami podejrzanych zachowań
     await saveCalculatorData(incomeVal, paydayVal, bankVal, incomeType);
 
