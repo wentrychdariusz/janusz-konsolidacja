@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import LoanAmountsBar from '../components/LoanAmountsBar';
 import TopHeader from '../components/TopHeader';
 import HeroSection from '../components/HeroSection';
@@ -16,12 +16,10 @@ import CalculatorSection from '../components/CalculatorSection';
 import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
-import PersonalizedOfferModal from '../components/PersonalizedOfferModal';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 
 const Gratulacje4000_6000 = () => {
   const { trackPageView } = useSupabaseTracking();
-  const [showOfferModal, setShowOfferModal] = useState(false);
   
   useEffect(() => {
     console.log('🎉 Gratulacje4000_6000 page: Tracking page view for 4000-6000 page');
@@ -37,18 +35,14 @@ const Gratulacje4000_6000 = () => {
       
       if (hoursDiff > 24) {
         console.log('🔄 Returning visitor after 24+ hours');
-        // Track returning visitor
         localStorage.setItem('last_gratulacje_visit', now.toString());
       }
     } else {
       console.log('✨ First time visitor');
       localStorage.setItem('last_gratulacje_visit', now.toString());
     }
-
-    // Show personalized offer modal immediately
-    setShowOfferModal(true);
   }, [trackPageView]);
-  
+   
   return (
     <div className="font-lato">
       <LoanAmountsBar />
@@ -68,11 +62,6 @@ const Gratulacje4000_6000 = () => {
       <GuaranteeSection />
       <FloatingAvatar />
       <Footer />
-      
-      <PersonalizedOfferModal 
-        isOpen={showOfferModal} 
-        onClose={() => setShowOfferModal(false)} 
-      />
     </div>
   );
 };
