@@ -15,6 +15,7 @@ import TeamSection from '../components/TeamSection';
 import CalculatorSection4000 from '../components/CalculatorSection4000';
 import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
+import DariuszCongratulationsSection from '../components/DariuszCongratulationsSection';
 import Footer from '../components/Footer';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 
@@ -47,6 +48,7 @@ const Gratulacje4000_6000 = () => {
     <div className="font-lato">
       <LoanAmountsBar />
       <TopHeader />
+      <DariuszCongratulationsSection />
       <HeroSection />
       <ImagineSection />
       <VideoSection />
