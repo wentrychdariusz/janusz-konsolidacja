@@ -103,6 +103,90 @@ export type Database = {
         }
         Relationships: []
       }
+      form_timing_analysis: {
+        Row: {
+          created_at: string
+          field_name: string
+          field_value: string | null
+          form_type: string
+          id: string
+          is_suspicious: boolean | null
+          session_id: string
+          suspicious_reasons: string[] | null
+          time_to_fill: number
+          total_form_time: number | null
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          field_name: string
+          field_value?: string | null
+          form_type: string
+          id?: string
+          is_suspicious?: boolean | null
+          session_id: string
+          suspicious_reasons?: string[] | null
+          time_to_fill: number
+          total_form_time?: number | null
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          field_name?: string
+          field_value?: string | null
+          form_type?: string
+          id?: string
+          is_suspicious?: boolean | null
+          session_id?: string
+          suspicious_reasons?: string[] | null
+          time_to_fill?: number
+          total_form_time?: number | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
+      suspicious_behavior_analysis: {
+        Row: {
+          behavioral_patterns: Json | null
+          created_at: string
+          form_type: string
+          id: string
+          income_reported: number | null
+          income_to_debt_ratio: number | null
+          risk_level: string | null
+          session_id: string
+          suspicious_categories: string[] | null
+          total_debt_reported: number | null
+          total_suspicious_flags: number | null
+        }
+        Insert: {
+          behavioral_patterns?: Json | null
+          created_at?: string
+          form_type: string
+          id?: string
+          income_reported?: number | null
+          income_to_debt_ratio?: number | null
+          risk_level?: string | null
+          session_id: string
+          suspicious_categories?: string[] | null
+          total_debt_reported?: number | null
+          total_suspicious_flags?: number | null
+        }
+        Update: {
+          behavioral_patterns?: Json | null
+          created_at?: string
+          form_type?: string
+          id?: string
+          income_reported?: number | null
+          income_to_debt_ratio?: number | null
+          risk_level?: string | null
+          session_id?: string
+          suspicious_categories?: string[] | null
+          total_debt_reported?: number | null
+          total_suspicious_flags?: number | null
+        }
+        Relationships: []
+      }
       user_funnel_tracking: {
         Row: {
           created_at: string

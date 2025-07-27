@@ -6,6 +6,8 @@ import { Calculator, CheckCircle, AlertCircle, XCircle, Plus, Star, Shield, Brie
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import QuickRegistrationForm from './QuickRegistrationForm';
 import { supabase } from '@/integrations/supabase/client';
+import { useTimingAnalysis } from '../hooks/useTimingAnalysis';
+import { useSuspiciousBehaviorDetection } from '../hooks/useSuspiciousBehaviorDetection';
 const DebtCalculatorBeta = () => {
   const [income, setIncome] = useState('');
   const [incomeType, setIncomeType] = useState('');
@@ -15,7 +17,11 @@ const DebtCalculatorBeta = () => {
   const [hasUsedCalculator, setHasUsedCalculator] = useState(false);
   const [isInFocusMode, setIsInFocusMode] = useState(false); // Focus mode state
 
-  // Tracking podejrzanych zachowań
+  // Zaawansowana analiza czasowa i wykrywanie podejrzanych zachowań
+  const timingAnalysis = useTimingAnalysis('debt_calculator_beta');
+  const behaviorDetection = useSuspiciousBehaviorDetection('debt_calculator_beta');
+
+  // Legacy tracking podejrzanych zachowań (zachowane dla kompatybilności)
   const [stepStartTime, setStepStartTime] = useState(Date.now());
   const [stepTimes, setStepTimes] = useState<number[]>([]);
   const [suspiciousFlags, setSuspiciousFlags] = useState<string[]>([]);
@@ -30,16 +36,23 @@ const DebtCalculatorBeta = () => {
   });
   const totalSteps = 3;
 
-  // Sprawdź czy kalkulator był już używany
+  // Sprawdź czy kalkulator był już używany i inicjalizuj analizę
   useEffect(() => {
+    console.log('🧮 DebtCalculatorBeta mounted with advanced analysis');
+    
     const calculatorUsed = localStorage.getItem('debt_calculator_beta_used');
     if (calculatorUsed === 'true') {
       setHasUsedCalculator(true);
       setCurrentStep(6); // Pokaż końcowy ekran
+    } else {
+      // Inicjalizacja zaawansowanej analizy czasowej
+      timingAnalysis.startFormTiming();
+      timingAnalysis.startFieldTiming('income');
+      console.log('⏱️ Started advanced timing analysis');
     }
   }, []);
 
-  // Funkcje wykrywania podejrzanych zachowań
+  // Funkcje wykrywania podejrzanych zachowań (rozszerzone)
   const detectSuspiciousBehavior = (value: string, fieldType: string) => {
     const flags: string[] = [];
     const num = parsePLN(value);
@@ -47,22 +60,27 @@ const DebtCalculatorBeta = () => {
     // Wykrywanie zaokrąglonych kwot
     if (num > 0 && num % 10000 === 0) {
       flags.push(`${fieldType}: Zaokrąglona kwota (${value})`);
+      behaviorDetection.addSuspiciousFlag(`Zaokrąglona kwota w polu ${fieldType} (${value})`);
     }
     if (num > 0 && num % 5000 === 0 && num < 100000) {
       flags.push(`${fieldType}: Bardzo zaokrąglona kwota (${value})`);
+      behaviorDetection.addSuspiciousFlag(`Bardzo zaokrąglona kwota w polu ${fieldType} (${value})`);
     }
 
     // Wykrywanie nierealistycznych kwot
     if (fieldType === 'dochód' && num > 50000) {
       flags.push(`${fieldType}: Bardzo wysoki dochód (${value})`);
+      behaviorDetection.addSuspiciousFlag(`Nierealistycznie wysoki dochód (${value})`);
     }
 
     // Wykrywanie domyślnych wartości (podejrzane)
     if (fieldType === 'chwilówki' && value === '30 000') {
       flags.push(`${fieldType}: Pozostawiono domyślną wartość (${value})`);
+      behaviorDetection.addSuspiciousFlag(`Pozostawiono domyślną wartość w polu ${fieldType} (${value})`);
     }
     if (fieldType === 'kredyty bankowe' && value === '20 000') {
       flags.push(`${fieldType}: Pozostawiono domyślną wartość (${value})`);
+      behaviorDetection.addSuspiciousFlag(`Pozostawiono domyślną wartość w polu ${fieldType} (${value})`);
     }
     return flags;
   };
@@ -106,11 +124,21 @@ const DebtCalculatorBeta = () => {
       type: null,
       showForm: false
     });
+    
+    // Reset legacy tracking
     setSuspiciousFlags([]); // Reset flag
     setStepTimes([]); // Reset czasów
     setStepStartTime(Date.now()); // Reset czasu startowego
+    
+    // Reset zaawansowanej analizy
+    timingAnalysis.resetTiming();
+    behaviorDetection.resetBehaviorAnalysis();
+    
+    // Rozpocznij nową analizę
+    timingAnalysis.startFormTiming();
+    timingAnalysis.startFieldTiming('income');
 
-    console.log('🔄 Kalkulator BETA został zresetowany');
+    console.log('🔄 Kalkulator BETA został zresetowany z zaawansowaną analizą');
   };
 
   // Stałe z oryginalnego kalkulatora
@@ -181,8 +209,27 @@ const DebtCalculatorBeta = () => {
       return;
     }
 
-    // Blokada testowych wpisów - bardzo wysoki dochód przy małym zadłużeniu
+    // Zaawansowana analiza finansowa i wykrywanie niespójności
     const totalDebt = paydayVal + bankVal;
+    const financialData = {
+      income: incomeVal,
+      paydayDebt: paydayVal,
+      bankDebt: bankVal,
+      incomeType
+    };
+    
+    const consistencyAnalysis = behaviorDetection.analyzeFinancialData(financialData);
+    const behaviorAnalysis = await behaviorDetection.completeBehaviorAnalysis();
+    await timingAnalysis.completeFormTiming();
+    
+    console.log('🔍 Zaawansowana analiza zakończona:', {
+      isConsistent: consistencyAnalysis.isConsistent,
+      riskLevel: behaviorAnalysis.riskLevel,
+      totalFlags: behaviorAnalysis.totalSuspiciousFlags,
+      timingFlags: timingAnalysis.getSuspiciousFields().length
+    });
+
+    // Blokada testowych wpisów - bardzo wysoki dochód przy małym zadłużeniu (legacy)
     if (incomeVal > 25000 && totalDebt < 10000) {
       const baseUrl = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&incomeType=' + encodeURIComponent(incomeType) + '&source=beta';
       console.log('🧮 Calculator Beta suspicious data - redirect to consultant');
@@ -203,13 +250,32 @@ const DebtCalculatorBeta = () => {
     // Przygotuj dane do przekazania agentowi
     const baseUrl = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&incomeType=' + encodeURIComponent(incomeType) + '&source=beta';
 
-    // Dodaj flagi podejrzanych zachowań dla agenta
-    const suspiciousData = {
+    // Przygotuj szczegółowe dane podejrzanych zachowań dla agenta
+    const legacySuspiciousData = {
       flags: suspiciousFlags,
       stepTimes: stepTimes,
       totalTime: stepTimes.reduce((a, b) => a + b, 0)
     };
-    const suspiciousParams = '&suspicious=' + encodeURIComponent(JSON.stringify(suspiciousData));
+    
+    const advancedSuspiciousData = {
+      legacy: legacySuspiciousData,
+      timingAnalysis: {
+        sessionId: timingAnalysis.sessionId,
+        suspiciousFields: timingAnalysis.getSuspiciousFields(),
+        hasAnyuspiciousBehavior: timingAnalysis.hasAnyuspiciousBehavior(),
+        totalFormTime: timingAnalysis.getTimingData().totalFormTime
+      },
+      behaviorAnalysis: {
+        riskLevel: behaviorAnalysis.riskLevel,
+        totalFlags: behaviorAnalysis.totalSuspiciousFlags,
+        suspiciousCategories: behaviorAnalysis.suspiciousCategories,
+        inconsistencies: consistencyAnalysis.inconsistencies,
+        riskFactors: consistencyAnalysis.riskFactors
+      },
+      timestamp: new Date().toISOString()
+    };
+    
+    const suspiciousParams = '&suspicious=' + encodeURIComponent(JSON.stringify(advancedSuspiciousData));
 
     // Limity z marginesem (można je modyfikować w zależności od typu dochodu)
     let nbLim = nonBankLimit(incomeVal) + MARGIN;
@@ -269,7 +335,12 @@ const DebtCalculatorBeta = () => {
         setIsInFocusMode(true);
       }
 
-      // Wykrywanie podejrzanych zachowań
+      // Zakończ timing pola dochodu i przekaż wartość
+      if (newValue && parsePLN(newValue) > 0) {
+        timingAnalysis.endFieldTiming('income', newValue);
+      }
+
+      // Legacy wykrywanie podejrzanych zachowań
       const flags = detectSuspiciousBehavior(newValue, 'dochód');
       if (flags.length > 0) {
         setSuspiciousFlags(prev => [...prev, ...flags]);
@@ -279,6 +350,10 @@ const DebtCalculatorBeta = () => {
   };
   const handleIncomeTypeSelect = (type: string) => {
     setIncomeType(type);
+    
+    // Rozpocznij timing następnego pola
+    timingAnalysis.startFieldTiming('payday_debt');
+    
     setTimeout(goToNextStep, 300);
   };
   const handlePaydayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -286,7 +361,13 @@ const DebtCalculatorBeta = () => {
       const newValue = formatNumber(e.target.value);
       setPaydayDebt(newValue);
 
-      // Wykrywanie podejrzanych zachowań
+      // Zakończ timing tego pola i rozpocznij następne
+      if (newValue !== undefined) {
+        timingAnalysis.endFieldTiming('payday_debt', newValue);
+        timingAnalysis.startFieldTiming('bank_debt');
+      }
+
+      // Legacy wykrywanie podejrzanych zachowań
       const flags = detectSuspiciousBehavior(newValue, 'chwilówki');
       if (flags.length > 0) {
         setSuspiciousFlags(prev => [...prev, ...flags]);
@@ -300,7 +381,12 @@ const DebtCalculatorBeta = () => {
       setBankDebt(newValue);
       console.log('💳 Bank debt changed:', newValue, 'Current step:', currentStep);
 
-      // Wykrywanie podejrzanych zachowań
+      // Zakończ timing ostatniego pola
+      if (newValue !== undefined) {
+        timingAnalysis.endFieldTiming('bank_debt', newValue);
+      }
+
+      // Legacy wykrywanie podejrzanych zachowań
       const flags = detectSuspiciousBehavior(newValue, 'kredyty bankowe');
       if (flags.length > 0) {
         setSuspiciousFlags(prev => [...prev, ...flags]);
