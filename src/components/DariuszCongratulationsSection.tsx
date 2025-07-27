@@ -1,9 +1,7 @@
 import React from 'react';
 import dariuszImage from '/lovable-uploads/566df42e-2936-4526-804a-90b8512b4e83.png';
-
 const DariuszCongratulationsSection = () => {
-  return (
-    <section className="py-16 bg-gradient-to-br from-success-50 to-business-blue-50">
+  return <section className="py-16 bg-gradient-to-br from-success-50 to-business-blue-50">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
           
@@ -23,11 +21,7 @@ const DariuszCongratulationsSection = () => {
               {/* Wizerunek Dariusza z opisem */}
               <div className="flex-shrink-0 mx-auto lg:mx-0">
                 <div className="relative">
-                  <img 
-                    src={dariuszImage} 
-                    alt="Dariusz Wentrych - Ekspert oddłużeniowy nr 1 w Polsce"
-                    className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-success-400 shadow-xl"
-                  />
+                  <img src={dariuszImage} alt="Dariusz Wentrych - Ekspert oddłużeniowy nr 1 w Polsce" className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-success-400 shadow-xl" />
                   <div className="absolute -bottom-2 -right-2 bg-success-500 text-white p-3 rounded-full shadow-lg">
                     <span className="text-2xl">💼</span>
                   </div>
@@ -54,23 +48,18 @@ const DariuszCongratulationsSection = () => {
                   </p>
                   
                   <p className="mb-4">
-                    ✅ Połączyć wszystkie zobowiązania w jedną ratę<br/>
-                    ✅ Odzyskać spokój i kontrolę nad finansami<br/>
+                    ✅ Połączyć wszystkie zobowiązania w jedną ratę<br />
+                    ✅ Odzyskać spokój i kontrolę nad finansami<br />
                     ✅ Przestać martwić się o windykację i zaległości
                   </p>
 
-                  <p className="text-xl font-bold text-navy-800 mb-3">
-                    🧠 Pytanie brzmi: czy chcesz coś z tym zrobić?
-                  </p>
+                  
 
-                  <p className="mb-4">
-                    Nie musisz mieć komornika ani ogromnych długów. 
-                    Wystarczy, że zaczynasz tracić kontrolę nad finansami.
-                  </p>
+                  
 
                   <p className="mb-6">
-                    <strong>Masz dwa wyjścia:</strong><br/>
-                    🔸 Iść do konkurencji i tracić czas na marketingowe bajki<br/>
+                    <br />
+                    🔸 Iść do konkurencji i tracić czas na marketingowe bajki<br />
                     🔸 Lub zaufać zespołowi, który rozmawia z bankami <em>inaczej</em>
                   </p>
 
@@ -100,8 +89,6 @@ const DariuszCongratulationsSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default DariuszCongratulationsSection;
