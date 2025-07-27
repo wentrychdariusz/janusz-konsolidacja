@@ -184,11 +184,9 @@ const DebtCalculatorBeta = () => {
     // Blokada testowych wpisów - bardzo wysoki dochód przy małym zadłużeniu
     const totalDebt = paydayVal + bankVal;
     if (incomeVal > 25000 && totalDebt < 10000) {
-      setResult({
-        message: 'Błędne dane. Prosimy o podanie rzeczywistych informacji finansowych.',
-        type: 'negative',
-        showForm: false
-      });
+      const baseUrl = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&incomeType=' + encodeURIComponent(incomeType) + '&source=beta';
+      console.log('🧮 Calculator Beta suspicious data - redirect to consultant');
+      window.location.href = baseUrl + '&result=consultant&reason=suspicious_data';
       return;
     }
 
