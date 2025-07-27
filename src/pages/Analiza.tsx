@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { supabase } from '@/integrations/supabase/client';
-import { Calculator, TrendingUp, Users, DollarSign } from 'lucide-react';
+import { Calculator, TrendingUp, Users, DollarSign, AlertTriangle } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
 import TopHeader from '../components/TopHeader';
+import DebtCalculator from '../components/DebtCalculator';
 
 interface CalculatorData {
   id: string;
@@ -19,6 +21,7 @@ interface IncomeRange {
 }
 
 const Analiza = () => {
+  const [searchParams] = useSearchParams();
   const [data, setData] = useState<CalculatorData[]>([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
@@ -29,6 +32,10 @@ const Analiza = () => {
     maxIncome: 0
   });
   const [incomeRanges, setIncomeRanges] = useState<IncomeRange[]>([]);
+
+  // Pobierz kwotę z URL params jeśli istnieje
+  const salaryFromUrl = searchParams.get('salary') || '';
+  const formattedSalary = salaryFromUrl ? parseFloat(salaryFromUrl.replace(/\s/g, '')) : 0;
 
   useEffect(() => {
     fetchData();
@@ -137,6 +144,89 @@ const Analiza = () => {
               Raport dotyczący kwot dochodów użytkowników kalkulatora
             </p>
           </div>
+
+          {/* Informacja o poprzedniej kwocie z URL */}
+          {formattedSalary > 0 && (
+            <Card className="mb-6 md:mb-8 border-2 border-prestige-gold-300 bg-gradient-to-r from-prestige-gold-50 to-warm-neutral-50">
+              <CardContent className="p-4 md:p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <AlertTriangle className="h-6 w-6 text-prestige-gold-600" />
+                  <h3 className="text-lg md:text-xl font-bold text-navy-900">
+                    Poprzednio podana kwota zarobków
+                  </h3>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-prestige-gold-700 mb-2">
+                    {formatCurrency(formattedSalary)}
+                  </div>
+                  <p className="text-warm-neutral-600">
+                    Ta kwota została wprowadzona w poprzednim kroku. Porównaj ją z kalkulatorem oddłużenia poniżej.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Sekcja porównawcza z kalkulatorem oddłużenia */}
+          {formattedSalary > 0 && (
+            <div className="mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-navy-900 mb-6 text-center">
+                Porównaj z Kalkulatorem Oddłużenia
+              </h2>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Poprzednia kwota */}
+                <Card className="border-2 border-prestige-gold-300">
+                  <CardHeader className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200">
+                    <CardTitle className="text-lg md:text-xl font-bold text-navy-900 text-center">
+                      🔍 Poprzednia Kwota
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-6">
+                    <div className="text-center space-y-4">
+                      <div className="text-4xl font-bold text-prestige-gold-700">
+                        {formatCurrency(formattedSalary)}
+                      </div>
+                      <p className="text-warm-neutral-600">
+                        Kwota zarobków z poprzedniego formularza
+                      </p>
+                      {stats.avgIncome > 0 && (
+                        <div className="mt-4 p-4 bg-warm-neutral-100 rounded-lg">
+                          <p className="text-sm font-medium text-navy-700">
+                            Porównanie ze średnią:
+                          </p>
+                          <div className="mt-2">
+                            {formattedSalary > stats.avgIncome ? (
+                              <span className="text-green-600 font-bold">
+                                +{formatCurrency(formattedSalary - stats.avgIncome)} powyżej średniej
+                              </span>
+                            ) : (
+                              <span className="text-red-600 font-bold">
+                                -{formatCurrency(stats.avgIncome - formattedSalary)} poniżej średniej
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Kalkulator oddłużenia */}
+                <Card className="border-2 border-business-blue-300">
+                  <CardHeader className="bg-gradient-to-r from-business-blue-100 to-business-blue-200">
+                    <CardTitle className="text-lg md:text-xl font-bold text-navy-900 text-center">
+                      🧮 Kalkulator Oddłużenia
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-6">
+                    <div className="max-w-md mx-auto">
+                      <DebtCalculator />
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          )}
 
           {/* Statystyki ogólne */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">

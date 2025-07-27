@@ -81,7 +81,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
   };
 
   const handleGoToCalculator = () => {
-    navigate(`/kalkulator-beta?salary=${salary}`);
+    navigate(`/analiza?salary=${salary}`);
     onClose();
   };
 
@@ -234,7 +234,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                 onClick={handleGoToCalculator}
                 className="w-full bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-600 hover:from-prestige-gold-500 hover:to-prestige-gold-700 text-navy-900 font-bold py-4 rounded-xl text-lg shadow-xl"
               >
-                Zobacz kalkulator →
+                Przejdź do analizy →
               </Button>
             </div>
           </>
