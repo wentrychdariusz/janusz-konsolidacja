@@ -17,9 +17,11 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
   const [showOffer, setShowOffer] = useState(false);
   const navigate = useNavigate();
 
-  // Funkcja formatowania liczb (jak w DebtCalculator)
+  // Funkcja formatowania liczb - poprawiona wersja
   const formatNumber = (value: string) => {
-    const num = value.replace(/\D/g, '');
+    // Usuń wszystkie spacje i pozostaw tylko cyfry
+    const num = value.replace(/\s/g, '').replace(/\D/g, '');
+    // Formatuj z spacjami co 3 cyfry
     return num.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   };
 
