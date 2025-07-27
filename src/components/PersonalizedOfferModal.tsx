@@ -65,13 +65,24 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
   const handleSalarySubmit = () => {
     const salaryNum = parsePLN(salary);
     if (salaryNum && salaryNum > 0) {
-      // Sprawdź czy zarobki są w przedziale 4000-6000 PLN
+      // Sprawdź przedziały kwot i przekieruj odpowiednio
       if (salaryNum >= 4000 && salaryNum <= 6000) {
         // Przekieruj na stronę /4000_6000
         navigate('/4000_6000');
         onClose();
         return;
+      } else if (salaryNum < 4000) {
+        // Przekieruj na zewnętrzną stronę dariuszwentrych.com.pl
+        window.location.href = 'https://dariuszwentrych.com.pl';
+        onClose();
+        return;
+      } else if (salaryNum > 6000) {
+        // Przekieruj na stronę /premium
+        navigate('/premium');
+        onClose();
+        return;
       }
+      
       setShowOffer(true);
     }
   };
