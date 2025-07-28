@@ -105,7 +105,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="w-[95vw] max-w-[95vw] sm:max-w-lg max-h-[90vh] sm:max-h-[85vh] rounded-2xl border-0 shadow-2xl overflow-y-auto p-0 [&>button]:hidden fixed inset-0 m-auto">
+      <DialogContent className="w-full max-w-[95vw] sm:max-w-lg max-h-[85vh] rounded-2xl border-0 shadow-2xl overflow-y-auto p-0 [&>button]:hidden">
         <DialogHeader className="sr-only">
           <DialogTitle>Spersonalizowana oferta oddłużeniowa</DialogTitle>
           <DialogDescription>Wprowadź swoje zarobki aby otrzymać spersonalizowaną ofertę</DialogDescription>
