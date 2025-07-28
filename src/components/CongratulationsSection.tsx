@@ -7,7 +7,7 @@ const CongratulationsSection = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      if (scrollTop > 300) { // Hide after scrolling 300px
+      if (scrollTop > 800) { // Hide after scrolling 800px
         setIsVisible(false);
       }
     };
