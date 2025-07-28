@@ -250,12 +250,21 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                 </div>
               </div>
 
-              <Button 
-                onClick={handleGoToCalculator}
-                className="w-full bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-600 hover:from-prestige-gold-500 hover:to-prestige-gold-700 text-navy-900 font-bold py-4 rounded-xl text-lg shadow-xl"
-              >
-                Przejdź do analizy →
-              </Button>
+              {parsePLN(salary) >= 3000 ? (
+                <Button 
+                  onClick={handleGoToCalculator}
+                  className="w-full bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-600 hover:from-prestige-gold-500 hover:to-prestige-gold-700 text-navy-900 font-bold py-4 rounded-xl text-lg shadow-xl"
+                >
+                  Przejdź do analizy →
+                </Button>
+              ) : (
+                <Button 
+                  onClick={handleClose}
+                  className="w-full bg-gradient-to-r from-gray-400 to-gray-600 hover:from-gray-500 hover:to-gray-700 text-white font-bold py-4 rounded-xl text-lg shadow-xl"
+                >
+                  Zamknij
+                </Button>
+              )}
             </div>
           </>
         )}
