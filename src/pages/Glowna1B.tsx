@@ -18,13 +18,40 @@ import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
+import { useSuspiciousBehaviorDetection } from '../hooks/useSuspiciousBehaviorDetection';
 
 const Glowna1B = () => {
   const { trackPageView } = useSupabaseTracking();
+  const behaviorDetection = useSuspiciousBehaviorDetection('glowna1b_page');
   
   useEffect(() => {
     console.log('🎉 Glowna1B page: Tracking page view for glowna1B page (new calculator test)');
     trackPageView('glowna1b', 'B', 'glowna1_calculator');
+    
+    // Sprawdź czy użytkownik przyszedł z głównej strony z danymi w URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedData = urlParams.get('data');
+    
+    if (encodedData) {
+      try {
+        const decodedData = atob(encodedData);
+        const [originalIncome, originalPayday, originalBank] = decodedData.split(',').map(Number);
+        
+        // Zapisz oryginalne dane z głównej strony do localStorage
+        localStorage.setItem('original_main_data', JSON.stringify({
+          income: originalIncome,
+          paydayDebt: originalPayday,
+          bankDebt: originalBank,
+          timestamp: Date.now()
+        }));
+        
+        console.log('📊 Saved original data from main page:', { originalIncome, originalPayday, originalBank });
+        behaviorDetection.addSuspiciousFlag('came_from_main_with_data');
+      } catch (error) {
+        console.error('❌ Error decoding data from URL:', error);
+        behaviorDetection.addSuspiciousFlag('invalid_url_data');
+      }
+    }
     
     // Upewnij się, że strona jest na górze
     window.scrollTo(0, 0);
@@ -45,7 +72,7 @@ const Glowna1B = () => {
       console.log('✨ First time visitor');
       localStorage.setItem('last_glowna1b_visit', now.toString());
     }
-  }, [trackPageView]);
+  }, [trackPageView, behaviorDetection]);
    
   return (
     <div className="font-lato">

@@ -18,13 +18,40 @@ import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
+import { useSuspiciousBehaviorDetection } from '../hooks/useSuspiciousBehaviorDetection';
 
 const Glowna1A = () => {
   const { trackPageView } = useSupabaseTracking();
+  const behaviorDetection = useSuspiciousBehaviorDetection('glowna1a_page');
   
   useEffect(() => {
     console.log('🎉 Glowna1A page: Tracking page view for glowna1A page (old calculator test)');
     trackPageView('glowna1a', 'A', 'glowna1_calculator');
+    
+    // Sprawdź czy użytkownik przyszedł z głównej strony z danymi w URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedData = urlParams.get('data');
+    
+    if (encodedData) {
+      try {
+        const decodedData = atob(encodedData);
+        const [originalIncome, originalPayday, originalBank] = decodedData.split(',').map(Number);
+        
+        // Zapisz oryginalne dane z głównej strony do localStorage
+        localStorage.setItem('original_main_data', JSON.stringify({
+          income: originalIncome,
+          paydayDebt: originalPayday,
+          bankDebt: originalBank,
+          timestamp: Date.now()
+        }));
+        
+        console.log('📊 Saved original data from main page:', { originalIncome, originalPayday, originalBank });
+        behaviorDetection.addSuspiciousFlag('came_from_main_with_data');
+      } catch (error) {
+        console.error('❌ Error decoding data from URL:', error);
+        behaviorDetection.addSuspiciousFlag('invalid_url_data');
+      }
+    }
     
     // Track również czy to nowy czy returning visitor
     const lastVisit = localStorage.getItem('last_glowna1a_visit');
@@ -42,7 +69,7 @@ const Glowna1A = () => {
       console.log('✨ First time visitor');
       localStorage.setItem('last_glowna1a_visit', now.toString());
     }
-  }, [trackPageView]);
+  }, [trackPageView, behaviorDetection]);
    
   return (
     <div className="font-lato">

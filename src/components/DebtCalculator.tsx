@@ -125,20 +125,26 @@ const DebtCalculator = () => {
     const total = paydayVal + bankVal;
 
     if (total <= baseLim) {
+      // Zakoduj dane i dodaj do URL dla trackingu
+      const encodedData = btoa(`${incomeVal},${paydayVal},${bankVal}`);
+      
       // Track konwersję dla testu A/B glowna1_calculator
       console.log('🧮 Calculator positive result - tracking conversion and redirect to /kontakt');
       trackConversion('calculator_success', 'A', 'glowna1_calculator');
       // Przekieruj do strony kontakt zamiast pokazywać formularz
-      window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&result=positive';
+      window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&result=positive&data=' + encodedData;
       return;
     }
 
     if (total <= maxLim) {
+      // Zakoduj dane i dodaj do URL dla trackingu
+      const encodedData = btoa(`${incomeVal},${paydayVal},${bankVal}`);
+      
       // Track konwersję dla testu A/B glowna1_calculator
       console.log('🧮 Calculator warning result - tracking conversion and redirect to /kontakt');
       trackConversion('calculator_success', 'A', 'glowna1_calculator');
       // Przekieruj do strony kontakt zamiast pokazywać formularz
-      window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&result=warning';
+      window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&result=warning&data=' + encodedData;
       return;
     }
 
@@ -170,6 +176,21 @@ const DebtCalculator = () => {
         }
       }
       
+      // Sprawdź dane z głównej strony
+      const originalData = localStorage.getItem('original_main_data');
+      if (originalData) {
+        try {
+          const parsed = JSON.parse(originalData);
+          const currentIncome = parsePLN(newValue);
+          if (Math.abs(parsed.income - currentIncome) > parsed.income * 0.15) { // 15% różnica
+            behaviorDetection.addSuspiciousFlag('income_inconsistency_vs_main_page');
+            console.log('🚨 Detected income inconsistency vs main page data');
+          }
+        } catch (error) {
+          console.error('Error parsing original data:', error);
+        }
+      }
+      
       // Zapisz aktualne dane
       localStorage.setItem('previous_income_data', JSON.stringify(parsePLN(newValue)));
     }
@@ -191,6 +212,21 @@ const DebtCalculator = () => {
         }
       }
       
+      // Sprawdź dane z głównej strony
+      const originalData = localStorage.getItem('original_main_data');
+      if (originalData) {
+        try {
+          const parsed = JSON.parse(originalData);
+          const currentPayday = parsePLN(newValue);
+          if (Math.abs(parsed.paydayDebt - currentPayday) > Math.max(parsed.paydayDebt * 0.2, 3000)) { // 20% różnica lub 3000 PLN
+            behaviorDetection.addSuspiciousFlag('payday_debt_inconsistency_vs_main_page');
+            console.log('🚨 Detected payday debt inconsistency vs main page data');
+          }
+        } catch (error) {
+          console.error('Error parsing original data:', error);
+        }
+      }
+      
       // Zapisz aktualne dane
       localStorage.setItem('previous_payday_data', JSON.stringify(parsePLN(newValue)));
     }
@@ -209,6 +245,21 @@ const DebtCalculator = () => {
         if (Math.abs(prevBank - currentBank) > Math.max(prevBank * 0.3, 5000)) { // 30% różnica lub 5000 PLN
           behaviorDetection.addSuspiciousFlag('bank_debt_inconsistency_vs_previous');
           console.log('🚨 Detected bank debt inconsistency vs previous data');
+        }
+      }
+      
+      // Sprawdź dane z głównej strony
+      const originalData = localStorage.getItem('original_main_data');
+      if (originalData) {
+        try {
+          const parsed = JSON.parse(originalData);
+          const currentBank = parsePLN(newValue);
+          if (Math.abs(parsed.bankDebt - currentBank) > Math.max(parsed.bankDebt * 0.2, 3000)) { // 20% różnica lub 3000 PLN
+            behaviorDetection.addSuspiciousFlag('bank_debt_inconsistency_vs_main_page');
+            console.log('🚨 Detected bank debt inconsistency vs main page data');
+          }
+        } catch (error) {
+          console.error('Error parsing original data:', error);
         }
       }
       
