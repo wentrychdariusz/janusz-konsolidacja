@@ -13,7 +13,7 @@ const CongratulationsSection = () => {
               />
               <div className="text-center sm:text-left">
                 <span className="font-semibold text-lg sm:text-xl md:text-2xl block">Gratulacje!</span>
-                <span className="text-sm sm:text-base md:text-lg">Masz szansę na darmową konsultację o wartości 1000 zł z Dariuszem Wentrychem</span>
+                <span className="text-sm sm:text-base md:text-lg">Masz szansę na darmową konsultację o wartości 1000 zł z Dariuszem Wentrychem oraz zdobycie bestsellerowej książki "Nowe życie bez długów"</span>
               </div>
             </div>
             <div className="text-green-100 text-sm sm:text-base bg-green-700/30 px-4 py-2 rounded-lg">
