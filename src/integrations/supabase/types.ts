@@ -19,6 +19,8 @@ export type Database = {
           created_at: string | null
           event_name: string
           id: string
+          page_url: string | null
+          referrer_url: string | null
           session_id: string
           test_name: string | null
           user_ip: string | null
@@ -28,6 +30,8 @@ export type Database = {
           created_at?: string | null
           event_name: string
           id?: string
+          page_url?: string | null
+          referrer_url?: string | null
           session_id: string
           test_name?: string | null
           user_ip?: string | null
@@ -37,6 +41,8 @@ export type Database = {
           created_at?: string | null
           event_name?: string
           id?: string
+          page_url?: string | null
+          referrer_url?: string | null
           session_id?: string
           test_name?: string | null
           user_ip?: string | null

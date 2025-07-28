@@ -22,9 +22,11 @@ import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
 import PersonalizedOfferModal from '../components/PersonalizedOfferModal';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
+import { useSuspiciousBehaviorDetection } from '../hooks/useSuspiciousBehaviorDetection';
 
 const Index = () => {
   const { trackPageView } = useSupabaseTracking();
+  const behaviorDetection = useSuspiciousBehaviorDetection('main_page');
   const { settings, isLoaded } = useABTestSettings();
   const { variant, isLoaded: abTestLoaded } = useABTest({
     testName: 'glowna1_calculator',
@@ -39,6 +41,10 @@ const Index = () => {
     if (isLoaded && abTestLoaded) {
       console.log(`🏠 Index page: Tracking page view for variant ${variant}`);
       trackPageView('glowna1_calculator', variant, 'glowna1_calculator');
+      
+      // Rozpocznij analizę podejrzanych zachowań od wejścia na stronę
+      console.log('🔍 Starting suspicious behavior analysis on page load');
+      behaviorDetection.addSuspiciousFlag('page_loaded_initial');
       
       // Track również czy to nowy czy returning visitor
       const lastVisit = localStorage.getItem('last_index_visit');
@@ -60,7 +66,7 @@ const Index = () => {
       // Show personalized offer modal immediately
       setShowOfferModal(true);
     }
-  }, [isLoaded, abTestLoaded, variant, trackPageView]);
+  }, [isLoaded, abTestLoaded, variant, trackPageView, behaviorDetection]);
 
   // Czekaj aż oba hooki się załadują
   if (!isLoaded || !abTestLoaded) {

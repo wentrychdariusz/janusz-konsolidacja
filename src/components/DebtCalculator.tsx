@@ -7,9 +7,11 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import QuickRegistrationForm from './QuickRegistrationForm';
 import { supabase } from '@/integrations/supabase/client';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
+import { useSuspiciousBehaviorDetection } from '../hooks/useSuspiciousBehaviorDetection';
 
 const DebtCalculator = () => {
   const { trackConversion } = useSupabaseTracking();
+  const behaviorDetection = useSuspiciousBehaviorDetection('debt_calculator_classic');
   const [income, setIncome] = useState('');
   const [paydayDebt, setPaydayDebt] = useState('');
   const [bankDebt, setBankDebt] = useState('');
@@ -89,6 +91,13 @@ const DebtCalculator = () => {
       return;
     }
 
+    // Analizuj dane finansowe pod kątem podejrzanych zachowań
+    behaviorDetection.analyzeFinancialData({
+      income: incomeVal,
+      paydayDebt: paydayVal,
+      bankDebt: bankVal
+    });
+
     // Zapisz dane do bazy danych
     await saveCalculatorData(incomeVal, paydayVal, bankVal);
 
@@ -147,19 +156,64 @@ const DebtCalculator = () => {
 
   const handleIncomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
-      setIncome(formatNumber(e.target.value));
+      const newValue = formatNumber(e.target.value);
+      setIncome(newValue);
+      
+      // Sprawdź czy poprzednie dane z localStorage różnią się od nowych
+      const storedData = localStorage.getItem('previous_income_data');
+      if (storedData) {
+        const prevIncome = JSON.parse(storedData);
+        const currentIncome = parsePLN(newValue);
+        if (Math.abs(prevIncome - currentIncome) > prevIncome * 0.2) { // 20% różnica
+          behaviorDetection.addSuspiciousFlag('income_inconsistency_vs_previous');
+          console.log('🚨 Detected income inconsistency vs previous data');
+        }
+      }
+      
+      // Zapisz aktualne dane
+      localStorage.setItem('previous_income_data', JSON.stringify(parsePLN(newValue)));
     }
   };
 
   const handlePaydayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
-      setPaydayDebt(formatNumber(e.target.value));
+      const newValue = formatNumber(e.target.value);
+      setPaydayDebt(newValue);
+      
+      // Sprawdź czy poprzednie dane z localStorage różnią się od nowych
+      const storedData = localStorage.getItem('previous_payday_data');
+      if (storedData) {
+        const prevPayday = JSON.parse(storedData);
+        const currentPayday = parsePLN(newValue);
+        if (Math.abs(prevPayday - currentPayday) > Math.max(prevPayday * 0.3, 5000)) { // 30% różnica lub 5000 PLN
+          behaviorDetection.addSuspiciousFlag('payday_debt_inconsistency_vs_previous');
+          console.log('🚨 Detected payday debt inconsistency vs previous data');
+        }
+      }
+      
+      // Zapisz aktualne dane
+      localStorage.setItem('previous_payday_data', JSON.stringify(parsePLN(newValue)));
     }
   };
 
   const handleBankChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
-      setBankDebt(formatNumber(e.target.value));
+      const newValue = formatNumber(e.target.value);
+      setBankDebt(newValue);
+      
+      // Sprawdź czy poprzednie dane z localStorage różnią się od nowych
+      const storedData = localStorage.getItem('previous_bank_data');
+      if (storedData) {
+        const prevBank = JSON.parse(storedData);
+        const currentBank = parsePLN(newValue);
+        if (Math.abs(prevBank - currentBank) > Math.max(prevBank * 0.3, 5000)) { // 30% różnica lub 5000 PLN
+          behaviorDetection.addSuspiciousFlag('bank_debt_inconsistency_vs_previous');
+          console.log('🚨 Detected bank debt inconsistency vs previous data');
+        }
+      }
+      
+      // Zapisz aktualne dane
+      localStorage.setItem('previous_bank_data', JSON.stringify(parsePLN(newValue)));
     }
   };
 
