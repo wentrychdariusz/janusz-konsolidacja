@@ -8,7 +8,25 @@ interface TrackingEvent {
   event: string;
   variant?: string;
   testName?: string;
+  userIp?: string;
 }
+
+// Funkcja do uzyskania IP użytkownika
+const getUserIP = async (): Promise<string> => {
+  try {
+    const { data, error } = await supabase.functions.invoke('get-user-ip');
+    
+    if (error) {
+      console.error('Error getting user IP:', error);
+      return 'unknown';
+    }
+    
+    return data?.ip || 'unknown';
+  } catch (error) {
+    console.error('Error calling get-user-ip function:', error);
+    return 'unknown';
+  }
+};
 
 // Generowanie prostego ID sesji
 const generateSessionId = (): string => {
@@ -46,12 +64,15 @@ const getSessionId = (): string => {
   return newSessionId;
 };
 
-// Zapisywanie sesji do Supabase
-const saveSessionToSupabase = async (sessionId: string) => {
+// Zapisywanie sesji do Supabase z IP
+const saveSessionToSupabase = async (sessionId: string, userIp: string) => {
   try {
     const { error } = await supabase
       .from('ab_test_sessions')
-      .insert({ session_id: sessionId })
+      .insert({ 
+        session_id: sessionId,
+        user_ip: userIp
+      })
       .select();
     
     if (error && error.code !== '23505') { // Ignoruj duplikaty
@@ -59,17 +80,18 @@ const saveSessionToSupabase = async (sessionId: string) => {
     } else if (error?.code === '23505') {
       console.log(`ℹ️ Session already exists: ${sessionId}`);
     } else {
-      console.log(`✅ Session saved to Supabase: ${sessionId}`);
+      console.log(`✅ Session saved to Supabase: ${sessionId} (IP: ${userIp})`);
     }
   } catch (error) {
     console.error('❌ Error saving session to Supabase:', error);
   }
 };
 
-// Zapisywanie eventu do Supabase z walidacją
+// Zapisywanie eventu do Supabase z walidacją i IP
 const saveEventToSupabase = async (eventName: string, variant?: string, testName?: string) => {
   try {
     const sessionId = getSessionId();
+    const userIp = await getUserIP();
     
     // Walidacja danych przed zapisem
     if (!eventName || eventName.trim() === '') {
@@ -78,13 +100,14 @@ const saveEventToSupabase = async (eventName: string, variant?: string, testName
     }
     
     // Upewnij się, że sesja istnieje w bazie
-    await saveSessionToSupabase(sessionId);
+    await saveSessionToSupabase(sessionId, userIp);
     
     const eventData = {
       session_id: sessionId,
       event_name: eventName.trim(),
       variant: variant || null,
-      test_name: testName || null
+      test_name: testName || null,
+      user_ip: userIp
     };
     
     console.log('📊 Saving event to Supabase:', eventData);
@@ -96,9 +119,9 @@ const saveEventToSupabase = async (eventName: string, variant?: string, testName
     if (error) {
       console.error('❌ Error saving event to Supabase:', error);
       // Fallback do localStorage jeśli Supabase nie działa
-      saveEventToLocalStorage(eventName, variant, testName);
+      saveEventToLocalStorage(eventName, variant, testName, userIp);
     } else {
-      console.log(`✅ Event saved to Supabase: ${eventName}${variant ? ` (${variant})` : ''} - Session: ${sessionId}`);
+      console.log(`✅ Event saved to Supabase: ${eventName}${variant ? ` (${variant})` : ''} - Session: ${sessionId} (IP: ${userIp})`);
     }
   } catch (error) {
     console.error('❌ Error saving event to Supabase:', error);
@@ -108,7 +131,7 @@ const saveEventToSupabase = async (eventName: string, variant?: string, testName
 };
 
 // Fallback do localStorage
-const saveEventToLocalStorage = (eventName: string, variant?: string, testName?: string) => {
+const saveEventToLocalStorage = (eventName: string, variant?: string, testName?: string, userIp?: string) => {
   try {
     const sessionId = getSessionId();
     const event: TrackingEvent = {
@@ -116,7 +139,8 @@ const saveEventToLocalStorage = (eventName: string, variant?: string, testName?:
       sessionId,
       event: eventName,
       variant,
-      testName
+      testName,
+      userIp
     };
     
     const eventsKey = 'supabase_tracking_events';
@@ -141,7 +165,7 @@ const saveEventToLocalStorage = (eventName: string, variant?: string, testName?:
   }
 };
 
-// Pobieranie statystyk z Supabase
+// Pobieranie statystyk z Supabase z liczeniem unikalnych IP
 const getStatsFromSupabase = async () => {
   try {
     const { data: events, error } = await supabase
@@ -156,7 +180,11 @@ const getStatsFromSupabase = async () => {
     
     console.log(`📊 Found ${events?.length || 0} events in Supabase`);
     
+    // Zlicz unikalne IP zamiast sesji
+    const uniqueIPs = new Set(events?.map(e => e.user_ip).filter(ip => ip && ip !== 'unknown') || []).size;
     const uniqueSessions = new Set(events?.map(e => e.session_id) || []).size;
+    
+    console.log(`📊 Unique IPs: ${uniqueIPs}, Unique Sessions: ${uniqueSessions}`);
     
     const eventsByType: Record<string, number> = {};
     const eventsByVariant: Record<string, number> = {};
@@ -176,7 +204,7 @@ const getStatsFromSupabase = async () => {
     console.log('📊 Events by variant (Supabase):', eventsByVariant);
     
     return {
-      uniqueSessions,
+      uniqueSessions: uniqueIPs, // Użyj unikalnych IP zamiast sesji  
       totalEvents: events?.length || 0,
       eventsByType,
       eventsByVariant,

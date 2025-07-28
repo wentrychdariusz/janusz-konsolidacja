@@ -21,6 +21,7 @@ export type Database = {
           id: string
           session_id: string
           test_name: string | null
+          user_ip: string | null
           variant: string | null
         }
         Insert: {
@@ -29,6 +30,7 @@ export type Database = {
           id?: string
           session_id: string
           test_name?: string | null
+          user_ip?: string | null
           variant?: string | null
         }
         Update: {
@@ -37,6 +39,7 @@ export type Database = {
           id?: string
           session_id?: string
           test_name?: string | null
+          user_ip?: string | null
           variant?: string | null
         }
         Relationships: [
@@ -55,18 +58,21 @@ export type Database = {
           id: string
           session_id: string
           updated_at: string | null
+          user_ip: string | null
         }
         Insert: {
           created_at?: string | null
           id?: string
           session_id: string
           updated_at?: string | null
+          user_ip?: string | null
         }
         Update: {
           created_at?: string | null
           id?: string
           session_id?: string
           updated_at?: string | null
+          user_ip?: string | null
         }
         Relationships: []
       }
