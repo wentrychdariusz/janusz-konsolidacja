@@ -80,6 +80,16 @@ const AgentNotifications = () => {
     console.log("Wysylanie SMS:", assessment);
 
     try {
+      console.log("🚀 Wysyłanie do Make.com:", {
+        url: zapierWebhookUrl,
+        data: {
+          ocena: assessment,
+          timestamp: new Date().toISOString(),
+          client_income: lastWebhookData?.income,
+          client_debt: lastWebhookData?.total_debt
+        }
+      });
+
       const response = await fetch(zapierWebhookUrl, {
         method: "POST",
         headers: {
@@ -93,6 +103,8 @@ const AgentNotifications = () => {
           client_debt: lastWebhookData?.total_debt
         }),
       });
+
+      console.log("✅ Zapytanie wysłane do Make.com");
 
       toast({
         title: "SMS Wyslany",
