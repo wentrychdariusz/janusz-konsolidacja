@@ -33,8 +33,9 @@ const ContactFormVariantB = ({ onConversion }: ContactFormVariantBProps) => {
   const webhookUrl = "https://hook.eu2.make.com/yusy3i37uoiv14b2dx1zv6wro898d9q5";
 
   useEffect(() => {
-    // Track page view
-    trackEvent('contact_form_variant_b_view');
+    // Track page view - używamy prawidłowych kluczy A/B testu  
+    trackEvent('page_view_contact_form_test_B');
+    trackEvent('contact_form_variant_b_view'); // stary klucz dla kompatybilności
     trackFunnelStep('contact_form_view', 'B', 'debt_consolidation_funnel');
     
     // Facebook Pixel
@@ -80,8 +81,9 @@ const ContactFormVariantB = ({ onConversion }: ContactFormVariantBProps) => {
       });
       
       // Track conversion - formularz kontaktowy wypełniony
-      trackEvent('contact_form_variant_b_conversion');
-      trackEvent('contact_form_completed', 'B', 'contact_form_test');
+      trackEvent('conversion_contact_form_test_success_B');
+      trackEvent('contact_form_variant_b_conversion'); // stary klucz dla kompatybilności
+      trackEvent('contact_form_completed_B');
       trackFunnelStep('contact_form_completed', 'B', 'debt_consolidation_funnel', {
         name: formData.name,
         email: formData.email,
