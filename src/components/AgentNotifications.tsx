@@ -87,7 +87,7 @@ const AgentNotifications = () => {
         },
         mode: "no-cors",
         body: JSON.stringify({
-          sms_message: assessment,  // "prawda" lub "klamie"
+          ocena: assessment,  // "prawda" lub "klamie"
           timestamp: new Date().toISOString(),
           client_income: lastWebhookData?.income,
           client_debt: lastWebhookData?.total_debt
