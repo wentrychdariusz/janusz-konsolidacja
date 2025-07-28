@@ -5,8 +5,9 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
-import { AlertTriangle, CheckCircle, XCircle, Eye, DollarSign, CreditCard, User } from 'lucide-react';
+import { AlertTriangle, CheckCircle, XCircle, Eye, DollarSign, CreditCard, User, MessageSquare } from 'lucide-react';
 import { useMakeWebhook } from '../hooks/useMakeWebhook';
+import { useToast } from './ui/use-toast';
 
 interface AgentAssessment {
   is_lie: boolean | null;
@@ -17,7 +18,10 @@ interface AgentAssessment {
 
 const AgentNotifications = () => {
   const { sendToMake } = useMakeWebhook();
+  const { toast } = useToast();
   const [lastWebhookData, setLastWebhookData] = useState<any>(null);
+  const [zapierWebhookUrl, setZapierWebhookUrl] = useState('');
+  const [isLoadingSMS, setIsLoadingSMS] = useState(false);
   const [agentAssessment, setAgentAssessment] = useState<AgentAssessment>({
     is_lie: null,
     actual_income: undefined,
@@ -26,6 +30,13 @@ const AgentNotifications = () => {
   });
 
   useEffect(() => {
+    // Pobierz zapisany Zapier webhook URL
+    const savedZapierUrl = localStorage.getItem('zapier_webhook_url');
+    if (savedZapierUrl) {
+      setZapierWebhookUrl(savedZapierUrl);
+    }
+
+    // Pobierz ostatnie dane wysłane do Make
     // Pobierz ostatnie dane wysłane do Make
     const lastSent = localStorage.getItem('last_make_send');
     if (lastSent) {
@@ -54,6 +65,60 @@ const AgentNotifications = () => {
 
     return () => clearInterval(interval);
   }, [lastWebhookData?.timestamp]);
+
+  const sendSMSAssessment = async (assessment: 'PRAWDA' | 'KŁAMIE') => {
+    if (!zapierWebhookUrl) {
+      toast({
+        title: "Błąd",
+        description: "Wprowadź URL webhook Zapier",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoadingSMS(true);
+    console.log("Wysyłanie SMS przez Zapier:", assessment);
+
+    try {
+      const response = await fetch(zapierWebhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "no-cors",
+        body: JSON.stringify({
+          message: assessment,
+          timestamp: new Date().toISOString(),
+          client_data: {
+            income: lastWebhookData?.income,
+            total_debt: lastWebhookData?.total_debt
+          }
+        }),
+      });
+
+      toast({
+        title: "SMS Wysłany",
+        description: `Wysłano "${assessment}" przez Zapier. Sprawdź historię Zap.`,
+      });
+    } catch (error) {
+      console.error("Błąd wysyłania SMS:", error);
+      toast({
+        title: "Błąd",
+        description: "Nie udało się wysłać SMS. Sprawdź URL Zapier.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoadingSMS(false);
+    }
+  };
+
+  const saveZapierUrl = () => {
+    localStorage.setItem('zapier_webhook_url', zapierWebhookUrl);
+    toast({
+      title: "Zapisano",
+      description: "URL Zapier został zapisany",
+    });
+  };
 
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
@@ -163,12 +228,63 @@ const AgentNotifications = () => {
         </Card>
       )}
 
-      {/* Panel oceny agenta */}
+      {/* Panel SMS dla Agenta */}
+      <Card className="border-2 border-green-200">
+        <CardHeader>
+          <CardTitle className="text-lg font-bold text-green-800 flex items-center gap-2">
+            <MessageSquare className="w-5 h-5" />
+            Wyślij SMS do Agenta
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <Label htmlFor="zapier-webhook">Zapier Webhook URL (SMS)</Label>
+            <div className="flex gap-2">
+              <Input
+                id="zapier-webhook"
+                type="url"
+                placeholder="https://hooks.zapier.com/hooks/catch/..."
+                value={zapierWebhookUrl}
+                onChange={(e) => setZapierWebhookUrl(e.target.value)}
+                className="flex-1"
+              />
+              <Button onClick={saveZapierUrl} size="sm" variant="outline">
+                💾 Zapisz
+              </Button>
+            </div>
+            <p className="text-xs text-gray-600 mt-1">
+              Utwórz Zap z webhook triggerem + SMS action
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <Button
+              onClick={() => sendSMSAssessment('PRAWDA')}
+              disabled={!zapierWebhookUrl || isLoadingSMS}
+              className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
+            >
+              <CheckCircle className="w-4 h-4" />
+              {isLoadingSMS ? '📤 Wysyłanie...' : '📱 SMS: PRAWDA'}
+            </Button>
+            <Button
+              onClick={() => sendSMSAssessment('KŁAMIE')}
+              disabled={!zapierWebhookUrl || isLoadingSMS}
+              variant="destructive"
+              className="flex items-center gap-2"
+            >
+              <XCircle className="w-4 h-4" />
+              {isLoadingSMS ? '📤 Wysyłanie...' : '📱 SMS: KŁAMIE'}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Panel oceny agenta dla Make.com */}
       <Card className="border-2 border-blue-200">
         <CardHeader>
           <CardTitle className="text-lg font-bold text-navy-900 flex items-center gap-2">
             <User className="w-5 h-5" />
-            Ocena Agenta
+            Szczegółowa Ocena (Make.com)
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
