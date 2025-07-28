@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
-import DebtCalculator from './DebtCalculator';
+import DebtCalculatorBeta from './DebtCalculatorBeta';
 
 const FloatingAvatar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -166,7 +166,7 @@ const FloatingAvatar = () => {
             
             {/* Calculator Content */}
             <div className="flex-1 overflow-y-auto p-3 md:p-6">
-              <DebtCalculator />
+              <DebtCalculatorBeta />
             </div>
           </div>
         </div>
