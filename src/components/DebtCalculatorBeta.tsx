@@ -45,7 +45,7 @@ const DebtCalculatorBeta = () => {
     const calculatorUsed = localStorage.getItem('debt_calculator_beta_used');
     if (calculatorUsed === 'true') {
       setHasUsedCalculator(true);
-      setCurrentStep(3); // Maksymalny krok to 3
+      setCurrentStep(6); // Pokaż końcowy ekran
     } else {
       // Inicjalizacja zaawansowanej analizy czasowej
       timingAnalysis.startFormTiming();
@@ -517,6 +517,15 @@ const DebtCalculatorBeta = () => {
               </p>
             </div>
             
+            {/* Przycisk reset do testowania */}
+            <div className="p-4 rounded-xl border-2 bg-yellow-50 border-yellow-200">
+              <p className="text-yellow-800 text-sm mb-3">
+                🧪 <strong>Tryb testowy:</strong> Możesz zresetować kalkulator
+              </p>
+              <Button onClick={resetCalculator} variant="outline" className="w-full h-12 bg-white border-2 border-yellow-400 text-yellow-800 hover:bg-yellow-50 font-semibold">
+                🔄 Reset kalkulatora
+              </Button>
+            </div>
           </div>
         </div>;
     }
