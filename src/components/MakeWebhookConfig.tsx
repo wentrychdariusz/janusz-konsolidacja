@@ -144,6 +144,9 @@ const MakeWebhookConfig = () => {
                 <li>• Wynik analizy (positive/warning/negative)</li>
                 <li>• Analiza wiarygodności (KŁAMIE/PRAWDA)</li>
                 <li>• Różnice między popup a kalkulatorem</li>
+                <li>• <strong>Ocena agenta: prawda/kłamstwo</strong></li>
+                <li>• <strong>Rzeczywiste zarobki i zadłużenie</strong></li>
+                <li>• <strong>Notatki agenta</strong></li>
               </ul>
             </div>
           </div>
