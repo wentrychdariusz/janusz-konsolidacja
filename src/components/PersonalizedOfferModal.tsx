@@ -68,9 +68,9 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
     if (salaryNum && salaryNum > 0) {
       // Nowa logika według wymagań użytkownika
       if (salaryNum >= 4000) {
-        // A/B test - przekieruj na glowna1a lub glowna1b
+        // A/B test - przekieruj na glowna1a lub glowna1b z salary w URL
         const targetPage = variant === 'A' ? '/glowna1a' : '/glowna1b';
-        navigate(targetPage);
+        navigate(`${targetPage}?salary=${salaryNum}`);
         onClose();
         return;
       } else if (salaryNum >= 3000) {
