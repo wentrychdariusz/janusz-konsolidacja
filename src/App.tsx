@@ -39,7 +39,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/glownakopia" element={<GlownaKopia />} />
+          <Route path="/glownastrona" element={<GlownaKopia />} />
           <Route path="/glowna1" element={<Glowna1 />} />
           <Route path="/glowna1a" element={<Glowna1A />} />
           <Route path="/glowna1b" element={<Glowna1B />} />
