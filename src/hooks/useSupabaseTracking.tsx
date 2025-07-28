@@ -66,9 +66,15 @@ const getSessionId = (): string => {
   return newSessionId;
 };
 
-// Zapisywanie sesji do Supabase z IP
 const saveSessionToSupabase = async (sessionId: string, userIp: string) => {
   try {
+    // Sprawdź cache lokalny żeby uniknąć wielokrotnych prób zapisu tej samej sesji
+    const savedSessions = JSON.parse(localStorage.getItem('saved_sessions') || '[]');
+    if (savedSessions.includes(sessionId)) {
+      // console.log(`ℹ️ Session ${sessionId} already cached locally, skipping save`);
+      return;
+    }
+
     const { error } = await supabase
       .from('ab_test_sessions')
       .insert({ 
@@ -81,8 +87,14 @@ const saveSessionToSupabase = async (sessionId: string, userIp: string) => {
       console.error('❌ Error saving session to Supabase:', error);
     } else if (error?.code === '23505') {
       console.log(`ℹ️ Session already exists: ${sessionId}`);
+      // Dodaj do cache żeby uniknąć kolejnych prób
+      savedSessions.push(sessionId);
+      localStorage.setItem('saved_sessions', JSON.stringify(savedSessions));
     } else {
       console.log(`✅ Session saved to Supabase: ${sessionId} (IP: ${userIp})`);
+      // Dodaj do cache
+      savedSessions.push(sessionId);
+      localStorage.setItem('saved_sessions', JSON.stringify(savedSessions));
     }
   } catch (error) {
     console.error('❌ Error saving session to Supabase:', error);
