@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const CongratulationsSection = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -38,7 +39,13 @@ const CongratulationsSection = () => {
               • Wyjście z zadłużenia • Zmniejszenie rat • Spokojne życie bez długów
             </div>
           </div>
-          <div className="mt-4 flex justify-center">
+          <div className="mt-4 flex flex-col items-center gap-3">
+            <Link 
+              to="/kalkulator" 
+              className="bg-white text-green-700 font-semibold px-6 py-3 rounded-lg hover:bg-green-50 transition-colors shadow-lg"
+            >
+              🧮 Sprawdź swój kalkulator oddłużenia
+            </Link>
             <ChevronDown className="w-6 h-6 text-green-200 animate-bounce" />
           </div>
         </div>
