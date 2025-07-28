@@ -67,6 +67,9 @@ const AgentNotifications = () => {
   }, [lastWebhookData?.timestamp]);
 
   const sendSMSAssessment = async (assessment: 'prawda' | 'klamie') => {
+    console.log("🔥 sendSMSAssessment wywołane z:", assessment);
+    console.log("🔥 zapierWebhookUrl:", zapierWebhookUrl);
+    console.log("🔥 lastWebhookData:", lastWebhookData);
     if (!zapierWebhookUrl) {
       toast({
         title: "Blad",
