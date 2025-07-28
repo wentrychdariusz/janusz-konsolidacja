@@ -8,50 +8,89 @@ import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star } from 'lu
 const HeroSectionBeta = () => {
   const [currentMiniTestimonial, setCurrentMiniTestimonial] = useState(0);
 
-  // Obrazy dla mozaiki mobilnej (z oryginalnego HeroSection)
-  const mobileBackgroundImages = [
-    "/lovable-uploads/a353743c-9479-4b4f-845a-c5763107af50.png",
-    "/lovable-uploads/c432fd37-2b35-4462-9077-b3a0ad7fb614.png",
-    "/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png",
-    "/lovable-uploads/cc2d25e5-05d2-41e1-a933-15662005a373.png",
-    "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png",
-    "/lovable-uploads/eb7b2854-6ce9-4318-8cb5-7f866eb59ef8.png"
-  ];
-
   const benefits = [
     {
-      icon: <CheckCircle className="w-5 h-5 text-green-600" />,
-      text: "Nr 1 w Polsce - Lider w branży oddłużeniowej z 20-letnim doświadczeniem"
+      icon: Trophy,
+      title: "Nr 1 w Polsce",
+      description: "Lider w branży oddłużeniowej z 20-letnim doświadczeniem"
     },
     {
-      icon: <Users className="w-5 h-5 text-blue-600" />,
-      text: "15.000 zadowolonych klientów - Mojej firmie zaufało już 15.000 zadowolonych klientów"
+      icon: Users,
+      title: "15.000 zadowolonych klientów", 
+      description: "Mojej firmie zaufało już 15.000 zadowolonych klientów"
     },
     {
-      icon: <Car className="w-5 h-5 text-yellow-600" />,
-      text: "Dojeżdzamy do Ciebie - Umów się na bezpłatne spotkania w 16 miastach lub indywidualne spotkanie u Ciebie"
+      icon: Car,
+      title: "Dojeżdzamy do Ciebie",
+      description: "Umów się na bezpłatne spotkania w 16 miastach lub indywidualne spotkanie u Ciebie"
     }
   ];
 
-  const miniTestimonials = [
-    { name: "Anna K.", result: "Oszczędza 800 zł miesięcznie", image: "/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png" },
-    { name: "Marcin W.", result: "Spłacił 45.000 zł długów", image: "/lovable-uploads/669e599a-c272-4fec-81fe-5ca4c496d018.png" },
-    { name: "Kasia M.", result: "Jedna rata zamiast 8", image: "/lovable-uploads/85aea4b7-a6c9-428e-9787-3f867bd14c94.png" },
-    { name: "Tomasz N.", result: "1200 zł więcej w kieszeni", image: "/lovable-uploads/17f8f3fc-9862-4650-99e5-12d823aad11c.png" },
-    { name: "Ewa P.", result: "Z 12 rat zrobił 1", image: "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png" }
+  const clientImages = [
+    "/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png",
+    "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png",
+    "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png",
+    "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png",
+    "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png",
+    "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png",
+    "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png",
+    "/lovable-uploads/ce402ba0-a1c6-47f9-b872-3b17a07691f3.png"
   ];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentMiniTestimonial((prev) => (prev + 1) % miniTestimonials.length);
-    }, 3000);
+  const miniTestimonials = [
+    {
+      name: "Pan Marian",
+      text: "Spokojny, kompetentny, godny zaufania.",
+      image: "/lovable-uploads/2d738ba1-2073-46e7-8756-b5c6adad4638.png"
+    },
+    {
+      name: "Pani Agnieszka",
+      text: "Życzliwy, cierpliwy, nie ocenia.",
+      image: "/lovable-uploads/1c4d6794-37c2-40ad-874e-39424cab8376.png"
+    },
+    {
+      name: "Pan Krzysztof",
+      text: "Skuteczny, ludzki, potrafi czynić cuda.",
+      image: "/lovable-uploads/45c6e51f-e867-4285-8a55-98087f2d6314.png"
+    }
+  ];
 
-    return () => clearInterval(interval);
+  // Auto-play functionality for mini testimonials
+  useEffect(() => {
+    const miniAutoPlayInterval = setInterval(() => {
+      setCurrentMiniTestimonial(prev => (prev + 1) % miniTestimonials.length);
+    }, 2500);
+    
+    return () => {
+      clearInterval(miniAutoPlayInterval);
+    };
   }, [miniTestimonials.length]);
 
+  const mobileBackgroundImages = [
+    "/lovable-uploads/625db739-f793-41f1-bf7a-c329c72cf5d6.png",
+    "/lovable-uploads/8bbcb19e-bb1a-4285-b18a-121c8bf0c5bc.png",
+    "/lovable-uploads/d4784a58-cbb3-4dfe-9f16-12f748e1bb90.png",
+    "/lovable-uploads/1155d47b-be7e-4597-a317-e8d3f624effc.png",
+    "/lovable-uploads/ce712082-8c47-4d6f-bb24-515aa5736ef7.png",
+    "/lovable-uploads/14a04951-9c7c-4bd4-93b1-89a1bd4564ed.png",
+    "/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png",
+    "/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png"
+  ];
+
   return (
-    <section className="relative min-h-screen bg-black text-white overflow-hidden">
-      {/* Background mozaika - Mobile */}
+    <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden pt-14 md:pt-16 pb-8 md:pb-12">
+      {/* Desktop background - Dariusz image z lazy loading */}
+      <div 
+        className="hidden md:block absolute inset-0 bg-cover bg-center bg-no-repeat opacity-60"
+        style={{
+          backgroundImage: `url('/lovable-uploads/eb0658a9-c99a-4631-a61d-1543709a3efa.png')`,
+          backgroundPosition: 'center -120px',
+          backgroundSize: 'cover',
+          height: '100%'
+        }}
+      ></div>
+      
+      {/* Mobile background - mozaika 400px u góry z płynnym przejściem tonalnym */}
       <div className="md:hidden absolute inset-0">
         {/* Mozaika bez przerw - 400px wysokości */}
         <div className="absolute top-0 left-0 right-0" style={{ height: '400px' }}>
@@ -92,208 +131,223 @@ const HeroSectionBeta = () => {
       
       <div className="relative z-10">
         <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-2 md:py-4">
-
-        {/* Mobile and Tablet Layout - Stacked */}
-        <div className="xl:hidden">
-          <div className="text-center space-y-3 md:space-y-4 animate-fade-in">
-            
-            {/* Mini testimonial rotator - Mobile Only */}
-            <div className="md:hidden mb-4 bg-white/80 backdrop-blur-sm p-3 rounded-xl shadow-lg border border-white/50 max-w-xs mx-auto">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-prestige-gold-400 flex-shrink-0">
-                  <OptimizedImage 
-                    src={miniTestimonials[currentMiniTestimonial].image}
-                    alt={miniTestimonials[currentMiniTestimonial].name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="text-left flex-1 min-w-0">
-                  <div className="text-sm font-bold text-navy-900 truncate">
-                    {miniTestimonials[currentMiniTestimonial].name}
-                  </div>
-                  <div className="text-xs text-green-700 font-medium">
-                    ✓ {miniTestimonials[currentMiniTestimonial].result}
-                  </div>
-                </div>
-                <div className="flex">
-                  {[1,2,3,4,5].map(i => (
-                    <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-              </div>
+          
+          {/* Header Section - Full Width */}
+          <div className="w-full text-center mb-2 md:mb-3 animate-fade-in">
+            <div className="flex justify-center items-center mb-2 lg:mb-3">
+              <OptimizedImage
+                src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                alt="Dariusz Wentrych"
+                className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full border-4 border-prestige-gold-400 shadow-lg object-cover"
+                priority={true}
+                width={96}
+                height={96}
+              />
             </div>
-
-            <h1 className="font-montserrat font-black text-3xl md:text-4xl lg:text-5xl text-center leading-tight">
-              <span className="text-white">
-                Zamień długi w
-              </span>
-              <br />
-              <span className="text-white">jedną wygodną ratę</span>
-            </h1>
-            
-            <div className="bg-gradient-to-r from-success-50 via-business-blue-50 to-prestige-gold-50 p-4 md:p-6 rounded-2xl shadow-lg border-2 border-success-300 max-w-2xl mx-auto">
-              <p className="text-navy-700 text-lg md:text-xl font-semibold text-center leading-relaxed">
-                Masz długi, chwilówki, komornika na karku? Nie jesteś sam. Od 20 lat pomagamy tam, gdzie inni zawiedli.
-              </p>
+            <div className="font-montserrat text-prestige-gold-400 text-xl md:text-2xl lg:text-3xl font-black tracking-wide uppercase">
+              Dariusz Wentrych nr 1 w Polsce w oddłużaniu osób fizycznych
             </div>
-
-            {/* Dodatkowy nagłówek */}
-            <div className="text-center">
-              <h2 className="font-montserrat font-bold text-xl md:text-2xl text-navy-900 leading-tight">
-                WSPIERAMY KLIENTÓW TAM, GDZIE INNI NIE POTRAFILI ZNALEŹĆ ROZWIĄZAŃ.
-              </h2>
-              <p className="text-navy-700 text-base md:text-lg mt-2">
-                Zamień chaos w jedną ratę i odzyskaj kontrolę nad życiem.
-              </p>
-            </div>
-
-            {/* Key Benefits */}
-            <div className="space-y-3 max-w-2xl mx-auto">
-              {benefits.map((benefit, index) => (
-                <div 
-                  key={index} 
-                  className="flex items-start space-x-3 bg-white/70 backdrop-blur-sm p-3 rounded-xl shadow-md border border-white/50 hover:bg-white/90 transition-all duration-300"
-                  style={{animationDelay: `${index * 0.2}s`}}
-                >
-                  <div className="flex-shrink-0 mt-0.5">
-                    {benefit.icon}
-                  </div>
-                  <p className="text-navy-700 font-medium text-sm md:text-base leading-relaxed text-left">
-                    {benefit.text}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Social Proof */}
-            <div className="bg-white/80 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/50 max-w-lg mx-auto">
-              <div className="flex items-center justify-center space-x-4 mb-2">
-                <div className="flex">
-                  {[1,2,3,4,5].map(i => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <span className="text-navy-700 font-bold">4.9/5</span>
-              </div>
-              <p className="text-navy-600 text-sm">
-                <strong>15.000 zadowolonych klientów</strong> uwolnionych od długów
-              </p>
-            </div>
-
-            {/* Trust indicators - Mobile */}
-            <div className="grid grid-cols-3 gap-2 max-w-lg mx-auto">
-              <div className="bg-white/70 backdrop-blur-sm p-2 rounded-lg text-center shadow-sm border border-white/50">
-                <Users className="w-5 h-5 text-business-blue-600 mx-auto mb-1" />
-                <p className="text-xs font-semibold text-navy-700">15000</p>
-                <p className="text-xs text-navy-600">Klientów</p>
-              </div>
-              <div className="bg-white/70 backdrop-blur-sm p-2 rounded-lg text-center shadow-sm border border-white/50">
-                <Shield className="w-5 h-5 text-success-600 mx-auto mb-1" />
-                <p className="text-xs font-semibold text-navy-700">100%</p>
-                <p className="text-xs text-navy-600">Gwarancja</p>
-              </div>
-              <div className="bg-white/70 backdrop-blur-sm p-2 rounded-lg text-center shadow-sm border border-white/50">
-                <Award className="w-5 h-5 text-prestige-gold-600 mx-auto mb-1" />
-                <p className="text-xs font-semibold text-navy-700">20+</p>
-                <p className="text-xs text-navy-600">Lat</p>
-              </div>
+            <div className="font-lato text-warm-neutral-200 text-lg md:text-xl lg:text-2xl font-normal mt-1 lg:mt-2 uppercase tracking-wide">
+              POŻYCZKI INWESTORSKIE, KONSOLIDACJA POŻYCZEK I CHWILÓWEK
             </div>
           </div>
-          
-          {/* Calculator Section - Mobile */}
-          <div className="animate-fade-in">
-            <DebtCalculatorBeta />
+
+          {/* Enhanced Trust Section z pojedynczą ramką na jasnym tle - HIDDEN ON DESKTOP */}
+          <div className="w-full relative mb-2 xl:hidden">
+            {/* Szersza szara ramka z jasnym tłem gradientowym i czarną ramką */}
+            <div className="mx-2 md:mx-6 lg:mx-8 bg-gradient-to-br from-white/20 via-white/15 to-white/10 backdrop-blur-md border-2 border-black/80 rounded-xl shadow-2xl py-6">
+              <div className="relative text-center">
+                <div className="mb-6">
+                  <h3 className="font-montserrat text-white text-lg md:text-xl font-bold mb-2">
+                    Ponad 15.000 zadowolonych klientów
+                  </h3>
+                  
+                  {/* Ocena gwiazdkami */}
+                  <div className="flex justify-center items-center space-x-2 mb-3">
+                    <div className="flex items-center space-x-1">
+                      {[1, 2, 3, 4].map((star) => (
+                        <Star key={star} className="w-5 h-5 fill-prestige-gold-400 text-prestige-gold-400" />
+                      ))}
+                      <div className="relative">
+                        <Star className="w-5 h-5 text-gray-300" />
+                        <div className="absolute top-0 left-0 w-4/5 overflow-hidden">
+                          <Star className="w-5 h-5 fill-prestige-gold-400 text-prestige-gold-400" />
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-white font-semibold text-lg">4.9</span>
+                    <span className="text-warm-neutral-300 text-sm">(ocena klientów)</span>
+                  </div>
+                </div>
+                
+                {/* Client photos grid z konturami */}
+                <div className="flex justify-center items-center mb-6">
+                  <div className="flex items-center">
+                    {clientImages.map((image, index) => (
+                      <div 
+                        key={index} 
+                        className="relative group -ml-2 first:ml-0"
+                        style={{ zIndex: clientImages.length - index }}
+                      >
+                        <OptimizedImage
+                          src={image}
+                          alt={`Zadowolony klient ${index + 1}`}
+                          className="w-12 h-12 md:w-14 md:h-14 rounded-full border-3 border-white shadow-lg group-hover:scale-110 transition-transform duration-300 object-cover"
+                          priority={index < 4}
+                          width={56}
+                          height={56}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Animated mini testimonial - stała ramka, delikatnie szersza */}
+                <div className="mb-4 px-6 md:px-16 lg:px-20">
+                  <div className="bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-xl border border-white/30 h-24 flex items-center relative">
+                    <div className="flex items-center space-x-3 w-full">
+                      <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                        <OptimizedImage
+                          src={miniTestimonials[currentMiniTestimonial].image}
+                          alt={miniTestimonials[currentMiniTestimonial].name}
+                          className="w-full h-full object-cover"
+                          width={48}
+                          height={48}
+                        />
+                      </div>
+                      <div className="min-w-0 flex-1 text-left">
+                        <p className="text-gray-800 font-semibold text-sm mb-1">
+                          {miniTestimonials[currentMiniTestimonial].name}
+                        </p>
+                        <p className="text-gray-600 text-sm italic">
+                          "{miniTestimonials[currentMiniTestimonial].text}"
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Mini dots indicator - pod ramką */}
+                <div className="flex justify-center space-x-1 mb-4">
+                  {miniTestimonials.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        index === currentMiniTestimonial ? 'bg-prestige-gold-500' : 'bg-gray-400'
+                      }`}
+                    />
+                  ))}
+                </div>
+                
+                {/* Nagłówek po testimonialach - mniejsza, niepogrubiona czcionka z marginesem */}
+                <div className="mx-4">
+                  <p className="text-warm-neutral-300 text-sm md:text-base font-normal font-montserrat">
+                    Oni mi zaufali • Teraz ty możesz wyjść z zadłużenia!
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Desktop Layout - 50/50 */}
-        <div className="hidden xl:grid xl:grid-cols-2 gap-12 items-start">
-          
-          {/* Left Content - 50% */}
-          <div className="space-y-3 md:space-y-4 animate-fade-in">
-            <h1 className="font-montserrat font-black text-4xl lg:text-5xl xl:text-6xl text-left leading-tight">
-              <span className="bg-gradient-to-r from-navy-900 via-business-blue-700 to-prestige-gold-600 bg-clip-text text-transparent">
-                Zamień długi w
-              </span>
-              <br />
-              <span className="text-navy-900">jedną wygodną ratę</span>
-            </h1>
-            
-            <div className="bg-gradient-to-r from-success-50 via-business-blue-50 to-prestige-gold-50 p-6 rounded-2xl shadow-lg border-2 border-success-300">
-              <p className="text-navy-700 text-xl font-semibold text-left leading-relaxed">
-                Masz długi, chwilówki, komornika na karku? Nie jesteś sam. Od 20 lat pomagamy tam, gdzie inni zawiedli.
-              </p>
-            </div>
-
-            {/* Dodatkowy nagłówek - Desktop */}
-            <div className="text-left">
-              <h2 className="font-montserrat font-bold text-2xl text-navy-900 leading-tight">
-                WSPIERAMY KLIENTÓW TAM, GDZIE INNI NIE POTRAFILI ZNALEŹĆ ROZWIĄZAŃ.
-              </h2>
-              <p className="text-navy-700 text-lg mt-2">
-                Zamień chaos w jedną ratę i odzyskaj kontrolę nad życiem.
-              </p>
-            </div>
-
-            {/* Key Benefits */}
-            <div className="space-y-4">
-              {benefits.map((benefit, index) => (
-                <div 
-                  key={index} 
-                  className="flex items-start space-x-4 bg-white/70 backdrop-blur-sm p-4 rounded-xl shadow-md border border-white/50 hover:bg-white/90 transition-all duration-300"
-                  style={{animationDelay: `${index * 0.2}s`}}
-                >
-                  <div className="flex-shrink-0 mt-1">
-                    {benefit.icon}
+        <div className="px-4 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto py-2 md:py-4">
+          {/* Mobile/Tablet Layout - Stacked */}
+          <div className="block xl:hidden space-y-4">
+            {/* Content Section */}
+            <div className="space-y-3 md:space-y-4 animate-fade-in">
+              <h1 className="font-montserrat font-black text-3xl sm:text-4xl md:text-5xl text-center leading-tight">
+                <span className="text-white">Zamień długi w </span>
+                <span className="text-business-blue-400">jedną wygodną ratę</span>
+              </h1>
+              
+              <div className="text-warm-neutral-200 text-xl md:text-2xl text-center font-lato leading-relaxed font-medium space-y-4">
+                <p>
+                  <span className="text-white font-bold">Masz długi, chwilówki, komornika na karku?</span> Nie jesteś sam. Od 20 lat pomagamy tam, gdzie inni zawiedli.
+                </p>
+                <p className="text-business-blue-400 font-bold text-lg lg:text-xl uppercase tracking-wide">
+                  WSPIERAMY KLIENTÓW TAM, GDZIE INNI NIE POTRAFILI ZNALEŹĆ ROZWIĄZAŃ.
+                </p>
+                <p>
+                  <span className="text-white font-bold">Zamień chaos w jedną ratę</span> i odzyskaj kontrolę nad życiem.
+                </p>
+              </div>
+              
+              {/* Benefits Cards - Mobile */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+                {benefits.map((benefit, index) => (
+                  <div 
+                    key={index}
+                    className="bg-gradient-to-r from-white/15 to-white/10 border-2 border-prestige-gold-400/60 rounded-xl p-4 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 rounded-full w-12 h-12 flex items-center justify-center shadow-lg">
+                        <benefit.icon className="w-6 h-6 text-navy-900" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-white font-bold text-lg mb-1">{benefit.title}</h3>
+                        <p className="text-warm-neutral-300 text-sm">{benefit.description}</p>
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-navy-700 font-medium text-lg leading-relaxed text-left">
-                    {benefit.text}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Social Proof */}
-            <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-white/50">
-              <div className="flex items-center space-x-4 mb-3">
-                <div className="flex">
-                  {[1,2,3,4,5].map(i => (
-                    <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <span className="text-navy-700 font-bold text-xl">4.9/5</span>
-              </div>
-              <p className="text-navy-600 text-lg">
-                <strong>15.000 zadowolonych klientów</strong> uwolnionych od długów
-              </p>
-            </div>
-
-            {/* Trust indicators - Desktop */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="bg-white/70 backdrop-blur-sm p-4 rounded-lg text-center shadow-sm border border-white/50">
-                <Users className="w-8 h-8 text-business-blue-600 mx-auto mb-2" />
-                <p className="text-lg font-semibold text-navy-700">15000</p>
-                <p className="text-sm text-navy-600">Zadowolonych klientów</p>
-              </div>
-              <div className="bg-white/70 backdrop-blur-sm p-4 rounded-lg text-center shadow-sm border border-white/50">
-                <Shield className="w-8 h-8 text-success-600 mx-auto mb-2" />
-                <p className="text-lg font-semibold text-navy-700">100%</p>
-                <p className="text-sm text-navy-600">Gwarancja zwrotu</p>
-              </div>
-              <div className="bg-white/70 backdrop-blur-sm p-4 rounded-lg text-center shadow-sm border border-white/50">
-                <Award className="w-8 h-8 text-prestige-gold-600 mx-auto mb-2" />
-                <p className="text-lg font-semibold text-navy-700">20+</p>
-                <p className="text-sm text-navy-600">Lat doświadczenia</p>
+                ))}
               </div>
             </div>
-          </div>
-          
-          {/* Right Content - 50% */}
-          <div className="flex justify-center animate-fade-in">
-            <div className="w-full">
+            
+            {/* Calculator Section - Mobile */}
+            <div className="animate-fade-in">
               <DebtCalculatorBeta />
             </div>
           </div>
+
+          {/* Desktop Layout - 50/50 */}
+          <div className="hidden xl:grid xl:grid-cols-2 gap-12 items-start">
+            
+            {/* Left Content - 50% */}
+            <div className="space-y-3 md:space-y-4 animate-fade-in">
+              <h1 className="font-montserrat font-black text-4xl lg:text-5xl xl:text-6xl text-left leading-tight">
+                <span className="text-white">Zamień długi w </span>
+                <span className="text-business-blue-400">jedną wygodną ratę</span>
+              </h1>
+              
+              <div className="text-warm-neutral-200 text-base xl:text-lg text-left font-lato leading-relaxed font-medium space-y-4">
+                <p>
+                  <span className="text-white font-bold">Masz długi, chwilówki, komornika na karku?</span> Nie jesteś sam. Od 20 lat pomagamy tam, gdzie inni zawiedli.
+                </p>
+                <p className="text-white font-bold text-sm xl:text-base uppercase tracking-wide">
+                  WSPIERAMY KLIENTÓW TAM, GDZIE INNI NIE POTRAFILI ZNALEŹĆ ROZWIĄZAŃ.
+                </p>
+                <p>
+                  <span className="text-white font-bold">Zamień chaos w jedną ratę</span> i odzyskaj kontrolę nad życiem.
+                </p>
+              </div>
+              
+              {/* Benefits Cards - Desktop */}
+              <div className="grid grid-cols-1 gap-6 mt-4">
+                {benefits.map((benefit, index) => (
+                  <div 
+                    key={index}
+                    className="bg-gradient-to-r from-white/15 to-white/10 border-2 border-prestige-gold-400/60 rounded-xl p-6 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm"
+                  >
+                    <div className="flex items-center space-x-4">
+                      <div className="bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 rounded-full w-16 h-16 flex items-center justify-center shadow-lg">
+                        <benefit.icon className="w-8 h-8 text-navy-900" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-white font-bold text-xl mb-2">{benefit.title}</h3>
+                        <p className="text-warm-neutral-300 text-lg">{benefit.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Right Content - 50% */}
+            <div className="flex justify-center animate-fade-in">
+              <div className="w-full">
+                <DebtCalculatorBeta />
+              </div>
+            </div>
           </div>
         </div>
       </div>
