@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import GlownaKopia from "./pages/GlownaKopia";
 import Glowna1 from "./pages/Glowna1";
+import GlownaA from "./pages/GlownaA";
 import Premium from "./pages/Premium";
 import Gratulacje4000_6000 from "./pages/Gratulacje4000_6000";
 import Calculator from "./pages/Calculator";
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/glownakopia" element={<GlownaKopia />} />
           <Route path="/glowna1" element={<Glowna1 />} />
+          <Route path="/glownaA" element={<GlownaA />} />
           <Route path="/premium" element={<Premium />} />
           <Route path="/4000_6000" element={<Gratulacje4000_6000 />} />
           <Route path="/kalkulator" element={<Calculator />} />
