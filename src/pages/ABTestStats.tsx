@@ -21,6 +21,10 @@ const ABTestStats = () => {
   const [contactVariantA, setContactVariantA] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
   const [contactVariantB, setContactVariantB] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
   
+  // Glowna1 Calculator Test Stats
+  const [glowna1VariantA, setGlowna1VariantA] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
+  const [glowna1VariantB, setGlowna1VariantB] = useState<VariantStats>({ users: 0, views: 0, conversions: 0, conversionRate: 0 });
+  
   const [debugInfo, setDebugInfo] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,6 +65,15 @@ const ABTestStats = () => {
       const contactBConversions = stats.eventsByVariant['conversion_contact_form_test_success_B'] || 0;
       const contactBConversionRate = contactBViews > 0 ? (contactBConversions / contactBViews) * 100 : 0;
       
+      // Glowna1 Calculator Test - nowe klucze dla testu kalkulatora
+      const glowna1AViews = stats.eventsByVariant['page_view_glowna1_calculator_A'] || 0;
+      const glowna1AConversions = stats.eventsByVariant['conversion_glowna1_calculator_success_A'] || 0;
+      const glowna1AConversionRate = glowna1AViews > 0 ? (glowna1AConversions / glowna1AViews) * 100 : 0;
+      
+      const glowna1BViews = stats.eventsByVariant['page_view_glowna1_calculator_B'] || 0;
+      const glowna1BConversions = stats.eventsByVariant['conversion_glowna1_calculator_success_B'] || 0;
+      const glowna1BConversionRate = glowna1BViews > 0 ? (glowna1BConversions / glowna1BViews) * 100 : 0;
+      
       console.log('🔍 SMS Test - Looking for keys:', {
         smsAViews: `page_view_sms_verification_test_A = ${smsAViews}`,
         smsAConversions: `conversion_sms_verification_test_success_A = ${smsAConversions}`,
@@ -73,6 +86,13 @@ const ABTestStats = () => {
         contactAConversions: `conversion_contact_form_test_success_A = ${contactAConversions}`,
         contactBViews: `page_view_contact_form_test_B = ${contactBViews}`,
         contactBConversions: `conversion_contact_form_test_success_B = ${contactBConversions}`
+      });
+      
+      console.log('🔍 Glowna1 Calculator Test - Looking for keys:', {
+        glowna1AViews: `page_view_glowna1_calculator_A = ${glowna1AViews}`,
+        glowna1AConversions: `conversion_glowna1_calculator_success_A = ${glowna1AConversions}`,
+        glowna1BViews: `page_view_glowna1_calculator_B = ${glowna1BViews}`,
+        glowna1BConversions: `conversion_glowna1_calculator_success_B = ${glowna1BConversions}`
       });
       
       setSmsVariantA({ 
@@ -99,6 +119,19 @@ const ABTestStats = () => {
         views: contactBViews, 
         conversions: contactBConversions, 
         conversionRate: contactBConversionRate 
+      });
+
+      setGlowna1VariantA({ 
+        users: stats.uniqueSessions || 0, 
+        views: glowna1AViews, 
+        conversions: glowna1AConversions, 
+        conversionRate: glowna1AConversionRate 
+      });
+      setGlowna1VariantB({ 
+        users: stats.uniqueSessions || 0, 
+        views: glowna1BViews, 
+        conversions: glowna1BConversions, 
+        conversionRate: glowna1BConversionRate 
       });
 
     } catch (error) {
@@ -316,6 +349,70 @@ const ABTestStats = () => {
             ) : contactVariantB.conversionRate > contactVariantA.conversionRate ? (
               <div className="bg-orange-100 border border-orange-300 rounded-lg p-4">
                 <span className="text-orange-800 font-bold">🏆 Wariant B prowadzi! (+{(contactVariantB.conversionRate - contactVariantA.conversionRate).toFixed(1)} p.p.)</span>
+              </div>
+            ) : (
+              <div className="bg-gray-100 border border-gray-300 rounded-lg p-4">
+                <span className="text-gray-800 font-bold">🤝 Remis - identyczne wyniki</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Glowna1 Calculator Test */}
+        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+          <h2 className="text-xl font-bold text-navy-900 mb-4">
+            🧮 Test Kalkulatora Główna Strona
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            {/* Glowna1 Variant A */}
+            <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+              <h3 className="text-lg font-semibold text-indigo-800 mb-3">Wariant A (Stary Kalkulator)</h3>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-indigo-700">Wyświetlenia:</span>
+                  <span className="font-medium text-indigo-900">{glowna1VariantA.views}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-indigo-700">Konwersje:</span>
+                  <span className="font-medium text-indigo-900">{glowna1VariantA.conversions}</span>
+                </div>
+                <div className="flex justify-between border-t border-indigo-200 pt-2">
+                  <span className="text-indigo-700 font-medium">Wskaźnik konwersji:</span>
+                  <span className="font-bold text-indigo-900">{glowna1VariantA.conversionRate.toFixed(1)}%</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Glowna1 Variant B */}
+            <div className="bg-teal-50 border border-teal-200 rounded-lg p-4">
+              <h3 className="text-lg font-semibold text-teal-800 mb-3">Wariant B (Nowy Kalkulator)</h3>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-teal-700">Wyświetlenia:</span>
+                  <span className="font-medium text-teal-900">{glowna1VariantB.views}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-teal-700">Konwersje:</span>
+                  <span className="font-medium text-teal-900">{glowna1VariantB.conversions}</span>
+                </div>
+                <div className="flex justify-between border-t border-teal-200 pt-2">
+                  <span className="text-teal-700 font-medium">Wskaźnik konwersji:</span>
+                  <span className="font-bold text-teal-900">{glowna1VariantB.conversionRate.toFixed(1)}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Glowna1 Winner */}
+          <div className="text-center">
+            {glowna1VariantA.conversionRate > glowna1VariantB.conversionRate ? (
+              <div className="bg-indigo-100 border border-indigo-300 rounded-lg p-4">
+                <span className="text-indigo-800 font-bold">🏆 Stary Kalkulator prowadzi! (+{(glowna1VariantA.conversionRate - glowna1VariantB.conversionRate).toFixed(1)} p.p.)</span>
+              </div>
+            ) : glowna1VariantB.conversionRate > glowna1VariantA.conversionRate ? (
+              <div className="bg-teal-100 border border-teal-300 rounded-lg p-4">
+                <span className="text-teal-800 font-bold">🏆 Nowy Kalkulator prowadzi! (+{(glowna1VariantB.conversionRate - glowna1VariantA.conversionRate).toFixed(1)} p.p.)</span>
               </div>
             ) : (
               <div className="bg-gray-100 border border-gray-300 rounded-lg p-4">
