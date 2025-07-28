@@ -10,7 +10,7 @@ import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 import { useSuspiciousBehaviorDetection } from '../hooks/useSuspiciousBehaviorDetection';
 
 const DebtCalculator = () => {
-  const { trackConversion } = useSupabaseTracking();
+  const { trackConversionWithIpCheck } = useSupabaseTracking();
   const behaviorDetection = useSuspiciousBehaviorDetection('debt_calculator_classic');
   const [income, setIncome] = useState('');
   const [paydayDebt, setPaydayDebt] = useState('');
@@ -128,10 +128,17 @@ const DebtCalculator = () => {
       // Zakoduj dane i dodaj do URL dla trackingu
       const encodedData = btoa(`${incomeVal},${paydayVal},${bankVal}`);
       
-      // Track konwersję dla testu A/B glowna1_calculator
-      console.log('🧮 Calculator positive result - tracking conversion and redirect to /kontakt');
-      trackConversion('calculator_success', 'A', 'glowna1_calculator');
-      // Przekieruj do strony kontakt zamiast pokazywać formularz
+      // Track konwersję dla testu A/B glowna1_calculator (tylko raz na IP)
+      console.log('🧮 Calculator positive result - checking IP and tracking conversion');
+      const converted = await trackConversionWithIpCheck('calculator_success', 'A', 'glowna1_calculator');
+      
+      if (converted) {
+        console.log('✅ Conversion tracked - redirecting to /kontakt');
+      } else {
+        console.log('🚫 IP already converted - redirecting without tracking');
+      }
+      
+      // Przekieruj do strony kontakt (zawsze, niezależnie od trackingu)
       window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&result=positive&data=' + encodedData;
       return;
     }
@@ -140,10 +147,17 @@ const DebtCalculator = () => {
       // Zakoduj dane i dodaj do URL dla trackingu
       const encodedData = btoa(`${incomeVal},${paydayVal},${bankVal}`);
       
-      // Track konwersję dla testu A/B glowna1_calculator
-      console.log('🧮 Calculator warning result - tracking conversion and redirect to /kontakt');
-      trackConversion('calculator_success', 'A', 'glowna1_calculator');
-      // Przekieruj do strony kontakt zamiast pokazywać formularz
+      // Track konwersję dla testu A/B glowna1_calculator (tylko raz na IP)
+      console.log('🧮 Calculator warning result - checking IP and tracking conversion');
+      const converted = await trackConversionWithIpCheck('calculator_success', 'A', 'glowna1_calculator');
+      
+      if (converted) {
+        console.log('✅ Conversion tracked - redirecting to /kontakt');
+      } else {
+        console.log('🚫 IP already converted - redirecting without tracking');
+      }
+      
+      // Przekieruj do strony kontakt (zawsze, niezależnie od trackingu)
       window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&result=warning&data=' + encodedData;
       return;
     }
