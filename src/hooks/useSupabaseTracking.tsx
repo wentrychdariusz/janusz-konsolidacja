@@ -78,9 +78,9 @@ const saveSessionToSupabase = async (sessionId: string, userIp: string) => {
       .select();
     
     if (error && error.code !== '23505') { // Ignoruj duplikaty
-      console.error('❌ Error saving session to Supabase:', error);
+      console.warn('⚠️ Error saving session to Supabase:', error);
     } else if (error?.code === '23505') {
-      console.log(`ℹ️ Session already exists: ${sessionId}`);
+      // Duplikat sesji - to normalne, nie loguj jako błąd
     } else {
       console.log(`✅ Session saved to Supabase: ${sessionId} (IP: ${userIp})`);
     }

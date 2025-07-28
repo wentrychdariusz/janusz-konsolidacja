@@ -91,7 +91,8 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
   };
 
   const handleGoToCalculator = () => {
-    navigate(`/analiza?salary=${salary}`);
+    const salaryNum = parsePLN(salary);
+    navigate(`/analiza?salary=${salaryNum}`);
     onClose();
   };
 
