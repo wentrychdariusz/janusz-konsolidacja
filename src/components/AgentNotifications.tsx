@@ -66,18 +66,18 @@ const AgentNotifications = () => {
     return () => clearInterval(interval);
   }, [lastWebhookData?.timestamp]);
 
-  const sendSMSAssessment = async (assessment: 'PRAWDA' | 'KŁAMIE') => {
+  const sendSMSAssessment = async (assessment: 'prawda' | 'klamie') => {
     if (!zapierWebhookUrl) {
       toast({
-        title: "Błąd",
-        description: "Wprowadź URL webhook Zapier",
+        title: "Blad",
+        description: "Wprowadz URL webhook",
         variant: "destructive",
       });
       return;
     }
 
     setIsLoadingSMS(true);
-    console.log("Wysyłanie SMS przez Zapier:", assessment);
+    console.log("Wysylanie SMS:", assessment);
 
     try {
       const response = await fetch(zapierWebhookUrl, {
@@ -87,24 +87,22 @@ const AgentNotifications = () => {
         },
         mode: "no-cors",
         body: JSON.stringify({
-          message: assessment,
+          sms_message: assessment,  // "prawda" lub "klamie"
           timestamp: new Date().toISOString(),
-          client_data: {
-            income: lastWebhookData?.income,
-            total_debt: lastWebhookData?.total_debt
-          }
+          client_income: lastWebhookData?.income,
+          client_debt: lastWebhookData?.total_debt
         }),
       });
 
       toast({
-        title: "SMS Wysłany",
-        description: `Wysłano "${assessment}" przez Zapier. Sprawdź historię Zap.`,
+        title: "SMS Wyslany",
+        description: `Wyslano "${assessment}" - sprawdz historie Make.`,
       });
     } catch (error) {
-      console.error("Błąd wysyłania SMS:", error);
+      console.error("Blad wysylania SMS:", error);
       toast({
-        title: "Błąd",
-        description: "Nie udało się wysłać SMS. Sprawdź URL Zapier.",
+        title: "Blad",
+        description: "Nie udalo sie wyslac SMS.",
         variant: "destructive",
       });
     } finally {
@@ -116,7 +114,7 @@ const AgentNotifications = () => {
     localStorage.setItem('zapier_webhook_url', zapierWebhookUrl);
     toast({
       title: "Zapisano",
-      description: "URL Zapier został zapisany",
+      description: "URL webhook zostal zapisany",
     });
   };
 
@@ -233,17 +231,17 @@ const AgentNotifications = () => {
         <CardHeader>
           <CardTitle className="text-lg font-bold text-green-800 flex items-center gap-2">
             <MessageSquare className="w-5 h-5" />
-            Wyślij SMS do Agenta
+            Wyslij SMS (Make.com)
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label htmlFor="zapier-webhook">Zapier Webhook URL (SMS)</Label>
+            <Label htmlFor="zapier-webhook">Make.com Webhook URL (SMS)</Label>
             <div className="flex gap-2">
               <Input
                 id="zapier-webhook"
                 type="url"
-                placeholder="https://hooks.zapier.com/hooks/catch/..."
+                placeholder="https://hook.eu1.make.com/..."
                 value={zapierWebhookUrl}
                 onChange={(e) => setZapierWebhookUrl(e.target.value)}
                 className="flex-1"
@@ -253,27 +251,27 @@ const AgentNotifications = () => {
               </Button>
             </div>
             <p className="text-xs text-gray-600 mt-1">
-              Utwórz Zap z webhook triggerem + SMS action
+              Jednostronny SMS: tylko "prawda" lub "klamie" (bez polskich znakow)
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <Button
-              onClick={() => sendSMSAssessment('PRAWDA')}
+              onClick={() => sendSMSAssessment('prawda')}
               disabled={!zapierWebhookUrl || isLoadingSMS}
               className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
             >
               <CheckCircle className="w-4 h-4" />
-              {isLoadingSMS ? '📤 Wysyłanie...' : '📱 SMS: PRAWDA'}
+              {isLoadingSMS ? 'Wysylanie...' : 'SMS: prawda'}
             </Button>
             <Button
-              onClick={() => sendSMSAssessment('KŁAMIE')}
+              onClick={() => sendSMSAssessment('klamie')}
               disabled={!zapierWebhookUrl || isLoadingSMS}
               variant="destructive"
               className="flex items-center gap-2"
             >
               <XCircle className="w-4 h-4" />
-              {isLoadingSMS ? '📤 Wysyłanie...' : '📱 SMS: KŁAMIE'}
+              {isLoadingSMS ? 'Wysylanie...' : 'SMS: klamie'}
             </Button>
           </div>
         </CardContent>
