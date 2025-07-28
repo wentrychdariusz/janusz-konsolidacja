@@ -69,9 +69,11 @@ const getSessionId = (): string => {
 const saveSessionToSupabase = async (sessionId: string, userIp: string) => {
   try {
     // Sprawdź cache lokalny żeby uniknąć wielokrotnych prób zapisu tej samej sesji
-    const savedSessions = JSON.parse(localStorage.getItem('saved_sessions') || '[]');
+    const cacheKey = 'session_save_attempts';
+    const savedSessions = JSON.parse(localStorage.getItem(cacheKey) || '[]');
+    
     if (savedSessions.includes(sessionId)) {
-      // console.log(`ℹ️ Session ${sessionId} already cached locally, skipping save`);
+      // Sesja już była próbowana - nie próbuj ponownie
       return;
     }
 
@@ -83,18 +85,16 @@ const saveSessionToSupabase = async (sessionId: string, userIp: string) => {
       })
       .select();
     
+    // Zawsze dodaj do cache po próbie (nawet jeśli błąd 409)
+    savedSessions.push(sessionId);
+    localStorage.setItem(cacheKey, JSON.stringify(savedSessions));
+    
     if (error && error.code !== '23505') { // Ignoruj duplikaty
       console.error('❌ Error saving session to Supabase:', error);
     } else if (error?.code === '23505') {
       console.log(`ℹ️ Session already exists: ${sessionId}`);
-      // Dodaj do cache żeby uniknąć kolejnych prób
-      savedSessions.push(sessionId);
-      localStorage.setItem('saved_sessions', JSON.stringify(savedSessions));
     } else {
       console.log(`✅ Session saved to Supabase: ${sessionId} (IP: ${userIp})`);
-      // Dodaj do cache
-      savedSessions.push(sessionId);
-      localStorage.setItem('saved_sessions', JSON.stringify(savedSessions));
     }
   } catch (error) {
     console.error('❌ Error saving session to Supabase:', error);
