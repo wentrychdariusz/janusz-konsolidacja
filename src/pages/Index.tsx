@@ -1,70 +1,31 @@
 
 import React, { useEffect } from 'react';
-import LoanAmountsBar from '../components/LoanAmountsBar';
-import TopHeader from '../components/TopHeader';
-import HeroSection from '../components/HeroSection';
-import ImagineSection from '../components/ImagineSection';
-import VideoSection from '../components/VideoSection';
-import DariuszLetterSection from '../components/DariuszLetterSection';
-import MentorSection from '../components/MentorSection';
-import BeforeAfterSection from '../components/BeforeAfterSection';
-import ClientSection from '../components/ClientSection';
-import TrustedClientsSection from '../components/TrustedClientsSection';
-import HeroesSection from '../components/HeroesSection';
-import BookSection from '../components/BookSection';
-import TeamSection from '../components/TeamSection';
-import CalculatorSection from '../components/CalculatorSection';
-import GuaranteeSection from '../components/GuaranteeSection';
-import FloatingAvatar from '../components/FloatingAvatar';
-import Footer from '../components/Footer';
-import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
+import { Navigate } from 'react-router-dom';
+import { useABTest } from '../hooks/useABTest';
+import { useABTestSettings } from '../hooks/useABTestSettings';
 
 const Index = () => {
-  const { trackPageView } = useSupabaseTracking();
-  
-  useEffect(() => {
-    console.log('🏠 Index page: Tracking page view for home page');
-    trackPageView('home', undefined, 'main_site');
-    
-    // Track również czy to nowy czy returning visitor
-    const lastVisit = localStorage.getItem('last_home_visit');
-    const now = Date.now();
-    
-    if (lastVisit) {
-      const timeDiff = now - parseInt(lastVisit);
-      const hoursDiff = timeDiff / (1000 * 60 * 60);
-      
-      if (hoursDiff > 24) {
-        console.log('🔄 Returning visitor after 24+ hours');
-        localStorage.setItem('last_home_visit', now.toString());
-      }
-    } else {
-      console.log('✨ First time visitor');
-      localStorage.setItem('last_home_visit', now.toString());
-    }
-  }, [trackPageView]);
-   
-  return (
-    <div className="font-lato">
-      <LoanAmountsBar />
-      <TopHeader />
-      <HeroSection />
-      <ImagineSection />
-      <VideoSection />
-      <DariuszLetterSection />
-      <MentorSection />
-      <BeforeAfterSection />
-      <ClientSection />
-      <TrustedClientsSection />
-      <HeroesSection />
-      <BookSection />
-      <TeamSection />
-      <CalculatorSection />
-      <GuaranteeSection />
-      <FloatingAvatar />
-      <Footer />
-    </div>
-  );
+  const { settings, isLoaded } = useABTestSettings();
+  const { variant, isLoaded: abTestLoaded } = useABTest({
+    testName: 'glowna1_calculator',
+    enabled: settings.glowna1_enabled ?? true,
+    forceVariant: settings.glowna1_force_variant,
+    splitRatio: 0.5
+  });
+
+  // Czekaj aż oba hooki się załadują
+  if (!isLoaded || !abTestLoaded) {
+    return <div>Loading...</div>;
+  }
+
+  // Przekieruj na odpowiednią wersję na podstawie A/B testu
+  if (variant === 'A') {
+    console.log('🎯 A/B Test: Redirecting to glowna1a (old calculator)');
+    return <Navigate to="/glowna1a" replace />;
+  } else {
+    console.log('🎯 A/B Test: Redirecting to glowna1b (new calculator)');
+    return <Navigate to="/glowna1b" replace />;
+  }
 };
 
 export default Index;

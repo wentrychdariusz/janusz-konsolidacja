@@ -8,6 +8,8 @@ interface ABTestSettings {
   sms_verification_force_variant?: ABVariant;
   contact_form_enabled: boolean;
   contact_form_force_variant?: ABVariant;
+  glowna1_enabled: boolean;
+  glowna1_force_variant?: ABVariant;
 }
 
 const DEFAULT_SETTINGS: ABTestSettings = {
@@ -15,6 +17,8 @@ const DEFAULT_SETTINGS: ABTestSettings = {
   sms_verification_force_variant: undefined,
   contact_form_enabled: true,
   contact_form_force_variant: undefined,
+  glowna1_enabled: true,
+  glowna1_force_variant: undefined,
 };
 
 export const useABTestSettings = () => {
