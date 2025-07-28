@@ -156,60 +156,40 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                 </div>
               </div>
 
-              {/* Mobile-enhanced table */}
-              <div className="bg-white rounded-xl border-2 border-prestige-gold-300 overflow-hidden shadow-lg">
-                <table className="w-full">
-                  <thead>
-                    <tr className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200">
-                      <th className="px-3 sm:px-4 py-4 sm:py-4 text-center">
-                        <div className="space-y-2">
-                          <div className="text-base sm:text-lg font-bold text-navy-900">
-                            Wpisz miesięczne zarobki netto
-                          </div>
-                          <div className="text-sm sm:text-base text-navy-700 font-medium">
-                            📋 Zobacz spersonalizowaną ofertę oddłużenia
-                          </div>
-                          <div className="text-xs sm:text-sm text-green-700 font-medium">
-                            ✅ Sprawdzimy jak możemy Ci pomóc w konsolidacji długów
-                          </div>
-                        </div>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="bg-gradient-to-r from-blue-50 to-green-50">
-                      <td className="px-4 sm:px-6 py-8 sm:py-8">
-                        <div className="space-y-6">
-                          {/* Mobile-enhanced input */}
-                           <div className="relative">
-                             <Input
-                               type="text"
-                               placeholder="4 000"
-                               value={salary}
-                               onChange={handleSalaryChange}
-                               className="text-center text-2xl sm:text-3xl font-bold border-2 border-navy-400 focus:border-navy-600 h-14 sm:h-16 rounded-lg bg-white w-full shadow-md placeholder:text-2xl sm:placeholder:text-3xl placeholder:text-navy-400 placeholder:font-bold pr-12"
-                               autoFocus
-                             />
-                             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-navy-600 text-xl sm:text-2xl font-medium">
-                               zł
-                             </span>
-                           </div>
-                          
-                          {/* Mobile-enhanced button */}
-                          <div>
-                             <Button 
-                               onClick={handleSalarySubmit}
-                               disabled={!salary || parsePLN(salary) <= 0}
-                               className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 rounded-lg text-lg shadow-lg transition-all duration-200 disabled:opacity-50 h-14 border-2 border-green-400"
-                             >
-                               🎯 Odblokowuję spersonalizowaną ofertę
-                             </Button>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              {/* Simplified input section */}
+              <div className="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-xl border-2 border-blue-200 shadow-lg mx-4 mb-4">
+                <div className="space-y-4">
+                  <div className="text-center">
+                    <h4 className="text-lg font-bold text-navy-900 mb-2">
+                      Wpisz miesięczne zarobki netto
+                    </h4>
+                    <p className="text-sm text-navy-700">
+                      📋 Zobacz spersonalizowaną ofertę oddłużenia
+                    </p>
+                  </div>
+                  
+                  <div className="relative">
+                    <Input
+                      type="text"
+                      placeholder="4 000"
+                      value={salary}
+                      onChange={handleSalaryChange}
+                      className="text-center text-2xl font-bold border-2 border-navy-400 focus:border-navy-600 h-14 rounded-lg bg-white w-full shadow-md placeholder:text-2xl placeholder:text-navy-400 pr-12"
+                      autoFocus
+                    />
+                    <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-navy-600 text-xl font-medium">
+                      zł
+                    </span>
+                  </div>
+                  
+                  <Button 
+                    onClick={handleSalarySubmit}
+                    disabled={!salary || parsePLN(salary) <= 0}
+                    className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-lg text-base shadow-lg disabled:opacity-50 h-12"
+                  >
+                    🎯 Odblokowuję ofertę
+                  </Button>
+                </div>
               </div>
             </div>
           </>
