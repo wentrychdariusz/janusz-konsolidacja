@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import LoanAmountsBar from '../components/LoanAmountsBar';
 import TopHeader from '../components/TopHeader';
 import HeroSection from '../components/HeroSection';
+import CongratulationsSection from '../components/CongratulationsSection';
 import ImagineSection from '../components/ImagineSection';
 import VideoSection from '../components/VideoSection';
 import DariuszLetterSection from '../components/DariuszLetterSection';
@@ -48,6 +49,7 @@ const Glowna1B = () => {
       <LoanAmountsBar />
       <TopHeader />
       <HeroSection />
+      <CongratulationsSection />
       <ImagineSection />
       <VideoSection />
       <DariuszLetterSection />
