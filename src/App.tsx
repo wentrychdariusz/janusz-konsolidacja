@@ -47,8 +47,8 @@ const App = () => (
           <Route path="/4000_6000" element={<Gratulacje4000_6000 />} />
           <Route path="/kalkulator" element={<Calculator />} />
           <Route path="/kalkulator-beta" element={<CalculatorBeta />} />
-          <Route path="/analiza" element={<Analiza />} />
-          <Route path="/analiza-old" element={<SuspiciousAnalysis />} />
+          <Route path="/analiza" element={<SuspiciousAnalysis />} />
+          <Route path="/analiza-old" element={<Analiza />} />
           <Route path="/formularz" element={<ThankYou />} />
           <Route path="/sms-verification" element={<SmsVerification />} />
           <Route path="/sms-verification-a" element={<SmsVerificationA />} />

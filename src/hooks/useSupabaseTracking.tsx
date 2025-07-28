@@ -66,17 +66,9 @@ const getSessionId = (): string => {
   return newSessionId;
 };
 
+// Zapisywanie sesji do Supabase z IP
 const saveSessionToSupabase = async (sessionId: string, userIp: string) => {
   try {
-    // Sprawdź cache lokalny żeby uniknąć wielokrotnych prób zapisu tej samej sesji
-    const cacheKey = 'session_save_attempts';
-    const savedSessions = JSON.parse(localStorage.getItem(cacheKey) || '[]');
-    
-    if (savedSessions.includes(sessionId)) {
-      // Sesja już była próbowana - nie próbuj ponownie
-      return;
-    }
-
     const { error } = await supabase
       .from('ab_test_sessions')
       .insert({ 
@@ -84,10 +76,6 @@ const saveSessionToSupabase = async (sessionId: string, userIp: string) => {
         user_ip: userIp
       })
       .select();
-    
-    // Zawsze dodaj do cache po próbie (nawet jeśli błąd 409)
-    savedSessions.push(sessionId);
-    localStorage.setItem(cacheKey, JSON.stringify(savedSessions));
     
     if (error && error.code !== '23505') { // Ignoruj duplikaty
       console.error('❌ Error saving session to Supabase:', error);

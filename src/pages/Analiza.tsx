@@ -6,7 +6,6 @@ import { Calculator, TrendingUp, Users, DollarSign, AlertTriangle } from 'lucide
 import { useSearchParams } from 'react-router-dom';
 import TopHeader from '../components/TopHeader';
 import DebtCalculator from '../components/DebtCalculator';
-import { useDataComparison } from '../hooks/useDataComparison';
 
 interface CalculatorData {
   id: string;
@@ -33,20 +32,9 @@ const Analiza = () => {
     maxIncome: 0
   });
   const [incomeRanges, setIncomeRanges] = useState<IncomeRange[]>([]);
-  
-  // Hook do porównywania danych
-  const { comparison } = useDataComparison();
 
-  // Pobierz dane z URL params (z kalkulatora)
-  const incomeFromUrl = searchParams.get('income') || '';
-  const paydayDebtFromUrl = searchParams.get('paydayDebt') || '';
-  const bankDebtFromUrl = searchParams.get('bankDebt') || '';
+  // Pobierz kwotę z URL params jeśli istnieje
   const salaryFromUrl = searchParams.get('salary') || '';
-  
-  const parsedIncome = incomeFromUrl ? parseFloat(incomeFromUrl) : 0;
-  const parsedPaydayDebt = paydayDebtFromUrl ? parseFloat(paydayDebtFromUrl) : 0;
-  const parsedBankDebt = bankDebtFromUrl ? parseFloat(bankDebtFromUrl) : 0;
-  const totalDebt = parsedPaydayDebt + parsedBankDebt;
   const formattedSalary = salaryFromUrl ? parseFloat(salaryFromUrl.replace(/\s/g, '')) : 0;
 
   useEffect(() => {
@@ -157,103 +145,8 @@ const Analiza = () => {
             </p>
           </div>
 
-          {/* Dane z kalkulatora - nowa sekcja główna */}
-          {(parsedIncome > 0 || totalDebt > 0) && (
-            <Card className="mb-6 md:mb-8 border-2 border-business-blue-300 bg-gradient-to-r from-business-blue-50 to-warm-neutral-50">
-              <CardHeader className="bg-gradient-to-r from-business-blue-100 to-business-blue-200">
-                <CardTitle className="text-xl md:text-2xl font-bold text-navy-900 text-center">
-                  🧮 Dane z Kalkulatora Oddłużenia
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  {/* Zarobki */}
-                  <div className="text-center">
-                    <div className="text-sm font-medium text-navy-700 mb-2">Miesięczne zarobki</div>
-                    <div className="text-4xl font-bold text-business-blue-700 mb-4">
-                      {formatCurrency(parsedIncome)}
-                    </div>
-                  </div>
-                  
-                  {/* Łączne zadłużenie */}
-                  <div className="text-center">
-                    <div className="text-sm font-medium text-navy-700 mb-2">Łączne zadłużenie</div>
-                    <div className="text-4xl font-bold text-red-600 mb-4">
-                      {formatCurrency(totalDebt)}
-                    </div>
-                    <div className="text-xs text-warm-neutral-600">
-                      Chwilówki: {formatCurrency(parsedPaydayDebt)} | Banki: {formatCurrency(parsedBankDebt)}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Analiza wiarygodności (KŁAMIE/PRAWDA) */}
-                {comparison.hasComparison && (
-                  <div className="mt-6 p-4 rounded-lg border-2" 
-                       style={{
-                         borderColor: comparison.isPotentialLie ? '#ef4444' : '#10b981',
-                         backgroundColor: comparison.isPotentialLie ? '#fef2f2' : '#f0fdf4'
-                       }}>
-                    <div className="flex items-center justify-between mb-3">
-                      <h4 className="text-lg font-bold text-navy-900">
-                        🔍 Analiza Wiarygodności Danych
-                      </h4>
-                      <div className={`px-4 py-2 rounded-full font-bold text-sm ${
-                        comparison.isPotentialLie 
-                          ? 'bg-red-500 text-white' 
-                          : 'bg-green-500 text-white'
-                      }`}>
-                        {comparison.isPotentialLie ? '🚨 KŁAMIE' : '✅ PRAWDA'}
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                      <div>
-                        <div className="text-sm font-medium text-navy-700">Popup (wcześniej):</div>
-                        <div className="text-xl font-bold text-prestige-gold-700">
-                          {comparison.popupData ? formatCurrency(comparison.popupData.salary) : 'Brak danych'}
-                        </div>
-                      </div>
-                      <div>
-                        <div className="text-sm font-medium text-navy-700">Kalkulator (teraz):</div>
-                        <div className="text-xl font-bold text-business-blue-700">
-                          {comparison.calculatorData ? formatCurrency(comparison.calculatorData.income) : 'Brak danych'}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="bg-white p-3 rounded-lg">
-                      <div className="text-sm font-medium text-navy-700 mb-2">
-                        Różnica: {formatCurrency(comparison.incomeDifference)} ({comparison.differencePercentage.toFixed(1)}%)
-                      </div>
-                      <div className="text-sm text-navy-600">
-                        Poziom ryzyka: <span className={`font-bold ${
-                          comparison.lieSeverity === 'major' ? 'text-red-600' :
-                          comparison.lieSeverity === 'moderate' ? 'text-orange-600' :
-                          comparison.lieSeverity === 'minor' ? 'text-yellow-600' :
-                          'text-green-600'
-                        }`}>
-                          {comparison.lieSeverity === 'major' ? 'WYSOKIE' :
-                           comparison.lieSeverity === 'moderate' ? 'ŚREDNIE' :
-                           comparison.lieSeverity === 'minor' ? 'NISKIE' :
-                           'BRAK'}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Notatka dla agenta */}
-                    <div className="mt-4 p-3 bg-navy-100 rounded-lg">
-                      <div className="text-sm font-bold text-navy-900 mb-1">📝 Notatka dla agenta:</div>
-                      <div className="text-sm text-navy-700">{comparison.agentNote}</div>
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Informacja o poprzedniej kwocie z URL - tylko jeśli brak danych z kalkulatora */}
-          {formattedSalary > 0 && parsedIncome === 0 && (
+          {/* Informacja o poprzedniej kwocie z URL */}
+          {formattedSalary > 0 && (
             <Card className="mb-6 md:mb-8 border-2 border-prestige-gold-300 bg-gradient-to-r from-prestige-gold-50 to-warm-neutral-50">
               <CardContent className="p-4 md:p-6">
                 <div className="flex items-center gap-3 mb-4">
@@ -275,34 +168,42 @@ const Analiza = () => {
           )}
 
           {/* Sekcja porównawcza z kalkulatorem oddłużenia */}
-          {(formattedSalary > 0 || parsedIncome > 0) && (
+          {formattedSalary > 0 && (
             <div className="mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-navy-900 mb-6 text-center">
                 Porównaj z Kalkulatorem Oddłużenia
               </h2>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Poprzednia kwota lub dane z kalkulatora */}
+                {/* Poprzednia kwota */}
                 <Card className="border-2 border-prestige-gold-300">
                   <CardHeader className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200">
                     <CardTitle className="text-lg md:text-xl font-bold text-navy-900 text-center">
-                      🔍 {parsedIncome > 0 ? 'Dane z Kalkulatora' : 'Poprzednia Kwota'}
+                      🔍 Poprzednia Kwota
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-6">
                     <div className="text-center space-y-4">
                       <div className="text-4xl font-bold text-prestige-gold-700">
-                        {parsedIncome > 0 ? formatCurrency(parsedIncome) : formatCurrency(formattedSalary)}
+                        {formatCurrency(formattedSalary)}
                       </div>
                       <p className="text-warm-neutral-600">
-                        {parsedIncome > 0 ? 'Zarobki z kalkulatora oddłużenia' : 'Kwota zarobków z poprzedniego formularza'}
+                        Kwota zarobków z poprzedniego formularza
                       </p>
-                      {totalDebt > 0 && (
-                        <div className="mt-4 p-4 bg-red-50 rounded-lg border border-red-200">
-                          <p className="text-sm font-medium text-red-700">
-                            Łączne zadłużenie:
+                      {stats.avgIncome > 0 && (
+                        <div className="mt-4 p-4 bg-warm-neutral-100 rounded-lg">
+                          <p className="text-sm font-medium text-navy-700">
+                            Porównanie ze średnią:
                           </p>
-                          <div className="text-2xl font-bold text-red-600 mt-1">
-                            {formatCurrency(totalDebt)}
+                          <div className="mt-2">
+                            {formattedSalary > stats.avgIncome ? (
+                              <span className="text-green-600 font-bold">
+                                +{formatCurrency(formattedSalary - stats.avgIncome)} powyżej średniej
+                              </span>
+                            ) : (
+                              <span className="text-red-600 font-bold">
+                                -{formatCurrency(stats.avgIncome - formattedSalary)} poniżej średniej
+                              </span>
+                            )}
                           </div>
                         </div>
                       )}

@@ -8,12 +8,10 @@ import QuickRegistrationForm from './QuickRegistrationForm';
 import { supabase } from '@/integrations/supabase/client';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 import { useSuspiciousBehaviorDetection } from '../hooks/useSuspiciousBehaviorDetection';
-import { useMakeWebhook } from '../hooks/useMakeWebhook';
 
 const DebtCalculator = () => {
   const { trackConversionWithIpCheck } = useSupabaseTracking();
   const behaviorDetection = useSuspiciousBehaviorDetection('debt_calculator_classic');
-  const { sendToMake } = useMakeWebhook();
   const [income, setIncome] = useState('');
   const [paydayDebt, setPaydayDebt] = useState('');
   const [bankDebt, setBankDebt] = useState('');
@@ -103,14 +101,6 @@ const DebtCalculator = () => {
     // Zapisz dane do bazy danych
     await saveCalculatorData(incomeVal, paydayVal, bankVal);
 
-    // Zapisz dane do localStorage dla porównania
-    localStorage.setItem('calculator_data_classic', JSON.stringify({
-      income: incomeVal,
-      paydayDebt: paydayVal,
-      bankDebt: bankVal,
-      timestamp: Date.now()
-    }));
-    
     // Oznacz kalkulator jako użyty
     localStorage.setItem('debt_calculator_used', 'true');
     setHasUsedCalculator(true);
@@ -135,17 +125,6 @@ const DebtCalculator = () => {
     const total = paydayVal + bankVal;
 
     if (total <= baseLim) {
-      // Wyślij dane do Make
-      await sendToMake({
-        calculator_type: 'classic',
-        income: incomeVal,
-        payday_debt: paydayVal,
-        bank_debt: bankVal,
-        total_debt: total,
-        result_type: 'positive',
-        timestamp: Date.now()
-      });
-      
       // Zakoduj dane i dodaj do URL dla trackingu
       const encodedData = btoa(`${incomeVal},${paydayVal},${bankVal}`);
       
@@ -165,17 +144,6 @@ const DebtCalculator = () => {
     }
 
     if (total <= maxLim) {
-      // Wyślij dane do Make
-      await sendToMake({
-        calculator_type: 'classic',
-        income: incomeVal,
-        payday_debt: paydayVal,
-        bank_debt: bankVal,
-        total_debt: total,
-        result_type: 'warning',
-        timestamp: Date.now()
-      });
-      
       // Zakoduj dane i dodaj do URL dla trackingu
       const encodedData = btoa(`${incomeVal},${paydayVal},${bankVal}`);
       
@@ -193,17 +161,6 @@ const DebtCalculator = () => {
       window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&result=warning&data=' + encodedData;
       return;
     }
-
-    // Wyślij dane negatywnego wyniku do Make
-    await sendToMake({
-      calculator_type: 'classic',
-      income: incomeVal,
-      payday_debt: paydayVal,
-      bank_debt: bankVal,
-      total_debt: total,
-      result_type: 'negative',
-      timestamp: Date.now()
-    });
 
     setResult({
       message: 'Na ten moment nie możemy zaproponować skutecznego rozwiązania. Zachęcamy do kontaktu, gdyby Twoja sytuacja się zmieniła.',

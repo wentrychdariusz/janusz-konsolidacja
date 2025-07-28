@@ -6,13 +6,11 @@ import { Calculator, CheckCircle, AlertCircle, XCircle, Plus, Star, Shield, Brie
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import QuickRegistrationForm from './QuickRegistrationForm';
 import { supabase } from '@/integrations/supabase/client';
-import { useMakeWebhook } from '../hooks/useMakeWebhook';
+import { useTimingAnalysis } from '../hooks/useTimingAnalysis';
 import { useSuspiciousBehaviorDetection } from '../hooks/useSuspiciousBehaviorDetection';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
-import { useTimingAnalysis } from '../hooks/useTimingAnalysis';
 const DebtCalculatorBeta = () => {
   const { trackConversionWithIpCheck } = useSupabaseTracking();
-  const { sendToMake } = useMakeWebhook();
   const [income, setIncome] = useState('');
   const [incomeType, setIncomeType] = useState('');
   const [paydayDebt, setPaydayDebt] = useState(''); // Puste - placeholder pokaże domyślne
@@ -168,6 +166,20 @@ const DebtCalculatorBeta = () => {
       console.error('Błąd podczas zapisywania danych kalkulatora:', error);
     }
   };
+  const sendToMake = async (data: any) => {
+    try {
+      await supabase.functions.invoke('send-to-make', {
+        body: { 
+          ...data,
+          source: 'debt_calculator_beta',
+          timestamp: new Date().toISOString()
+        }
+      });
+      console.log('📤 Data sent to Make.com successfully');
+    } catch (error) {
+      console.error('❌ Error sending data to Make.com:', error);
+    }
+  };
 
   const calculate = async () => {
     // Blokada ponownego użycia
@@ -253,26 +265,16 @@ const DebtCalculatorBeta = () => {
     // Zapisz dane do bazy danych z typem dochodu i flagami podejrzanych zachowań
     await saveCalculatorData(incomeVal, paydayVal, bankVal, incomeType);
 
-    // Wyślij dane z kalkulatora do Make
+    // Wyślij dane z kalkulatora do Make.com
     await sendToMake({
-      calculator_type: 'beta',
       income: incomeVal,
       payday_debt: paydayVal,
       bank_debt: bankVal,
-      total_debt: paydayVal + bankVal,
       income_type: incomeType,
-      result_type: 'positive', // domyślnie positive, może być zmienione w zależności od wyniku
-      timestamp: Date.now()
+      total_debt: paydayVal + bankVal,
+      calculator_type: 'debt_calculator_beta'
     });
 
-    // Zapisz dane do localStorage dla porównania
-    localStorage.setItem('calculator_data_beta', JSON.stringify({
-      income: incomeVal,
-      paydayDebt: paydayVal,
-      bankDebt: bankVal,
-      timestamp: Date.now()
-    }));
-    
     // Oznacz kalkulator jako użyty
     localStorage.setItem('debt_calculator_beta_used', 'true');
     setHasUsedCalculator(true);
@@ -335,18 +337,6 @@ const DebtCalculatorBeta = () => {
     }
     const total = paydayVal + bankVal;
     if (total <= baseLim) {
-      // Wyślij dane pozytywnego wyniku do Make
-      await sendToMake({
-        calculator_type: 'beta',
-        income: incomeVal,
-        payday_debt: paydayVal,
-        bank_debt: bankVal,
-        total_debt: total,
-        income_type: incomeType,
-        result_type: 'positive',
-        timestamp: Date.now()
-      });
-      
       // Track konwersję dla testu A/B glowna1_calculator (tylko raz na IP)
       console.log('🧮 Calculator Beta positive result - checking IP and tracking conversion');
       const converted = await trackConversionWithIpCheck('calculator_success', 'B', 'glowna1_calculator');
@@ -362,18 +352,6 @@ const DebtCalculatorBeta = () => {
       return;
     }
     if (total <= maxLim) {
-      // Wyślij dane ostrzegawczego wyniku do Make
-      await sendToMake({
-        calculator_type: 'beta',
-        income: incomeVal,
-        payday_debt: paydayVal,
-        bank_debt: bankVal,
-        total_debt: total,
-        income_type: incomeType,
-        result_type: 'warning',
-        timestamp: Date.now()
-      });
-      
       // Track konwersję dla testu A/B glowna1_calculator (tylko raz na IP)
       console.log('🧮 Calculator Beta warning result - checking IP and tracking conversion');
       const converted = await trackConversionWithIpCheck('calculator_success', 'B', 'glowna1_calculator');
@@ -388,18 +366,6 @@ const DebtCalculatorBeta = () => {
       window.location.href = baseUrl + '&result=warning' + suspiciousParams;
       return;
     }
-
-    // Wyślij dane negatywnego/wysokiego zadłużenia do Make
-    await sendToMake({
-      calculator_type: 'beta',
-      income: incomeVal,
-      payday_debt: paydayVal,
-      bank_debt: bankVal,
-      total_debt: total,
-      income_type: incomeType,
-      result_type: 'negative',
-      timestamp: Date.now()
-    });
 
     // Dla bardzo wysokich długów - przekieruj do konsultanta zamiast odrzucać
     console.log('🧮 Calculator Beta high debt - checking IP and tracking conversion');
