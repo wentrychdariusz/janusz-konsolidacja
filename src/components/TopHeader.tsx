@@ -20,18 +20,18 @@ const TopHeader = () => {
       });
     }, 1000);
 
-    // Ukryj po przewinięciu 800px
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      if (scrollTop > 800) {
-        setIsVisible(false);
-      }
-    };
+    // Ukryj po przewinięciu 800px - WYŁĄCZONE TYMCZASOWO
+    // const handleScroll = () => {
+    //   const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    //   if (scrollTop > 800) {
+    //     setIsVisible(false);
+    //   }
+    // };
     
-    window.addEventListener('scroll', handleScroll);
+    // window.addEventListener('scroll', handleScroll);
     return () => {
       clearInterval(timer);
-      window.removeEventListener('scroll', handleScroll);
+      // window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
