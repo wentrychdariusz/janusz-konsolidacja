@@ -51,6 +51,7 @@ const CongratulationsSection = () => {
                 />
                 <div className="text-center sm:text-left">
                   <span className="font-semibold text-lg sm:text-xl md:text-2xl block animate-bounce text-yellow-50">Gratulacje!</span>
+                  <span className="font-bold text-base sm:text-lg md:text-xl block text-green-100 mb-2">Kwalifikujesz się do oddłużenia i konsolidacji!</span>
                   <span className="text-sm sm:text-base md:text-lg text-green-50">Masz szansę na darmową konsultację o wartości 1000 zł z Dariuszem Wentrychem oraz zdobycie bestsellerowej książki "Nowe życie bez długów"</span>
                 </div>
               </div>
