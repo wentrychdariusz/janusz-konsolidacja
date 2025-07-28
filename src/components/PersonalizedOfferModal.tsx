@@ -105,7 +105,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="w-full max-w-[95vw] sm:max-w-lg rounded-2xl border-0 shadow-2xl overflow-hidden p-0 [&>button]:hidden">
+      <DialogContent className="w-[95vw] max-w-md mx-auto rounded-2xl border-0 shadow-2xl overflow-hidden p-0 [&>button]:hidden">
         <DialogHeader className="sr-only">
           <DialogTitle>Spersonalizowana oferta oddłużeniowa</DialogTitle>
           <DialogDescription>Wprowadź swoje zarobki aby otrzymać spersonalizowaną ofertę</DialogDescription>
@@ -114,7 +114,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
         {!showOffer ? (
           <>
             {/* Progress button */}
-            <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 px-4 py-3 border-b border-prestige-gold-200 sm:px-6 sm:py-4 rounded-t-2xl">
+            <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 px-4 py-3 border-b border-prestige-gold-200 rounded-t-2xl">
               <div className="flex flex-col items-center gap-2">
                 <div className="w-full bg-gray-200 rounded-full h-2 sm:h-3">
                   <div className="bg-prestige-gold-500 h-2 sm:h-3 rounded-full transition-all duration-300" style={{width: '50%'}}></div>
@@ -157,7 +157,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
               </div>
 
               {/* Enhanced input section with trust signals */}
-              <div className="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-xl border-2 border-blue-200 shadow-lg mx-4 mb-4">
+              <div className="bg-gradient-to-r from-blue-50 to-green-50 p-4 rounded-xl border-2 border-blue-200 shadow-lg mb-4">
                 <div className="space-y-4">
                   <div className="text-center">
                     <h4 className="text-lg font-bold text-navy-900 mb-2">
@@ -207,7 +207,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
         ) : (
           <>
             {/* Progress indicator for step 2 */}
-            <div className="bg-gradient-to-r from-green-50 to-green-100 px-6 py-3 border-b border-green-200 rounded-t-2xl">
+            <div className="bg-gradient-to-r from-green-50 to-green-100 px-4 py-3 border-b border-green-200 rounded-t-2xl">
               <div className="flex items-center justify-between">
                 <div className="text-navy-900 font-bold text-sm">KROK 2 z 2</div>
                 <div className="flex space-x-2">
@@ -218,7 +218,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
             </div>
             
             {/* Results */}
-            <div className="px-6 py-6 text-center">
+            <div className="px-4 py-6 text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden border-3 border-prestige-gold-400">
                 <img 
                   src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" 
