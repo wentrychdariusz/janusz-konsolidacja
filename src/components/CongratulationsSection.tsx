@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronDown } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { ChevronDown, Gift, X } from 'lucide-react';
+import DebtCalculatorBeta from './DebtCalculatorBeta';
 
 const CongratulationsSection = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,16 +41,40 @@ const CongratulationsSection = () => {
             </div>
           </div>
           <div className="mt-4 flex flex-col items-center gap-3">
-            <Link 
-              to="/kalkulator" 
-              className="bg-white text-green-700 font-semibold px-6 py-3 rounded-lg hover:bg-green-50 transition-colors shadow-lg"
-            >
-              🧮 Sprawdź swój kalkulator oddłużenia
-            </Link>
+            <div className="flex items-center gap-3 cursor-pointer group" onClick={() => setIsModalOpen(true)}>
+              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-yellow-400 group-hover:scale-110 transition-transform">
+                <Gift className="w-6 h-6 text-green-700" />
+              </div>
+              <div className="text-white font-semibold text-lg bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                🧮 Sprawdź swój kalkulator oddłużenia
+              </div>
+            </div>
             <ChevronDown className="w-6 h-6 text-green-200 animate-bounce" />
           </div>
         </div>
       </div>
+      
+      {/* Modal z kalkulatorem */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-2 md:p-4">
+          <div className="bg-white rounded-xl md:rounded-2xl shadow-2xl w-full max-w-4xl max-h-[98vh] md:max-h-[95vh] overflow-hidden relative flex flex-col">
+            {/* Close Button */}
+            <div className="absolute top-2 right-2 md:top-4 md:right-4 z-10">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="relative w-8 h-8 md:w-10 md:h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors duration-200"
+              >
+                <X className="w-4 h-4 md:w-5 md:h-5 text-gray-600" />
+              </button>
+            </div>
+            
+            {/* Calculator Content */}
+            <div className="flex-1 overflow-y-auto p-3 md:p-6">
+              <DebtCalculatorBeta />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
