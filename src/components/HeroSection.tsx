@@ -1,6 +1,6 @@
 // Updated to fix build cache issue
 import React, { useState, useEffect } from 'react';
-import DebtCalculatorBeta from './DebtCalculatorBeta';
+import DebtCalculator from './DebtCalculator';
 import OptimizedImage from './OptimizedImage';
 
 import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star } from 'lucide-react';
@@ -295,7 +295,7 @@ const HeroSection = () => {
             
             {/* Calculator Section - Mobile */}
             <div className="animate-fade-in">
-              <DebtCalculatorBeta />
+              <DebtCalculator />
             </div>
           </div>
 
@@ -345,7 +345,7 @@ const HeroSection = () => {
             {/* Right Content - 50% */}
             <div className="flex justify-center animate-fade-in">
               <div className="w-full">
-                <DebtCalculatorBeta />
+                <DebtCalculator />
               </div>
             </div>
           </div>
