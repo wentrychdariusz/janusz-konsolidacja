@@ -123,34 +123,34 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
               </div>
             </div>
             
-            {/* Mobile-enhanced Header */}
-            <div className="text-center px-4 sm:px-6 py-4 sm:py-4">
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-3">
-                <div className="relative w-16 h-16 sm:w-16 sm:h-16 rounded-full overflow-hidden border-3 border-prestige-gold-400">
+            {/* Simplified Header */}
+            <div className="text-center px-4 py-4">
+              <div className="flex flex-col items-center gap-3 mb-4">
+                <div className="relative w-16 h-16 rounded-full overflow-hidden border-3 border-prestige-gold-400">
                   <img 
                     src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" 
                     alt="Dariusz Wentrych" 
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute -bottom-1 -right-1 w-6 h-6 sm:w-5 sm:h-5 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
                     <CheckCircle className="w-3 h-3 text-white" />
                   </div>
                 </div>
                 
-                <div className="text-center sm:text-left">
-                  <h3 className="font-montserrat text-lg sm:text-xl font-bold text-navy-900 flex items-center justify-center sm:justify-start gap-2">
+                <div className="text-center">
+                  <h3 className="font-montserrat text-lg font-bold text-navy-900 flex items-center justify-center gap-2 mb-2">
                     Dariusz Wentrych
                     <div className="flex">
                       {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
                     </div>
                   </h3>
-                  <div className="text-sm sm:text-xs text-green-700 font-bold">
+                  <div className="text-sm text-green-700 font-bold">
                     ✅ Ekspert nr 1 w oddłużaniu i konsolidacji
                   </div>
-                  <div className="text-sm sm:text-xs text-blue-600 font-medium">
+                  <div className="text-sm text-blue-600 font-medium">
                     📚 Autor bestsellera "Nowe życie bez długów"
                   </div>
-                  <div className="text-sm sm:text-xs text-purple-600 font-medium">
+                  <div className="text-sm text-purple-600 font-medium">
                     💼 20+ lat doświadczenia w finansach
                   </div>
                 </div>
