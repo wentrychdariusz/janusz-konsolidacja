@@ -4,7 +4,7 @@ import DebtCalculatorBeta from './DebtCalculatorBeta';
 const CongratulationsSection = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [countdown, setCountdown] = useState(60);
+  const [countdown, setCountdown] = useState(12);
   useEffect(() => {
     // Countdown timer
     const timer = setInterval(() => {
