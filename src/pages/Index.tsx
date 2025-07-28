@@ -21,6 +21,8 @@ import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
 import PersonalizedOfferModal from '../components/PersonalizedOfferModal';
+import AgentNotifications from '../components/AgentNotifications';
+import MakeWebhookConfig from '../components/MakeWebhookConfig';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 import { useSuspiciousBehaviorDetection } from '../hooks/useSuspiciousBehaviorDetection';
 
@@ -104,6 +106,12 @@ const Index = () => {
         isOpen={showOfferModal} 
         onClose={() => setShowOfferModal(false)} 
       />
+      
+      {/* Panel Agenta - prawy dolny róg */}
+      <div className="fixed bottom-4 right-4 space-y-2 z-50">
+        <MakeWebhookConfig />
+        <AgentNotifications />
+      </div>
     </div>
   );
 };
