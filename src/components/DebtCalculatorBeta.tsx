@@ -166,6 +166,21 @@ const DebtCalculatorBeta = () => {
       console.error('Błąd podczas zapisywania danych kalkulatora:', error);
     }
   };
+  const sendToMake = async (data: any) => {
+    try {
+      await supabase.functions.invoke('send-to-make', {
+        body: { 
+          ...data,
+          source: 'debt_calculator_beta',
+          timestamp: new Date().toISOString()
+        }
+      });
+      console.log('📤 Data sent to Make.com successfully');
+    } catch (error) {
+      console.error('❌ Error sending data to Make.com:', error);
+    }
+  };
+
   const calculate = async () => {
     // Blokada ponownego użycia
     if (hasUsedCalculator) {
@@ -242,6 +257,16 @@ const DebtCalculatorBeta = () => {
 
     // Zapisz dane do bazy danych z typem dochodu i flagami podejrzanych zachowań
     await saveCalculatorData(incomeVal, paydayVal, bankVal, incomeType);
+
+    // Wyślij dane z kalkulatora do Make.com
+    await sendToMake({
+      income: incomeVal,
+      payday_debt: paydayVal,
+      bank_debt: bankVal,
+      income_type: incomeType,
+      total_debt: paydayVal + bankVal,
+      calculator_type: 'debt_calculator_beta'
+    });
 
     // Oznacz kalkulator jako użyty
     localStorage.setItem('debt_calculator_beta_used', 'true');
