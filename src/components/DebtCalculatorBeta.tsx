@@ -660,9 +660,17 @@ const DebtCalculatorBeta = () => {
             </div>
             
             {/* Duży przycisk analizy */}
-            <Button onClick={calculate} disabled={!bankDebt && bankDebt !== '0'} className="w-full font-bold py-5 text-lg rounded-xl h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 mt-4">
+            <Button 
+              onClick={calculate} 
+              disabled={hasUsedCalculator || (!bankDebt && bankDebt !== '0')} 
+              className={`w-full font-bold py-5 text-lg rounded-xl h-16 shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 mt-4 ${
+                hasUsedCalculator 
+                  ? 'bg-gray-400 cursor-not-allowed' 
+                  : 'bg-gradient-to-r from-navy-900 to-business-blue-600 text-white'
+              }`}
+            >
               <Calculator className="w-6 h-6 mr-3" />
-              🔍 Sprawdź swój wynik
+              {hasUsedCalculator ? 'Kalkulator został wykorzystany' : '🔍 Sprawdź swój wynik'}
             </Button>
           </div>;
       default:
