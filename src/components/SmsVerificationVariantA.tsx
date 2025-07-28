@@ -6,6 +6,8 @@ import { useCountdown } from '../hooks/useCountdown';
 import LiveNotifications from './LiveNotifications';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 import { useFunnelTracking } from '../hooks/useFunnelTracking';
+import { useSmsVerificationData } from '../hooks/useSmsVerificationData';
+import { supabase } from '@/integrations/supabase/client';
 
 // Rozszerzenie obiektu window o fbq
 declare global {
@@ -32,20 +34,30 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
   // Ref do śledzenia czy już był tracked
   const hasTrackedPageView = useRef(false);
 
-  // Supabase tracking
+  // Hooks
   const { trackPageView, trackConversion } = useSupabaseTracking();
   const { trackFunnelStep } = useFunnelTracking();
+  const { 
+    verificationData, 
+    isLoading: isLoadingData, 
+    markAsVerified, 
+    getAllDataForMake,
+    hasCalculatorData,
+    hasOriginalMainData,
+    hasSalaryData 
+  } = useSmsVerificationData();
 
   // Track page view when component mounts - TYLKO RAZ
   useEffect(() => {
-    if (!hasTrackedPageView.current) {
+    if (!hasTrackedPageView.current && !isLoadingData) {
       console.log('🎯 SmsVerificationVariantA: Tracking page view for variant A to Supabase');
+      console.log('📊 Available verification data:', { hasCalculatorData, hasOriginalMainData, hasSalaryData });
       trackPageView('sms_verification_test', 'A', 'sms_verification_test');
       trackFunnelStep('sms_verification_view', 'A', 'debt_consolidation_funnel');
       hasTrackedPageView.current = true;
       console.log('📊 Page view tracked for Variant A in Supabase');
     }
-  }, [trackPageView, trackFunnelStep]);
+  }, [trackPageView, trackFunnelStep, isLoadingData, hasCalculatorData, hasOriginalMainData, hasSalaryData]);
 
   // Countdown hook - 5 minut (300 sekund)
   const { formattedTime, isExpired, reset: resetCountdown } = useCountdown({
@@ -74,6 +86,25 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
     }
   }, []);
 
+  // Funkcja wysyłania wszystkich danych do Make.com
+  const sendAllDataToMake = async (completeData: any) => {
+    try {
+      const result = await supabase.functions.invoke('send-to-make', {
+        body: {
+          ...completeData,
+          source: 'sms_verification_complete',
+          event_type: 'verification_success'
+        }
+      });
+      
+      console.log('📤 All verification data sent to Make.com:', completeData);
+      return result;
+    } catch (error) {
+      console.error('❌ Error sending data to Make.com:', error);
+      throw error;
+    }
+  };
+
   const handleSmsVerification = async () => {
     if (smsCode.length !== 3) {
       setVerificationError('Kod SMS musi mieć 3 cyfry');
@@ -89,6 +120,18 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
       
       if (VERIFICATION_CODES.includes(smsCode)) {
         
+        // Oznacz jako zweryfikowane i pobierz kompletne dane
+        const completeVerificationData = await markAsVerified(smsCode);
+        
+        if (!completeVerificationData) {
+          throw new Error('Failed to mark as verified');
+        }
+        
+        // Pobierz wszystkie dane dla Make.com
+        const allDataForMake = getAllDataForMake();
+        
+        console.log('📊 Complete verification data prepared:', allDataForMake);
+        
         // A/B Test conversion tracking (używamy hook'a zamiast bezpośredniego trackConversion)
         console.log('🎯 SMS verification success - tracking via A/B Test hook');
         
@@ -101,11 +144,23 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
             trackConversion('full_funnel_complete', 'A', 'debt_consolidation_funnel');
             trackFunnelStep('sms_verification_completed', 'A', 'debt_consolidation_funnel', {
               phone: decodeURIComponent(phone),
-              verificationCode: smsCode
+              verificationCode: smsCode,
+              hasCalculatorData,
+              hasOriginalMainData,
+              hasSalaryData
             });
             console.log('🎯 Full funnel conversion tracked for Variant A');
           } catch (conversionError) {
             console.error('❌ Error tracking A/B test conversion:', conversionError);
+          }
+        }
+        
+        // Wyślij wszystkie dane do Make.com przez edge function
+        if (allDataForMake) {
+          try {
+            await sendAllDataToMake(allDataForMake);
+          } catch (makeError) {
+            console.error('❌ Error sending data to Make.com:', makeError);
           }
         }
         
@@ -151,7 +206,8 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
             client_status: 'VERIFIED_CLIENT',
             ready_for_consultation: true,
             source: 'SMS_VERIFICATION_PAGE',
-            webhook_test: 'test_data_v2'
+            webhook_test: 'test_data_v2',
+            ...allDataForMake // Dodaj wszystkie zebrane dane
           };
           
           console.log('📤 Sending verified client data to new Make.com hook:', verifiedClientData);
