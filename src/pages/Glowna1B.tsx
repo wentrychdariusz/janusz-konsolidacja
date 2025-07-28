@@ -49,9 +49,9 @@ const Glowna1B = () => {
    
   return (
     <div className="font-lato">
-      <CongratulationsSection />
       <LoanAmountsBar />
       <TopHeader />
+      <CongratulationsSection />
       <HeroSection />
       <ImagineSection />
       <VideoSection />
