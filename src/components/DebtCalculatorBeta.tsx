@@ -516,12 +516,14 @@ const DebtCalculatorBeta = () => {
                   </div>
                 </div>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-navy-900 mb-3">
-                Jaki jest Twój dochód?
-              </h3>
-              <p className="text-base sm:text-lg text-warm-neutral-600 font-medium">
-                Podaj miesięczny dochód netto
-              </p>
+              <div className="text-center mb-6">
+                <h3 className="text-2xl sm:text-3xl font-bold text-navy-900 mb-3">
+                  Jaki jest Twój dochód?
+                </h3>
+                <p className="text-base sm:text-lg text-warm-neutral-600 font-medium px-4">
+                  Podaj miesięczny dochód netto
+                </p>
+              </div>
             </div>
 
             {/* Duże pole input z lepszą widocznością */}
