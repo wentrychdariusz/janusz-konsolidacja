@@ -169,7 +169,7 @@ const FloatingAvatar = () => {
             
             {/* Calculator Content - stary na glowna1a, nowy wszędzie indziej */}
             <div className="flex-1 overflow-y-auto p-3 md:p-6">
-              {location.pathname === '/glowna1a' ? <DebtCalculator /> : <DebtCalculatorBeta />}
+              <DebtCalculator />
             </div>
           </div>
         </div>
