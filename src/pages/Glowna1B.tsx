@@ -24,7 +24,7 @@ const Glowna1B = () => {
   
   useEffect(() => {
     console.log('🎉 Glowna1B page: Tracking page view for glowna1B page (new calculator test)');
-    trackPageView('glowna1b', undefined, 'main_site');
+    trackPageView('glowna1b', 'B', 'glowna1_calculator');
     
     // Upewnij się, że strona jest na górze
     window.scrollTo(0, 0);

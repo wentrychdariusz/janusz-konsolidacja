@@ -24,7 +24,7 @@ const Glowna1A = () => {
   
   useEffect(() => {
     console.log('🎉 Glowna1A page: Tracking page view for glowna1A page (old calculator test)');
-    trackPageView('glowna1a', undefined, 'main_site');
+    trackPageView('glowna1a', 'A', 'glowna1_calculator');
     
     // Track również czy to nowy czy returning visitor
     const lastVisit = localStorage.getItem('last_glowna1a_visit');
