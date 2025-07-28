@@ -9,6 +9,8 @@ interface TrackingEvent {
   variant?: string;
   testName?: string;
   userIp?: string;
+  pageUrl?: string;
+  referrerUrl?: string;
 }
 
 // Funkcja do uzyskania IP użytkownika
@@ -107,7 +109,9 @@ const saveEventToSupabase = async (eventName: string, variant?: string, testName
       event_name: eventName.trim(),
       variant: variant || null,
       test_name: testName || null,
-      user_ip: userIp
+      user_ip: userIp,
+      page_url: window.location.href,
+      referrer_url: document.referrer || null
     };
     
     console.log('📊 Saving event to Supabase:', eventData);
@@ -140,7 +144,9 @@ const saveEventToLocalStorage = (eventName: string, variant?: string, testName?:
       event: eventName,
       variant,
       testName,
-      userIp
+      userIp,
+      pageUrl: window.location.href,
+      referrerUrl: document.referrer || undefined
     };
     
     const eventsKey = 'supabase_tracking_events';
