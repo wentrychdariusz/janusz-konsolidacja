@@ -163,9 +163,6 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                     <h4 className="text-lg font-bold text-navy-900 mb-2">
                       Wpisz miesięczne zarobki netto
                     </h4>
-                    <p className="text-sm text-navy-700 font-medium">
-                      📋 Zobacz jak możemy Ci pomóc w oddłużeniu i konsolidacji
-                    </p>
                     <p className="text-xs text-green-700 font-medium mt-1">
                       ✅ Sprawdzimy jak możemy Ci pomóc w konsolidacji długów
                     </p>
