@@ -156,16 +156,27 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                 </div>
               </div>
 
-              {/* Simplified input section */}
+              {/* Enhanced input section with trust signals */}
               <div className="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-xl border-2 border-blue-200 shadow-lg mx-4 mb-4">
                 <div className="space-y-4">
                   <div className="text-center">
                     <h4 className="text-lg font-bold text-navy-900 mb-2">
                       Wpisz miesięczne zarobki netto
                     </h4>
-                    <p className="text-sm text-navy-700">
-                      📋 Zobacz spersonalizowaną ofertę oddłużenia
+                    <p className="text-sm text-navy-700 font-medium">
+                      📋 Zobacz jak możemy Ci pomóc w oddłużeniu i konsolidacji
                     </p>
+                    <p className="text-xs text-green-700 font-medium mt-1">
+                      ✅ Sprawdzimy jak możemy Ci pomóc w konsolidacji długów
+                    </p>
+                  </div>
+                  
+                  {/* Trust signals */}
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                    <div className="flex items-center justify-center space-x-2 text-green-800">
+                      <Shield className="w-4 h-4" />
+                      <span className="text-xs font-medium">Twoje dane są bezpieczne - używamy ich tylko do analizy</span>
+                    </div>
                   </div>
                   
                   <div className="relative">
@@ -187,7 +198,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                     disabled={!salary || parsePLN(salary) <= 0}
                     className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-lg text-base shadow-lg disabled:opacity-50 h-12"
                   >
-                    🎯 Odblokowuję ofertę
+                    📊 Sprawdź możliwości oddłużenia
                   </Button>
                 </div>
               </div>
