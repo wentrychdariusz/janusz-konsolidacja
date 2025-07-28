@@ -19,6 +19,14 @@ interface MakeWebhookData {
     popup_salary?: number;
     calculator_income?: number;
   };
+
+  // Dane dla agenta
+  agent_assessment?: {
+    is_lie: boolean | null; // Agent ocenia: prawda/kłamstwo
+    actual_income?: number; // Rzeczywiste zarobki wg agenta
+    actual_debt?: number; // Rzeczywiste zadłużenie wg agenta
+    agent_notes?: string; // Notatki agenta
+  };
 }
 
 export const useMakeWebhook = () => {
