@@ -46,7 +46,15 @@ const Glowna1B = () => {
         }));
         
         console.log('📊 Saved original data from main page:', { originalIncome, originalPayday, originalBank });
+        console.log('💰 URL contains income data:', originalIncome, 'PLN');
         behaviorDetection.addSuspiciousFlag('came_from_main_with_data');
+        
+        // Dodaj dane do URL dla widoczności
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.set('income', originalIncome.toString());
+        newUrl.searchParams.set('payday', originalPayday.toString());
+        newUrl.searchParams.set('bank', originalBank.toString());
+        window.history.replaceState({}, '', newUrl.toString());
       } catch (error) {
         console.error('❌ Error decoding data from URL:', error);
         behaviorDetection.addSuspiciousFlag('invalid_url_data');
