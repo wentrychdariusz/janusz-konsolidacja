@@ -21,8 +21,6 @@ import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
 import PersonalizedOfferModal from '../components/PersonalizedOfferModal';
-import MakeWebhookConfig from '../components/MakeWebhookConfig';
-import AgentNotifications from '../components/AgentNotifications';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 import { useSuspiciousBehaviorDetection } from '../hooks/useSuspiciousBehaviorDetection';
 
@@ -80,11 +78,6 @@ const Index = () => {
       <LoanAmountsBar />
       <TopHeader />
       
-      {/* Konfiguracja Make - zawsze widoczna */}
-      <div className="fixed bottom-4 right-4 z-50 max-w-sm space-y-4">
-        <MakeWebhookConfig />
-        <AgentNotifications />
-      </div>
       
       <HeroSection />
       <ImagineSection />

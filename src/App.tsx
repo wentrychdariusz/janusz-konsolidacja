@@ -28,6 +28,8 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminLogout from "./pages/AdminLogout";
 import NotFound from "./pages/NotFound";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
+import AgentNotifications from "./components/AgentNotifications";
+import MakeWebhookConfig from "./components/MakeWebhookConfig";
 
 const queryClient = new QueryClient();
 
@@ -67,6 +69,12 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        
+        {/* Panel agenta - globalnie dostępny na wszystkich stronach */}
+        <div className="fixed bottom-4 right-4 z-50 max-w-sm space-y-4">
+          <MakeWebhookConfig />
+          <AgentNotifications />
+        </div>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
