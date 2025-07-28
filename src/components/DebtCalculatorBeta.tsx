@@ -275,6 +275,14 @@ const DebtCalculatorBeta = () => {
       calculator_type: 'debt_calculator_beta'
     });
 
+    // Zapisz dane do localStorage dla porównania
+    localStorage.setItem('calculator_data_beta', JSON.stringify({
+      income: incomeVal,
+      paydayDebt: paydayVal,
+      bankDebt: bankVal,
+      timestamp: Date.now()
+    }));
+    
     // Oznacz kalkulator jako użyty
     localStorage.setItem('debt_calculator_beta_used', 'true');
     setHasUsedCalculator(true);

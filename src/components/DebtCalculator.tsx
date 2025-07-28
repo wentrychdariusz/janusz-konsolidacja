@@ -101,6 +101,14 @@ const DebtCalculator = () => {
     // Zapisz dane do bazy danych
     await saveCalculatorData(incomeVal, paydayVal, bankVal);
 
+    // Zapisz dane do localStorage dla porównania
+    localStorage.setItem('calculator_data_classic', JSON.stringify({
+      income: incomeVal,
+      paydayDebt: paydayVal,
+      bankDebt: bankVal,
+      timestamp: Date.now()
+    }));
+    
     // Oznacz kalkulator jako użyty
     localStorage.setItem('debt_calculator_used', 'true');
     setHasUsedCalculator(true);

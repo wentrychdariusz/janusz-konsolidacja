@@ -6,6 +6,7 @@ import { Label } from './ui/label';
 import { X, Shield, Award, CheckCircle, Star, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useABTest } from '../hooks/useABTest';
+import { useDataComparison } from '../hooks/useDataComparison';
 import expertPortrait from '../assets/dariusz-expert-portrait.jpg';
 interface PersonalizedOfferModalProps {
   isOpen: boolean;
@@ -25,6 +26,8 @@ const PersonalizedOfferModal = ({
     enabled: true,
     splitRatio: 0.5
   });
+
+  const { savePopupData } = useDataComparison();
 
   // Funkcja formatowania liczb - poprawiona wersja
   const formatNumber = (value: string) => {
@@ -65,6 +68,9 @@ const PersonalizedOfferModal = ({
   const handleSalarySubmit = () => {
     const salaryNum = parsePLN(salary);
     if (salaryNum && salaryNum > 0) {
+      // Zapisz dane z popup-a do porównania
+      savePopupData(salaryNum);
+      
       // Nowa logika według wymagań użytkownika
       if (salaryNum >= 4000) {
         // A/B test - przekieruj na glowna1a lub glowna1b z salary w URL
