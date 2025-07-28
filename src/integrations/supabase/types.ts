@@ -157,6 +157,36 @@ export type Database = {
         }
         Relationships: []
       }
+      popup_salary_entries: {
+        Row: {
+          created_at: string
+          id: string
+          page_source: string | null
+          salary_amount: number
+          session_id: string
+          user_agent: string | null
+          variant: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          page_source?: string | null
+          salary_amount: number
+          session_id: string
+          user_agent?: string | null
+          variant?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          page_source?: string | null
+          salary_amount?: number
+          session_id?: string
+          user_agent?: string | null
+          variant?: string | null
+        }
+        Relationships: []
+      }
       suspicious_behavior_analysis: {
         Row: {
           behavioral_patterns: Json | null

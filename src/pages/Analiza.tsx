@@ -13,6 +13,12 @@ interface CalculatorData {
   debt_amount: number;
   income_type: string;
   created_at: string;
+  session_id: string;
+}
+
+interface PopupSalaryData {
+  session_id: string;
+  salary_amount: number;
 }
 
 interface IncomeRange {
@@ -24,6 +30,7 @@ interface IncomeRange {
 const Analiza = () => {
   const [searchParams] = useSearchParams();
   const [data, setData] = useState<CalculatorData[]>([]);
+  const [popupData, setPopupData] = useState<{[key: string]: number}>({});
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
     totalUsers: 0,
@@ -44,6 +51,7 @@ const Analiza = () => {
 
   const fetchData = async () => {
     try {
+      // Pobierz dane z kalkulatora
       const { data: calculatorData, error } = await supabase
         .from('calculator_usage')
         .select('*')
@@ -54,7 +62,25 @@ const Analiza = () => {
         return;
       }
 
+      // Pobierz dane z popupa
+      const { data: popupSalaryData, error: popupError } = await supabase
+        .from('popup_salary_entries')
+        .select('session_id, salary_amount');
+
+      if (popupError) {
+        console.error('Błąd pobierania danych popupa:', popupError);
+      }
+
+      // Utwórz mapę session_id -> salary_amount dla szybkiego dostępu
+      const popupMap: {[key: string]: number} = {};
+      if (popupSalaryData) {
+        popupSalaryData.forEach(item => {
+          popupMap[item.session_id] = item.salary_amount;
+        });
+      }
+
       setData(calculatorData || []);
+      setPopupData(popupMap);
       calculateStats(calculatorData || []);
       calculateIncomeRanges(calculatorData || []);
     } catch (error) {
@@ -347,21 +373,28 @@ const Analiza = () => {
                       <tr className="border-b">
                         <th className="text-left py-2 px-1">Data</th>
                         <th className="text-left py-2 px-1">Zarobki (popup)</th>
+                        <th className="text-left py-2 px-1">Zarobki (kalkulator)</th>
                         <th className="text-left py-2 px-1">Typ dochodu</th>
                         <th className="text-left py-2 px-1">Zadłużenie</th>
                       </tr>
                     </thead>
                   <tbody>
-                    {data.slice(0, 20).map((item) => (
-                      <tr key={item.id} className="border-b">
-                        <td className="py-2 px-1 whitespace-nowrap">
-                          {new Date(item.created_at).toLocaleDateString('pl-PL')}
-                        </td>
-                        <td className="py-2 px-1">{formatCurrency(Number(item.income))}</td>
-                        <td className="py-2 px-1">{item.income_type || 'Nie podano'}</td>
-                        <td className="py-2 px-1">{formatCurrency(Number(item.debt_amount))}</td>
-                      </tr>
-                    ))}
+                    {data.slice(0, 20).map((item) => {
+                      const popupSalary = popupData[item.session_id];
+                      return (
+                        <tr key={item.id} className="border-b">
+                          <td className="py-2 px-1 whitespace-nowrap">
+                            {new Date(item.created_at).toLocaleDateString('pl-PL')}
+                          </td>
+                          <td className="py-2 px-1">
+                            {popupSalary ? formatCurrency(popupSalary) : 'Brak danych'}
+                          </td>
+                          <td className="py-2 px-1">{formatCurrency(Number(item.income))}</td>
+                          <td className="py-2 px-1">{item.income_type || 'Nie podano'}</td>
+                          <td className="py-2 px-1">{formatCurrency(Number(item.debt_amount))}</td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
