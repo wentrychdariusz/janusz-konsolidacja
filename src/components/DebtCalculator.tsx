@@ -6,8 +6,10 @@ import { Calculator, CheckCircle, AlertCircle, XCircle, Plus, Star, Shield } fro
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import QuickRegistrationForm from './QuickRegistrationForm';
 import { supabase } from '@/integrations/supabase/client';
+import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 
 const DebtCalculator = () => {
+  const { trackConversion } = useSupabaseTracking();
   const [income, setIncome] = useState('');
   const [paydayDebt, setPaydayDebt] = useState('');
   const [bankDebt, setBankDebt] = useState('');
@@ -114,16 +116,18 @@ const DebtCalculator = () => {
     const total = paydayVal + bankVal;
 
     if (total <= baseLim) {
-      // Track przekierowanie z kalkulatora
-      console.log('🧮 Calculator positive result - tracking redirect to /kontakt');
+      // Track konwersję dla testu A/B glowna1_calculator
+      console.log('🧮 Calculator positive result - tracking conversion and redirect to /kontakt');
+      trackConversion('calculator_success', 'A', 'glowna1_calculator');
       // Przekieruj do strony kontakt zamiast pokazywać formularz
       window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&result=positive';
       return;
     }
 
     if (total <= maxLim) {
-      // Track przekierowanie z kalkulatora
-      console.log('🧮 Calculator warning result - tracking redirect to /kontakt');
+      // Track konwersję dla testu A/B glowna1_calculator
+      console.log('🧮 Calculator warning result - tracking conversion and redirect to /kontakt');
+      trackConversion('calculator_success', 'A', 'glowna1_calculator');
       // Przekieruj do strony kontakt zamiast pokazywać formularz
       window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&result=warning';
       return;
