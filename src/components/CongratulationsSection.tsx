@@ -64,16 +64,10 @@ const CongratulationsSection = () => {
                   ⏰ Ten komunikat zniknie za {countdown} sekund
                 </div>
                 <div className="bg-white/20 backdrop-blur-sm px-6 py-4 rounded-xl">
-                  <p className="text-xl font-semibold mb-3 text-yellow-50">🎯 Kwalifikujesz się do oddłużenia i konsolidacji!</p>
-                  <p className="text-lg text-green-50 mb-2">Zapoznaj się z całą stroną i dowiedz się:</p>
-                  <div className="text-green-100 text-base space-y-1">
-                    <p>✅ Jak zmniejszyć raty nawet o 50%</p>
-                    <p>✅ Jak pozbyć się stresu finansowego</p>
-                    <p>✅ Jak odzyskać kontrolę nad budżetem</p>
-                  </div>
+                  <p className="text-xl font-semibold text-yellow-50">🎯 Kwalifikujesz się do oddłużenia i konsolidacji!</p>
+                  <p className="text-lg text-green-50 mt-2">Zapoznaj się z całą ofertą poniżej</p>
                 </div>
                 <div className="flex flex-col items-center gap-2 mt-4">
-                  <p className="text-green-100 text-sm">Przewiń w dół, aby poznać szczegóły</p>
                   <ChevronDown className="w-6 h-6 text-green-200 animate-bounce" />
                 </div>
               </div>
