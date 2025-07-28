@@ -5,7 +5,7 @@ import DebtCalculatorBeta from './DebtCalculatorBeta';
 const CongratulationsSection = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [countdown, setCountdown] = useState(10);
+  const [countdown, setCountdown] = useState(12);
 
   useEffect(() => {
     // Countdown timer
@@ -60,18 +60,20 @@ const CongratulationsSection = () => {
             </div>
             <div className="mt-6 flex flex-col items-center gap-4">
               <div className="text-center text-white">
-                <div className="bg-red-500 text-white px-4 py-2 rounded-lg mb-4 font-bold">
-                  ⏰ Ta oferta zniknie za {countdown} sekund!
+                <div className="bg-yellow-500 text-black px-6 py-3 rounded-lg mb-4 font-bold">
+                  ⏰ Ten komunikat zniknie za {countdown} sekund
                 </div>
-                <p className="text-lg font-semibold mb-4">Chcesz od razu przejść do kalkulatora oddłużenia?</p>
-                <button 
-                  onClick={() => setIsModalOpen(true)}
-                  className="bg-white text-green-700 font-bold text-lg px-8 py-4 rounded-xl hover:bg-green-50 transition-colors shadow-xl mb-4"
-                >
-                  🧮 TAK, SPRAWDŹ TERAZ
-                </button>
-                <div className="flex flex-col items-center gap-2">
-                  <p className="text-green-100 text-sm">lub przeczytaj całą ofertę</p>
+                <div className="bg-white/20 backdrop-blur-sm px-6 py-4 rounded-xl">
+                  <p className="text-xl font-semibold mb-3 text-yellow-50">🎯 Kwalifikujesz się do oddłużenia i konsolidacji!</p>
+                  <p className="text-lg text-green-50 mb-2">Zapoznaj się z całą stroną i dowiedz się:</p>
+                  <div className="text-green-100 text-base space-y-1">
+                    <p>✅ Jak zmniejszyć raty nawet o 50%</p>
+                    <p>✅ Jak pozbyć się stresu finansowego</p>
+                    <p>✅ Jak odzyskać kontrolę nad budżetem</p>
+                  </div>
+                </div>
+                <div className="flex flex-col items-center gap-2 mt-4">
+                  <p className="text-green-100 text-sm">Przewiń w dół, aby poznać szczegóły</p>
                   <ChevronDown className="w-6 h-6 text-green-200 animate-bounce" />
                 </div>
               </div>
