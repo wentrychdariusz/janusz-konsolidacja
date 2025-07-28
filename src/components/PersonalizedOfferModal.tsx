@@ -161,8 +161,18 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                 <table className="w-full">
                   <thead>
                     <tr className="bg-gradient-to-r from-prestige-gold-100 to-prestige-gold-200">
-                      <th className="px-3 sm:px-4 py-4 sm:py-4 text-center text-base sm:text-lg font-bold text-navy-900">
-                        Wpisz miesięczne zarobki netto
+                      <th className="px-3 sm:px-4 py-4 sm:py-4 text-center">
+                        <div className="space-y-2">
+                          <div className="text-base sm:text-lg font-bold text-navy-900">
+                            Wpisz miesięczne zarobki netto
+                          </div>
+                          <div className="text-sm sm:text-base text-navy-700 font-medium">
+                            📋 Zobacz spersonalizowaną ofertę oddłużenia
+                          </div>
+                          <div className="text-xs sm:text-sm text-green-700 font-medium">
+                            ✅ Sprawdzimy jak możemy Ci pomóc w konsolidacji długów
+                          </div>
+                        </div>
                       </th>
                     </tr>
                   </thead>
@@ -192,7 +202,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                               disabled={!salary || parsePLN(salary) <= 0}
                               className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-6 sm:py-6 rounded-lg text-lg sm:text-xl shadow-lg transition-all duration-200 disabled:opacity-50 min-h-[70px] border-2 border-green-400 hover:scale-105 hover:shadow-xl"
                             >
-                              Zobacz spersonalizowaną ofertę
+                              🎯 Odblokowuję spersonalizowaną ofertę
                             </Button>
                           </div>
                         </div>
