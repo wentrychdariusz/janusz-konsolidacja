@@ -181,29 +181,29 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                       <td className="px-4 sm:px-6 py-8 sm:py-8">
                         <div className="space-y-6">
                           {/* Mobile-enhanced input */}
-                          <div className="relative">
-                            <Input
-                              type="text"
-                              placeholder="4 000"
-                              value={salary}
-                              onChange={handleSalaryChange}
-                              className="text-center text-3xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-bold border-2 border-navy-400 focus:border-navy-600 h-16 sm:h-24 md:h-28 lg:h-32 xl:h-36 rounded-lg transition-colors duration-200 text-navy-700 bg-white w-full shadow-md placeholder:text-3xl sm:placeholder:text-5xl md:placeholder:text-5xl lg:placeholder:text-6xl xl:placeholder:text-7xl placeholder:text-navy-400 placeholder:font-bold"
-                              autoFocus
-                            />
-                            <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-navy-600 text-2xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-medium">
-                              zł
-                            </span>
-                          </div>
+                           <div className="relative">
+                             <Input
+                               type="text"
+                               placeholder="4 000"
+                               value={salary}
+                               onChange={handleSalaryChange}
+                               className="text-center text-2xl sm:text-3xl font-bold border-2 border-navy-400 focus:border-navy-600 h-14 sm:h-16 rounded-lg bg-white w-full shadow-md placeholder:text-2xl sm:placeholder:text-3xl placeholder:text-navy-400 placeholder:font-bold pr-12"
+                               autoFocus
+                             />
+                             <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-navy-600 text-xl sm:text-2xl font-medium">
+                               zł
+                             </span>
+                           </div>
                           
                           {/* Mobile-enhanced button */}
                           <div>
-                            <Button 
-                              onClick={handleSalarySubmit}
-                              disabled={!salary || parsePLN(salary) <= 0}
-                              className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-6 sm:py-6 rounded-lg text-lg sm:text-xl shadow-lg transition-all duration-200 disabled:opacity-50 min-h-[70px] border-2 border-green-400 hover:scale-105 hover:shadow-xl"
-                            >
-                              🎯 Odblokowuję spersonalizowaną ofertę
-                            </Button>
+                             <Button 
+                               onClick={handleSalarySubmit}
+                               disabled={!salary || parsePLN(salary) <= 0}
+                               className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 rounded-lg text-lg shadow-lg transition-all duration-200 disabled:opacity-50 h-14 border-2 border-green-400"
+                             >
+                               🎯 Odblokowuję spersonalizowaną ofertę
+                             </Button>
                           </div>
                         </div>
                       </td>
