@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import ABTestContactForm from '../components/ABTestContactForm';
+import AgentNotifications from '../components/AgentNotifications';
+import MakeWebhookConfig from '../components/MakeWebhookConfig';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 import { useFunnelTracking } from '../hooks/useFunnelTracking';
 
@@ -31,7 +33,17 @@ const ContactForm = () => {
   }, [trackPageView, trackEvent, trackFunnelStep, searchParams]);
   
   // Zawsze pokaż formularz kontaktowy, niezależnie od parametrów
-  return <ABTestContactForm />;
+  return (
+    <div>
+      <ABTestContactForm />
+      
+      {/* Panel agenta - zawsze widoczny */}
+      <div className="fixed bottom-4 right-4 z-50 max-w-sm space-y-4">
+        <MakeWebhookConfig />
+        <AgentNotifications />
+      </div>
+    </div>
+  );
 };
 
 export default ContactForm;
