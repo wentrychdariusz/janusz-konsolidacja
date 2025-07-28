@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import LoanAmountsBar from '../components/LoanAmountsBar';
 import TopHeader from '../components/TopHeader';
-import HeroSectionBeta from '../components/HeroSectionBeta';
+import HeroSection from '../components/HeroSection';
 import ImagineSection from '../components/ImagineSection';
 import VideoSection from '../components/VideoSection';
 import DariuszLetterSection from '../components/DariuszLetterSection';
@@ -47,7 +47,7 @@ const Glowna1 = () => {
     <div className="font-lato">
       <LoanAmountsBar />
       <TopHeader />
-      <HeroSectionBeta />
+      <HeroSection />
       <ImagineSection />
       <VideoSection />
       <DariuszLetterSection />
