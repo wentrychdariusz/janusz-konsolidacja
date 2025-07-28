@@ -45,7 +45,7 @@ const DebtCalculatorBeta = () => {
     const calculatorUsed = localStorage.getItem('debt_calculator_beta_used');
     if (calculatorUsed === 'true') {
       setHasUsedCalculator(true);
-      setCurrentStep(6); // Pokaż końcowy ekran
+      setCurrentStep(3); // Pokaż końcowy ekran
     } else {
       // Inicjalizacja zaawansowanej analizy czasowej
       timingAnalysis.startFormTiming();
