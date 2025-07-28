@@ -23,6 +23,9 @@ interface ComparisonResult {
   incomeDifference: number;
   differencePercentage: number;
   isSignificantDifference: boolean; // >20% różnicy
+  isPotentialLie: boolean; // >15% różnicy - dla agenta
+  lieSeverity: 'none' | 'minor' | 'moderate' | 'major'; // Poziom rozbieżności
+  agentNote: string; // Notatka dla agenta
   comparisonTimestamp: number;
 }
 
@@ -36,6 +39,9 @@ export const useDataComparison = () => {
     incomeDifference: 0,
     differencePercentage: 0,
     isSignificantDifference: false,
+    isPotentialLie: false,
+    lieSeverity: 'none',
+    agentNote: '',
     comparisonTimestamp: 0
   });
 
@@ -126,6 +132,25 @@ export const useDataComparison = () => {
     const differencePercentage = (incomeDifference / popupData.salary) * 100;
     const incomeMatch = incomeDifference < 100; // Różnica mniejsza niż 100 zł
     const isSignificantDifference = differencePercentage > 20;
+    
+    // Analiza kłamstw dla agenta (>=15% różnicy)
+    const isPotentialLie = differencePercentage >= 15;
+    
+    let lieSeverity: 'none' | 'minor' | 'moderate' | 'major' = 'none';
+    let agentNote = '';
+    
+    if (differencePercentage >= 50) {
+      lieSeverity = 'major';
+      agentNote = `🚨 PODEJRZANE: Różnica ${differencePercentage.toFixed(1)}% między popup (${popupData.salary} zł) a kalkulatorem (${calculatorData.income} zł). Możliwe celowe wprowadzenie w błąd.`;
+    } else if (differencePercentage >= 30) {
+      lieSeverity = 'moderate';
+      agentNote = `⚠️ UWAGA: Różnica ${differencePercentage.toFixed(1)}% może wskazywać na nieścisłości w deklarowanych zarobkach.`;
+    } else if (differencePercentage >= 15) {
+      lieSeverity = 'minor';
+      agentNote = `📝 INFO: Różnica ${differencePercentage.toFixed(1)}% w zarobkach - warto sprawdzić podczas rozmowy.`;
+    } else {
+      agentNote = `✅ ZGODNE: Dane z popup-a i kalkulatora są spójne (różnica ${differencePercentage.toFixed(1)}%).`;
+    }
 
     const result: ComparisonResult = {
       popupData,
@@ -135,10 +160,27 @@ export const useDataComparison = () => {
       incomeDifference,
       differencePercentage,
       isSignificantDifference,
+      isPotentialLie,
+      lieSeverity,
+      agentNote,
       comparisonTimestamp: Date.now()
     };
 
     setComparison(result);
+
+    // Zapisz dane dla agenta do localStorage
+    localStorage.setItem('agent_data_analysis', JSON.stringify({
+      income_discrepancy: {
+        popup_salary: popupData.salary,
+        calculator_income: calculatorData.income,
+        difference_amount: incomeDifference,
+        difference_percentage: differencePercentage,
+        is_potential_lie: isPotentialLie,
+        lie_severity: lieSeverity,
+        agent_note: agentNote,
+        analysis_timestamp: Date.now()
+      }
+    }));
 
     // Track porównanie w Supabase
     trackEvent('data_comparison', JSON.stringify({
@@ -148,6 +190,8 @@ export const useDataComparison = () => {
       difference_percentage: differencePercentage,
       income_match: incomeMatch,
       is_significant_difference: isSignificantDifference,
+      is_potential_lie: isPotentialLie,
+      lie_severity: lieSeverity,
       popup_source: popupData.source,
       calculator_type: calculatorData.calculator_type
     }));
@@ -158,7 +202,10 @@ export const useDataComparison = () => {
       difference: incomeDifference,
       percentage: `${differencePercentage.toFixed(1)}%`,
       match: incomeMatch,
-      significant_diff: isSignificantDifference
+      significant_diff: isSignificantDifference,
+      potential_lie: isPotentialLie,
+      severity: lieSeverity,
+      agent_note: agentNote
     });
 
     return result;
