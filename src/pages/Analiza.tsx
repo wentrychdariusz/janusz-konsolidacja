@@ -11,6 +11,7 @@ interface CalculatorData {
   id: string;
   income: number;
   debt_amount: number;
+  income_type: string;
   created_at: string;
 }
 
@@ -341,14 +342,15 @@ const Analiza = () => {
             </CardHeader>
             <CardContent className="p-2 md:p-6">
               <div className="overflow-x-auto">
-                <table className="w-full text-xs sm:text-sm">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left py-2 px-1">Data</th>
-                      <th className="text-left py-2 px-1">Dochód</th>
-                      <th className="text-left py-2 px-1">Zadłużenie</th>
-                    </tr>
-                  </thead>
+                  <table className="w-full text-xs sm:text-sm">
+                    <thead>
+                      <tr className="border-b">
+                        <th className="text-left py-2 px-1">Data</th>
+                        <th className="text-left py-2 px-1">Zarobki (popup)</th>
+                        <th className="text-left py-2 px-1">Typ dochodu</th>
+                        <th className="text-left py-2 px-1">Zadłużenie</th>
+                      </tr>
+                    </thead>
                   <tbody>
                     {data.slice(0, 20).map((item) => (
                       <tr key={item.id} className="border-b">
@@ -356,6 +358,7 @@ const Analiza = () => {
                           {new Date(item.created_at).toLocaleDateString('pl-PL')}
                         </td>
                         <td className="py-2 px-1">{formatCurrency(Number(item.income))}</td>
+                        <td className="py-2 px-1">{item.income_type || 'Nie podano'}</td>
                         <td className="py-2 px-1">{formatCurrency(Number(item.debt_amount))}</td>
                       </tr>
                     ))}
