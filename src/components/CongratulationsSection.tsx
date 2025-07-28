@@ -41,16 +41,20 @@ const CongratulationsSection = () => {
                 • Wyjście z zadłużenia • Zmniejszenie rat • Spokojne życie bez długów
               </div>
             </div>
-            <div className="mt-4 flex flex-col items-center gap-3">
-              <div className="flex items-center gap-3 cursor-pointer group" onClick={() => setIsModalOpen(true)}>
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-yellow-400 group-hover:scale-110 transition-transform">
-                  <Gift className="w-6 h-6 text-green-700" />
-                </div>
-                <div className="text-white font-semibold text-lg bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
-                  🧮 Sprawdź swój kalkulator oddłużenia
+            <div className="mt-6 flex flex-col items-center gap-4">
+              <div className="text-center text-white">
+                <p className="text-lg font-semibold mb-4">Chcesz od razu przejść do kalkulatora oddłużenia?</p>
+                <button 
+                  onClick={() => setIsModalOpen(true)}
+                  className="bg-white text-green-700 font-bold text-lg px-8 py-4 rounded-xl hover:bg-green-50 transition-colors shadow-xl mb-4"
+                >
+                  🧮 TAK, SPRAWDŹ TERAZ
+                </button>
+                <div className="flex flex-col items-center gap-2">
+                  <p className="text-green-100 text-sm">lub przeczytaj całą ofertę</p>
+                  <ChevronDown className="w-6 h-6 text-green-200 animate-bounce" />
                 </div>
               </div>
-              <ChevronDown className="w-6 h-6 text-green-200 animate-bounce" />
             </div>
           </div>
         </div>
