@@ -90,34 +90,6 @@ const saveSessionToSupabase = async (sessionId: string, userIp: string) => {
 };
 
 // Zapisywanie eventu do Supabase z walidacją i IP
-// Sprawdza czy dany IP już wykonał konwersję dla testu
-const hasIpConvertedForTest = async (testName: string, conversionType: string): Promise<boolean> => {
-  try {
-    const userIp = await getUserIP();
-    const eventPattern = `conversion_${conversionType}`;
-    
-    const { data, error } = await supabase
-      .from('ab_test_events')
-      .select('id')
-      .eq('test_name', testName)
-      .eq('user_ip', userIp)
-      .like('event_name', `${eventPattern}%`)
-      .limit(1);
-    
-    if (error) {
-      console.error('❌ Error checking IP conversion history:', error);
-      return false; // W przypadku błędu pozwalamy na konwersję
-    }
-    
-    const hasConverted = data && data.length > 0;
-    console.log(`🔍 IP ${userIp} conversion check for test ${testName}: ${hasConverted ? 'ALREADY CONVERTED' : 'NEW'}`);
-    return hasConverted;
-  } catch (error) {
-    console.error('❌ Error in hasIpConvertedForTest:', error);
-    return false; // W przypadku błędu pozwalamy na konwersję
-  }
-};
-
 const saveEventToSupabase = async (eventName: string, variant?: string, testName?: string) => {
   try {
     const sessionId = getSessionId();
@@ -337,40 +309,6 @@ export const useSupabaseTracking = () => {
     console.log(`🎯 Tracking conversion to Supabase: "${eventName}" with variant: "${variant}", test: "${testName}"`);
     trackEvent(eventName, variant?.trim(), testName?.trim());
   };
-
-  // Specjalna funkcja do trackowania konwersji z sprawdzeniem IP (dla unikalnych konwersji)
-  const trackConversionWithIpCheck = async (conversionName: string, variant?: string, testName?: string): Promise<boolean> => {
-    if (!conversionName || conversionName.trim() === '') {
-      console.error('❌ Cannot track conversion: conversionName is required');
-      return false;
-    }
-    
-    if (!testName || testName.trim() === '') {
-      console.error('❌ Cannot track conversion with IP check: testName is required');
-      return false;
-    }
-
-    try {
-      // Sprawdź czy IP już wykonał konwersję dla tego testu
-      const hasConverted = await hasIpConvertedForTest(testName.trim(), conversionName.trim());
-      
-      if (hasConverted) {
-        console.log(`🚫 IP already converted for test "${testName}" - conversion blocked`);
-        return false;
-      }
-      
-      // IP nie wykonał konwersji - trackuj normalnie
-      const eventName = `conversion_${conversionName.trim()}`;
-      console.log(`🎯 Tracking unique conversion to Supabase: "${eventName}" with variant: "${variant}", test: "${testName}"`);
-      trackEvent(eventName, variant?.trim(), testName?.trim());
-      return true;
-    } catch (error) {
-      console.error('❌ Error in trackConversionWithIpCheck:', error);
-      // W przypadku błędu pozwalamy na konwersję
-      trackConversion(conversionName, variant, testName);
-      return true;
-    }
-  };
   
   const getStats = async () => {
     console.log('📊 Getting stats from Supabase...');
@@ -417,7 +355,6 @@ export const useSupabaseTracking = () => {
     trackEvent,
     trackPageView,
     trackConversion,
-    trackConversionWithIpCheck,
     getStats,
     clearStats
   };

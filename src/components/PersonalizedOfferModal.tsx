@@ -7,20 +7,18 @@ import { X, Shield, Award, CheckCircle, Star, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useABTest } from '../hooks/useABTest';
 import expertPortrait from '../assets/dariusz-expert-portrait.jpg';
+
 interface PersonalizedOfferModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-const PersonalizedOfferModal = ({
-  isOpen,
-  onClose
-}: PersonalizedOfferModalProps) => {
+
+const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps) => {
   const [salary, setSalary] = useState('');
   const [showOffer, setShowOffer] = useState(false);
   const navigate = useNavigate();
-  const {
-    variant
-  } = useABTest({
+  
+  const { variant } = useABTest({
     testName: 'salary_ab_test',
     enabled: true,
     splitRatio: 0.5
@@ -40,7 +38,9 @@ const PersonalizedOfferModal = ({
     const num = parseFloat(clean);
     return isNaN(num) ? 0 : num;
   };
+
   console.log('🔧 PersonalizedOfferModal render - isOpen:', isOpen, 'salary:', salary);
+
   const getPersonalizedOffer = (salaryAmount: number) => {
     if (salaryAmount >= 4000) {
       return {
@@ -62,6 +62,7 @@ const PersonalizedOfferModal = ({
       };
     }
   };
+
   const handleSalarySubmit = () => {
     const salaryNum = parsePLN(salary);
     if (salaryNum && salaryNum > 0) {
@@ -84,99 +85,118 @@ const PersonalizedOfferModal = ({
       }
     }
   };
+
   const handleSalaryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSalary(formatNumber(e.target.value));
   };
+
   const handleGoToCalculator = () => {
     navigate(`/analiza?salary=${salary}`);
     onClose();
   };
+
   const handleClose = () => {
     setShowOffer(false);
     setSalary('');
     onClose();
   };
+
   const offer = salary ? getPersonalizedOffer(parsePLN(salary)) : null;
-  return <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="w-[95vw] max-w-md mx-auto rounded-2xl border-0 shadow-2xl overflow-hidden p-0 [&>button]:hidden">
+
+  return (
+    <Dialog open={isOpen} onOpenChange={handleClose}>
+      <DialogContent className="w-full max-w-[95vw] sm:max-w-lg rounded-2xl border-0 shadow-2xl overflow-hidden p-0 [&>button]:hidden">
         <DialogHeader className="sr-only">
           <DialogTitle>Spersonalizowana oferta oddłużeniowa</DialogTitle>
           <DialogDescription>Wprowadź swoje zarobki aby otrzymać spersonalizowaną ofertę</DialogDescription>
         </DialogHeader>
         
-        {!showOffer ? <>
+        {!showOffer ? (
+          <>
             {/* Progress button */}
-            <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 px-4 py-3 border-b border-prestige-gold-200 rounded-t-2xl">
+            <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 px-4 py-3 border-b border-prestige-gold-200 sm:px-6 sm:py-4 rounded-t-2xl">
               <div className="flex flex-col items-center gap-2">
                 <div className="w-full bg-gray-200 rounded-full h-2 sm:h-3">
-                  <div className="bg-prestige-gold-500 h-2 sm:h-3 rounded-full transition-all duration-300" style={{
-                width: '50%'
-              }}></div>
+                  <div className="bg-prestige-gold-500 h-2 sm:h-3 rounded-full transition-all duration-300" style={{width: '50%'}}></div>
                 </div>
                 <div className="text-navy-700 text-xs sm:text-sm font-medium">50% ukończone</div>
               </div>
             </div>
             
-            {/* Simplified Header */}
-            <div className="text-center px-4 py-4">
-              <div className="flex flex-col items-center gap-3 mb-4">
-                <div className="relative w-16 h-16 rounded-full overflow-hidden border-3 border-prestige-gold-400">
-                  <img src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" alt="Dariusz Wentrych" className="w-full h-full object-cover" />
-                  <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
+            {/* Mobile-enhanced Header */}
+            <div className="text-center px-4 sm:px-6 py-4 sm:py-4">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-3">
+                <div className="relative w-16 h-16 sm:w-16 sm:h-16 rounded-full overflow-hidden border-3 border-prestige-gold-400">
+                  <img 
+                    src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" 
+                    alt="Dariusz Wentrych" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 sm:w-5 sm:h-5 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
                     <CheckCircle className="w-3 h-3 text-white" />
                   </div>
                 </div>
                 
-                <div className="text-center">
-                  <h3 className="font-montserrat text-lg font-bold text-navy-900 flex items-center justify-center gap-2 mb-2">
+                <div className="text-center sm:text-left">
+                  <h3 className="font-montserrat text-lg sm:text-xl font-bold text-navy-900 flex items-center justify-center sm:justify-start gap-2">
                     Dariusz Wentrych
                     <div className="flex">
                       {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
                     </div>
                   </h3>
-                  <div className="text-sm text-green-700 font-bold">
+                  <div className="text-sm sm:text-xs text-green-700 font-bold">
                     ✅ Ekspert nr 1 w oddłużaniu i konsolidacji
                   </div>
-                  <div className="text-sm text-blue-600 font-medium">
+                  <div className="text-sm sm:text-xs text-blue-600 font-medium">
                     📚 Autor bestsellera "Nowe życie bez długów"
                   </div>
-                  <div className="text-sm text-purple-600 font-medium">
+                  <div className="text-sm sm:text-xs text-purple-600 font-medium">
                     💼 20+ lat doświadczenia w finansach
                   </div>
                 </div>
               </div>
 
-              {/* Enhanced input section with trust signals */}
-              <div className="bg-gradient-to-r from-blue-50 to-green-50 p-4 rounded-xl border-2 border-blue-200 shadow-lg mb-4">
+              {/* Simplified input section */}
+              <div className="bg-gradient-to-r from-blue-50 to-green-50 p-6 rounded-xl border-2 border-blue-200 shadow-lg mx-4 mb-4">
                 <div className="space-y-4">
                   <div className="text-center">
                     <h4 className="text-lg font-bold text-navy-900 mb-2">
                       Wpisz miesięczne zarobki netto
                     </h4>
-                    <p className="text-xs text-green-700 font-medium mt-1">
-                      ✅ Sprawdzimy jak możemy Ci pomóc w konsolidacji długów
+                    <p className="text-sm text-navy-700">
+                      📋 Zobacz spersonalizowaną ofertę oddłużenia
                     </p>
                   </div>
                   
-                  {/* Trust signals */}
-                  
-                  
                   <div className="relative">
-                    <Input type="text" placeholder="4 000" value={salary} onChange={handleSalaryChange} className="text-center text-2xl font-bold border-2 border-navy-400 focus:border-navy-600 h-14 rounded-lg bg-white w-full shadow-md placeholder:text-2xl placeholder:text-navy-400 pr-12" autoFocus />
+                    <Input
+                      type="text"
+                      placeholder="4 000"
+                      value={salary}
+                      onChange={handleSalaryChange}
+                      className="text-center text-2xl font-bold border-2 border-navy-400 focus:border-navy-600 h-14 rounded-lg bg-white w-full shadow-md placeholder:text-2xl placeholder:text-navy-400 pr-12"
+                      autoFocus
+                    />
                     <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-navy-600 text-xl font-medium">
                       zł
                     </span>
                   </div>
                   
-                  <Button onClick={handleSalarySubmit} disabled={!salary || parsePLN(salary) <= 0} className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-lg text-base shadow-lg disabled:opacity-50 h-12">
-                    📊 Sprawdź możliwości oddłużenia
+                  <Button 
+                    onClick={handleSalarySubmit}
+                    disabled={!salary || parsePLN(salary) <= 0}
+                    className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-lg text-base shadow-lg disabled:opacity-50 h-12"
+                  >
+                    🎯 Odblokowuję ofertę
                   </Button>
                 </div>
               </div>
             </div>
-          </> : <>
+          </>
+        ) : (
+          <>
             {/* Progress indicator for step 2 */}
-            <div className="bg-gradient-to-r from-green-50 to-green-100 px-4 py-3 border-b border-green-200 rounded-t-2xl">
+            <div className="bg-gradient-to-r from-green-50 to-green-100 px-6 py-3 border-b border-green-200 rounded-t-2xl">
               <div className="flex items-center justify-between">
                 <div className="text-navy-900 font-bold text-sm">KROK 2 z 2</div>
                 <div className="flex space-x-2">
@@ -187,9 +207,13 @@ const PersonalizedOfferModal = ({
             </div>
             
             {/* Results */}
-            <div className="px-4 py-6 text-center">
+            <div className="px-6 py-6 text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden border-3 border-prestige-gold-400">
-                <img src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" alt="Dariusz Wentrych" className="w-full h-full object-cover" />
+                <img 
+                  src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" 
+                  alt="Dariusz Wentrych" 
+                  className="w-full h-full object-cover"
+                />
               </div>
               
               <div className="bg-gradient-to-br from-prestige-gold-50 to-warm-neutral-50 p-6 rounded-2xl border-2 border-prestige-gold-400 mb-6">
@@ -206,14 +230,27 @@ const PersonalizedOfferModal = ({
                 </div>
               </div>
 
-              {parsePLN(salary) >= 3000 ? <Button onClick={handleGoToCalculator} className="w-full bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-600 hover:from-prestige-gold-500 hover:to-prestige-gold-700 text-navy-900 font-bold py-4 rounded-xl text-lg shadow-xl">
+              {parsePLN(salary) >= 3000 ? (
+                <Button 
+                  onClick={handleGoToCalculator}
+                  className="w-full bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-600 hover:from-prestige-gold-500 hover:to-prestige-gold-700 text-navy-900 font-bold py-4 rounded-xl text-lg shadow-xl"
+                >
                   Przejdź do analizy →
-                </Button> : <Button onClick={handleClose} className="w-full bg-gradient-to-r from-gray-400 to-gray-600 hover:from-gray-500 hover:to-gray-700 text-white font-bold py-4 rounded-xl text-lg shadow-xl">
+                </Button>
+              ) : (
+                <Button 
+                  onClick={handleClose}
+                  className="w-full bg-gradient-to-r from-gray-400 to-gray-600 hover:from-gray-500 hover:to-gray-700 text-white font-bold py-4 rounded-xl text-lg shadow-xl"
+                >
                   Zamknij
-                </Button>}
+                </Button>
+              )}
             </div>
-          </>}
+          </>
+        )}
       </DialogContent>
-    </Dialog>;
+    </Dialog>
+  );
 };
+
 export default PersonalizedOfferModal;

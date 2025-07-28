@@ -1,12 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
-import { useLocation } from 'react-router-dom';
 import DebtCalculatorBeta from './DebtCalculatorBeta';
-import DebtCalculator from './DebtCalculator';
 
 const FloatingAvatar = () => {
-  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [showAvatar, setShowAvatar] = useState(false);
@@ -167,9 +164,9 @@ const FloatingAvatar = () => {
               </button>
             </div>
             
-            {/* Calculator Content - stary na glowna1a, nowy wszędzie indziej */}
+            {/* Calculator Content */}
             <div className="flex-1 overflow-y-auto p-3 md:p-6">
-              {location.pathname === '/glowna1a' ? <DebtCalculator /> : <DebtCalculatorBeta />}
+              <DebtCalculatorBeta />
             </div>
           </div>
         </div>

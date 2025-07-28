@@ -10,7 +10,7 @@ import { useTimingAnalysis } from '../hooks/useTimingAnalysis';
 import { useSuspiciousBehaviorDetection } from '../hooks/useSuspiciousBehaviorDetection';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 const DebtCalculatorBeta = () => {
-  const { trackConversionWithIpCheck } = useSupabaseTracking();
+  const { trackConversion } = useSupabaseTracking();
   const [income, setIncome] = useState('');
   const [incomeType, setIncomeType] = useState('');
   const [paydayDebt, setPaydayDebt] = useState(''); // Puste - placeholder pokaże domyślne
@@ -249,15 +249,8 @@ const DebtCalculatorBeta = () => {
     // Blokada testowych wpisów - bardzo wysoki dochód przy małym zadłużeniu (legacy)
     if (incomeVal > 25000 && totalDebt < 10000) {
       const baseUrl = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&incomeType=' + encodeURIComponent(incomeType) + '&source=beta';
-      console.log('🧮 Calculator Beta suspicious data - checking IP and tracking conversion');
-      const converted = await trackConversionWithIpCheck('calculator_success', 'B', 'glowna1_calculator');
-      
-      if (converted) {
-        console.log('✅ Conversion tracked - redirecting to consultant');
-      } else {
-        console.log('🚫 IP already converted - redirecting without tracking');
-      }
-      
+      console.log('🧮 Calculator Beta suspicious data - tracking conversion and redirect to consultant');
+      trackConversion('calculator_success', 'B', 'glowna1_calculator');
       window.location.href = baseUrl + '&result=consultant&reason=suspicious_data';
       return;
     }
@@ -337,45 +330,25 @@ const DebtCalculatorBeta = () => {
     }
     const total = paydayVal + bankVal;
     if (total <= baseLim) {
-      // Track konwersję dla testu A/B glowna1_calculator (tylko raz na IP)
-      console.log('🧮 Calculator Beta positive result - checking IP and tracking conversion');
-      const converted = await trackConversionWithIpCheck('calculator_success', 'B', 'glowna1_calculator');
-      
-      if (converted) {
-        console.log('✅ Conversion tracked - redirecting to /kontakt');
-      } else {
-        console.log('🚫 IP already converted - redirecting without tracking');
-      }
-      
-      // Przekieruj do strony kontakt z informacjami dla agenta (zawsze, niezależnie od trackingu)
+      // Track konwersję dla testu A/B glowna1_calculator
+      console.log('🧮 Calculator Beta positive result - tracking conversion and redirect to /kontakt');
+      trackConversion('calculator_success', 'B', 'glowna1_calculator');
+      // Przekieruj do strony kontakt z informacjami dla agenta
       window.location.href = baseUrl + '&result=positive' + suspiciousParams;
       return;
     }
     if (total <= maxLim) {
-      // Track konwersję dla testu A/B glowna1_calculator (tylko raz na IP)
-      console.log('🧮 Calculator Beta warning result - checking IP and tracking conversion');
-      const converted = await trackConversionWithIpCheck('calculator_success', 'B', 'glowna1_calculator');
-      
-      if (converted) {
-        console.log('✅ Conversion tracked - redirecting to /kontakt');
-      } else {
-        console.log('🚫 IP already converted - redirecting without tracking');
-      }
-      
-      // Przekieruj do strony kontakt z informacjami dla agenta (zawsze, niezależnie od trackingu)
+      // Track konwersję dla testu A/B glowna1_calculator
+      console.log('🧮 Calculator Beta warning result - tracking conversion and redirect to /kontakt');
+      trackConversion('calculator_success', 'B', 'glowna1_calculator');
+      // Przekieruj do strony kontakt z informacjami dla agenta
       window.location.href = baseUrl + '&result=warning' + suspiciousParams;
       return;
     }
 
     // Dla bardzo wysokich długów - przekieruj do konsultanta zamiast odrzucać
-    console.log('🧮 Calculator Beta high debt - checking IP and tracking conversion');
-    const converted = await trackConversionWithIpCheck('calculator_success', 'B', 'glowna1_calculator');
-    
-    if (converted) {
-      console.log('✅ Conversion tracked - redirecting to consultant');
-    } else {
-      console.log('🚫 IP already converted - redirecting without tracking');
-    }
+    console.log('🧮 Calculator Beta high debt - tracking conversion and redirect to consultant');
+    trackConversion('calculator_success', 'B', 'glowna1_calculator');
     window.location.href = baseUrl + '&result=consultant&reason=high_debt' + suspiciousParams;
     return;
   };
@@ -660,17 +633,9 @@ const DebtCalculatorBeta = () => {
             </div>
             
             {/* Duży przycisk analizy */}
-            <Button 
-              onClick={calculate} 
-              disabled={hasUsedCalculator || (!bankDebt && bankDebt !== '0')} 
-              className={`w-full font-bold py-5 text-lg rounded-xl h-16 shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 mt-4 ${
-                hasUsedCalculator 
-                  ? 'bg-gray-400 cursor-not-allowed' 
-                  : 'bg-gradient-to-r from-navy-900 to-business-blue-600 text-white'
-              }`}
-            >
+            <Button onClick={calculate} disabled={!bankDebt && bankDebt !== '0'} className="w-full font-bold py-5 text-lg rounded-xl h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 text-white shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 mt-4">
               <Calculator className="w-6 h-6 mr-3" />
-              {hasUsedCalculator ? 'Kalkulator został wykorzystany' : '🔍 Sprawdź swój wynik'}
+              🔍 Sprawdź swój wynik
             </Button>
           </div>;
       default:
