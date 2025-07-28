@@ -101,6 +101,26 @@ const saveEventToSupabase = async (eventName: string, variant?: string, testName
       return;
     }
     
+    // Deduplikacja - sprawdź czy identyczny event już istnieje w ostatnich 10 sekundach
+    const tenSecondsAgo = new Date(Date.now() - 10000).toISOString();
+    
+    const { data: recentEvents, error: checkError } = await supabase
+      .from('ab_test_events')
+      .select('id')
+      .eq('session_id', sessionId)
+      .eq('event_name', eventName.trim())
+      .eq('variant', variant || null)
+      .eq('test_name', testName || null)
+      .gte('created_at', tenSecondsAgo)
+      .limit(1);
+      
+    if (checkError) {
+      console.warn('⚠️ Could not check for duplicate events:', checkError);
+    } else if (recentEvents && recentEvents.length > 0) {
+      console.log(`🔄 Duplicate event detected, skipping: ${eventName}${variant ? ` (${variant})` : ''}`);
+      return;
+    }
+    
     // Upewnij się, że sesja istnieje w bazie
     await saveSessionToSupabase(sessionId, userIp);
     
