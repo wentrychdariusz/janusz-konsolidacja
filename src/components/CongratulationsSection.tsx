@@ -5,12 +5,11 @@ const CongratulationsSection = () => {
       <div className="container mx-auto">
         <div className="text-center text-white">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-            <div className="flex items-center gap-3">
-              <Award className="w-8 h-8 text-green-200" />
+            <div className="flex items-center gap-4">
               <img 
                 src="/lovable-uploads/b9b35046-fcce-41cb-a198-66822e648611.png" 
                 alt="Książka Nowe Życie Bez Długów - Dariusz Wentrych" 
-                className="w-12 h-16 object-cover rounded shadow-lg"
+                className="w-20 h-28 sm:w-24 sm:h-32 object-cover rounded shadow-lg flex-shrink-0"
               />
               <span className="font-semibold text-base sm:text-lg">Gratulacje! Masz szansę na darmową konsultację o wartości 1000 zł z Dariuszem Wentrychem</span>
             </div>
