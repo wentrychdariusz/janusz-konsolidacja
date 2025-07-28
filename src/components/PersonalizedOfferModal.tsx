@@ -5,6 +5,7 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { X, Shield, Award, CheckCircle, Star, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useABTest } from '../hooks/useABTest';
 import expertPortrait from '../assets/dariusz-expert-portrait.jpg';
 
 interface PersonalizedOfferModalProps {
@@ -16,6 +17,12 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
   const [salary, setSalary] = useState('');
   const [showOffer, setShowOffer] = useState(false);
   const navigate = useNavigate();
+  
+  const { variant } = useABTest({
+    testName: 'salary_ab_test',
+    enabled: true,
+    splitRatio: 0.5
+  });
 
   // Funkcja formatowania liczb - poprawiona wersja
   const formatNumber = (value: string) => {
@@ -35,17 +42,11 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
   console.log('🔧 PersonalizedOfferModal render - isOpen:', isOpen, 'salary:', salary);
 
   const getPersonalizedOffer = (salaryAmount: number) => {
-    if (salaryAmount >= 8000) {
+    if (salaryAmount >= 4000) {
       return {
         title: "Doskonała sytuacja finansowa!",
         message: "Z Twoimi zarobkami możemy zaoszczędzić nawet do 2000 zł miesięcznie na obsłudze długów.",
         highlight: "Nawet 24 000 zł rocznie więcej w kieszeni"
-      };
-    } else if (salaryAmount >= 5000) {
-      return {
-        title: "Świetne perspektywy oddłużenia!",
-        message: "Przy Twoich dochodach możemy zmniejszyć raty nawet o 40-60%.",
-        highlight: "Oszczędności do 1200 zł miesięcznie"
       };
     } else if (salaryAmount >= 3000) {
       return {
@@ -55,9 +56,9 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
       };
     } else {
       return {
-        title: "Sprawdźmy Twoje możliwości",
-        message: "Nawet przy niższych dochodach często znajdujemy rozwiązania oddłużeniowe.",
-        highlight: "Bezpłatna analiza sytuacji finansowej"
+        title: "Niestety nie możemy pomóc",
+        message: "Przy obecnej sytuacji finansowej nie jesteśmy w stanie zaoferować odpowiedniego rozwiązania oddłużeniowego.",
+        highlight: "Minimalne zarobki to 3000 zł netto"
       };
     }
   };
@@ -65,25 +66,23 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
   const handleSalarySubmit = () => {
     const salaryNum = parsePLN(salary);
     if (salaryNum && salaryNum > 0) {
-      // Sprawdź przedziały kwot i przekieruj odpowiednio
-      if (salaryNum >= 4000 && salaryNum <= 6000) {
-        // Przekieruj na stronę /4000_6000
-        navigate('/4000_6000');
+      // Nowa logika według wymagań użytkownika
+      if (salaryNum >= 4000) {
+        // A/B test - przekieruj na glowna1a lub glowna1b
+        const targetPage = variant === 'A' ? '/glowna1a' : '/glowna1b';
+        navigate(targetPage);
         onClose();
         return;
-      } else if (salaryNum < 4000) {
+      } else if (salaryNum >= 3000) {
         // Przekieruj na zewnętrzną stronę dariuszwentrych.com.pl
         window.location.href = 'https://dariuszwentrych.com.pl';
         onClose();
         return;
-      } else if (salaryNum > 6000) {
-        // Przekieruj na stronę /premium
-        navigate('/premium');
-        onClose();
+      } else {
+        // Pokaż komunikat "nie możemy pomóc" 
+        setShowOffer(true);
         return;
       }
-      
-      setShowOffer(true);
     }
   };
 
