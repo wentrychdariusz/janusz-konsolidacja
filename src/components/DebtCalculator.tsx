@@ -297,7 +297,7 @@ const DebtCalculator = () => {
                       onChange={handleIncomeChange}
                       placeholder="4 000"
                       disabled={hasUsedCalculator}
-                      className={`pr-12 text-right h-12 lg:h-14 text-base lg:text-lg ${hasUsedCalculator ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+                      className={`pr-12 text-right h-12 lg:h-14 xl:h-16 text-lg lg:text-xl xl:text-2xl font-semibold ${hasUsedCalculator ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                     />
                     <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-sm lg:text-base">
                       PLN
@@ -317,7 +317,7 @@ const DebtCalculator = () => {
                       onChange={handlePaydayChange}
                       placeholder="70 000"
                       disabled={hasUsedCalculator}
-                      className={`pr-12 text-right h-12 lg:h-14 text-base lg:text-lg ${hasUsedCalculator ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+                      className={`pr-12 text-right h-12 lg:h-14 xl:h-16 text-lg lg:text-xl xl:text-2xl font-semibold ${hasUsedCalculator ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                     />
                     <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-sm lg:text-base">
                       PLN
@@ -337,7 +337,7 @@ const DebtCalculator = () => {
                       onChange={handleBankChange}
                       placeholder="50 000"
                       disabled={hasUsedCalculator}
-                      className={`pr-12 text-right h-12 lg:h-14 text-base lg:text-lg ${hasUsedCalculator ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+                      className={`pr-12 text-right h-12 lg:h-14 xl:h-16 text-lg lg:text-xl xl:text-2xl font-semibold ${hasUsedCalculator ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                     />
                     <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-sm lg:text-base">
                       PLN
