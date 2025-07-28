@@ -26,6 +26,9 @@ const Glowna1B = () => {
     console.log('🎉 Glowna1B page: Tracking page view for glowna1B page (new calculator test)');
     trackPageView('glowna1b', undefined, 'main_site');
     
+    // Upewnij się, że strona jest na górze
+    window.scrollTo(0, 0);
+    
     // Track również czy to nowy czy returning visitor
     const lastVisit = localStorage.getItem('last_glowna1b_visit');
     const now = Date.now();
