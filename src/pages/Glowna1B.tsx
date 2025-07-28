@@ -46,10 +46,10 @@ const Glowna1B = () => {
    
   return (
     <div className="font-lato">
+      <CongratulationsSection />
       <LoanAmountsBar />
       <TopHeader />
       <HeroSection />
-      <CongratulationsSection />
       <ImagineSection />
       <VideoSection />
       <DariuszLetterSection />
