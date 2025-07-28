@@ -175,7 +175,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                   <div className="bg-green-50 border border-green-200 rounded-lg p-3">
                     <div className="flex items-center justify-center space-x-2 text-green-800">
                       <Shield className="w-4 h-4" />
-                      <span className="text-xs font-medium">Twoje dane są bezpieczne - używamy ich tylko do analizy</span>
+                      <span className="text-xs font-medium">Twoje dane są bezpieczne - używamy ich do pokazania Ci spersonalizowanej propozycji</span>
                     </div>
                   </div>
                   
