@@ -5,8 +5,21 @@ import DebtCalculatorBeta from './DebtCalculatorBeta';
 const CongratulationsSection = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [countdown, setCountdown] = useState(10);
 
   useEffect(() => {
+    // Countdown timer
+    const timer = setInterval(() => {
+      setCountdown(prev => {
+        if (prev <= 1) {
+          setIsVisible(false);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    // Scroll handler
     const handleScroll = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       if (scrollTop > 800) { // Hide after scrolling 800px
@@ -15,7 +28,11 @@ const CongratulationsSection = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   if (!isVisible) return null;
@@ -43,6 +60,9 @@ const CongratulationsSection = () => {
             </div>
             <div className="mt-6 flex flex-col items-center gap-4">
               <div className="text-center text-white">
+                <div className="bg-red-500 text-white px-4 py-2 rounded-lg mb-4 font-bold">
+                  ⏰ Ta oferta zniknie za {countdown} sekund!
+                </div>
                 <p className="text-lg font-semibold mb-4">Chcesz od razu przejść do kalkulatora oddłużenia?</p>
                 <button 
                   onClick={() => setIsModalOpen(true)}
