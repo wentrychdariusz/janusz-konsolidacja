@@ -25,8 +25,7 @@ const Glowna1A = () => {
   const behaviorDetection = useSuspiciousBehaviorDetection('glowna1a_page');
   
   useEffect(() => {
-    console.log('🎉 Glowna1A page: Tracking page view for glowna1A page (old calculator test)');
-    trackPageView('glowna1a', 'A', 'glowna1_calculator');
+    console.log('🎉 Glowna1A page: Setting up page for old calculator test');
     
     // Sprawdź czy użytkownik przyszedł z głównej strony z danymi w URL
     const urlParams = new URLSearchParams(window.location.search);
