@@ -69,14 +69,21 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
       // Zapisz dane do bazy danych popup_salary_entries
       try {
         const { supabase } = await import('../integrations/supabase/client');
+        
+        // Pobierz session_id z sessionStorage lub localStorage
+        const sessionId = sessionStorage.getItem('supabase_session_id') || 
+                         localStorage.getItem('supabase_session_id') || 
+                         localStorage.getItem('session_id') || 
+                         `popup_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        
         await supabase.from('popup_salary_entries').insert({
           salary_amount: salaryNum,
           variant: variant,
           page_source: '/',
-          session_id: localStorage.getItem('session_id') || 'unknown',
+          session_id: sessionId,
           user_agent: navigator.userAgent
         });
-        console.log('💾 Popup salary data saved to database:', salaryNum);
+        console.log('💾 Popup salary data saved to database:', salaryNum, 'Session:', sessionId);
       } catch (error) {
         console.error('❌ Error saving popup salary data:', error);
       }
