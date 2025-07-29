@@ -15,6 +15,23 @@ const generateSessionId = (): string => {
 
 // Pobieranie ID sesji (1 godzina ważności)
 const getSessionId = (): string => {
+  // NAJWAŻNIEJSZE: Użyj tego samego session ID co system Supabase trackingu
+  const supabaseSessionKey = 'supabase_tracking_session';
+  const supabaseSessionData = localStorage.getItem(supabaseSessionKey);
+  
+  if (supabaseSessionData) {
+    try {
+      const parsed = JSON.parse(supabaseSessionData);
+      if (parsed.sessionId) {
+        console.log('🔗 Funnel tracking using Supabase session ID:', parsed.sessionId.substring(0, 8) + '...');
+        return parsed.sessionId;
+      }
+    } catch (e) {
+      console.log('Error parsing Supabase session data');
+    }
+  }
+  
+  // Fallback - sprawdź własną sesję funnel
   const SESSION_DURATION = 60 * 60 * 1000; // 1 godzina w ms
   const now = Date.now();
   
