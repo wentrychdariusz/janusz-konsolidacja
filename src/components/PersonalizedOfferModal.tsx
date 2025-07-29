@@ -75,12 +75,15 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
         const trackingData = localStorage.getItem(trackingSessionKey);
         let sessionId = '';
         
+        console.log('🔍 Popup: Checking tracking session data:', trackingData);
+        
         if (trackingData) {
           try {
             const parsed = JSON.parse(trackingData);
             sessionId = parsed.sessionId || '';
+            console.log('✅ Popup: Found Supabase session ID:', sessionId.substring(0, 8) + '...');
           } catch (e) {
-            console.log('Error parsing tracking session data');
+            console.log('❌ Popup: Error parsing tracking session data:', e);
           }
         }
         
@@ -90,6 +93,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                      localStorage.getItem('supabase_session_id') || 
                      localStorage.getItem('session_id') || 
                      `popup_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+          console.log('⚠️ Popup: Using fallback session ID:', sessionId.substring(0, 8) + '...');
         }
         
         await supabase.from('popup_salary_entries').insert({
