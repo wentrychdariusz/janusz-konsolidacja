@@ -70,11 +70,27 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
       try {
         const { supabase } = await import('../integrations/supabase/client');
         
-        // Pobierz session_id z sessionStorage lub localStorage
-        const sessionId = sessionStorage.getItem('supabase_session_id') || 
-                         localStorage.getItem('supabase_session_id') || 
-                         localStorage.getItem('session_id') || 
-                         `popup_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        // Pobierz session_id z systemu trackingu Supabase
+        const trackingSessionKey = 'supabase_tracking_session';
+        const trackingData = localStorage.getItem(trackingSessionKey);
+        let sessionId = '';
+        
+        if (trackingData) {
+          try {
+            const parsed = JSON.parse(trackingData);
+            sessionId = parsed.sessionId || '';
+          } catch (e) {
+            console.log('Error parsing tracking session data');
+          }
+        }
+        
+        // Fallback do innych źródeł session_id
+        if (!sessionId) {
+          sessionId = sessionStorage.getItem('supabase_session_id') || 
+                     localStorage.getItem('supabase_session_id') || 
+                     localStorage.getItem('session_id') || 
+                     `popup_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        }
         
         await supabase.from('popup_salary_entries').insert({
           salary_amount: salaryNum,
