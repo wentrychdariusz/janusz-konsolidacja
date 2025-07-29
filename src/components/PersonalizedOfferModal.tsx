@@ -19,7 +19,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
   const navigate = useNavigate();
   
   const { variant } = useABTest({
-    testName: 'salary_ab_test',
+    testName: 'glowna1_calculator',
     enabled: true,
     splitRatio: 0.5
   });
