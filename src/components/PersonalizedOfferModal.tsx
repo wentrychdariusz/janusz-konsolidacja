@@ -63,9 +63,24 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
     }
   };
 
-  const handleSalarySubmit = () => {
+  const handleSalarySubmit = async () => {
     const salaryNum = parsePLN(salary);
     if (salaryNum && salaryNum > 0) {
+      // Zapisz dane do bazy danych popup_salary_entries
+      try {
+        const { supabase } = await import('../integrations/supabase/client');
+        await supabase.from('popup_salary_entries').insert({
+          salary_amount: salaryNum,
+          variant: variant,
+          page_source: '/',
+          session_id: localStorage.getItem('session_id') || 'unknown',
+          user_agent: navigator.userAgent
+        });
+        console.log('💾 Popup salary data saved to database:', salaryNum);
+      } catch (error) {
+        console.error('❌ Error saving popup salary data:', error);
+      }
+
       // Nowa logika według wymagań użytkownika
       if (salaryNum >= 4000) {
         // A/B test - przekieruj na glowna1a lub glowna1b z salary w URL
