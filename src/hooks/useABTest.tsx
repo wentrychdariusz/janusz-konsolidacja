@@ -71,23 +71,13 @@ export const useABTest = ({ testName, splitRatio = 0.5, forceVariant, enabled = 
         finalVariant = forceVariant;
         console.log(`🎯 New user with forced variant: ${forceVariant}`);
       } else {
-        // Używamy hash z sessionId + testName dla konsystentnego 50/50 podziału
-        const hashInput = sessionId + testName;
-        let hash = 0;
-        for (let i = 0; i < hashInput.length; i++) {
-          const char = hashInput.charCodeAt(i);
-          hash = ((hash << 5) - hash) + char;
-          hash = hash & hash;
-        }
+        // POPRAWKA: Używamy prawdziwego losowania dla równomiernego 50/50 podziału
+        const random = Math.random();
+        finalVariant = random < splitRatio ? 'A' : 'B';
         
-        // Używamy modulo dla idealnego 50/50 podziału
-        const isVariantA = Math.abs(hash) % 2 === 0;
-        finalVariant = isVariantA ? 'A' : 'B';
-        
-        console.log(`🎲 Hash-based 50/50 assignment:`, {
-          sessionId: sessionId.substring(0, 8) + '...',
-          hash: hash,
-          modulo: Math.abs(hash) % 2,
+        console.log(`🎲 Random 50/50 assignment:`, {
+          random: random,
+          splitRatio: splitRatio,
           finalVariant
         });
       }
