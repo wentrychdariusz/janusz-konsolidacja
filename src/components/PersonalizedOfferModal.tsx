@@ -108,11 +108,10 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
         console.error('❌ Error saving popup salary data:', error);
       }
 
-      // Nowa logika według wymagań użytkownika
+      // Przekieruj domyślnie na /glowna1b po wypełnieniu popupa
       if (salaryNum >= 4000) {
-        // A/B test - przekieruj na glowna1a lub glowna1b z salary w URL
-        const targetPage = variant === 'A' ? '/glowna1a' : '/glowna1b';
-        navigate(`${targetPage}?salary=${salaryNum}`);
+        // Domyślne przekierowanie na glowna1b z salary w URL
+        navigate(`/glowna1b?salary=${salaryNum}`);
         onClose();
         return;
       } else if (salaryNum >= 3000) {
