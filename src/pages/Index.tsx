@@ -1,7 +1,5 @@
 
 import React, { useEffect, useState } from 'react';
-import { useABTest } from '../hooks/useABTest';
-import { useABTestSettings } from '../hooks/useABTestSettings';
 import LoanAmountsBar from '../components/LoanAmountsBar';
 import TopHeader from '../components/TopHeader';
 import HeroSection from '../components/HeroSection';
@@ -15,7 +13,7 @@ import TrustedClientsSection from '../components/TrustedClientsSection';
 import HeroesSection from '../components/HeroesSection';
 import BookSection from '../components/BookSection';
 import TeamSection from '../components/TeamSection';
-import CalculatorSection from '../components/CalculatorSection';
+
 import CalculatorSectionBeta from '../components/CalculatorSectionBeta';
 import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
@@ -27,20 +25,17 @@ import { useSuspiciousBehaviorDetection } from '../hooks/useSuspiciousBehaviorDe
 const Index = () => {
   const { trackPageView } = useSupabaseTracking();
   const behaviorDetection = useSuspiciousBehaviorDetection('main_page');
-  const { settings, isLoaded } = useABTestSettings();
-  const { variant, isLoaded: abTestLoaded } = useABTest({
-    testName: 'glowna1_calculator',
-    enabled: settings.glowna1_enabled ?? true,
-    forceVariant: settings.glowna1_force_variant,
-    splitRatio: 0.5
-  });
+  
+  // Domyślnie używamy wersji B bez A/B testów
+  const variant = 'B';
+  const isLoaded = true;
+  const abTestLoaded = true;
   
   const [showOfferModal, setShowOfferModal] = useState(false);
 
   useEffect(() => {
-    if (isLoaded && abTestLoaded) {
-      console.log(`🏠 Index page: Tracking page view for variant ${variant}`);
-      trackPageView('glowna1_calculator', variant, 'glowna1_calculator');
+    console.log(`🏠 Index page: Using default variant B (no A/B test)`);
+    trackPageView('glowna1_default', 'B', 'glowna1_default');
       
       // Rozpocznij analizę podejrzanych zachowań od wejścia na stronę
       console.log('🔍 Starting suspicious behavior analysis on page load');
@@ -63,15 +58,8 @@ const Index = () => {
         localStorage.setItem('last_index_visit', now.toString());
       }
 
-      // Show personalized offer modal immediately
       setShowOfferModal(true);
-    }
-  }, [isLoaded, abTestLoaded, variant, trackPageView, behaviorDetection]);
-
-  // Czekaj aż oba hooki się załadują
-  if (!isLoaded || !abTestLoaded) {
-    return <div>Loading...</div>;
-  }
+  }, [trackPageView, behaviorDetection]);
 
   return (
     <div className="font-lato">
@@ -89,12 +77,8 @@ const Index = () => {
       <BookSection />
       <TeamSection />
       
-      {/* A/B Test: Różne kalkulatory */}
-      {variant === 'A' ? (
-        <CalculatorSection />
-      ) : (
-        <CalculatorSectionBeta />
-      )}
+      {/* Domyślnie używamy CalculatorSectionBeta */}
+      <CalculatorSectionBeta />
       
       <GuaranteeSection />
       <FloatingAvatar />
