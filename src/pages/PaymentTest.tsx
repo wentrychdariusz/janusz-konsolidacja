@@ -240,13 +240,13 @@ const PaymentTest = () => {
             </div>
           </div>
 
-          {/* Zwrot pieniędzy - delikatny styl */}
-          <div className="text-center mb-6 bg-green-50 border border-green-200 text-green-800 p-3 sm:p-4 rounded-lg">
-            <p className="text-xs sm:text-sm font-semibold">
-              💰 W przypadku rozpoczęcia współpracy zwracamy Ci wpłaconą kwotę 9,90 zł
+          {/* Analiza dokumentów - wyróżniona sekcja */}
+          <div className="text-center mb-6 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-400 rounded-xl p-5 sm:p-6 shadow-md">
+            <p className="text-base sm:text-lg lg:text-xl font-bold text-navy-900 leading-tight">
+              💼 Wpłacaj 9,90 zł za analizę Twoich dokumentów
             </p>
-            <p className="text-[10px] sm:text-xs mt-1 opacity-80">
-              To tylko symboliczny sygnał Twojego poważnego podejścia do sprawy
+            <p className="text-sm sm:text-base text-blue-800 font-semibold mt-2">
+              Nasz doradca wie, że zależy Ci na pomocy
             </p>
           </div>
 
