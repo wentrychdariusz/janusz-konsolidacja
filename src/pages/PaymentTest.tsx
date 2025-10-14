@@ -201,23 +201,23 @@ const PaymentTest = () => {
             </div>
 
             {/* Sekcja płatności BLIK z logo */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-6">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-4 sm:p-6">
               {/* Logo BLIK i info */}
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
+              <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between mb-4 gap-2">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <img 
                     src="/logos/blik-logo.png" 
                     alt="BLIK" 
-                    className="h-8 sm:h-10 object-contain"
+                    className="h-7 sm:h-10 object-contain"
                   />
-                  <div className="h-8 w-px bg-gray-300"></div>
-                  <span className="text-xs sm:text-sm text-gray-600 font-medium">
+                  <div className="h-6 sm:h-8 w-px bg-gray-300"></div>
+                  <span className="text-xs sm:text-sm text-gray-600 font-medium text-center">
                     Szybka płatność mobilna
                   </span>
                 </div>
               </div>
 
-              <label htmlFor="blik" className="block text-base sm:text-lg font-bold text-navy-900 mb-3">
+              <label htmlFor="blik" className="block text-sm sm:text-lg font-bold text-navy-900 mb-3 text-center">
                 Wpisz kod BLIK z aplikacji bankowej
               </label>
               <Input
@@ -227,16 +227,16 @@ const PaymentTest = () => {
                 placeholder="000 000"
                 value={blikCode}
                 onChange={(e) => setBlikCode(e.target.value.replace(/\D/g, ''))}
-                className="text-center text-3xl sm:text-4xl tracking-[0.5em] font-bold border-3 border-blue-400 focus:border-blue-600 rounded-xl bg-white shadow-sm"
+                className="text-center text-2xl sm:text-4xl tracking-[0.3em] sm:tracking-[0.5em] font-bold border-3 border-blue-400 focus:border-blue-600 rounded-xl bg-white shadow-sm"
                 disabled={isProcessing}
               />
               
               {/* Obsługujemy wszystkie banki */}
-              <div className="mt-4 pt-4 border-t border-blue-200">
-                <p className="text-xs text-center text-gray-600 mb-2 font-medium">
+              <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-blue-200">
+                <p className="text-[10px] sm:text-xs text-center text-gray-600 mb-2 font-medium">
                   🏦 Obsługujemy wszystkie polskie banki
                 </p>
-                <div className="flex items-center justify-center gap-2 text-[10px] text-gray-500">
+                <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 text-[9px] sm:text-[10px] text-gray-500">
                   <span>PKO BP</span>
                   <span>•</span>
                   <span>mBank</span>
@@ -261,19 +261,19 @@ const PaymentTest = () => {
             {/* Button z logo TPay */}
             <Button 
               type="submit" 
-              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-5 sm:py-6 text-base sm:text-lg rounded-xl shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:scale-[1.02]" 
+              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-4 sm:py-6 text-sm sm:text-lg rounded-xl shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:scale-[1.02]" 
               size="lg"
               disabled={isProcessing || blikCode.length !== 6 || !firstName.trim() || !lastName.trim()}
             >
               {isProcessing ? (
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center w-full">
                   <Loader2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
                   <span className="text-sm sm:text-base">Przetwarzanie...</span>
                 </div>
               ) : (
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-3">
-                  <span className="text-base sm:text-lg">Zapłać 9,90 zł przez BLIK</span>
-                  <div className="bg-white/20 px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-xs">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-3 w-full">
+                  <span className="text-sm sm:text-lg font-bold">Zapłać 9,90 zł przez BLIK</span>
+                  <div className="bg-white/20 px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-xs font-medium">
                     Bezpieczne • TPay
                   </div>
                 </div>
