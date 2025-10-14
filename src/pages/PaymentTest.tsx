@@ -203,18 +203,21 @@ const PaymentTest = () => {
             {/* Sekcja płatności BLIK z logo */}
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-4 sm:p-6">
               {/* Logo BLIK i info */}
-              <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between mb-4 gap-2">
-                <div className="flex items-center gap-2 sm:gap-3">
+              <div className="flex flex-col sm:flex-row items-center justify-center mb-4 gap-3">
+                <div className="bg-white px-4 py-2 rounded-lg shadow-sm">
                   <img 
                     src="/logos/blik-logo.png" 
                     alt="BLIK" 
-                    className="h-7 sm:h-10 object-contain"
+                    className="h-8 sm:h-12 w-auto object-contain"
+                    onError={(e) => {
+                      console.error('BLIK logo failed to load');
+                      e.currentTarget.style.display = 'none';
+                    }}
                   />
-                  <div className="h-6 sm:h-8 w-px bg-gray-300"></div>
-                  <span className="text-xs sm:text-sm text-gray-600 font-medium text-center">
-                    Szybka płatność mobilna
-                  </span>
                 </div>
+                <span className="text-xs sm:text-sm text-gray-600 font-medium text-center">
+                  🔒 Szybka i bezpieczna płatność mobilna
+                </span>
               </div>
 
               <label htmlFor="blik" className="block text-sm sm:text-lg font-bold text-navy-900 mb-3 text-center">
@@ -258,27 +261,31 @@ const PaymentTest = () => {
               </div>
             )}
 
-            {/* Button z logo TPay */}
-            <Button 
-              type="submit" 
-              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-4 sm:py-6 text-sm sm:text-lg rounded-xl shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:scale-[1.02]" 
-              size="lg"
-              disabled={isProcessing || blikCode.length !== 6 || !firstName.trim() || !lastName.trim()}
-            >
-              {isProcessing ? (
-                <div className="flex items-center justify-center w-full">
-                  <Loader2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
-                  <span className="text-sm sm:text-base">Przetwarzanie...</span>
-                </div>
-              ) : (
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-3 w-full">
-                  <span className="text-sm sm:text-lg font-bold">Zapłać 9,90 zł przez BLIK</span>
-                  <div className="bg-white/20 px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-xs font-medium">
-                    Bezpieczne • TPay
+            {/* Premium Payment Button */}
+            <div className="relative">
+              <div className="absolute -inset-1 bg-gradient-to-r from-prestige-gold-400 via-yellow-400 to-prestige-gold-400 rounded-2xl blur opacity-75 animate-pulse"></div>
+              <Button 
+                type="submit" 
+                className="relative w-full bg-gradient-to-r from-prestige-gold-600 via-yellow-500 to-prestige-gold-600 hover:from-prestige-gold-700 hover:via-yellow-600 hover:to-prestige-gold-700 text-navy-900 font-black py-6 sm:py-8 text-base sm:text-xl rounded-xl shadow-2xl border-2 border-prestige-gold-700" 
+                size="lg"
+                disabled={isProcessing || blikCode.length !== 6 || !firstName.trim() || !lastName.trim()}
+              >
+                {isProcessing ? (
+                  <div className="flex items-center justify-center w-full">
+                    <Loader2 className="mr-2 h-5 w-5 sm:h-6 sm:w-6 animate-spin" />
+                    <span className="text-base sm:text-lg">Przetwarzanie płatności...</span>
                   </div>
-                </div>
-              )}
-            </Button>
+                ) : (
+                  <div className="flex flex-col items-center justify-center gap-1 w-full">
+                    <span className="text-lg sm:text-2xl font-black">⚡ ZAPŁAĆ 9,90 ZŁ</span>
+                    <span className="text-xs sm:text-sm font-bold opacity-90">za Priorytetową Obsługę VIP</span>
+                    <div className="mt-1 bg-navy-900/20 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold">
+                      Bezpieczne przez TPay
+                    </div>
+                  </div>
+                )}
+              </Button>
+            </div>
 
             {/* Dodatkowe info bezpieczeństwa */}
             <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
