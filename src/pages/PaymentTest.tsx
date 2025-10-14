@@ -21,6 +21,7 @@ const PaymentTest = () => {
   const [lastName, setLastName] = useState('');
   const [phoneInput, setPhoneInput] = useState(searchParams.get('phone') || '');
   const [error, setError] = useState('');
+  const [isWaitingForConfirmation, setIsWaitingForConfirmation] = useState(false);
 
   // Dane z formularza kontaktowego
   const name = searchParams.get('name') || '';
@@ -105,22 +106,70 @@ const PaymentTest = () => {
         console.error('❌ Payment error:', data.error);
         throw new Error(data.details || data.error);
       }
-      console.log('✅ Payment successful:', data);
+      console.log('✅ BLIK code sent:', data);
 
-      // Redirect to success page
-      const params = new URLSearchParams({
-        payment: 'success',
-        transactionId: data.transactionId || transactionId,
-        name,
-        email,
-        phone: phone || phoneInput
-      });
-      navigate(`/podziekowania?${params.toString()}`);
+      // Show confirmation message and wait for user to confirm in bank app
+      setIsWaitingForConfirmation(true);
+      setIsProcessing(false);
+
+      // Poll for payment status
+      let attempts = 0;
+      const maxAttempts = 30; // 30 attempts * 2s = 60s timeout
+      
+      const pollStatus = async () => {
+        attempts++;
+        console.log(`🔄 Checking payment status (attempt ${attempts}/${maxAttempts})...`);
+
+        try {
+          const { data: statusData, error: statusError } = await supabase.functions.invoke('check-payment-status', {
+            body: { transactionId }
+          });
+
+          if (statusError) {
+            console.error('❌ Status check error:', statusError);
+            throw new Error('Nie można sprawdzić statusu płatności');
+          }
+
+          console.log('📊 Payment status:', statusData);
+
+          // Check if payment is completed (correct) or failed
+          if (statusData.status === 'correct' || statusData.paymentStatus === 'correct') {
+            console.log('✅ Payment confirmed!');
+            const params = new URLSearchParams({
+              payment: 'success',
+              transactionId: data.transactionId || transactionId,
+              name,
+              email,
+              phone: phone || phoneInput
+            });
+            navigate(`/podziekowania?${params.toString()}`);
+            return;
+          }
+
+          if (statusData.status === 'declined' || statusData.status === 'error') {
+            throw new Error('Płatność została odrzucona');
+          }
+
+          // If still pending and haven't exceeded max attempts, poll again
+          if (attempts < maxAttempts) {
+            setTimeout(pollStatus, 2000); // Check every 2 seconds
+          } else {
+            throw new Error('Upłynął limit czasu oczekiwania na potwierdzenie płatności');
+          }
+        } catch (err) {
+          console.error('❌ Poll error:', err);
+          setIsWaitingForConfirmation(false);
+          setError(err instanceof Error ? err.message : 'Błąd sprawdzania statusu płatności');
+        }
+      };
+
+      // Start polling
+      setTimeout(pollStatus, 2000); // Wait 2s before first check
+
     } catch (err) {
       console.error('❌ Payment error:', err);
-      setError(err instanceof Error ? err.message : 'Płatność nie powiodła się. Sprawdź kod BLIK i spróbuj ponownie.');
-    } finally {
       setIsProcessing(false);
+      setError(err instanceof Error ? err.message : 'Płatność nie powiodła się. Sprawdź kod BLIK i spróbuj ponownie.');
     }
   };
   const handleOtherPaymentMethods = () => {
@@ -312,38 +361,59 @@ const PaymentTest = () => {
                       <h4 className="font-bold text-navy-900 text-sm sm:text-base">Płatność BLIK</h4>
                     </div>
 
-                    <div className="bg-white rounded-lg p-3 sm:p-4 mb-4">
-                      <ol className="text-xs sm:text-sm text-gray-700 space-y-1">
-                        <li>1️⃣ Otwórz aplikację bankową</li>
-                        <li>2️⃣ Wygeneruj kod BLIK</li>
-                        <li>3️⃣ Wpisz poniżej (ważny 2 min)</li>
-                      </ol>
-                    </div>
+                    {!isWaitingForConfirmation ? (
+                      <>
+                        <div className="bg-white rounded-lg p-3 sm:p-4 mb-4">
+                          <ol className="text-xs sm:text-sm text-gray-700 space-y-1">
+                            <li>1️⃣ Otwórz aplikację bankową</li>
+                            <li>2️⃣ Wygeneruj kod BLIK</li>
+                            <li>3️⃣ Wpisz poniżej (ważny 2 min)</li>
+                          </ol>
+                        </div>
 
-                    <form onSubmit={handleBlikPayment} className="space-y-4">
-                      <div>
-                        <Input type="text" maxLength={6} placeholder="000 000" value={blikCode} onChange={e => setBlikCode(e.target.value.replace(/\D/g, ''))} className="text-center text-2xl sm:text-3xl tracking-[0.3em] font-bold border-2 border-blue-400 focus:border-blue-600 rounded-xl" disabled={isProcessing} autoFocus />
+                        <form onSubmit={handleBlikPayment} className="space-y-4">
+                          <div>
+                            <Input type="text" maxLength={6} placeholder="000 000" value={blikCode} onChange={e => setBlikCode(e.target.value.replace(/\D/g, ''))} className="text-center text-2xl sm:text-3xl tracking-[0.3em] font-bold border-2 border-blue-400 focus:border-blue-600 rounded-xl" disabled={isProcessing} autoFocus />
+                          </div>
+
+                          {error && <div className="bg-red-50 border-2 border-red-400 text-red-700 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold">
+                              ⚠️ {error}
+                            </div>}
+
+                          <Button type="submit" className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-4 text-sm sm:text-base rounded-xl" disabled={isProcessing || blikCode.length !== 6}>
+                            {isProcessing ? <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Wysyłanie...
+                              </> : '✅ Zapłać 9,90 zł'}
+                          </Button>
+
+                          <Button type="button" variant="ghost" onClick={() => {
+                      setStep('payment-choice');
+                      setBlikCode('');
+                      setError('');
+                    }} disabled={isProcessing} className="w-full text-xs sm:text-sm">
+                            ← Zmień metodę płatności
+                          </Button>
+                        </form>
+                      </>
+                    ) : (
+                      <div className="space-y-4 animate-in fade-in slide-in-from-top-4 duration-500">
+                        <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-300 rounded-xl p-6 text-center">
+                          <Loader2 className="mx-auto h-12 w-12 text-green-600 animate-spin mb-4" />
+                          <h4 className="text-lg font-bold text-green-900 mb-2">
+                            📱 Potwierdź płatność w aplikacji bankowej
+                          </h4>
+                          <p className="text-sm text-green-800">
+                            Otwórz aplikację swojego banku i zaakceptuj płatność BLIK.
+                            Czekamy na potwierdzenie...
+                          </p>
+                        </div>
+
+                        {error && <div className="bg-red-50 border-2 border-red-400 text-red-700 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold">
+                            ⚠️ {error}
+                          </div>}
                       </div>
-
-                      {error && <div className="bg-red-50 border-2 border-red-400 text-red-700 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold">
-                          ⚠️ {error}
-                        </div>}
-
-                      <Button type="submit" className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-4 text-sm sm:text-base rounded-xl" disabled={isProcessing || blikCode.length !== 6}>
-                        {isProcessing ? <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Autoryzacja...
-                          </> : '✅ Zapłać 9,90 zł'}
-                      </Button>
-
-                      <Button type="button" variant="ghost" onClick={() => {
-                  setStep('payment-choice');
-                  setBlikCode('');
-                  setError('');
-                }} disabled={isProcessing} className="w-full text-xs sm:text-sm">
-                        ← Zmień metodę płatności
-                      </Button>
-                    </form>
+                    )}
                   </div>}
 
                 {/* Other Payment Methods */}
