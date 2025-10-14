@@ -261,19 +261,19 @@ const PaymentTest = () => {
             {/* Button z logo TPay */}
             <Button 
               type="submit" 
-              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-6 text-lg sm:text-xl rounded-xl shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:scale-[1.02]" 
+              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-5 sm:py-6 text-base sm:text-lg rounded-xl shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:scale-[1.02]" 
               size="lg"
               disabled={isProcessing || blikCode.length !== 6 || !firstName.trim() || !lastName.trim()}
             >
               {isProcessing ? (
-                <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  Przetwarzanie płatności...
-                </>
+                <div className="flex items-center justify-center">
+                  <Loader2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
+                  <span className="text-sm sm:text-base">Przetwarzanie...</span>
+                </div>
               ) : (
-                <div className="flex items-center justify-center gap-3">
-                  <span>Zapłać 9,90 zł przez BLIK</span>
-                  <div className="bg-white/20 px-2 py-1 rounded text-xs">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-3">
+                  <span className="text-base sm:text-lg">Zapłać 9,90 zł przez BLIK</span>
+                  <div className="bg-white/20 px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-xs">
                     Bezpieczne • TPay
                   </div>
                 </div>
