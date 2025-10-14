@@ -1,1 +1,4 @@
 project_id = "kpbqmkgpvwmctjnwoqmh"
+
+[functions.process-blik-payment]
+verify_jwt = false

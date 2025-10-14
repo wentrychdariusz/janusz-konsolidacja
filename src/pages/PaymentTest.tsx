@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useSupabaseTracking } from '@/hooks/useSupabaseTracking';
+import { supabase } from '@/integrations/supabase/client';
 import { Loader2 } from 'lucide-react';
 
 const PaymentTest = () => {
@@ -42,24 +43,50 @@ const PaymentTest = () => {
     setIsProcessing(true);
 
     try {
-      // TODO: Tutaj będzie integracja z TPay API
-      console.log('Payment data:', {
-        firstName,
-        lastName,
-        email,
-        phone,
-        blikCode,
-        amount: 9.90
+      console.log('🚀 Starting payment process...');
+      
+      // Call TPay payment edge function
+      const { data, error: functionError } = await supabase.functions.invoke('process-blik-payment', {
+        body: {
+          firstName,
+          lastName,
+          email,
+          phone,
+          blikCode,
+          amount: 9.90
+        }
       });
 
-      // Symulacja płatności
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      if (functionError) {
+        console.error('❌ Payment function error:', functionError);
+        throw new Error(functionError.message || 'Błąd połączenia z systemem płatności');
+      }
 
+      if (data.error) {
+        console.error('❌ Payment error:', data.error);
+        throw new Error(data.details || data.error);
+      }
+
+      console.log('✅ Payment successful:', data);
+      
       // Po udanej płatności przekierowanie
-      navigate('/podziekowania?payment=success');
+      const params = new URLSearchParams({
+        payment: 'success',
+        transactionId: data.transactionId || '',
+        name,
+        email,
+        phone
+      });
+      
+      navigate(`/podziekowania?${params.toString()}`);
+      
     } catch (err) {
-      console.error('Payment error:', err);
-      setError('Wystąpił błąd podczas płatności. Spróbuj ponownie.');
+      console.error('❌ Payment error:', err);
+      setError(
+        err instanceof Error 
+          ? err.message 
+          : 'Wystąpił błąd podczas płatności. Spróbuj ponownie.'
+      );
     } finally {
       setIsProcessing(false);
     }
