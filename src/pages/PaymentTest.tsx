@@ -154,13 +154,13 @@ const PaymentTest = () => {
             </div>
           </div>
 
-          {/* CTA Message */}
-          <div className="text-center mb-6 bg-navy-900 text-white p-4 rounded-xl">
+          {/* Zwrot pieniędzy */}
+          <div className="text-center mb-6 bg-gradient-to-r from-green-600 to-emerald-600 text-white p-4 rounded-xl shadow-lg">
             <p className="text-sm sm:text-base font-bold">
-              #STOPCHAM w konsolidacji długów
+              💰 W przypadku rozpoczęcia współpracy zwracamy Ci wpłaconą kwotę 9,90 zł
             </p>
-            <p className="text-xs sm:text-sm mt-1">
-              Skupiamy się na osobach, które chcą działać — nie tylko kliknąć
+            <p className="text-xs sm:text-sm mt-1 opacity-90">
+              To tylko symboliczny sygnał Twojego poważnego podejścia do sprawy
             </p>
           </div>
 
