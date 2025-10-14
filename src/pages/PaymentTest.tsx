@@ -36,8 +36,8 @@ const PaymentTest = () => {
       setError('Podaj imię i nazwisko');
       return;
     }
-    if (!phoneInput.trim() || phoneInput.trim().length < 3) {
-      setError('Podaj poprawny numer telefonu (min. 3 cyfry)');
+    if (!phoneInput.trim() || phoneInput.trim().length < 9) {
+      setError('Podaj pełny numer telefonu (9 cyfr)');
       return;
     }
     setIsProcessing(true);
@@ -251,10 +251,9 @@ const PaymentTest = () => {
               </div>
               <div>
                 <label htmlFor="phone" className="block text-sm font-semibold text-navy-900 mb-2">
-                  Telefon
+                  Telefon <span className="text-red-600">*</span>
                 </label>
-                <Input id="phone" type="tel" placeholder="600 000 000" value={phoneInput} onChange={e => setPhoneInput(e.target.value.replace(/[^0-9+]/g, ''))} className="border-2 border-gray-300 focus:border-business-blue-600 rounded-lg" disabled={isProcessing || step !== 'form'} required />
-                <p className="mt-1 text-xs text-gray-500">Wymagane do płatności — min. 3 cyfry</p>
+                <Input id="phone" type="tel" placeholder="600 000 000" value={phoneInput} onChange={e => setPhoneInput(e.target.value.replace(/[^0-9]/g, ''))} maxLength={9} className="border-2 border-gray-300 focus:border-business-blue-600 rounded-lg" disabled={isProcessing || step !== 'form'} required />
               </div>
 
               {step === 'form' && <>
@@ -265,7 +264,7 @@ const PaymentTest = () => {
                   {/* Premium Payment Button - wyróżniony */}
                   <div className="relative mt-8">
                     <div className="absolute -inset-2 bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 rounded-3xl blur-xl opacity-75 animate-pulse"></div>
-                    <Button type="submit" className="relative w-full bg-gradient-to-r from-red-600 via-orange-600 to-red-600 hover:from-red-700 hover:via-orange-700 hover:to-red-700 text-white font-black py-7 sm:py-9 text-lg sm:text-2xl rounded-2xl shadow-2xl border-4 border-red-800 transform hover:scale-[1.02] transition-all duration-300" size="lg" disabled={isProcessing || !firstName.trim() || !lastName.trim() || phoneInput.trim().length < 3}>
+                    <Button type="submit" className="relative w-full bg-gradient-to-r from-red-600 via-orange-600 to-red-600 hover:from-red-700 hover:via-orange-700 hover:to-red-700 text-white font-black py-7 sm:py-9 text-lg sm:text-2xl rounded-2xl shadow-2xl border-4 border-red-800 transform hover:scale-[1.02] transition-all duration-300" size="lg" disabled={isProcessing || !firstName.trim() || !lastName.trim() || phoneInput.trim().length !== 9}>
                       {isProcessing ? <div className="flex items-center justify-center w-full">
                           <Loader2 className="mr-2 h-6 w-6 sm:h-7 sm:w-7 animate-spin" />
                           <span className="text-base sm:text-xl">Przygotowywanie...</span>
