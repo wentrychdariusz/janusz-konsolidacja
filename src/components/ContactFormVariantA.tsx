@@ -291,7 +291,7 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
               className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 px-6 text-base rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               <Rocket className="w-5 h-5" />
-              {isSubmitting ? "Wysyłanie..." : "Otrzymaj pomoc teraz"}
+              {isSubmitting ? "Wysyłanie..." : "Zapisz się na konsultację"}
             </button>
 
             <p className="text-xs text-gray-500 text-center mt-4">
