@@ -116,18 +116,19 @@ const PaymentTest = () => {
       let attempts = 0;
       const maxAttempts = 30; // 30 attempts * 2s = 60s timeout
       let pollingActive = true;
-      
       const pollStatus = async () => {
         if (!pollingActive) return;
-        
         attempts++;
         console.log(`🔄 Checking payment status (attempt ${attempts}/${maxAttempts})...`);
-
         try {
-          const { data: statusData, error: statusError } = await supabase.functions.invoke('check-payment-status', {
-            body: { transactionId }
+          const {
+            data: statusData,
+            error: statusError
+          } = await supabase.functions.invoke('check-payment-status', {
+            body: {
+              transactionId
+            }
           });
-
           if (statusError) {
             console.error('❌ Status check error:', statusError);
             pollingActive = false;
@@ -136,7 +137,6 @@ const PaymentTest = () => {
             setError('Nie można sprawdzić statusu płatności. Spróbuj ponownie.');
             return;
           }
-
           console.log('📊 Payment status:', statusData);
 
           // Check if payment is completed (correct) or failed
@@ -155,8 +155,7 @@ const PaymentTest = () => {
           }
 
           // Handle declined/error status - stop polling immediately
-          if (statusData.status === 'declined' || statusData.status === 'error' || 
-              statusData.status === 'cancelled' || statusData.paymentStatus === 'declined') {
+          if (statusData.status === 'declined' || statusData.status === 'error' || statusData.status === 'cancelled' || statusData.paymentStatus === 'declined') {
             console.log('❌ Payment declined/error');
             pollingActive = false;
             setIsWaitingForConfirmation(false);
@@ -188,7 +187,6 @@ const PaymentTest = () => {
 
       // Start polling
       setTimeout(pollStatus, 2000); // Wait 2s before first check
-
     } catch (err) {
       console.error('❌ Payment error:', err);
       setIsProcessing(false);
@@ -313,9 +311,7 @@ const PaymentTest = () => {
           {/* Nagłówek sekcji płatności */}
           <div className="text-center mb-6 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl p-5 sm:p-6 shadow-lg">
             <h2 className="text-2xl sm:text-3xl font-black mb-2">💳 PŁATNOŚĆ</h2>
-            <p className="text-sm sm:text-base font-semibold opacity-95">
-              ⚡ Zajmie Ci to tylko 10 sekund
-            </p>
+            <p className="text-sm sm:text-base font-semibold opacity-95">⚡ Zajmie Ci to tylko 20 sekund</p>
             <p className="text-xs sm:text-sm font-medium opacity-90 mt-2">
               ✅ Wypełnij dane poniżej, aby trafić na listę klientów Premium
             </p>
@@ -406,8 +402,7 @@ const PaymentTest = () => {
                       <h4 className="font-bold text-navy-900 text-sm sm:text-base">Płatność BLIK</h4>
                     </div>
 
-                    {!isWaitingForConfirmation ? (
-                      <>
+                    {!isWaitingForConfirmation ? <>
                         <div className="bg-white rounded-lg p-3 sm:p-4 mb-4">
                           <ol className="text-xs sm:text-sm text-gray-700 space-y-1">
                             <li>1️⃣ Otwórz aplikację bankową</li>
@@ -433,16 +428,14 @@ const PaymentTest = () => {
                           </Button>
 
                           <Button type="button" variant="ghost" onClick={() => {
-                      setStep('payment-choice');
-                      setBlikCode('');
-                      setError('');
-                    }} disabled={isProcessing} className="w-full text-xs sm:text-sm">
+                    setStep('payment-choice');
+                    setBlikCode('');
+                    setError('');
+                  }} disabled={isProcessing} className="w-full text-xs sm:text-sm">
                             ← Zmień metodę płatności
                           </Button>
                         </form>
-                      </>
-                    ) : (
-                      <div className="space-y-4 animate-in fade-in slide-in-from-top-4 duration-500">
+                      </> : <div className="space-y-4 animate-in fade-in slide-in-from-top-4 duration-500">
                         <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-300 rounded-xl p-6 text-center">
                           <Loader2 className="mx-auto h-12 w-12 text-green-600 animate-spin mb-4" />
                           <h4 className="text-lg font-bold text-green-900 mb-2">
@@ -452,17 +445,12 @@ const PaymentTest = () => {
                             Otwórz aplikację swojego banku i zaakceptuj płatność BLIK.
                             Czekamy na potwierdzenie...
                           </p>
-                          <Button
-                            type="button"
-                            variant="outline"
-                            onClick={() => {
-                              setIsWaitingForConfirmation(false);
-                              setIsProcessing(false);
-                              setBlikCode('');
-                              setError('');
-                            }}
-                            className="text-sm"
-                          >
+                          <Button type="button" variant="outline" onClick={() => {
+                    setIsWaitingForConfirmation(false);
+                    setIsProcessing(false);
+                    setBlikCode('');
+                    setError('');
+                  }} className="text-sm">
                             Anuluj i spróbuj ponownie
                           </Button>
                         </div>
@@ -470,8 +458,7 @@ const PaymentTest = () => {
                         {error && <div className="bg-red-50 border-2 border-red-400 text-red-700 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold">
                             ⚠️ {error}
                           </div>}
-                      </div>
-                    )}
+                      </div>}
                   </div>}
 
                 {/* Other Payment Methods */}
@@ -529,13 +516,13 @@ const PaymentTest = () => {
                   </span>
                   <span className="flex items-center gap-1 bg-white px-2 py-1 rounded">
                     <svg className="w-3 h-3 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                     </svg>
                     Google Pay
                   </span>
                   <span className="flex items-center gap-1 bg-white px-2 py-1 rounded">
                     <svg className="w-3 h-3 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                      <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
                     </svg>
                     Apple Pay
                   </span>
