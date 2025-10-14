@@ -28,6 +28,7 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminLogout from "./pages/AdminLogout";
 import NotFound from "./pages/NotFound";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
+import PaymentTest from "./pages/PaymentTest";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,7 @@ const App = () => (
           <Route path="/kontakt-a" element={<ContactFormA />} />
           <Route path="/kontakt-b" element={<ContactFormB />} />
           <Route path="/podziekowania" element={<Podziekowania />} />
+          <Route path="/payment-test" element={<PaymentTest />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/panel" element={
             <ProtectedAdminRoute>
