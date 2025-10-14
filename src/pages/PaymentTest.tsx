@@ -261,10 +261,10 @@ const PaymentTest = () => {
               
               {/* Wiersz 1 */}
               <div className="p-3 border-b border-r border-gray-200 bg-white">
-                <p className="text-xs sm:text-sm text-gray-600">⏳ Oczekiwanie w kolejce</p>
+                <p className="text-xs sm:text-sm text-gray-600">⏳ Czekasz aż zwolni się czas</p>
               </div>
               <div className="p-3 border-b border-gray-200 bg-green-50">
-                <p className="text-xs sm:text-sm text-green-700 font-semibold">✅ Priorytet #1</p>
+                <p className="text-xs sm:text-sm text-green-700 font-semibold">✅ Pomiń kolejkę - Priorytet #1</p>
               </div>
               
               {/* Wiersz 2 */}
