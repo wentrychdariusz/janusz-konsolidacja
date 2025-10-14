@@ -276,7 +276,7 @@ const PaymentTest = () => {
               💼 Wpłać teraz 9,90 zł za analizę Twoich dokumentów
             </p>
             <p className="text-sm sm:text-base text-blue-800 font-semibold mt-2">
-              Nasz doradca wie, że zależy Ci na pomocy
+              Nasz doradca wtedy wie, że zależy Ci na pomocy
             </p>
           </div>
 
@@ -505,12 +505,6 @@ const PaymentTest = () => {
             </div>
           </div>
 
-          {/* Opcja powrotu */}
-          <div className="text-center mt-6">
-            <Button variant="ghost" onClick={() => navigate(-1)} disabled={isProcessing} className="text-warm-neutral-600 hover:text-navy-900">
-              ← Powrót
-            </Button>
-          </div>
         </div>
       </div>
     </div>;
