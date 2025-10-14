@@ -12,6 +12,9 @@ const PaymentTest = () => {
   const navigate = useNavigate();
   const { trackPageView } = useSupabaseTracking();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showBlikInput, setShowBlikInput] = useState(false);
+  const [transactionId, setTransactionId] = useState('');
+  const [paymentUrl, setPaymentUrl] = useState('');
   const [blikCode, setBlikCode] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -26,7 +29,7 @@ const PaymentTest = () => {
     trackPageView('payment_test', undefined, 'main_site');
   }, [trackPageView]);
 
-  const handleBlikPayment = async (e: React.FormEvent) => {
+  const handleInitiatePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
@@ -34,6 +37,54 @@ const PaymentTest = () => {
       setError('Podaj imię i nazwisko');
       return;
     }
+
+    setIsProcessing(true);
+
+    try {
+      console.log('🚀 Creating transaction...');
+      
+      // Create transaction in TPay
+      const { data, error: functionError } = await supabase.functions.invoke('create-tpay-transaction', {
+        body: {
+          firstName,
+          lastName,
+          email,
+          phone,
+          amount: 9.90
+        }
+      });
+
+      if (functionError) {
+        console.error('❌ Transaction creation error:', functionError);
+        throw new Error(functionError.message || 'Błąd tworzenia transakcji');
+      }
+
+      if (data.error) {
+        console.error('❌ Transaction error:', data.error);
+        throw new Error(data.details || data.error);
+      }
+
+      console.log('✅ Transaction created:', data);
+      
+      setTransactionId(data.transactionId);
+      setPaymentUrl(data.paymentUrl);
+      setShowBlikInput(true); // Show BLIK input after transaction is created
+      
+    } catch (err) {
+      console.error('❌ Error:', err);
+      setError(
+        err instanceof Error 
+          ? err.message 
+          : 'Wystąpił błąd. Spróbuj ponownie.'
+      );
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleBlikPayment = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
 
     if (blikCode.length !== 6) {
       setError('Kod BLIK musi mieć 6 cyfr');
@@ -43,23 +94,19 @@ const PaymentTest = () => {
     setIsProcessing(true);
 
     try {
-      console.log('🚀 Starting payment process...');
+      console.log('💳 Processing BLIK payment...');
       
-      // Call TPay payment edge function
-      const { data, error: functionError } = await supabase.functions.invoke('process-blik-payment', {
+      // Process BLIK payment with code
+      const { data, error: functionError } = await supabase.functions.invoke('confirm-blik-payment', {
         body: {
-          firstName,
-          lastName,
-          email,
-          phone,
-          blikCode,
-          amount: 9.90
+          transactionId,
+          blikCode
         }
       });
 
       if (functionError) {
-        console.error('❌ Payment function error:', functionError);
-        throw new Error(functionError.message || 'Błąd połączenia z systemem płatności');
+        console.error('❌ BLIK payment error:', functionError);
+        throw new Error(functionError.message || 'Błąd płatności BLIK');
       }
 
       if (data.error) {
@@ -69,10 +116,10 @@ const PaymentTest = () => {
 
       console.log('✅ Payment successful:', data);
       
-      // Po udanej płatności przekierowanie
+      // Redirect to success page
       const params = new URLSearchParams({
         payment: 'success',
-        transactionId: data.transactionId || '',
+        transactionId: data.transactionId || transactionId,
         name,
         email,
         phone
@@ -85,10 +132,17 @@ const PaymentTest = () => {
       setError(
         err instanceof Error 
           ? err.message 
-          : 'Wystąpił błąd podczas płatności. Spróbuj ponownie.'
+          : 'Płatność nie powiodła się. Sprawdź kod BLIK i spróbuj ponownie.'
       );
     } finally {
       setIsProcessing(false);
+    }
+  };
+
+  const handleOtherPaymentMethods = () => {
+    // Redirect to TPay payment page for other methods (cards, transfers, etc.)
+    if (paymentUrl) {
+      window.location.href = paymentUrl;
     }
   };
 
@@ -192,136 +246,177 @@ const PaymentTest = () => {
           </div>
 
           {/* Formularz płatności */}
-          <form onSubmit={handleBlikPayment} className="space-y-5">
-            {/* Imię i nazwisko */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="firstName" className="block text-sm font-semibold text-navy-900 mb-2">
-                  Imię
-                </label>
-                <Input
-                  id="firstName"
-                  type="text"
-                  placeholder="Jan"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className="border-2 border-gray-300 focus:border-business-blue-600 rounded-lg"
-                  disabled={isProcessing}
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="lastName" className="block text-sm font-semibold text-navy-900 mb-2">
-                  Nazwisko
-                </label>
-                <Input
-                  id="lastName"
-                  type="text"
-                  placeholder="Kowalski"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="border-2 border-gray-300 focus:border-business-blue-600 rounded-lg"
-                  disabled={isProcessing}
-                  required
-                />
-              </div>
-            </div>
-
-            {/* Sekcja płatności BLIK z logo */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-4 sm:p-6">
-              {/* Logo BLIK i info */}
-              <div className="flex flex-col sm:flex-row items-center justify-center mb-4 gap-3">
-                <div className="bg-white px-4 py-2 rounded-lg shadow-sm">
-                  <img 
-                    src="/logos/blik-logo.png" 
-                    alt="BLIK" 
-                    className="h-8 sm:h-12 w-auto object-contain"
-                    onError={(e) => {
-                      console.error('BLIK logo failed to load');
-                      e.currentTarget.style.display = 'none';
-                    }}
+          {!showBlikInput ? (
+            // KROK 1: Podaj dane i wybierz płatność
+            <form onSubmit={handleInitiatePayment} className="space-y-5">
+              {/* Imię i nazwisko */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="firstName" className="block text-sm font-semibold text-navy-900 mb-2">
+                    Imię
+                  </label>
+                  <Input
+                    id="firstName"
+                    type="text"
+                    placeholder="Jan"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="border-2 border-gray-300 focus:border-business-blue-600 rounded-lg"
+                    disabled={isProcessing}
+                    required
                   />
                 </div>
-                <span className="text-xs sm:text-sm text-gray-600 font-medium text-center">
-                  🔒 Szybka i bezpieczna płatność mobilna
-                </span>
-              </div>
-
-              <label htmlFor="blik" className="block text-sm sm:text-lg font-bold text-navy-900 mb-3 text-center">
-                Wpisz kod BLIK z aplikacji bankowej
-              </label>
-              <Input
-                id="blik"
-                type="text"
-                maxLength={6}
-                placeholder="000 000"
-                value={blikCode}
-                onChange={(e) => setBlikCode(e.target.value.replace(/\D/g, ''))}
-                className="text-center text-2xl sm:text-4xl tracking-[0.3em] sm:tracking-[0.5em] font-bold border-3 border-blue-400 focus:border-blue-600 rounded-xl bg-white shadow-sm"
-                disabled={isProcessing}
-              />
-              
-              {/* Obsługujemy wszystkie banki */}
-              <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-blue-200">
-                <p className="text-[10px] sm:text-xs text-center text-gray-600 mb-2 font-medium">
-                  🏦 Obsługujemy wszystkie polskie banki
-                </p>
-                <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 text-[9px] sm:text-[10px] text-gray-500">
-                  <span>PKO BP</span>
-                  <span>•</span>
-                  <span>mBank</span>
-                  <span>•</span>
-                  <span>ING</span>
-                  <span>•</span>
-                  <span>Millennium</span>
-                  <span>•</span>
-                  <span>Santander</span>
-                  <span>•</span>
-                  <span>Pekao</span>
+                <div>
+                  <label htmlFor="lastName" className="block text-sm font-semibold text-navy-900 mb-2">
+                    Nazwisko
+                  </label>
+                  <Input
+                    id="lastName"
+                    type="text"
+                    placeholder="Kowalski"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="border-2 border-gray-300 focus:border-business-blue-600 rounded-lg"
+                    disabled={isProcessing}
+                    required
+                  />
                 </div>
               </div>
-            </div>
 
-            {error && (
-              <div className="bg-red-50 border-2 border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm font-semibold">
-                ⚠️ {error}
-              </div>
-            )}
+              {error && (
+                <div className="bg-red-50 border-2 border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm font-semibold">
+                  ⚠️ {error}
+                </div>
+              )}
 
-            {/* Premium Payment Button */}
-            <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-prestige-gold-400 via-yellow-400 to-prestige-gold-400 rounded-2xl blur opacity-75 animate-pulse"></div>
-              <Button 
-                type="submit" 
-                className="relative w-full bg-gradient-to-r from-prestige-gold-600 via-yellow-500 to-prestige-gold-600 hover:from-prestige-gold-700 hover:via-yellow-600 hover:to-prestige-gold-700 text-navy-900 font-black py-6 sm:py-8 text-base sm:text-xl rounded-xl shadow-2xl border-2 border-prestige-gold-700" 
-                size="lg"
-                disabled={isProcessing || blikCode.length !== 6 || !firstName.trim() || !lastName.trim()}
-              >
-                {isProcessing ? (
-                  <div className="flex items-center justify-center w-full">
-                    <Loader2 className="mr-2 h-5 w-5 sm:h-6 sm:w-6 animate-spin" />
-                    <span className="text-base sm:text-lg">Przetwarzanie płatności...</span>
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center justify-center gap-1 w-full">
-                    <span className="text-lg sm:text-2xl font-black">⚡ ZAPŁAĆ 9,90 ZŁ</span>
-                    <span className="text-xs sm:text-sm font-bold opacity-90">za Priorytetową Obsługę VIP</span>
-                    <div className="mt-1 bg-navy-900/20 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold">
-                      Bezpieczne przez TPay
+              {/* Premium Payment Button */}
+              <div className="relative">
+                <div className="absolute -inset-1 bg-gradient-to-r from-prestige-gold-400 via-yellow-400 to-prestige-gold-400 rounded-2xl blur opacity-75 animate-pulse"></div>
+                <Button 
+                  type="submit" 
+                  className="relative w-full bg-gradient-to-r from-prestige-gold-600 via-yellow-500 to-prestige-gold-600 hover:from-prestige-gold-700 hover:via-yellow-600 hover:to-prestige-gold-700 text-navy-900 font-black py-6 sm:py-8 text-base sm:text-xl rounded-xl shadow-2xl border-2 border-prestige-gold-700" 
+                  size="lg"
+                  disabled={isProcessing || !firstName.trim() || !lastName.trim()}
+                >
+                  {isProcessing ? (
+                    <div className="flex items-center justify-center w-full">
+                      <Loader2 className="mr-2 h-5 w-5 sm:h-6 sm:w-6 animate-spin" />
+                      <span className="text-base sm:text-lg">Tworzenie płatności...</span>
                     </div>
-                  </div>
-                )}
-              </Button>
-            </div>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center gap-1 w-full">
+                      <span className="text-lg sm:text-2xl font-black">💳 PRZEJDŹ DO PŁATNOŚCI</span>
+                      <span className="text-xs sm:text-sm font-bold opacity-90">9,90 zł za Priorytetową Obsługę VIP</span>
+                    </div>
+                  )}
+                </Button>
+              </div>
 
-            {/* Dodatkowe info bezpieczeństwa */}
-            <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-              </svg>
-              <span>Płatność zabezpieczona przez TPay</span>
+              {/* Dodatkowe info bezpieczeństwa */}
+              <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                </svg>
+                <span>Płatność zabezpieczona przez TPay</span>
+              </div>
+            </form>
+          ) : (
+            // KROK 2: Wybierz metodę płatności
+            <div className="space-y-5">
+              {/* BLIK Payment Option */}
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-4 sm:p-6">
+                <div className="flex flex-col items-center justify-center mb-4 gap-3">
+                  <div className="bg-white px-4 py-2 rounded-lg shadow-sm">
+                    <img 
+                      src="/logos/blik-logo.png" 
+                      alt="BLIK" 
+                      className="h-8 sm:h-12 w-auto object-contain"
+                    />
+                  </div>
+                  <h3 className="text-base sm:text-lg font-bold text-navy-900">Płatność BLIK</h3>
+                  <p className="text-xs sm:text-sm text-gray-600 text-center">
+                    1. Wejdź do aplikacji bankowej<br/>
+                    2. Wygeneruj kod BLIK<br/>
+                    3. Wpisz go poniżej (ważny 2 minuty)
+                  </p>
+                </div>
+
+                <form onSubmit={handleBlikPayment} className="space-y-4">
+                  <div>
+                    <label htmlFor="blik" className="block text-sm sm:text-base font-bold text-navy-900 mb-3 text-center">
+                      Wpisz 6-cyfrowy kod BLIK
+                    </label>
+                    <Input
+                      id="blik"
+                      type="text"
+                      maxLength={6}
+                      placeholder="000 000"
+                      value={blikCode}
+                      onChange={(e) => setBlikCode(e.target.value.replace(/\D/g, ''))}
+                      className="text-center text-2xl sm:text-4xl tracking-[0.3em] sm:tracking-[0.5em] font-bold border-3 border-blue-400 focus:border-blue-600 rounded-xl bg-white shadow-sm"
+                      disabled={isProcessing}
+                      autoFocus
+                    />
+                  </div>
+
+                  {error && (
+                    <div className="bg-red-50 border-2 border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm font-semibold">
+                      ⚠️ {error}
+                    </div>
+                  )}
+
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-4 text-base sm:text-lg rounded-xl" 
+                    disabled={isProcessing || blikCode.length !== 6}
+                  >
+                    {isProcessing ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Autoryzacja płatności...
+                      </>
+                    ) : (
+                      '✅ Potwierdź płatność BLIK'
+                    )}
+                  </Button>
+                </form>
+              </div>
+
+              {/* Other Payment Methods */}
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-300"></div>
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-2 bg-white text-gray-500">lub</span>
+                </div>
+              </div>
+
+              <Button
+                onClick={handleOtherPaymentMethods}
+                variant="outline"
+                className="w-full py-6 text-base font-semibold border-2"
+                disabled={isProcessing}
+              >
+                💳 Karta płatnicza / Przelew bankowy
+              </Button>
+
+              <div className="text-center">
+                <Button
+                  variant="ghost"
+                  onClick={() => {
+                    setShowBlikInput(false);
+                    setBlikCode('');
+                    setError('');
+                  }}
+                  disabled={isProcessing}
+                  className="text-sm"
+                >
+                  ← Wróć
+                </Button>
+              </div>
             </div>
-          </form>
+          )}
 
           {/* Opcja powrotu */}
           <div className="text-center mt-6">

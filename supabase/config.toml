@@ -1,4 +1,10 @@
 project_id = "kpbqmkgpvwmctjnwoqmh"
 
+[functions.create-tpay-transaction]
+verify_jwt = false
+
+[functions.confirm-blik-payment]
+verify_jwt = false
+
 [functions.process-blik-payment]
 verify_jwt = false
