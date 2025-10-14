@@ -304,20 +304,20 @@ const PaymentTest = () => {
                   <label htmlFor="firstName" className="block text-sm font-semibold text-navy-900 mb-2">
                     Imię
                   </label>
-                  <Input id="firstName" type="text" placeholder="Jan" value={firstName} onChange={e => setFirstName(e.target.value)} className="border-2 border-gray-300 focus:border-business-blue-600 rounded-lg" disabled={isProcessing || step !== 'form'} required />
+                  <Input id="firstName" type="text" placeholder="Jan" value={firstName} onChange={e => setFirstName(e.target.value)} className="h-14 border-2 border-gray-300 focus:border-business-blue-600 rounded-lg text-base" disabled={isProcessing || step !== 'form'} required />
                 </div>
                 <div>
                   <label htmlFor="lastName" className="block text-sm font-semibold text-navy-900 mb-2">
                     Nazwisko
                   </label>
-                  <Input id="lastName" type="text" placeholder="Kowalski" value={lastName} onChange={e => setLastName(e.target.value)} className="border-2 border-gray-300 focus:border-business-blue-600 rounded-lg" disabled={isProcessing || step !== 'form'} required />
+                  <Input id="lastName" type="text" placeholder="Kowalski" value={lastName} onChange={e => setLastName(e.target.value)} className="h-14 border-2 border-gray-300 focus:border-business-blue-600 rounded-lg text-base" disabled={isProcessing || step !== 'form'} required />
                 </div>
               </div>
               <div>
                 <label htmlFor="phone" className="block text-sm font-semibold text-navy-900 mb-2">
                   Telefon <span className="text-red-600">*</span>
                 </label>
-                <Input id="phone" type="tel" placeholder="600 000 000" value={phoneInput} onChange={e => setPhoneInput(e.target.value.replace(/[^0-9]/g, ''))} maxLength={9} className="border-2 border-gray-300 focus:border-business-blue-600 rounded-lg" disabled={isProcessing || step !== 'form'} required />
+                <Input id="phone" type="tel" placeholder="600 000 000" value={phoneInput} onChange={e => setPhoneInput(e.target.value.replace(/[^0-9]/g, ''))} maxLength={9} className="h-14 border-2 border-gray-300 focus:border-business-blue-600 rounded-lg text-base" disabled={isProcessing || step !== 'form'} required />
               </div>
 
               {step === 'form' && <>
@@ -392,7 +392,7 @@ const PaymentTest = () => {
 
                         <form onSubmit={handleBlikPayment} className="space-y-4">
                           <div>
-                            <Input type="text" maxLength={6} placeholder="000 000" value={blikCode} onChange={e => setBlikCode(e.target.value.replace(/\D/g, ''))} className="text-center text-2xl sm:text-3xl tracking-[0.3em] font-bold border-2 border-blue-400 focus:border-blue-600 rounded-xl" disabled={isProcessing} autoFocus />
+                            <Input type="text" maxLength={6} placeholder="000 000" value={blikCode} onChange={e => setBlikCode(e.target.value.replace(/\D/g, ''))} className="h-16 text-center text-2xl sm:text-3xl tracking-[0.3em] font-bold border-2 border-blue-400 focus:border-blue-600 rounded-xl" disabled={isProcessing} autoFocus />
                           </div>
 
                           {error && <div className="bg-red-50 border-2 border-red-400 text-red-700 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold">
