@@ -223,11 +223,6 @@ const PaymentTest = () => {
             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-navy-900 mb-3">
               ✅ Dziękujemy za rejestrację!
             </h1>
-            <div className="bg-gradient-to-r from-prestige-gold-50 to-prestige-gold-100 border-2 border-prestige-gold-400 rounded-xl p-4 mt-4">
-              <p className="text-sm sm:text-base text-navy-900 font-bold text-center">
-                👑 Wypełnij dane do płatności poniżej, aby trafić na listę klientów Premium
-              </p>
-            </div>
           </div>
 
           {/* Problem i rozwiązanie */}
@@ -320,6 +315,9 @@ const PaymentTest = () => {
             <h2 className="text-2xl sm:text-3xl font-black mb-2">💳 PŁATNOŚĆ</h2>
             <p className="text-sm sm:text-base font-semibold opacity-95">
               ⚡ Zajmie Ci to tylko 10 sekund
+            </p>
+            <p className="text-xs sm:text-sm font-medium opacity-90 mt-2">
+              👑 Wypełnij dane poniżej, aby trafić na listę klientów Premium
             </p>
           </div>
 
