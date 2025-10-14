@@ -310,18 +310,22 @@ const PaymentTest = () => {
                       ⚠️ {error}
                     </div>}
 
-                  {/* Premium Payment Button - wyróżniony */}
+                  {/* Premium Payment Button - profesjonalny */}
                   <div className="relative mt-8">
-                    <div className="absolute -inset-2 bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 rounded-3xl blur-xl opacity-75 animate-pulse"></div>
-                    <Button type="submit" className="relative w-full bg-gradient-to-r from-red-600 via-orange-600 to-red-600 hover:from-red-700 hover:via-orange-700 hover:to-red-700 text-white font-black py-7 sm:py-9 text-lg sm:text-2xl rounded-2xl shadow-2xl border-4 border-red-800 transform hover:scale-[1.02] transition-all duration-300" size="lg" disabled={isProcessing || !firstName.trim() || !lastName.trim() || phoneInput.trim().length !== 9}>
+                    <Button type="submit" className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-7 sm:py-9 text-lg sm:text-2xl rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-all duration-300 hover:shadow-green-500/50" size="lg" disabled={isProcessing || !firstName.trim() || !lastName.trim() || phoneInput.trim().length !== 9}>
                       {isProcessing ? <div className="flex items-center justify-center w-full">
                           <Loader2 className="mr-2 h-6 w-6 sm:h-7 sm:w-7 animate-spin" />
                           <span className="text-base sm:text-xl">Przygotowywanie...</span>
-                        </div> : <div className="flex flex-col items-center justify-center gap-2 w-full">
-                          <span className="text-2xl sm:text-4xl font-black drop-shadow-lg">⚡ ZAPŁAĆ TERAZ</span>
-                          <span className="text-sm sm:text-base font-bold bg-white/20 px-4 py-1 rounded-full">
-                            9,90 zł • Priorytet VIP
-                          </span>
+                        </div> : <div className="flex items-center justify-center gap-3 w-full">
+                          <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <div className="flex flex-col items-start">
+                            <span className="text-xl sm:text-2xl font-bold">ZAPŁAĆ TERAZ 9,90 zł</span>
+                            <span className="text-xs sm:text-sm font-medium opacity-90">
+                              Bezpieczna płatność • Priorytet VIP
+                            </span>
+                          </div>
                         </div>}
                     </Button>
                   </div>
