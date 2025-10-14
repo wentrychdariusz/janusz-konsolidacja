@@ -273,7 +273,7 @@ const PaymentTest = () => {
           {/* Analiza dokumentów - wyróżniona sekcja */}
           <div className="text-center mb-6 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-400 rounded-xl p-5 sm:p-6 shadow-md">
             <p className="text-base sm:text-lg lg:text-xl font-bold text-navy-900 leading-tight">
-              💼 Wpłacaj 9,90 zł za analizę Twoich dokumentów
+              💼 Wpłać teraz 9,90 zł za analizę Twoich dokumentów
             </p>
             <p className="text-sm sm:text-base text-blue-800 font-semibold mt-2">
               Nasz doradca wie, że zależy Ci na pomocy
