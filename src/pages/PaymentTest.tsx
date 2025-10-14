@@ -329,7 +329,7 @@ const PaymentTest = () => {
 
                   {/* Premium Payment Button - profesjonalny */}
                   <div className="relative mt-8">
-                    <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 hover:from-blue-700 hover:via-blue-800 hover:to-indigo-900 text-white font-bold py-8 sm:py-11 text-lg sm:text-2xl rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-all duration-300 hover:shadow-blue-500/50" size="lg" disabled={isProcessing || !firstName.trim() || !lastName.trim() || phoneInput.trim().length !== 9}>
+                    <Button type="submit" className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-8 sm:py-11 text-lg sm:text-2xl rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-all duration-300 hover:shadow-green-500/50" size="lg" disabled={isProcessing || !firstName.trim() || !lastName.trim() || phoneInput.trim().length !== 9}>
                       {isProcessing ? <div className="flex items-center justify-center w-full">
                           <Loader2 className="mr-2 h-6 w-6 sm:h-7 sm:w-7 animate-spin" />
                           <span className="text-base sm:text-xl">Przygotowywanie...</span>
