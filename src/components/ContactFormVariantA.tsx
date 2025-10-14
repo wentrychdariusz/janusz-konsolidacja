@@ -204,71 +204,20 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
             </div>
           </div>
 
-          {/* List od Dariusza - graficznie */}
-          <div className="bg-white border-2 border-warm-neutral-200 rounded-xl p-6 mb-8 shadow-inner">
-            <div className="border-l-4 border-business-blue-600 pl-4 mb-6">
-              <h2 className="text-lg font-bold text-navy-900 mb-2">Drogi Kliencie,</h2>
-            </div>
-            
-            <div className="text-left space-y-4 text-warm-neutral-700 leading-relaxed">
-              <p className="font-semibold text-navy-800">
-                Zadłużenie działa jak nowotwór.
+          {/* Motywacja do szybkiego działania */}
+          <div className="bg-gradient-to-r from-orange-50 to-red-50 border-2 border-orange-300 rounded-xl p-6 mb-8 shadow-lg">
+            <div className="text-center space-y-3">
+              <div className="text-3xl mb-2">⏰</div>
+              <h2 className="text-xl font-bold text-navy-900">
+                Zostało tylko kilka miejsc!
+              </h2>
+              <p className="text-base text-warm-neutral-700 font-medium">
+                Wypełnij formularz <span className="font-bold text-orange-600">w ciągu 5 minut</span> i zabezpiecz swoją bezpłatną konsultację o wartości 500 zł
               </p>
-              <p>
-                Małe na początku. Groźne, gdy je ignorujesz.
-              </p>
-              <p>
-                W końcu przejmuje kontrolę.
-              </p>
-              
-              <p>
-                Nie ma znaczenia, czy zarabiasz 4, 8 czy 15 tysięcy miesięcznie.
-              </p>
-              <p>
-                Czy prowadzisz klinikę, firmę, jeździsz tirem albo pracujesz w handlu.
-              </p>
-              
-              <p className="font-semibold text-navy-800">
-                Dług nie wybiera. Po prostu wchodzi — i zostaje.
-              </p>
-              
-              <p>
-                Wiem, że boisz się, że rodzina się dowie.
-              </p>
-              <p>
-                Ale jeśli nie zareagujesz — i tak się dowie.
-              </p>
-              <p className="font-bold text-navy-800">
-                Tylko wtedy będzie już późno.
-              </p>
-              
-              <p className="font-semibold text-navy-800">
-                Dziś masz coś wyjątkowego.
-              </p>
-              <p>
-                Bezpłatną konsultację o wartości 500 zł.
-              </p>
-              <p>
-                Dostęp tylko raz. Dla Ciebie. Tutaj.
-              </p>
-
-              <p>
-                Wypełnij formularz — i pokaż, że chcesz coś zmienić.
-              </p>
-              <p>
-                Wszystko odbywa się w dyskrecji i z pełnym szacunkiem.
-              </p>
-
-              <p className="font-semibold text-navy-800">
-                Ja daję Ci czas, uwagę i rozwiązania.
-              </p>
-              <p className="font-semibold text-navy-800">
-                Ty daj decyzję.
-              </p>
-
-              <div className="text-right mt-6">
-                <p className="font-semibold text-navy-800">Z poważaniem</p>
-                <p className="font-bold text-business-blue-600">Dariusz Wentrych</p>
+              <div className="bg-white rounded-lg p-3 mt-4">
+                <p className="text-sm font-semibold text-business-blue-600">
+                  ✓ Bez zobowiązań ✓ 100% dyskrecji ✓ Natychmiastowa odpowiedź
+                </p>
               </div>
             </div>
           </div>
