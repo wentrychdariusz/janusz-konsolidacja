@@ -240,12 +240,12 @@ const PaymentTest = () => {
             </div>
           </div>
 
-          {/* Zwrot pieniędzy */}
-          <div className="text-center mb-6 bg-gradient-to-r from-green-600 to-emerald-600 text-white p-4 rounded-xl shadow-lg">
-            <p className="text-sm sm:text-base font-bold">
+          {/* Zwrot pieniędzy - delikatny styl */}
+          <div className="text-center mb-6 bg-green-50 border border-green-200 text-green-800 p-3 sm:p-4 rounded-lg">
+            <p className="text-xs sm:text-sm font-semibold">
               💰 W przypadku rozpoczęcia współpracy zwracamy Ci wpłaconą kwotę 9,90 zł
             </p>
-            <p className="text-xs sm:text-sm mt-1 opacity-90">
+            <p className="text-[10px] sm:text-xs mt-1 opacity-80">
               To tylko symboliczny sygnał Twojego poważnego podejścia do sprawy
             </p>
           </div>
@@ -295,24 +295,26 @@ const PaymentTest = () => {
                     </div>
                   )}
 
-                  {/* Premium Payment Button */}
-                  <div className="relative">
-                    <div className="absolute -inset-1 bg-gradient-to-r from-prestige-gold-400 via-yellow-400 to-prestige-gold-400 rounded-2xl blur opacity-75 animate-pulse"></div>
+                  {/* Premium Payment Button - wyróżniony */}
+                  <div className="relative mt-8">
+                    <div className="absolute -inset-2 bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 rounded-3xl blur-xl opacity-75 animate-pulse"></div>
                     <Button 
                       type="submit" 
-                      className="relative w-full bg-gradient-to-r from-prestige-gold-600 via-yellow-500 to-prestige-gold-600 hover:from-prestige-gold-700 hover:via-yellow-600 hover:to-prestige-gold-700 text-navy-900 font-black py-6 sm:py-8 text-base sm:text-xl rounded-xl shadow-2xl border-2 border-prestige-gold-700" 
+                      className="relative w-full bg-gradient-to-r from-red-600 via-orange-600 to-red-600 hover:from-red-700 hover:via-orange-700 hover:to-red-700 text-white font-black py-7 sm:py-9 text-lg sm:text-2xl rounded-2xl shadow-2xl border-4 border-red-800 transform hover:scale-[1.02] transition-all duration-300" 
                       size="lg"
                       disabled={isProcessing || !firstName.trim() || !lastName.trim()}
                     >
                       {isProcessing ? (
                         <div className="flex items-center justify-center w-full">
-                          <Loader2 className="mr-2 h-5 w-5 sm:h-6 sm:w-6 animate-spin" />
-                          <span className="text-base sm:text-lg">Przygotowywanie...</span>
+                          <Loader2 className="mr-2 h-6 w-6 sm:h-7 sm:w-7 animate-spin" />
+                          <span className="text-base sm:text-xl">Przygotowywanie...</span>
                         </div>
                       ) : (
-                        <div className="flex flex-col items-center justify-center gap-1 w-full">
-                          <span className="text-lg sm:text-2xl font-black">💳 PRZEJDŹ DO PŁATNOŚCI</span>
-                          <span className="text-xs sm:text-sm font-bold opacity-90">9,90 zł za Priorytetową Obsługę VIP</span>
+                        <div className="flex flex-col items-center justify-center gap-2 w-full">
+                          <span className="text-2xl sm:text-4xl font-black drop-shadow-lg">⚡ ZAPŁAĆ TERAZ</span>
+                          <span className="text-sm sm:text-base font-bold bg-white/20 px-4 py-1 rounded-full">
+                            9,90 zł • Priorytet VIP
+                          </span>
                         </div>
                       )}
                     </Button>

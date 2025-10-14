@@ -36,9 +36,17 @@ serve(async (req) => {
       );
     }
 
-    // Get authorization token
-    console.log('🔐 Getting TPay authorization token...');
-    const authResponse = await fetch('https://api.tpay.com/oauth/auth', {
+    console.log('🔑 Using credentials:', { 
+      clientId: clientId.substring(0, 10) + '...', 
+      hasSecret: !!clientSecret 
+    });
+
+    // Get authorization token - use production endpoint
+    // For sandbox, use: https://openapi.sandbox.tpay.com/oauth/auth
+    const authUrl = 'https://api.tpay.com/oauth/auth';
+    console.log('🔐 Getting TPay authorization token from:', authUrl);
+    
+    const authResponse = await fetch(authUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -49,18 +57,25 @@ serve(async (req) => {
       }),
     });
 
+    const authResponseText = await authResponse.text();
+    console.log('📋 Auth response status:', authResponse.status);
+    console.log('📋 Auth response:', authResponseText);
+
     if (!authResponse.ok) {
-      const authError = await authResponse.text();
-      console.error('❌ TPay auth failed:', authError);
+      console.error('❌ TPay auth failed:', authResponseText);
       return new Response(
-        JSON.stringify({ error: 'Payment authorization failed' }),
+        JSON.stringify({ 
+          error: 'Payment authorization failed', 
+          details: 'Sprawdź swoje Client ID i Client Secret w panelu TPay',
+          debug: authResponseText
+        }),
         { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    const authData = await authResponse.json();
+    const authData = JSON.parse(authResponseText);
     const accessToken = authData.access_token;
-    console.log('✅ TPay authorization successful');
+    console.log('✅ TPay authorization successful, token expires in:', authData.expires_in, 'seconds');
 
     // Create transaction (without BLIK code yet)
     console.log('💳 Creating transaction...');
@@ -80,7 +95,10 @@ serve(async (req) => {
       },
     };
 
-    const transactionResponse = await fetch('https://api.tpay.com/transactions', {
+    const transactionUrl = 'https://api.tpay.com/transactions';
+    console.log('📤 Sending transaction to:', transactionUrl);
+    
+    const transactionResponse = await fetch(transactionUrl, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
@@ -89,19 +107,24 @@ serve(async (req) => {
       body: JSON.stringify(transactionPayload),
     });
 
-    const transactionResponseData = await transactionResponse.json();
+    const transactionResponseText = await transactionResponse.text();
+    console.log('📋 Transaction response status:', transactionResponse.status);
+    console.log('📋 Transaction response:', transactionResponseText);
 
     if (!transactionResponse.ok) {
-      console.error('❌ Transaction creation failed:', transactionResponseData);
+      console.error('❌ Transaction creation failed:', transactionResponseText);
+      const errorData = JSON.parse(transactionResponseText);
       return new Response(
         JSON.stringify({ 
           error: 'Transaction creation failed', 
-          details: transactionResponseData.message || 'Unknown error' 
+          details: errorData.message || errorData.error || 'Unknown error',
+          debug: transactionResponseText
         }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
+    const transactionResponseData = JSON.parse(transactionResponseText);
     console.log('✅ Transaction created:', {
       transactionId: transactionResponseData.transactionId,
       status: transactionResponseData.status,
