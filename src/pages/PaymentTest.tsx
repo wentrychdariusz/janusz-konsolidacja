@@ -6,11 +6,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useSupabaseTracking } from '@/hooks/useSupabaseTracking';
 import { supabase } from '@/integrations/supabase/client';
 import { Loader2 } from 'lucide-react';
-
 const PaymentTest = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { trackPageView } = useSupabaseTracking();
+  const {
+    trackPageView
+  } = useSupabaseTracking();
   const [isProcessing, setIsProcessing] = useState(false);
   const [step, setStep] = useState<'form' | 'payment-choice' | 'blik-input'>('form');
   const [transactionId, setTransactionId] = useState('');
@@ -24,27 +25,25 @@ const PaymentTest = () => {
   const name = searchParams.get('name') || '';
   const email = searchParams.get('email') || '';
   const phone = searchParams.get('phone') || '';
-
   useEffect(() => {
     trackPageView('payment_test', undefined, 'main_site');
   }, [trackPageView]);
-
   const handleInitiatePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-
     if (!firstName.trim() || !lastName.trim()) {
       setError('Podaj imię i nazwisko');
       return;
     }
-
     setIsProcessing(true);
-
     try {
       console.log('🚀 Creating transaction...');
-      
+
       // Create transaction in TPay
-      const { data, error: functionError } = await supabase.functions.invoke('create-tpay-transaction', {
+      const {
+        data,
+        error: functionError
+      } = await supabase.functions.invoke('create-tpay-transaction', {
         body: {
           firstName,
           lastName,
@@ -53,69 +52,56 @@ const PaymentTest = () => {
           amount: 9.90
         }
       });
-
       if (functionError) {
         console.error('❌ Transaction creation error:', functionError);
         throw new Error(functionError.message || 'Błąd tworzenia transakcji');
       }
-
       if (data.error) {
         console.error('❌ Transaction error:', data.error);
         throw new Error(data.details || data.error);
       }
-
       console.log('✅ Transaction created:', data);
-      
       setTransactionId(data.transactionId);
       setPaymentUrl(data.paymentUrl);
       setStep('payment-choice'); // Move to payment method selection
-      
     } catch (err) {
       console.error('❌ Error:', err);
-      setError(
-        err instanceof Error 
-          ? err.message 
-          : 'Wystąpił błąd. Spróbuj ponownie.'
-      );
+      setError(err instanceof Error ? err.message : 'Wystąpił błąd. Spróbuj ponownie.');
     } finally {
       setIsProcessing(false);
     }
   };
-
   const handleBlikPayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-
     if (blikCode.length !== 6) {
       setError('Kod BLIK musi mieć 6 cyfr');
       return;
     }
-
     setIsProcessing(true);
-
     try {
       console.log('💳 Processing BLIK payment...');
-      
+
       // Process BLIK payment with code
-      const { data, error: functionError } = await supabase.functions.invoke('confirm-blik-payment', {
+      const {
+        data,
+        error: functionError
+      } = await supabase.functions.invoke('confirm-blik-payment', {
         body: {
           transactionId,
           blikCode
         }
       });
-
       if (functionError) {
         console.error('❌ BLIK payment error:', functionError);
         throw new Error(functionError.message || 'Błąd płatności BLIK');
       }
-
       if (data.error) {
         console.error('❌ Payment error:', data.error);
         throw new Error(data.details || data.error);
       }
-
       console.log('✅ Payment successful:', data);
-      
+
       // Redirect to success page
       const params = new URLSearchParams({
         payment: 'success',
@@ -124,35 +110,25 @@ const PaymentTest = () => {
         email,
         phone
       });
-      
       navigate(`/podziekowania?${params.toString()}`);
-      
     } catch (err) {
       console.error('❌ Payment error:', err);
-      setError(
-        err instanceof Error 
-          ? err.message 
-          : 'Płatność nie powiodła się. Sprawdź kod BLIK i spróbuj ponownie.'
-      );
+      setError(err instanceof Error ? err.message : 'Płatność nie powiodła się. Sprawdź kod BLIK i spróbuj ponownie.');
     } finally {
       setIsProcessing(false);
     }
   };
-
   const handleOtherPaymentMethods = () => {
     // Redirect to TPay payment page for other methods (cards, transfers, etc.)
     if (paymentUrl) {
       window.location.href = paymentUrl;
     }
   };
-
   const handleSelectBlik = () => {
     setStep('blik-input');
     setError('');
   };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
+  return <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-3xl">
         <div className="bg-white rounded-2xl shadow-xl border-0 p-6 sm:p-8 lg:p-10">
           
@@ -160,11 +136,7 @@ const PaymentTest = () => {
           <div className="text-center mb-6">
             <div className="flex justify-center items-center mb-4">
               <div className="flex flex-col items-center">
-                <img 
-                  src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                  alt="Dariusz Wentrych"
-                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-3 border-business-blue-200 shadow-xl object-cover mb-3"
-                />
+                <img src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" alt="Dariusz Wentrych" className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-3 border-business-blue-200 shadow-xl object-cover mb-3" />
                 <div className="text-center">
                   <h3 className="text-lg sm:text-xl font-bold text-navy-900">Dariusz Wentrych</h3>
                   <p className="text-sm sm:text-base text-business-blue-600 font-medium">#1 Ekspert ds. oddłużeń</p>
@@ -185,9 +157,7 @@ const PaymentTest = () => {
             <p className="text-sm sm:text-base text-red-900 leading-relaxed">
               Dlatego wprowadziliśmy symboliczną opłatę 9,90 zł – to sposób, by potwierdzić, że traktujesz swoją sytuację poważnie i naprawdę chcesz działać. Wykonaj płatność BLIK lub płatność online teraz i zyskaj swojego indywidualnego opiekuna, który zajmie się Twoim przypadkiem od razu.
             </p>
-            <p className="text-sm sm:text-base text-red-900 font-semibold mt-2">
-              To pierwszy realny krok do odzyskania spokoju i wyjścia z długów.
-            </p>
+            
           </div>
 
           {/* Cena - duże wyróżnienie */}
@@ -265,73 +235,41 @@ const PaymentTest = () => {
                   <label htmlFor="firstName" className="block text-sm font-semibold text-navy-900 mb-2">
                     Imię
                   </label>
-                  <Input
-                    id="firstName"
-                    type="text"
-                    placeholder="Jan"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    className="border-2 border-gray-300 focus:border-business-blue-600 rounded-lg"
-                    disabled={isProcessing || step !== 'form'}
-                    required
-                  />
+                  <Input id="firstName" type="text" placeholder="Jan" value={firstName} onChange={e => setFirstName(e.target.value)} className="border-2 border-gray-300 focus:border-business-blue-600 rounded-lg" disabled={isProcessing || step !== 'form'} required />
                 </div>
                 <div>
                   <label htmlFor="lastName" className="block text-sm font-semibold text-navy-900 mb-2">
                     Nazwisko
                   </label>
-                  <Input
-                    id="lastName"
-                    type="text"
-                    placeholder="Kowalski"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    className="border-2 border-gray-300 focus:border-business-blue-600 rounded-lg"
-                    disabled={isProcessing || step !== 'form'}
-                    required
-                  />
+                  <Input id="lastName" type="text" placeholder="Kowalski" value={lastName} onChange={e => setLastName(e.target.value)} className="border-2 border-gray-300 focus:border-business-blue-600 rounded-lg" disabled={isProcessing || step !== 'form'} required />
                 </div>
               </div>
 
-              {step === 'form' && (
-                <>
-                  {error && (
-                    <div className="bg-red-50 border-2 border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm font-semibold animate-in fade-in slide-in-from-top-2 duration-300">
+              {step === 'form' && <>
+                  {error && <div className="bg-red-50 border-2 border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm font-semibold animate-in fade-in slide-in-from-top-2 duration-300">
                       ⚠️ {error}
-                    </div>
-                  )}
+                    </div>}
 
                   {/* Premium Payment Button - wyróżniony */}
                   <div className="relative mt-8">
                     <div className="absolute -inset-2 bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 rounded-3xl blur-xl opacity-75 animate-pulse"></div>
-                    <Button 
-                      type="submit" 
-                      className="relative w-full bg-gradient-to-r from-red-600 via-orange-600 to-red-600 hover:from-red-700 hover:via-orange-700 hover:to-red-700 text-white font-black py-7 sm:py-9 text-lg sm:text-2xl rounded-2xl shadow-2xl border-4 border-red-800 transform hover:scale-[1.02] transition-all duration-300" 
-                      size="lg"
-                      disabled={isProcessing || !firstName.trim() || !lastName.trim()}
-                    >
-                      {isProcessing ? (
-                        <div className="flex items-center justify-center w-full">
+                    <Button type="submit" className="relative w-full bg-gradient-to-r from-red-600 via-orange-600 to-red-600 hover:from-red-700 hover:via-orange-700 hover:to-red-700 text-white font-black py-7 sm:py-9 text-lg sm:text-2xl rounded-2xl shadow-2xl border-4 border-red-800 transform hover:scale-[1.02] transition-all duration-300" size="lg" disabled={isProcessing || !firstName.trim() || !lastName.trim()}>
+                      {isProcessing ? <div className="flex items-center justify-center w-full">
                           <Loader2 className="mr-2 h-6 w-6 sm:h-7 sm:w-7 animate-spin" />
                           <span className="text-base sm:text-xl">Przygotowywanie...</span>
-                        </div>
-                      ) : (
-                        <div className="flex flex-col items-center justify-center gap-2 w-full">
+                        </div> : <div className="flex flex-col items-center justify-center gap-2 w-full">
                           <span className="text-2xl sm:text-4xl font-black drop-shadow-lg">⚡ ZAPŁAĆ TERAZ</span>
                           <span className="text-sm sm:text-base font-bold bg-white/20 px-4 py-1 rounded-full">
                             9,90 zł • Priorytet VIP
                           </span>
-                        </div>
-                      )}
+                        </div>}
                     </Button>
                   </div>
-                </>
-              )}
+                </>}
             </form>
 
             {/* KROK 2: Wybór metody płatności - rozwijanie */}
-            {step !== 'form' && (
-              <div className="space-y-4 animate-in fade-in slide-in-from-top-4 duration-500">
+            {step !== 'form' && <div className="space-y-4 animate-in fade-in slide-in-from-top-4 duration-500">
                 <div className="border-t-2 border-gray-200 pt-4">
                   <h3 className="text-center text-base sm:text-lg font-bold text-navy-900 mb-4">
                     Wybierz metodę płatności
@@ -339,19 +277,11 @@ const PaymentTest = () => {
                 </div>
 
                 {/* BLIK Option */}
-                {step === 'payment-choice' && (
-                  <button
-                    onClick={handleSelectBlik}
-                    className="w-full bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300 hover:border-blue-500 rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:shadow-lg"
-                  >
+                {step === 'payment-choice' && <button onClick={handleSelectBlik} className="w-full bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300 hover:border-blue-500 rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:shadow-lg">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
                         <div className="bg-white px-3 py-2 rounded-lg shadow">
-                          <img 
-                            src="/logos/blik-logo.png" 
-                            alt="BLIK" 
-                            className="h-6 sm:h-8 w-auto object-contain"
-                          />
+                          <img src="/logos/blik-logo.png" alt="BLIK" className="h-6 sm:h-8 w-auto object-contain" />
                         </div>
                         <div className="text-left">
                           <p className="font-bold text-navy-900 text-sm sm:text-base">Płatność BLIK</p>
@@ -362,18 +292,12 @@ const PaymentTest = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </div>
-                  </button>
-                )}
+                  </button>}
 
                 {/* BLIK Code Input - rozwinięcie */}
-                {step === 'blik-input' && (
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-2xl p-4 sm:p-6 animate-in fade-in slide-in-from-top-4 duration-500">
+                {step === 'blik-input' && <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-2xl p-4 sm:p-6 animate-in fade-in slide-in-from-top-4 duration-500">
                     <div className="flex items-center justify-center gap-2 mb-4">
-                      <img 
-                        src="/logos/blik-logo.png" 
-                        alt="BLIK" 
-                        className="h-6 sm:h-8 w-auto object-contain"
-                      />
+                      <img src="/logos/blik-logo.png" alt="BLIK" className="h-6 sm:h-8 w-auto object-contain" />
                       <h4 className="font-bold text-navy-900 text-sm sm:text-base">Płatność BLIK</h4>
                     </div>
 
@@ -387,59 +311,32 @@ const PaymentTest = () => {
 
                     <form onSubmit={handleBlikPayment} className="space-y-4">
                       <div>
-                        <Input
-                          type="text"
-                          maxLength={6}
-                          placeholder="000 000"
-                          value={blikCode}
-                          onChange={(e) => setBlikCode(e.target.value.replace(/\D/g, ''))}
-                          className="text-center text-2xl sm:text-3xl tracking-[0.3em] font-bold border-2 border-blue-400 focus:border-blue-600 rounded-xl"
-                          disabled={isProcessing}
-                          autoFocus
-                        />
+                        <Input type="text" maxLength={6} placeholder="000 000" value={blikCode} onChange={e => setBlikCode(e.target.value.replace(/\D/g, ''))} className="text-center text-2xl sm:text-3xl tracking-[0.3em] font-bold border-2 border-blue-400 focus:border-blue-600 rounded-xl" disabled={isProcessing} autoFocus />
                       </div>
 
-                      {error && (
-                        <div className="bg-red-50 border-2 border-red-400 text-red-700 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold">
+                      {error && <div className="bg-red-50 border-2 border-red-400 text-red-700 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold">
                           ⚠️ {error}
-                        </div>
-                      )}
+                        </div>}
 
-                      <Button 
-                        type="submit" 
-                        className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-4 text-sm sm:text-base rounded-xl" 
-                        disabled={isProcessing || blikCode.length !== 6}
-                      >
-                        {isProcessing ? (
-                          <>
+                      <Button type="submit" className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-4 text-sm sm:text-base rounded-xl" disabled={isProcessing || blikCode.length !== 6}>
+                        {isProcessing ? <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                             Autoryzacja...
-                          </>
-                        ) : (
-                          '✅ Zapłać 9,90 zł'
-                        )}
+                          </> : '✅ Zapłać 9,90 zł'}
                       </Button>
 
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        onClick={() => {
-                          setStep('payment-choice');
-                          setBlikCode('');
-                          setError('');
-                        }}
-                        disabled={isProcessing}
-                        className="w-full text-xs sm:text-sm"
-                      >
+                      <Button type="button" variant="ghost" onClick={() => {
+                  setStep('payment-choice');
+                  setBlikCode('');
+                  setError('');
+                }} disabled={isProcessing} className="w-full text-xs sm:text-sm">
                         ← Zmień metodę płatności
                       </Button>
                     </form>
-                  </div>
-                )}
+                  </div>}
 
                 {/* Other Payment Methods */}
-                {step === 'payment-choice' && (
-                  <>
+                {step === 'payment-choice' && <>
                     <div className="relative">
                       <div className="absolute inset-0 flex items-center">
                         <div className="w-full border-t border-gray-300"></div>
@@ -449,10 +346,7 @@ const PaymentTest = () => {
                       </div>
                     </div>
 
-                    <button
-                      onClick={handleOtherPaymentMethods}
-                      className="w-full bg-white border-2 border-gray-300 hover:border-gray-400 rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:shadow-lg"
-                    >
+                    <button onClick={handleOtherPaymentMethods} className="w-full bg-white border-2 border-gray-300 hover:border-gray-400 rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:shadow-lg">
                       <div className="flex items-center justify-between">
                         <div className="text-left">
                           <p className="font-bold text-navy-900 text-sm sm:text-base">Karta / Przelew</p>
@@ -463,10 +357,8 @@ const PaymentTest = () => {
                         </svg>
                       </div>
                     </button>
-                  </>
-                )}
-              </div>
-            )}
+                  </>}
+              </div>}
 
             {/* Security info */}
             <div className="flex items-center justify-center gap-2 text-xs text-gray-500 pt-2">
@@ -479,19 +371,12 @@ const PaymentTest = () => {
 
           {/* Opcja powrotu */}
           <div className="text-center mt-6">
-            <Button
-              variant="ghost"
-              onClick={() => navigate(-1)}
-              disabled={isProcessing}
-              className="text-warm-neutral-600 hover:text-navy-900"
-            >
+            <Button variant="ghost" onClick={() => navigate(-1)} disabled={isProcessing} className="text-warm-neutral-600 hover:text-navy-900">
               ← Powrót
             </Button>
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default PaymentTest;
