@@ -317,7 +317,7 @@ const PaymentTest = () => {
               ⚡ Zajmie Ci to tylko 10 sekund
             </p>
             <p className="text-xs sm:text-sm font-medium opacity-90 mt-2">
-              👑 Wypełnij dane poniżej, aby trafić na listę klientów Premium
+              ✅ Wypełnij dane poniżej, aby trafić na listę klientów Premium
             </p>
           </div>
 
