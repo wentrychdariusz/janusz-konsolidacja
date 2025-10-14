@@ -63,79 +63,96 @@ const PaymentTest = () => {
         <div className="bg-white rounded-2xl shadow-xl border-0 p-6 sm:p-8 lg:p-10">
           
           {/* Header z wizerunkiem Dariusza Wentrycha */}
-          <div className="text-center mb-8">
-            <div className="flex justify-center items-center mb-6">
+          <div className="text-center mb-6">
+            <div className="flex justify-center items-center mb-4">
               <div className="flex flex-col items-center">
                 <img 
                   src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
                   alt="Dariusz Wentrych"
-                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-3 border-business-blue-200 shadow-xl object-cover mb-3 sm:mb-4"
+                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-3 border-business-blue-200 shadow-xl object-cover mb-3"
                 />
                 <div className="text-center">
-                  <h3 className="text-xl sm:text-2xl font-bold text-navy-900">Dariusz Wentrych</h3>
-                  <p className="text-base sm:text-lg text-business-blue-600 font-medium">#1 Ekspert ds. oddłużeń w Polsce</p>
+                  <h3 className="text-lg sm:text-xl font-bold text-navy-900">Dariusz Wentrych</h3>
+                  <p className="text-sm sm:text-base text-business-blue-600 font-medium">#1 Ekspert ds. oddłużeń</p>
                 </div>
               </div>
             </div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-navy-900 mb-6">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-navy-900 mb-3">
               ✅ Dziękujemy za rejestrację!
             </h1>
           </div>
 
-          {/* Długi tekst o priorytetowej obsłudze */}
-          <div className="space-y-4 mb-8 text-warm-neutral-700 text-base sm:text-lg leading-relaxed">
-            <p>
-              W branży oddłużeniowej pojawiła się plaga zgłoszeń od osób, które wypełniają formularze, 
-              ale potem nie odbierają telefonu i wcale nie chcą się naprawdę oddłużyć — mimo że możemy im skutecznie pomóc.
+          {/* Problem i rozwiązanie - skrócone */}
+          <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg mb-4">
+            <p className="text-sm sm:text-base text-red-900 font-semibold">
+              ⚠️ W branży oddłużeniowej ludzie wypełniają formularze, ale nie odbierają telefonu. 
+              To marnuje czas doradców, a osoby naprawdę potrzebujące pomocy muszą czekać dłużej.
             </p>
-            <p>
-              Przez to doradcy tracą czas, a osoby, które naprawdę chcą wyjść z długów, muszą czekać dłużej.
-            </p>
-            <p className="font-bold text-navy-900">
-              Nazwijmy to po imieniu — to zwykłe chamstwo.
-            </p>
-            <p>
-              Czas, który mógłby zostać poświęcony komuś, kto naprawdę potrzebuje pomocy, jest marnowany przez ludzi, 
-              którzy nie mają szacunku do pracy innych.
-            </p>
-            <p className="font-bold text-business-blue-700">
-              Dlatego wprowadziliśmy usługę <span className="text-prestige-gold-600">Priorytetowa Obsługa Klienta Dariusza Wentrycha</span> – 
-              specjalny tryb dla osób, które traktują swoją sytuację poważnie i chcą działać od razu.
-            </p>
-            <p>
-              Aby z niej skorzystać, prosimy o symboliczną opłatę <strong className="text-navy-900">9,90 zł</strong> (BLIK lub szybki przelew).
-            </p>
+          </div>
 
-            <div className="bg-business-blue-50 border-l-4 border-business-blue-600 p-4 rounded-lg space-y-2">
-              <p className="font-semibold text-navy-900">Ta niewielka kwota sprawia, że:</p>
-              <ul className="space-y-2 ml-4">
-                <li>✅ Twoje zgłoszenie trafia do kolejki priorytetowej,</li>
-                <li>⚡ doradca kontaktuje się z Tobą w pierwszej kolejności,</li>
-                <li>🤝 otrzymujesz szybką i profesjonalną konsultację,</li>
-                <li>💼 w całym procesie jesteś traktowany jako klient priorytetowy.</li>
-              </ul>
+          {/* Cena - duże wyróżnienie */}
+          <div className="bg-gradient-to-br from-prestige-gold-100 to-prestige-gold-50 border-2 border-prestige-gold-400 rounded-2xl p-6 mb-6 text-center shadow-lg">
+            <p className="text-base sm:text-lg text-navy-700 mb-2 font-medium">Priorytetowa Obsługa</p>
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <span className="text-4xl sm:text-5xl lg:text-6xl font-black text-navy-900">9,90 zł</span>
             </div>
+            <p className="text-xs sm:text-sm text-prestige-gold-700 font-bold">
+              💡 Zwracamy w całości przy rozpoczęciu współpracy!
+            </p>
+          </div>
 
-            <div className="bg-prestige-gold-50 border-l-4 border-prestige-gold-600 p-4 rounded-lg">
-              <p className="font-bold text-prestige-gold-700">
-                💡 Jeśli zdecydujesz się rozpocząć proces oddłużenia z nami — zwrócimy Ci tę kwotę w całości.
-              </p>
-              <p className="mt-2">
-                To uczciwy i prosty sposób, dzięki któremu szybciej pomagamy tym, którzy naprawdę chcą wyjść z długów.
-              </p>
+          {/* Tabela porównawcza */}
+          <div className="mb-6 overflow-hidden rounded-xl border-2 border-business-blue-200">
+            <div className="grid grid-cols-2 gap-0">
+              {/* Nagłówki */}
+              <div className="bg-gray-100 p-3 border-b border-r border-gray-300">
+                <p className="text-xs sm:text-sm font-bold text-gray-600 text-center">Bez płatności</p>
+              </div>
+              <div className="bg-prestige-gold-100 p-3 border-b border-gray-300">
+                <p className="text-xs sm:text-sm font-bold text-prestige-gold-800 text-center">Za 9,90 zł</p>
+              </div>
+              
+              {/* Wiersz 1 */}
+              <div className="p-3 border-b border-r border-gray-200 bg-white">
+                <p className="text-xs sm:text-sm text-gray-600">⏳ Oczekiwanie w kolejce</p>
+              </div>
+              <div className="p-3 border-b border-gray-200 bg-green-50">
+                <p className="text-xs sm:text-sm text-green-700 font-semibold">✅ Priorytet #1</p>
+              </div>
+              
+              {/* Wiersz 2 */}
+              <div className="p-3 border-b border-r border-gray-200 bg-white">
+                <p className="text-xs sm:text-sm text-gray-600">📞 Kontakt standardowy</p>
+              </div>
+              <div className="p-3 border-b border-gray-200 bg-green-50">
+                <p className="text-xs sm:text-sm text-green-700 font-semibold">⚡ Natychmiastowy kontakt</p>
+              </div>
+              
+              {/* Wiersz 3 */}
+              <div className="p-3 border-b border-r border-gray-200 bg-white">
+                <p className="text-xs sm:text-sm text-gray-600">🕐 Dłuższy czas realizacji</p>
+              </div>
+              <div className="p-3 border-b border-gray-200 bg-green-50">
+                <p className="text-xs sm:text-sm text-green-700 font-semibold">🚀 Szybka konsultacja</p>
+              </div>
+              
+              {/* Wiersz 4 */}
+              <div className="p-3 border-r border-gray-200 bg-white">
+                <p className="text-xs sm:text-sm text-gray-600">—</p>
+              </div>
+              <div className="p-3 bg-green-50">
+                <p className="text-xs sm:text-sm text-green-700 font-semibold">💼 Obsługa VIP przez cały proces</p>
+              </div>
             </div>
+          </div>
 
-            <p className="font-bold text-navy-900 text-lg">
-              💥 Dzięki temu rozwiązaniu walczymy z chamstwem internetu – z ludźmi, którzy nie szanują czasu i pracy innych.
-            </p>
-            <p className="font-semibold text-business-blue-700">
-              My skupiamy się na Tobie – osobie, która chce działać, a nie tylko kliknąć.
-            </p>
-            <p className="text-navy-900 font-medium">
-              Bo tu liczy się konkret, szacunek i skuteczność.
-            </p>
-            <p className="text-center font-bold text-xl text-navy-900 mt-4">
+          {/* CTA Message */}
+          <div className="text-center mb-6 bg-navy-900 text-white p-4 rounded-xl">
+            <p className="text-sm sm:text-base font-bold">
               #STOPCHAM w konsolidacji długów
+            </p>
+            <p className="text-xs sm:text-sm mt-1">
+              Skupiamy się na osobach, które chcą działać — nie tylko kliknąć
             </p>
           </div>
 
