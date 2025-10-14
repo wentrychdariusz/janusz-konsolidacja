@@ -1,8 +1,7 @@
-
-import ABTestSmsVerification from '../components/ABTestSmsVerification';
+import SmsVerificationVariantB from '../components/SmsVerificationVariantB';
 
 const SmsVerification = () => {
-  return <ABTestSmsVerification />;
+  return <SmsVerificationVariantB />;
 };
 
 export default SmsVerification;
