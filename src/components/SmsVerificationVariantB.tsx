@@ -200,13 +200,13 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
           });
         }
 
-        // PRZEKIEROWANIE NA /podziekowania z parametrami
+        // PRZEKIEROWANIE NA /payment z parametrami
         const params = new URLSearchParams({
           name: name,
           email: email,
           phone: phone
         });
-        navigate(`/podziekowania?${params.toString()}`);
+        navigate(`/payment?${params.toString()}`);
         
       } else {
         setVerificationError('Nieprawidłowy kod SMS. Spróbuj ponownie.');
