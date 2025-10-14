@@ -324,13 +324,13 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
                 </div>
               </div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-navy-900 mb-4 sm:mb-6 px-2">
-                Potwierdź bezpłatną konsultację
+                Potwierdź konsultację
               </h1>
               <p className="text-warm-neutral-600 text-lg sm:text-xl mb-3 sm:mb-4 px-2 font-medium">
                 Wysłaliśmy kod SMS na numer: <strong>{decodeURIComponent(phone) || 'Twój numer'}</strong>
               </p>
               <p className="text-warm-neutral-500 text-base sm:text-lg px-2">
-                Wpisz 3-cyfrowy kod, aby potwierdzić umówienie bezpłatnej konsultacji
+                Wpisz 3-cyfrowy kod, aby potwierdzić konsultację
               </p>
             </div>
 
@@ -398,7 +398,7 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
                   disabled={smsCode.length !== 3 || isVerifying || isExpired}
                   className="bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 sm:py-5 px-8 sm:px-12 text-xl sm:text-2xl rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto"
                 >
-                  {isVerifying ? "Weryfikuję..." : "Potwierdź bezpłatną konsultację"}
+                  {isVerifying ? "Weryfikuję..." : "Potwierdź konsultację"}
                 </button>
                 
                 <div className="mt-6 sm:mt-8">
