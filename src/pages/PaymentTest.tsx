@@ -115,8 +115,11 @@ const PaymentTest = () => {
       // Poll for payment status
       let attempts = 0;
       const maxAttempts = 30; // 30 attempts * 2s = 60s timeout
+      let pollingActive = true;
       
       const pollStatus = async () => {
+        if (!pollingActive) return;
+        
         attempts++;
         console.log(`🔄 Checking payment status (attempt ${attempts}/${maxAttempts})...`);
 
@@ -127,7 +130,11 @@ const PaymentTest = () => {
 
           if (statusError) {
             console.error('❌ Status check error:', statusError);
-            throw new Error('Nie można sprawdzić statusu płatności');
+            pollingActive = false;
+            setIsWaitingForConfirmation(false);
+            setIsProcessing(false);
+            setError('Nie można sprawdzić statusu płatności. Spróbuj ponownie.');
+            return;
           }
 
           console.log('📊 Payment status:', statusData);
@@ -135,6 +142,7 @@ const PaymentTest = () => {
           // Check if payment is completed (correct) or failed
           if (statusData.status === 'correct' || statusData.paymentStatus === 'correct') {
             console.log('✅ Payment confirmed!');
+            pollingActive = false;
             const params = new URLSearchParams({
               payment: 'success',
               transactionId: data.transactionId || transactionId,
@@ -146,20 +154,35 @@ const PaymentTest = () => {
             return;
           }
 
-          if (statusData.status === 'declined' || statusData.status === 'error') {
-            throw new Error('Płatność została odrzucona');
+          // Handle declined/error status - stop polling immediately
+          if (statusData.status === 'declined' || statusData.status === 'error' || 
+              statusData.status === 'cancelled' || statusData.paymentStatus === 'declined') {
+            console.log('❌ Payment declined/error');
+            pollingActive = false;
+            setIsWaitingForConfirmation(false);
+            setIsProcessing(false);
+            setError('Płatność została odrzucona. Sprawdź kod BLIK i spróbuj ponownie lub wybierz inną metodę płatności.');
+            setBlikCode(''); // Clear BLIK code for retry
+            return;
           }
 
           // If still pending and haven't exceeded max attempts, poll again
-          if (attempts < maxAttempts) {
+          if (attempts < maxAttempts && pollingActive) {
             setTimeout(pollStatus, 2000); // Check every 2 seconds
-          } else {
-            throw new Error('Upłynął limit czasu oczekiwania na potwierdzenie płatności');
+          } else if (pollingActive) {
+            pollingActive = false;
+            setIsWaitingForConfirmation(false);
+            setIsProcessing(false);
+            setError('Upłynął limit czasu oczekiwania na potwierdzenie płatności. Spróbuj ponownie.');
+            setBlikCode(''); // Clear BLIK code for retry
           }
         } catch (err) {
           console.error('❌ Poll error:', err);
+          pollingActive = false;
           setIsWaitingForConfirmation(false);
-          setError(err instanceof Error ? err.message : 'Błąd sprawdzania statusu płatności');
+          setIsProcessing(false);
+          setError(err instanceof Error ? err.message : 'Błąd sprawdzania statusu płatności. Spróbuj ponownie.');
+          setBlikCode(''); // Clear BLIK code for retry
         }
       };
 
@@ -422,10 +445,23 @@ const PaymentTest = () => {
                           <h4 className="text-lg font-bold text-green-900 mb-2">
                             📱 Potwierdź płatność w aplikacji bankowej
                           </h4>
-                          <p className="text-sm text-green-800">
+                          <p className="text-sm text-green-800 mb-4">
                             Otwórz aplikację swojego banku i zaakceptuj płatność BLIK.
                             Czekamy na potwierdzenie...
                           </p>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => {
+                              setIsWaitingForConfirmation(false);
+                              setIsProcessing(false);
+                              setBlikCode('');
+                              setError('');
+                            }}
+                            className="text-sm"
+                          >
+                            Anuluj i spróbuj ponownie
+                          </Button>
                         </div>
 
                         {error && <div className="bg-red-50 border-2 border-red-400 text-red-700 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold">
