@@ -12,6 +12,8 @@ const PaymentTest = () => {
   const { trackPageView } = useSupabaseTracking();
   const [isProcessing, setIsProcessing] = useState(false);
   const [blikCode, setBlikCode] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [error, setError] = useState('');
 
   // Dane z formularza kontaktowego
@@ -27,6 +29,11 @@ const PaymentTest = () => {
     e.preventDefault();
     setError('');
 
+    if (!firstName.trim() || !lastName.trim()) {
+      setError('Podaj imię i nazwisko');
+      return;
+    }
+
     if (blikCode.length !== 6) {
       setError('Kod BLIK musi mieć 6 cyfr');
       return;
@@ -37,11 +44,12 @@ const PaymentTest = () => {
     try {
       // TODO: Tutaj będzie integracja z TPay API
       console.log('Payment data:', {
-        name,
+        firstName,
+        lastName,
         email,
         phone,
         blikCode,
-        amount: 50 // Przykładowa kwota - do ustalenia
+        amount: 9.90
       });
 
       // Symulacja płatności
@@ -156,45 +164,106 @@ const PaymentTest = () => {
             </p>
           </div>
 
-          {/* Podsumowanie danych */}
-          {(name || email || phone) && (
-            <div className="bg-warm-neutral-50 p-4 rounded-lg space-y-2 mb-6">
-              <p className="text-sm font-semibold text-navy-900 mb-2">Twoje dane:</p>
-              {name && <p className="text-sm"><strong>Imię:</strong> {name}</p>}
-              {email && <p className="text-sm"><strong>Email:</strong> {email}</p>}
-              {phone && <p className="text-sm"><strong>Telefon:</strong> {phone}</p>}
+          {/* Formularz płatności */}
+          <form onSubmit={handleBlikPayment} className="space-y-5">
+            {/* Imię i nazwisko */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="firstName" className="block text-sm font-semibold text-navy-900 mb-2">
+                  Imię
+                </label>
+                <Input
+                  id="firstName"
+                  type="text"
+                  placeholder="Jan"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="border-2 border-gray-300 focus:border-business-blue-600 rounded-lg"
+                  disabled={isProcessing}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="lastName" className="block text-sm font-semibold text-navy-900 mb-2">
+                  Nazwisko
+                </label>
+                <Input
+                  id="lastName"
+                  type="text"
+                  placeholder="Kowalski"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="border-2 border-gray-300 focus:border-business-blue-600 rounded-lg"
+                  disabled={isProcessing}
+                  required
+                />
+              </div>
             </div>
-          )}
 
-          {/* Formularz płatności BLIK */}
-          <form onSubmit={handleBlikPayment} className="space-y-6">
-            <div>
-              <label htmlFor="blik" className="block text-lg sm:text-xl font-bold text-navy-900 mb-4 text-center">
-                Kod BLIK (6 cyfr)
+            {/* Sekcja płatności BLIK z logo */}
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-6">
+              {/* Logo BLIK i info */}
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <img 
+                    src="/logos/blik-logo.png" 
+                    alt="BLIK" 
+                    className="h-8 sm:h-10 object-contain"
+                  />
+                  <div className="h-8 w-px bg-gray-300"></div>
+                  <span className="text-xs sm:text-sm text-gray-600 font-medium">
+                    Szybka płatność mobilna
+                  </span>
+                </div>
+              </div>
+
+              <label htmlFor="blik" className="block text-base sm:text-lg font-bold text-navy-900 mb-3">
+                Wpisz kod BLIK z aplikacji bankowej
               </label>
               <Input
                 id="blik"
                 type="text"
                 maxLength={6}
-                placeholder="000000"
+                placeholder="000 000"
                 value={blikCode}
                 onChange={(e) => setBlikCode(e.target.value.replace(/\D/g, ''))}
-                className="text-center text-2xl sm:text-3xl tracking-widest font-bold border-2 border-business-blue-300 focus:border-business-blue-600 rounded-xl"
+                className="text-center text-3xl sm:text-4xl tracking-[0.5em] font-bold border-3 border-blue-400 focus:border-blue-600 rounded-xl bg-white shadow-sm"
                 disabled={isProcessing}
               />
+              
+              {/* Obsługujemy wszystkie banki */}
+              <div className="mt-4 pt-4 border-t border-blue-200">
+                <p className="text-xs text-center text-gray-600 mb-2 font-medium">
+                  🏦 Obsługujemy wszystkie polskie banki
+                </p>
+                <div className="flex items-center justify-center gap-2 text-[10px] text-gray-500">
+                  <span>PKO BP</span>
+                  <span>•</span>
+                  <span>mBank</span>
+                  <span>•</span>
+                  <span>ING</span>
+                  <span>•</span>
+                  <span>Millennium</span>
+                  <span>•</span>
+                  <span>Santander</span>
+                  <span>•</span>
+                  <span>Pekao</span>
+                </div>
+              </div>
             </div>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm font-medium">
-                {error}
+              <div className="bg-red-50 border-2 border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm font-semibold">
+                ⚠️ {error}
               </div>
             )}
 
+            {/* Button z logo TPay */}
             <Button 
               type="submit" 
-              className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-5 text-xl rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105" 
+              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-6 text-lg sm:text-xl rounded-xl shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:scale-[1.02]" 
               size="lg"
-              disabled={isProcessing || blikCode.length !== 6}
+              disabled={isProcessing || blikCode.length !== 6 || !firstName.trim() || !lastName.trim()}
             >
               {isProcessing ? (
                 <>
@@ -202,9 +271,22 @@ const PaymentTest = () => {
                   Przetwarzanie płatności...
                 </>
               ) : (
-                '💳 Zapłać 9,90 zł i uzyskaj priorytet'
+                <div className="flex items-center justify-center gap-3">
+                  <span>Zapłać 9,90 zł przez BLIK</span>
+                  <div className="bg-white/20 px-2 py-1 rounded text-xs">
+                    Bezpieczne • TPay
+                  </div>
+                </div>
               )}
             </Button>
+
+            {/* Dodatkowe info bezpieczeństwa */}
+            <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+              </svg>
+              <span>Płatność zabezpieczona przez TPay</span>
+            </div>
           </form>
 
           {/* Opcja powrotu */}
