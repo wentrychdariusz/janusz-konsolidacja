@@ -288,9 +288,11 @@ const PaymentTest = () => {
           </div>
 
           {/* Nagłówek sekcji płatności */}
-          <div className="text-center mb-6 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl p-4 sm:p-5 shadow-lg">
-            <h2 className="text-2xl sm:text-3xl font-black mb-2">💳 PŁATNOŚĆ</h2>
-            <p className="text-sm sm:text-base font-semibold opacity-95">
+          <div className="text-center mb-6 bg-white border-2 border-green-400 rounded-xl p-4 sm:p-5 shadow-lg">
+            <div className="bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+              <h2 className="text-2xl sm:text-3xl font-black mb-2">💳 PŁATNOŚĆ</h2>
+            </div>
+            <p className="text-sm sm:text-base font-semibold text-green-700">
               ⚡ Zajmie Ci to tylko 10 sekund
             </p>
           </div>
