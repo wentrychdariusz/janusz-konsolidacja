@@ -269,7 +269,7 @@ const PaymentTest = () => {
               
               {/* Wiersz 2 */}
               <div className="p-3 border-b border-r border-gray-200 bg-white">
-                <p className="text-xs sm:text-sm text-gray-600">📞 Kontakt standardowy</p>
+                <p className="text-xs sm:text-sm text-gray-600">📞 Kontakt po kilku dniach</p>
               </div>
               <div className="p-3 border-b border-gray-200 bg-green-50">
                 <p className="text-xs sm:text-sm text-green-700 font-semibold">⚡ Natychmiastowy kontakt</p>
