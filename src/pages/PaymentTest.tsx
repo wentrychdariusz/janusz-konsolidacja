@@ -280,6 +280,21 @@ const PaymentTest = () => {
             </p>
           </div>
 
+          {/* Strzałki prowadzące do płatności */}
+          <div className="flex flex-col items-center mb-4 animate-bounce">
+            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </div>
+
+          {/* Nagłówek sekcji płatności */}
+          <div className="text-center mb-6 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl p-4 sm:p-5 shadow-lg">
+            <h2 className="text-2xl sm:text-3xl font-black mb-2">💳 PŁATNOŚĆ</h2>
+            <p className="text-sm sm:text-base font-semibold opacity-95">
+              ⚡ Zajmie Ci to tylko 10 sekund
+            </p>
+          </div>
+
           {/* Formularz płatności - Płynne rozwinięcie */}
           <div className="space-y-5">
             {/* KROK 1: Imię i nazwisko - zawsze widoczne */}
