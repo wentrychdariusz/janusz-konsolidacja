@@ -212,7 +212,7 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
                 Zostało tylko kilka miejsc!
               </h2>
               <p className="text-base text-warm-neutral-700 font-medium">
-                Wypełnij formularz <span className="font-bold text-orange-600">w ciągu 5 minut</span> i zabezpiecz swoją bezpłatną konsultację o wartości 500 zł
+                Wypełnij formularz <span className="font-bold text-orange-600">w ciągu 5 minut</span> i zabezpiecz swoją pomoc
               </p>
               <div className="bg-white rounded-lg p-3 mt-4">
                 <p className="text-sm font-semibold text-business-blue-600">
@@ -230,7 +230,7 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
           </div>
 
           <h2 className="text-2xl font-bold text-navy-900 mb-4">
-            Wypełnij formularz i zapisz się na bezpłatną konsultację
+            Wypełnij formularz i otrzymaj pomoc
           </h2>
         </div>
 
@@ -291,7 +291,7 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
               className="w-full bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white font-bold py-4 px-6 text-base rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               <Rocket className="w-5 h-5" />
-              {isSubmitting ? "Wysyłanie..." : "Umów bezpłatną konsultację"}
+              {isSubmitting ? "Wysyłanie..." : "Otrzymaj pomoc teraz"}
             </button>
 
             <p className="text-xs text-gray-500 text-center mt-4">
