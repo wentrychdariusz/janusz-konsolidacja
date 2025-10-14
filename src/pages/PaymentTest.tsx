@@ -449,8 +449,8 @@ const PaymentTest = () => {
                     <button onClick={handleOtherPaymentMethods} className="w-full bg-white border-2 border-gray-300 hover:border-gray-400 rounded-2xl p-4 sm:p-6 transition-all duration-300 hover:shadow-lg">
                       <div className="flex items-center justify-between">
                         <div className="text-left">
-                          <p className="font-bold text-navy-900 text-sm sm:text-base">Karta / Przelew</p>
-                          <p className="text-xs sm:text-sm text-gray-600">Visa, Mastercard, przelewy</p>
+                          <p className="font-bold text-navy-900 text-sm sm:text-base">Przelew / Karta</p>
+                          <p className="text-xs sm:text-sm text-gray-600">Przelewy bankowe, Visa, Mastercard</p>
                         </div>
                         <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -470,17 +470,17 @@ const PaymentTest = () => {
               </div>
               <div className="flex items-center justify-center gap-3 text-xs text-gray-600 flex-wrap">
                 <span className="flex items-center gap-1">
+                  <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Przelew online
+                </span>
+                <span className="text-gray-400">•</span>
+                <span className="flex items-center gap-1">
                   <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                   </svg>
                   Karta
-                </span>
-                <span className="text-gray-400">•</span>
-                <span className="flex items-center gap-1">
-                  <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  Przelew bankowy online
                 </span>
               </div>
             </div>
