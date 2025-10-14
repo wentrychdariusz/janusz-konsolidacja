@@ -57,7 +57,7 @@ const App = () => (
           <Route path="/kontakt-a" element={<ContactFormA />} />
           <Route path="/kontakt-b" element={<ContactFormB />} />
           <Route path="/podziekowania" element={<Podziekowania />} />
-          <Route path="/payment-test" element={<PaymentTest />} />
+          <Route path="/payment" element={<PaymentTest />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/panel" element={
             <ProtectedAdminRoute>
