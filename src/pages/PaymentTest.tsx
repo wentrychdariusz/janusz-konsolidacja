@@ -176,11 +176,17 @@ const PaymentTest = () => {
             </h1>
           </div>
 
-          {/* Problem i rozwiązanie - skrócone */}
-          <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-lg mb-4">
-            <p className="text-sm sm:text-base text-red-900 font-semibold">
-              ⚠️ W branży oddłużeniowej ludzie wypełniają formularze, ale nie odbierają telefonu. 
-              To marnuje czas doradców, a osoby naprawdę potrzebujące pomocy muszą czekać dłużej.
+          {/* Problem i rozwiązanie */}
+          <div className="bg-red-50 border-l-4 border-red-500 p-4 sm:p-5 rounded-lg mb-4">
+            <p className="text-sm sm:text-base text-red-900 font-semibold mb-3">
+              ⚠️ W branży oddłużeniowej ludzie wypełniają formularze, ale nie odbierają telefonu.
+              To marnuje czas doradców, a osoby, które naprawdę potrzebują pomocy, muszą czekać dłużej.
+            </p>
+            <p className="text-sm sm:text-base text-red-900 leading-relaxed">
+              Dlatego wprowadziliśmy symboliczną opłatę 9,90 zł – to sposób, by potwierdzić, że traktujesz swoją sytuację poważnie i naprawdę chcesz działać. Wykonaj płatność BLIK lub płatność online teraz i zyskaj swojego indywidualnego opiekuna, który zajmie się Twoim przypadkiem od razu.
+            </p>
+            <p className="text-sm sm:text-base text-red-900 font-semibold mt-2">
+              To pierwszy realny krok do odzyskania spokoju i wyjścia z długów.
             </p>
           </div>
 
