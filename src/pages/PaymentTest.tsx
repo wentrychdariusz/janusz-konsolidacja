@@ -143,6 +143,29 @@ const PaymentTest = () => {
           if (statusData.status === 'correct' || statusData.paymentStatus === 'correct') {
             console.log('✅ Payment confirmed!');
             pollingActive = false;
+            
+            // Facebook Pixel - track lead conversion (wysyła do Make.com/CRM)
+            if (typeof window !== 'undefined' && (window as any).fbq) {
+              (window as any).fbq('track', 'Lead', {
+                content_name: 'Płatność potwierdzona',
+                content_category: 'Payment Confirmed',
+                value: 9.90,
+                currency: 'PLN'
+              });
+              console.log('🎯 Facebook Pixel: Lead conversion tracked for payment');
+            }
+            
+            // Google Ads conversion tracking
+            if ((window as any).gtag) {
+              (window as any).gtag('event', 'conversion', {
+                'send_to': 'AW-16741438120/5yX2CKmazt0ZEKil-K4-',
+                'value': 9.90,
+                'currency': 'PLN',
+                'transaction_id': transactionId
+              });
+              console.log('🎯 Google Ads: Conversion tracked for payment');
+            }
+            
             const params = new URLSearchParams({
               payment: 'success',
               transactionId: data.transactionId || transactionId,
