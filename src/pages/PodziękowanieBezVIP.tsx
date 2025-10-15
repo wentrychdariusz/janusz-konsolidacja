@@ -70,11 +70,11 @@ const PodziękowanieBezVIP = () => {
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-lg">📧</span>
-                <span>Sprawdzaj email <strong>{email}</strong> - wyślemy szczegóły</span>
+                <span>Sprawdzaj swoją skrzynkę email - wyślemy szczegóły</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-lg">📱</span>
-                <span>Odbierz telefon na numer <strong>{phone}</strong></span>
+                <span>Odbierz telefon od naszego doradcy</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-lg">⏰</span>
@@ -89,31 +89,6 @@ const PodziękowanieBezVIP = () => {
               <strong>⚠️ Uwaga:</strong> Ze względu na dużą liczbę zgłoszeń, czas oczekiwania na 
               kontakt może być wydłużony. Klienci priorytetowi (VIP) obsługiwani są w pierwszej kolejności.
             </p>
-          </div>
-
-          {/* Podsumowanie danych */}
-          <div className="bg-gray-50 rounded-lg p-4 sm:p-5 border border-gray-200">
-            <h4 className="text-sm font-bold text-gray-700 mb-3">Twoje dane rejestracyjne:</h4>
-            <div className="space-y-2 text-sm text-gray-600">
-              {name && (
-                <div className="flex justify-between">
-                  <span className="font-medium">Imię i nazwisko:</span>
-                  <span>{name}</span>
-                </div>
-              )}
-              {email && (
-                <div className="flex justify-between">
-                  <span className="font-medium">Email:</span>
-                  <span>{email}</span>
-                </div>
-              )}
-              {phone && (
-                <div className="flex justify-between">
-                  <span className="font-medium">Telefon:</span>
-                  <span>{phone}</span>
-                </div>
-              )}
-            </div>
           </div>
 
           {/* Footer */}
