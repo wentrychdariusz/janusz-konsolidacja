@@ -166,6 +166,33 @@ const PaymentTest = () => {
               console.log('🎯 Google Ads: Conversion tracked for payment');
             }
             
+            // Webhook do Make.com - informacja o opłaconym kliencie
+            try {
+              const paymentWebhookUrl = 'https://hook.eu2.make.com/TWÓJ_WEBHOOK_URL_TUTAJ'; // Zamień na swój webhook URL
+              const sessionId = localStorage.getItem('session_id') || `session_${Date.now()}`;
+              
+              await fetch(paymentWebhookUrl, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  event: 'payment_completed',
+                  session_id: sessionId,
+                  transaction_id: transactionId,
+                  amount: 9.90,
+                  currency: 'PLN',
+                  name,
+                  email,
+                  phone: phone || phoneInput,
+                  timestamp: new Date().toISOString()
+                })
+              });
+              console.log('✅ Make.com webhook: Payment status sent');
+            } catch (error) {
+              console.error('❌ Make.com webhook error:', error);
+            }
+            
             const params = new URLSearchParams({
               payment: 'success',
               transactionId: data.transactionId || transactionId,
