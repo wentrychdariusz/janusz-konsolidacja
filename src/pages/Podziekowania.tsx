@@ -18,6 +18,7 @@ const Podziekowania = () => {
   const email = searchParams.get('email') || '';
   const phone = searchParams.get('phone') || '';
   const isPaidTest = searchParams.get('paid') === 'true';
+  const paymentStatusFromUrl = searchParams.get('payment_status') || 'Nieopłacone';
 
   const {
     trackPageView,
@@ -69,9 +70,7 @@ const Podziekowania = () => {
     // Wyślij webhook do Make.com
     const sendWebhook = async () => {
       try {
-        const paymentStatus = localStorage.getItem('payment_status') || 'Nieopłacone';
-        const smsVerifiedTimestamp = localStorage.getItem('sms_verified_timestamp');
-        const webhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
+        const webhookUrl = 'https://hook.eu2.make.com/janusz-go-ba-63dd01e7';
 
         // Oczyść dane z potencjalnych problemów
         const cleanString = (str: string) => {
@@ -80,11 +79,12 @@ const Podziekowania = () => {
         };
 
         const payload = {
-          name: cleanString(effectiveName),
-          phone: cleanString(effectivePhone),
-          email: cleanString(effectiveEmail),
-          payment_status: paymentStatus,
-          sms_verified: smsVerifiedTimestamp ? 'Zweryfikowany' : 'Niezweryfikowany'
+          rows: [{
+            name: cleanString(effectiveName),
+            phone: cleanString(effectivePhone),
+            email: cleanString(effectiveEmail),
+            payment_status: paymentStatusFromUrl,
+          }]
         };
 
         console.log('📤 Sending webhook from /podziekowania:', payload);
