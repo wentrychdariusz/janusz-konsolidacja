@@ -155,6 +155,7 @@ const PaymentTest = () => {
             return;
           }
           console.log('📊 Payment status:', statusData);
+          console.log('🔍 Full TPay response:', statusData.fullResponse);
 
           // Check if payment is completed (correct) or failed
           if (statusData.status === 'correct' || statusData.paymentStatus === 'correct') {

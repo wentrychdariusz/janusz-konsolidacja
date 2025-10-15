@@ -74,13 +74,16 @@ serve(async (req) => {
     }
 
     const statusData = await statusResponse.json();
-    console.log('✅ Transaction status:', statusData.status);
+    console.log('✅ Full TPay response:', JSON.stringify(statusData, null, 2));
+    console.log('📊 Transaction status:', statusData.status);
+    console.log('💳 Payments object:', statusData.payments);
 
     return new Response(
       JSON.stringify({
         transactionId,
         status: statusData.status,
         paymentStatus: statusData.payments?.status,
+        fullResponse: statusData, // Zwracamy pełną odpowiedź do debugowania
       }),
       { 
         status: 200, 
