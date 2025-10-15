@@ -14,3 +14,6 @@ verify_jwt = false
 
 [functions.agent-webhook]
 verify_jwt = false
+
+[functions.send-to-make]
+verify_jwt = false
