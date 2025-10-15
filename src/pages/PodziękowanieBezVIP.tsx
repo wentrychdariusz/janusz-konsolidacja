@@ -37,6 +37,7 @@ const PodziękowanieBezVIP = () => {
         name: name || 'Nie podano',
         phone: phone || 'Nie podano',
         email: email || 'Nie podano',
+        payment: 'Nieopłacone',
         payment_status: 'Nieopłacone'
       };
       

@@ -91,6 +91,7 @@ const ABTestThankYou = () => {
             name: name || 'Nie podano',
             phone: phone || 'Nie podano',
             email: email || 'Nie podano',
+            payment: paymentStatus,
             payment_status: paymentStatus,
             sms_verified: smsVerifiedTimestamp ? 'Zweryfikowany' : 'Niezweryfikowany'
           };
