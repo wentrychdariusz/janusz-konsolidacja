@@ -17,38 +17,39 @@ const Podziekowania = () => {
   const name = searchParams.get('name') || '';
   const email = searchParams.get('email') || '';
   const phone = searchParams.get('phone') || '';
-  // Dane użytkownika z URL + fallback z localStorage
-  const savedUserData = localStorage.getItem('user_data');
-  let effectiveName = name;
-  let effectiveEmail = email;
-  let effectivePhone = phone;
-  if ((!effectiveName || !effectiveEmail || !effectivePhone) && savedUserData) {
-    try {
-      const userData = JSON.parse(savedUserData);
-      effectiveName = effectiveName || userData.name || '';
-      effectiveEmail = effectiveEmail || userData.email || '';
-      effectivePhone = effectivePhone || userData.phone || '';
-    } catch (e) {
-      console.error('Error parsing user_data from localStorage:', e);
-    }
-  }
 
   const {
     trackPageView,
     trackConversion
   } = useSimpleTracking();
 
-  // Facebook Pixel - track conversion dla wentrych.pl/podziekowania
+  // Facebook Pixel + Webhook - wszystko w jednym useEffect
   useEffect(() => {
-    // Pobierz wariant użytkownika z localStorage
-    const variant = localStorage.getItem('ab_test_sms_verification') as 'A' | 'B' || 'A';
+    // Pobierz dane z localStorage
+    let effectiveName = name;
+    let effectiveEmail = email;
+    let effectivePhone = phone;
+    
+    // Fallback z localStorage
+    const savedUserData = localStorage.getItem('user_data');
+    if ((!effectiveName || !effectiveEmail || !effectivePhone) && savedUserData) {
+      try {
+        const userData = JSON.parse(savedUserData);
+        effectiveName = effectiveName || userData.name || '';
+        effectiveEmail = effectiveEmail || userData.email || '';
+        effectivePhone = effectivePhone || userData.phone || '';
+      } catch (e) {
+        console.error('Error parsing user_data from localStorage:', e);
+      }
+    }
 
-    // Simple tracking z wariantem
+    // Track dla Facebook Pixel
+    const variant = localStorage.getItem('ab_test_sms_verification') as 'A' | 'B' || 'A';
     trackPageView('thank_you', variant);
     trackConversion('final_thank_you', variant);
     console.log(`🎯 Thank you page: tracked for variant ${variant}`);
+    
     if (typeof window !== 'undefined' && window.fbq) {
-      // Track konwersję dla wentrych.pl
       window.fbq('track', 'Lead', {
         content_name: 'Konsultacja umówiona',
         content_category: 'Lead Generation',
@@ -57,11 +58,9 @@ const Podziekowania = () => {
       });
       console.log('🎯 Facebook Pixel: Lead conversion tracked for wentrych.pl/podziekowania');
     }
-  }, []);
 
-  // Wyślij webhook do Make.com natychmiast z danymi i statusem płatności
-  useEffect(() => {
-    const send = async () => {
+    // Wyślij webhook do Make.com
+    const sendWebhook = async () => {
       try {
         const paymentStatus = localStorage.getItem('payment_status') || 'Nieopłacone';
         const smsVerifiedTimestamp = localStorage.getItem('sms_verified_timestamp');
@@ -87,8 +86,9 @@ const Podziekowania = () => {
         console.error('❌ Webhook error (/podziekowania):', err);
       }
     };
-    send();
-  }, [effectiveName, effectiveEmail, effectivePhone]);
+    
+    sendWebhook();
+  }, [name, email, phone]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
