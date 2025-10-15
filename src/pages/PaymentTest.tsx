@@ -29,9 +29,10 @@ const PaymentTest = () => {
   const email = searchParams.get('email') || '';
   const phone = searchParams.get('phone') || '';
   
-  // Licznik 11 minut
+  // Licznik 11 minut - zapisywany w sessionStorage
   const { formattedTime, isExpired } = useCountdown({ 
     initialTime: 660, // 11 minut w sekundach
+    storageKey: 'payment_vip_timer',
     onComplete: () => {
       console.log('⏰ Czas na płatność minął (11 minut) - przekierowanie na podziekowaniebezvip');
       // Przekieruj na stronę bez VIP
@@ -345,20 +346,31 @@ const PaymentTest = () => {
             </div>
           </div>
 
-          {/* Licznik 7 minut - subtelny */}
-          <div className={`mb-4 rounded-lg p-3 text-center border transition-all duration-300 ${
+          {/* Licznik VIP - wyróżniony */}
+          <div className={`mb-6 rounded-xl p-5 sm:p-6 text-center border-2 transition-all duration-300 ${
             isExpired 
-              ? 'bg-red-50 border-red-300 text-red-800' 
-              : 'bg-gray-50 border-gray-300 text-gray-700'
+              ? 'bg-red-600 border-red-700 text-white' 
+              : 'bg-gradient-to-br from-orange-500 to-red-600 border-orange-600 text-white shadow-lg'
           }`}>
-            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <svg className={`w-6 h-6 ${!isExpired && 'animate-pulse'}`} fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
               </svg>
-              <span className="font-medium">
-                {isExpired ? 'Oferta wygasła' : `Oferta ważna jeszcze: ${formattedTime}`}
+              <span className="text-base sm:text-lg font-bold">
+                {isExpired ? '⏰ CZAS MINĄŁ' : '🔥 ABY UZYSKAĆ STATUS VIP'}
               </span>
             </div>
+            <p className="text-xs sm:text-sm font-semibold opacity-95 mb-3">
+              {isExpired ? 'Przekierowujemy Cię za moment...' : 'Należy opłacić usługę w ciągu:'}
+            </p>
+            <div className="text-4xl sm:text-5xl font-black tracking-wider mb-2">
+              {formattedTime}
+            </div>
+            {!isExpired && (
+              <p className="text-xs sm:text-sm font-medium opacity-90">
+                ⚡ Priorytetowa obsługa VIP • Natychmiastowy kontakt
+              </p>
+            )}
           </div>
 
           {/* Analiza dokumentów - wyróżniona sekcja */}
