@@ -200,7 +200,7 @@ const PaymentTest = () => {
             console.log('💳 Payment data saved:', paymentData);
             
             const params = new URLSearchParams({
-              payment: 'success',
+              paid: 'true',
               transactionId: data.transactionId || transactionId,
               name,
               email,
