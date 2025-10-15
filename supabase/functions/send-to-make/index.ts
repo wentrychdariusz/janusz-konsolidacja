@@ -53,8 +53,6 @@ Deno.serve(async (req) => {
               phone: lead.phone,
               email: lead.email,
               payment_status: lead.payment_status,
-              sms_verified: lead.sms_verified,
-              created_at: lead.created_at,
             }]
           }),
         });
