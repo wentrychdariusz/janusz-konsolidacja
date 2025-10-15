@@ -99,6 +99,50 @@ const ABTestThankYou = () => {
         });
       }
       
+      // Zapisz dane do localStorage i rozpocznij 5-minutowy timer do wysyłki webhooka
+      const sessionId = localStorage.getItem('session_id') || `session_${Date.now()}`;
+      const userData = {
+        name: decodeURIComponent(name),
+        email: decodeURIComponent(email),
+        phone: decodeURIComponent(phone),
+        session_id: sessionId,
+        sms_verified_at: new Date().toISOString()
+      };
+      
+      localStorage.setItem('user_data', JSON.stringify(userData));
+      console.log('📝 User data saved, starting 5-minute timer for webhook');
+      
+      // Timer 5 minut (300000 ms) - po tym czasie wyślij dane do Make.com
+      setTimeout(async () => {
+        try {
+          const savedUserData = JSON.parse(localStorage.getItem('user_data') || '{}');
+          const paymentStatus = localStorage.getItem('payment_status') || 'Nieopłacone';
+          
+          const webhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
+          
+          await fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              event: 'sms_verified_with_payment_status',
+              payment_status: paymentStatus,
+              ...savedUserData,
+              timestamp: new Date().toISOString()
+            })
+          });
+          
+          console.log('✅ Make.com webhook: Data sent after 5 minutes with payment status:', paymentStatus);
+          
+          // Wyczyść dane po wysłaniu
+          localStorage.removeItem('user_data');
+          localStorage.removeItem('payment_status');
+        } catch (error) {
+          console.error('❌ Make.com webhook error:', error);
+        }
+      }, 300000); // 5 minut = 300000 ms
+      
     } catch (error) {
       setVerificationError('Wystąpił błąd podczas weryfikacji. Spróbuj ponownie.');
     } finally {

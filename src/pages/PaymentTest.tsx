@@ -166,33 +166,9 @@ const PaymentTest = () => {
               console.log('🎯 Google Ads: Conversion tracked for payment');
             }
             
-            // Webhook do Make.com - informacja o opłaconym kliencie
-            try {
-              const paymentWebhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
-              const sessionId = localStorage.getItem('session_id') || `session_${Date.now()}`;
-              
-              await fetch(paymentWebhookUrl, {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  event: 'payment_completed',
-                  payment_status: 'Opłacone',
-                  session_id: sessionId,
-                  transaction_id: transactionId,
-                  amount: 9.90,
-                  currency: 'PLN',
-                  name,
-                  email,
-                  phone: phone || phoneInput,
-                  timestamp: new Date().toISOString()
-                })
-              });
-              console.log('✅ Make.com webhook: Payment status sent');
-            } catch (error) {
-              console.error('❌ Make.com webhook error:', error);
-            }
+            // Zapisz status płatności do localStorage (webhook wyśle timer w ABTestThankYou)
+            localStorage.setItem('payment_status', 'Opłacone');
+            console.log('✅ Payment status saved to localStorage: Opłacone');
             
             const params = new URLSearchParams({
               payment: 'success',
