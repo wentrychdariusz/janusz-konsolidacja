@@ -17,9 +17,26 @@ declare global {
 const ABTestThankYou = () => {
   const [searchParams] = useSearchParams();
   const success = searchParams.get('success');
-  const name = searchParams.get('name') || '';
-  const email = searchParams.get('email') || '';
-  const phone = searchParams.get('phone') || '';
+  
+  // Pobierz dane z URL
+  let name = searchParams.get('name') || '';
+  let email = searchParams.get('email') || '';
+  let phone = searchParams.get('phone') || '';
+  
+  // Jeśli dane nie są w URL, spróbuj pobrać z localStorage
+  if (!name || !email || !phone) {
+    const savedUserData = localStorage.getItem('user_data');
+    if (savedUserData) {
+      try {
+        const userData = JSON.parse(savedUserData);
+        name = name || userData.name || '';
+        email = email || userData.email || '';
+        phone = phone || userData.phone || '';
+      } catch (e) {
+        console.error('Error parsing user_data from localStorage:', e);
+      }
+    }
+  }
   
   const [smsCode, setSmsCode] = useState('');
   const [smsVerified, setSmsVerified] = useState(false);
@@ -59,20 +76,19 @@ const ABTestThankYou = () => {
         console.log('⏰ 5 minutes have passed since SMS verification - sending webhook now!');
         
         try {
-          const savedUserData = JSON.parse(localStorage.getItem('user_data') || '{}');
           const paymentStatus = localStorage.getItem('payment_status') || 'Nieopłacone';
           const paymentData = JSON.parse(localStorage.getItem('payment_data') || '{}');
           
-          console.log('📦 User data:', savedUserData);
+          console.log('📦 User data: name=' + name + ', phone=' + phone + ', email=' + email);
           console.log('💳 Payment status:', paymentStatus);
           console.log('💰 Payment data:', paymentData);
           
           const webhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
           
           const webhookPayload = {
-            name: savedUserData.name,
-            phone: savedUserData.phone,
-            email: savedUserData.email,
+            name: name || 'Nie podano',
+            phone: phone || 'Nie podano',
+            email: email || 'Nie podano',
             payment_status: paymentStatus
           };
           
@@ -178,9 +194,9 @@ const ABTestThankYou = () => {
       const verifiedTimestamp = new Date().toISOString();
       
       const userData = {
-        name: decodeURIComponent(name),
-        email: decodeURIComponent(email),
-        phone: decodeURIComponent(phone),
+        name: name,
+        email: email,
+        phone: phone,
         session_id: sessionId,
         sms_verified_at: verifiedTimestamp
       };
