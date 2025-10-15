@@ -70,7 +70,7 @@ const Podziekowania = () => {
     // Wyślij webhook do Make.com
     const sendWebhook = async () => {
       try {
-        const webhookUrl = 'https://hook.eu2.make.com/janusz-go-ba-63dd01e7';
+        const webhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
 
         // Oczyść dane z potencjalnych problemów
         const cleanString = (str: string) => {
@@ -79,12 +79,10 @@ const Podziekowania = () => {
         };
 
         const payload = {
-          rows: [{
-            name: cleanString(effectiveName),
-            phone: cleanString(effectivePhone),
-            email: cleanString(effectiveEmail),
-            payment_status: paymentStatusFromUrl,
-          }]
+          name: cleanString(effectiveName),
+          phone: cleanString(effectivePhone),
+          email: cleanString(effectiveEmail),
+          payment_status: paymentStatusFromUrl,
         };
 
         console.log('📤 Sending webhook from /podziekowania:', payload);
