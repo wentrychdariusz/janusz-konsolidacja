@@ -33,7 +33,14 @@ const PaymentTest = () => {
   const { formattedTime, isExpired } = useCountdown({ 
     initialTime: 660, // 11 minut w sekundach
     onComplete: () => {
-      console.log('⏰ Czas na płatność minął (11 minut)');
+      console.log('⏰ Czas na płatność minął (11 minut) - przekierowanie na podziekowaniebezvip');
+      // Przekieruj na stronę bez VIP
+      const params = new URLSearchParams({
+        name,
+        email,
+        phone: phone || phoneInput
+      });
+      navigate(`/podziekowaniebezvip?${params.toString()}`);
     }
   });
   useEffect(() => {

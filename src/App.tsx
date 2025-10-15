@@ -16,6 +16,7 @@ import CalculatorBeta from "./pages/CalculatorBeta";
 import Analiza from "./pages/Analiza";
 import SuspiciousAnalysis from "./pages/SuspiciousAnalysis";
 import ThankYou from "./pages/ThankYou";
+import PodziękowanieBezVIP from "./pages/PodziękowanieBezVIP";
 import SmsVerification from "./pages/SmsVerification";
 import SmsVerificationA from "./pages/SmsVerificationA";
 import SmsVerificationB from "./pages/SmsVerificationB";
@@ -57,6 +58,7 @@ const App = () => (
           <Route path="/kontakt-a" element={<ContactFormA />} />
           <Route path="/kontakt-b" element={<ContactFormB />} />
           <Route path="/podziekowania" element={<Podziekowania />} />
+          <Route path="/podziekowaniebezvip" element={<PodziękowanieBezVIP />} />
           <Route path="/payment" element={<PaymentTest />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/panel" element={
