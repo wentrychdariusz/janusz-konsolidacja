@@ -78,10 +78,12 @@ const ABTestThankYou = () => {
         try {
           const paymentStatus = localStorage.getItem('payment_status') || 'Nieopłacone';
           const paymentData = JSON.parse(localStorage.getItem('payment_data') || '{}');
+          const smsVerifiedTimestamp = localStorage.getItem('sms_verified_timestamp');
           
           console.log('📦 User data: name=' + name + ', phone=' + phone + ', email=' + email);
           console.log('💳 Payment status:', paymentStatus);
           console.log('💰 Payment data:', paymentData);
+          console.log('✅ SMS verified:', smsVerifiedTimestamp ? 'Tak' : 'Nie');
           
           const webhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
           
@@ -89,7 +91,8 @@ const ABTestThankYou = () => {
             name: name || 'Nie podano',
             phone: phone || 'Nie podano',
             email: email || 'Nie podano',
-            payment_status: paymentStatus
+            payment_status: paymentStatus,
+            sms_verified: smsVerifiedTimestamp ? 'Zweryfikowany' : 'Niezweryfikowany'
           };
           
           console.log('📤 Sending webhook payload:', webhookPayload);
