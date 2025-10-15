@@ -82,10 +82,15 @@ const Podziekowania = () => {
           name: cleanString(effectiveName),
           phone: cleanString(effectivePhone),
           email: cleanString(effectiveEmail),
-          payment_status: paymentStatusFromUrl,
+          payment_status: paymentStatusFromUrl || 'Nieopłacone',
         };
 
-        console.log('📤 Sending webhook from /podziekowania:', payload);
+        console.log('📤 Sending webhook from /podziekowania:');
+        console.log('   - Name:', payload.name);
+        console.log('   - Phone:', payload.phone);
+        console.log('   - Email:', payload.email);
+        console.log('   - Payment Status:', payload.payment_status);
+        console.log('   - Full payload:', JSON.stringify(payload, null, 2));
         const res = await fetch(webhookUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
