@@ -166,9 +166,20 @@ const PaymentTest = () => {
               console.log('🎯 Google Ads: Conversion tracked for payment');
             }
             
-            // Zapisz status płatności do localStorage (webhook wyśle timer w ABTestThankYou)
+            // Zapisz status płatności i dane do localStorage (webhook wyśle timer w ABTestThankYou)
             localStorage.setItem('payment_status', 'Opłacone');
+            
+            // Zapisz także dane płatności dla webhooka
+            const paymentData = {
+              transaction_id: transactionId,
+              amount: 9.90,
+              currency: 'PLN',
+              paid_at: new Date().toISOString()
+            };
+            localStorage.setItem('payment_data', JSON.stringify(paymentData));
+            
             console.log('✅ Payment status saved to localStorage: Opłacone');
+            console.log('💳 Payment data saved:', paymentData);
             
             const params = new URLSearchParams({
               payment: 'success',

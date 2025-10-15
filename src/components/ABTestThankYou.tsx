@@ -110,7 +110,8 @@ const ABTestThankYou = () => {
       };
       
       localStorage.setItem('user_data', JSON.stringify(userData));
-      console.log('📝 User data saved, starting 5-minute timer for webhook');
+      console.log('📝 User data saved to localStorage:', userData);
+      console.log('🕐 Starting 5-minute timer for webhook...');
       
       // Timer 5 minut (300000 ms) - po tym czasie wyślij dane do Make.com
       setTimeout(async () => {
@@ -118,26 +119,39 @@ const ABTestThankYou = () => {
           const savedUserData = JSON.parse(localStorage.getItem('user_data') || '{}');
           const paymentStatus = localStorage.getItem('payment_status') || 'Nieopłacone';
           
+          console.log('⏰ 5 minutes passed! Sending webhook...');
+          console.log('📦 Saved user data:', savedUserData);
+          console.log('💳 Payment status:', paymentStatus);
+          
           const webhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
+          
+          const webhookPayload = {
+            event: 'sms_verified_with_payment_status',
+            payment_status: paymentStatus,
+            name: savedUserData.name,
+            email: savedUserData.email,
+            phone: savedUserData.phone,
+            session_id: savedUserData.session_id,
+            sms_verified_at: savedUserData.sms_verified_at,
+            timestamp: new Date().toISOString()
+          };
+          
+          console.log('📤 Webhook payload:', webhookPayload);
           
           await fetch(webhookUrl, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-              event: 'sms_verified_with_payment_status',
-              payment_status: paymentStatus,
-              ...savedUserData,
-              timestamp: new Date().toISOString()
-            })
+            body: JSON.stringify(webhookPayload)
           });
           
-          console.log('✅ Make.com webhook: Data sent after 5 minutes with payment status:', paymentStatus);
+          console.log('✅ Make.com webhook: Data sent successfully!');
           
           // Wyczyść dane po wysłaniu
           localStorage.removeItem('user_data');
           localStorage.removeItem('payment_status');
+          console.log('🧹 LocalStorage cleaned');
         } catch (error) {
           console.error('❌ Make.com webhook error:', error);
         }
