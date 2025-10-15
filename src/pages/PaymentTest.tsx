@@ -201,6 +201,7 @@ const PaymentTest = () => {
             
             const params = new URLSearchParams({
               paid: 'true',
+              payment_status: 'Opłacone',
               transactionId: data.transactionId || transactionId,
               name,
               email,
