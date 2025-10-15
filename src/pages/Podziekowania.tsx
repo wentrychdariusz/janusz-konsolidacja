@@ -101,10 +101,10 @@ const Podziekowania = () => {
           {/* Call back message */}
           <div className="text-center flex-1 flex flex-col justify-center">
             <h3 className="text-lg lg:text-xl font-bold text-navy-900 mb-3">
-              Bezpłatna konsultacja już na Ciebie czeka
+              Twoja sprawa jest już w naszych rękach
             </h3>
             <p className="text-sm lg:text-base text-navy-700 mb-6">
-              Nasz ekspert skontaktuje się z Tobą, aby przeprowadzić bezpłatną konsultację i zaproponować najlepsze rozwiązanie Twojej sytuacji finansowej.
+              Nasz ekspert skontaktuje się z Tobą, aby omówić szczegóły i zaproponować najlepsze rozwiązanie Twojej sytuacji finansowej.
             </p>
             
             {name && email && (
