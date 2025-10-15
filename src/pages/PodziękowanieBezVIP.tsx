@@ -6,9 +6,25 @@ const PodziękowanieBezVIP = () => {
   const [searchParams] = useSearchParams();
   const { trackConversion } = usePageTracking();
   
-  const name = searchParams.get('name') || '';
-  const email = searchParams.get('email') || '';
-  const phone = searchParams.get('phone') || '';
+  // Pobierz dane z URL lub localStorage
+  let name = searchParams.get('name') || '';
+  let email = searchParams.get('email') || '';
+  let phone = searchParams.get('phone') || '';
+  
+  // Jeśli dane nie są w URL, spróbuj pobrać z localStorage
+  if (!name || !email || !phone) {
+    const savedUserData = localStorage.getItem('user_data');
+    if (savedUserData) {
+      try {
+        const userData = JSON.parse(savedUserData);
+        name = name || userData.name || '';
+        email = email || userData.email || '';
+        phone = phone || userData.phone || '';
+      } catch (e) {
+        console.error('Error parsing user_data from localStorage:', e);
+      }
+    }
+  }
 
   useEffect(() => {
     trackConversion('ThankYou Without VIP Page');
