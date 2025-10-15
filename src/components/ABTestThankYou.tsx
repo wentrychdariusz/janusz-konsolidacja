@@ -207,11 +207,44 @@ const ABTestThankYou = () => {
     console.log('📱 SMS resent - countdown reset');
   };
 
+  const testWebhook = async () => {
+    const testPayload = {
+      name: "Jan Testowy",
+      phone: "+48123456789",
+      email: "test@example.com",
+      payment_status: "Opłacone"
+    };
+    
+    try {
+      console.log('🧪 Sending test webhook:', testPayload);
+      const response = await fetch('https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(testPayload)
+      });
+      console.log('✅ Test webhook sent successfully');
+      alert('✅ Webhook testowy wysłany! Sprawdź Make.com');
+    } catch (error) {
+      console.error('❌ Test webhook error:', error);
+      alert('❌ Błąd wysyłania webhooka testowego');
+    }
+  };
+
   // Wariant A - Oryginalny design
   if (isVariantA) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
         <div className="max-w-2xl w-full">
+          {/* Przycisk testowy - tylko dla developera */}
+          <div className="mb-4 text-center">
+            <button
+              onClick={testWebhook}
+              className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm"
+            >
+              🧪 TEST: Wyślij webhook do Make.com
+            </button>
+          </div>
+          
           <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
             
             {!smsVerified ? (
