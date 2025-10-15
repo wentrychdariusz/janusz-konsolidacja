@@ -73,11 +73,16 @@ const Podziekowania = () => {
         const smsVerifiedTimestamp = localStorage.getItem('sms_verified_timestamp');
         const webhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
 
+        // Oczyść dane z potencjalnych problemów
+        const cleanString = (str: string) => {
+          if (!str) return 'Nie podano';
+          return str.trim().replace(/[\r\n\t]/g, ' ');
+        };
+
         const payload = {
-          name: effectiveName || 'Nie podano',
-          phone: effectivePhone || 'Nie podano',
-          email: effectiveEmail || 'Nie podano',
-          payment: paymentStatus,
+          name: cleanString(effectiveName),
+          phone: cleanString(effectivePhone),
+          email: cleanString(effectiveEmail),
           payment_status: paymentStatus,
           sms_verified: smsVerifiedTimestamp ? 'Zweryfikowany' : 'Niezweryfikowany'
         };
