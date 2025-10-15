@@ -29,11 +29,11 @@ const PaymentTest = () => {
   const email = searchParams.get('email') || '';
   const phone = searchParams.get('phone') || '';
   
-  // Licznik 5 minut
+  // Licznik 7 minut
   const { formattedTime, isExpired } = useCountdown({ 
-    initialTime: 300, // 5 minut w sekundach
+    initialTime: 420, // 7 minut w sekundach
     onComplete: () => {
-      console.log('⏰ Czas na płatność minął (5 minut)');
+      console.log('⏰ Czas na płatność minął (7 minut)');
     }
   });
   useEffect(() => {
@@ -254,28 +254,6 @@ const PaymentTest = () => {
       <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-3xl">
         <div className="bg-white rounded-2xl shadow-xl border-0 p-6 sm:p-8 lg:p-10">
           
-          {/* Licznik 5 minut */}
-          <div className={`mb-6 rounded-xl p-4 text-center transition-all duration-300 ${
-            isExpired 
-              ? 'bg-red-600 text-white' 
-              : 'bg-gradient-to-r from-orange-500 to-red-500 text-white'
-          }`}>
-            <div className="flex items-center justify-center gap-2 mb-1">
-              <svg className="w-5 h-5 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-              </svg>
-              <p className="text-sm sm:text-base font-bold">
-                {isExpired ? '⏰ Czas minął' : 'Czas na płatność'}
-              </p>
-            </div>
-            <p className="text-2xl sm:text-3xl font-black tracking-wider">
-              {formattedTime}
-            </p>
-            <p className="text-xs sm:text-sm opacity-90 mt-1">
-              {isExpired ? 'Odśwież stronę, aby spróbować ponownie' : 'Pozostało do końca oferty'}
-            </p>
-          </div>
-          
           {/* Header z wizerunkiem Dariusza Wentrycha */}
           <div className="text-center mb-6">
             <div className="flex justify-center items-center mb-4">
@@ -357,6 +335,22 @@ const PaymentTest = () => {
               <div className="p-3 bg-green-50">
                 <p className="text-xs sm:text-sm text-green-700 font-semibold">💼 Obsługa VIP przez cały proces</p>
               </div>
+            </div>
+          </div>
+
+          {/* Licznik 7 minut - subtelny */}
+          <div className={`mb-4 rounded-lg p-3 text-center border transition-all duration-300 ${
+            isExpired 
+              ? 'bg-red-50 border-red-300 text-red-800' 
+              : 'bg-gray-50 border-gray-300 text-gray-700'
+          }`}>
+            <div className="flex items-center justify-center gap-2 text-xs sm:text-sm">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+              </svg>
+              <span className="font-medium">
+                {isExpired ? 'Oferta wygasła' : `Oferta ważna jeszcze: ${formattedTime}`}
+              </span>
             </div>
           </div>
 
