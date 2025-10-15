@@ -17,6 +17,7 @@ const Podziekowania = () => {
   const name = searchParams.get('name') || '';
   const email = searchParams.get('email') || '';
   const phone = searchParams.get('phone') || '';
+  const isPaidTest = searchParams.get('paid') === 'true';
 
   const {
     trackPageView,
@@ -25,6 +26,12 @@ const Podziekowania = () => {
 
   // Facebook Pixel + Webhook - wszystko w jednym useEffect
   useEffect(() => {
+    // Jeśli jest parametr paid=true, ustaw status płatności
+    if (isPaidTest) {
+      localStorage.setItem('payment_status', 'Opłacone');
+      localStorage.setItem('sms_verified_timestamp', Date.now().toString());
+    }
+
     // Pobierz dane z localStorage
     let effectiveName = name;
     let effectiveEmail = email;
