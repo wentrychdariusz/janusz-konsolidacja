@@ -57,82 +57,49 @@ const ABTestThankYou = () => {
     }
   });
 
-  // Sprawdź przy załadowaniu czy upłynęło 5 minut od weryfikacji SMS
+  // Wyślij webhook natychmiast przy załadowaniu strony
   useEffect(() => {
-    const checkAndSendWebhook = async () => {
-      const smsVerifiedTimestamp = localStorage.getItem('sms_verified_timestamp');
-      const webhookSent = localStorage.getItem('webhook_sent');
-      
-      if (!smsVerifiedTimestamp || webhookSent === 'true') {
-        return; // Nie ma weryfikacji lub webhook już wysłany
-      }
-      
-      const verifiedAt = new Date(smsVerifiedTimestamp).getTime();
-      const now = Date.now();
-      const fiveMinutes = 5 * 60 * 1000; // 5 minut w milisekundach
-      
-      if (now - verifiedAt >= fiveMinutes) {
-        // Minęło 5 minut - wyślij webhook natychmiast
-        console.log('⏰ 5 minutes have passed since SMS verification - sending webhook now!');
+    const sendWebhookImmediately = async () => {
+      try {
+        const paymentStatus = localStorage.getItem('payment_status') || 'Nieopłacone';
+        const smsVerifiedTimestamp = localStorage.getItem('sms_verified_timestamp');
         
-        try {
-          const paymentStatus = localStorage.getItem('payment_status') || 'Nieopłacone';
-          const paymentData = JSON.parse(localStorage.getItem('payment_data') || '{}');
-          const smsVerifiedTimestamp = localStorage.getItem('sms_verified_timestamp');
-          
-          console.log('📦 User data: name=' + name + ', phone=' + phone + ', email=' + email);
-          console.log('💳 Payment status:', paymentStatus);
-          console.log('💰 Payment data:', paymentData);
-          console.log('✅ SMS verified:', smsVerifiedTimestamp ? 'Tak' : 'Nie');
-          
-          const webhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
-          
-          const webhookPayload = {
-            name: name || 'Nie podano',
-            phone: phone || 'Nie podano',
-            email: email || 'Nie podano',
-            payment: paymentStatus,
-            payment_status: paymentStatus,
-            sms_verified: smsVerifiedTimestamp ? 'Zweryfikowany' : 'Niezweryfikowany'
-          };
-          
-          console.log('📤 Sending webhook payload:', webhookPayload);
-          
-          await fetch(webhookUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(webhookPayload)
-          });
-          
-          console.log('✅ Make.com webhook: Data sent successfully!');
-          
-          // Oznacz webhook jako wysłany
-          localStorage.setItem('webhook_sent', 'true');
-          
-          // Wyczyść dane
-          localStorage.removeItem('user_data');
-          localStorage.removeItem('payment_status');
-          localStorage.removeItem('payment_data');
-          localStorage.removeItem('sms_verified_timestamp');
-          console.log('🧹 LocalStorage cleaned');
-        } catch (error) {
-          console.error('❌ Make.com webhook error:', error);
-        }
-      } else {
-        // Nie minęło jeszcze 5 minut - ustaw timer na pozostały czas
-        const remainingTime = fiveMinutes - (now - verifiedAt);
-        console.log(`⏳ ${Math.round(remainingTime / 1000)} seconds remaining until webhook`);
+        console.log('📦 Wysyłam dane do Make.com');
+        console.log('📦 User data: name=' + name + ', phone=' + phone + ', email=' + email);
+        console.log('💳 Payment status:', paymentStatus);
+        console.log('✅ SMS verified:', smsVerifiedTimestamp ? 'Tak' : 'Nie');
         
-        setTimeout(async () => {
-          checkAndSendWebhook();
-        }, remainingTime);
+        const webhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
+        
+        const webhookPayload = {
+          name: name || 'Nie podano',
+          phone: phone || 'Nie podano',
+          email: email || 'Nie podano',
+          payment: paymentStatus,
+          payment_status: paymentStatus,
+          sms_verified: smsVerifiedTimestamp ? 'Zweryfikowany' : 'Niezweryfikowany'
+        };
+        
+        console.log('📤 Sending webhook payload to Make.com:', webhookPayload);
+        
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(webhookPayload)
+        });
+        
+        console.log('✅ Make.com webhook response status:', response.status);
+        console.log('✅ Make.com webhook: Data sent successfully!');
+        
+      } catch (error) {
+        console.error('❌ Make.com webhook error:', error);
       }
     };
     
-    checkAndSendWebhook();
-  }, []);
+    sendWebhookImmediately();
+  }, [name, phone, email]);
 
   // Facebook Pixel - track thank you page view
   useEffect(() => {
