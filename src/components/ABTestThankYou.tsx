@@ -40,6 +40,85 @@ const ABTestThankYou = () => {
     }
   });
 
+  // Sprawdź przy załadowaniu czy upłynęło 5 minut od weryfikacji SMS
+  useEffect(() => {
+    const checkAndSendWebhook = async () => {
+      const smsVerifiedTimestamp = localStorage.getItem('sms_verified_timestamp');
+      const webhookSent = localStorage.getItem('webhook_sent');
+      
+      if (!smsVerifiedTimestamp || webhookSent === 'true') {
+        return; // Nie ma weryfikacji lub webhook już wysłany
+      }
+      
+      const verifiedAt = new Date(smsVerifiedTimestamp).getTime();
+      const now = Date.now();
+      const fiveMinutes = 5 * 60 * 1000; // 5 minut w milisekundach
+      
+      if (now - verifiedAt >= fiveMinutes) {
+        // Minęło 5 minut - wyślij webhook natychmiast
+        console.log('⏰ 5 minutes have passed since SMS verification - sending webhook now!');
+        
+        try {
+          const savedUserData = JSON.parse(localStorage.getItem('user_data') || '{}');
+          const paymentStatus = localStorage.getItem('payment_status') || 'Nieopłacone';
+          const paymentData = JSON.parse(localStorage.getItem('payment_data') || '{}');
+          
+          console.log('📦 User data:', savedUserData);
+          console.log('💳 Payment status:', paymentStatus);
+          console.log('💰 Payment data:', paymentData);
+          
+          const webhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
+          
+          const webhookPayload = {
+            event: 'sms_verified_with_payment_status',
+            payment_status: paymentStatus,
+            name: savedUserData.name,
+            email: savedUserData.email,
+            phone: savedUserData.phone,
+            session_id: savedUserData.session_id,
+            sms_verified_at: savedUserData.sms_verified_at,
+            ...(paymentStatus === 'Opłacone' && paymentData),
+            timestamp: new Date().toISOString()
+          };
+          
+          console.log('📤 Sending webhook payload:', webhookPayload);
+          
+          await fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(webhookPayload)
+          });
+          
+          console.log('✅ Make.com webhook: Data sent successfully!');
+          
+          // Oznacz webhook jako wysłany
+          localStorage.setItem('webhook_sent', 'true');
+          
+          // Wyczyść dane
+          localStorage.removeItem('user_data');
+          localStorage.removeItem('payment_status');
+          localStorage.removeItem('payment_data');
+          localStorage.removeItem('sms_verified_timestamp');
+          console.log('🧹 LocalStorage cleaned');
+        } catch (error) {
+          console.error('❌ Make.com webhook error:', error);
+        }
+      } else {
+        // Nie minęło jeszcze 5 minut - ustaw timer na pozostały czas
+        const remainingTime = fiveMinutes - (now - verifiedAt);
+        console.log(`⏳ ${Math.round(remainingTime / 1000)} seconds remaining until webhook`);
+        
+        setTimeout(async () => {
+          checkAndSendWebhook();
+        }, remainingTime);
+      }
+    };
+    
+    checkAndSendWebhook();
+  }, []);
+
   // Facebook Pixel - track thank you page view
   useEffect(() => {
     if (success === 'true' && typeof window !== 'undefined' && window.fbq) {
@@ -99,63 +178,25 @@ const ABTestThankYou = () => {
         });
       }
       
-      // Zapisz dane do localStorage i rozpocznij 5-minutowy timer do wysyłki webhooka
+      // Zapisz dane do localStorage i timestamp weryfikacji
       const sessionId = localStorage.getItem('session_id') || `session_${Date.now()}`;
+      const verifiedTimestamp = new Date().toISOString();
+      
       const userData = {
         name: decodeURIComponent(name),
         email: decodeURIComponent(email),
         phone: decodeURIComponent(phone),
         session_id: sessionId,
-        sms_verified_at: new Date().toISOString()
+        sms_verified_at: verifiedTimestamp
       };
       
       localStorage.setItem('user_data', JSON.stringify(userData));
-      console.log('📝 User data saved to localStorage:', userData);
-      console.log('🕐 Starting 5-minute timer for webhook...');
+      localStorage.setItem('sms_verified_timestamp', verifiedTimestamp);
+      localStorage.removeItem('webhook_sent'); // Reset flagi na wypadek ponownej weryfikacji
       
-      // Timer 5 minut (300000 ms) - po tym czasie wyślij dane do Make.com
-      setTimeout(async () => {
-        try {
-          const savedUserData = JSON.parse(localStorage.getItem('user_data') || '{}');
-          const paymentStatus = localStorage.getItem('payment_status') || 'Nieopłacone';
-          
-          console.log('⏰ 5 minutes passed! Sending webhook...');
-          console.log('📦 Saved user data:', savedUserData);
-          console.log('💳 Payment status:', paymentStatus);
-          
-          const webhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
-          
-          const webhookPayload = {
-            event: 'sms_verified_with_payment_status',
-            payment_status: paymentStatus,
-            name: savedUserData.name,
-            email: savedUserData.email,
-            phone: savedUserData.phone,
-            session_id: savedUserData.session_id,
-            sms_verified_at: savedUserData.sms_verified_at,
-            timestamp: new Date().toISOString()
-          };
-          
-          console.log('📤 Webhook payload:', webhookPayload);
-          
-          await fetch(webhookUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(webhookPayload)
-          });
-          
-          console.log('✅ Make.com webhook: Data sent successfully!');
-          
-          // Wyczyść dane po wysłaniu
-          localStorage.removeItem('user_data');
-          localStorage.removeItem('payment_status');
-          console.log('🧹 LocalStorage cleaned');
-        } catch (error) {
-          console.error('❌ Make.com webhook error:', error);
-        }
-      }, 300000); // 5 minut = 300000 ms
+      console.log('📝 User data saved to localStorage:', userData);
+      console.log('🕐 SMS verified at:', verifiedTimestamp);
+      console.log('⏰ Webhook will be sent after 5 minutes (or when user returns)');
       
     } catch (error) {
       setVerificationError('Wystąpił błąd podczas weryfikacji. Spróbuj ponownie.');
