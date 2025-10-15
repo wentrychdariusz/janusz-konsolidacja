@@ -29,11 +29,11 @@ const PaymentTest = () => {
   const email = searchParams.get('email') || '';
   const phone = searchParams.get('phone') || '';
   
-  // Licznik 7 minut
+  // Licznik 11 minut
   const { formattedTime, isExpired } = useCountdown({ 
-    initialTime: 420, // 7 minut w sekundach
+    initialTime: 660, // 11 minut w sekundach
     onComplete: () => {
-      console.log('⏰ Czas na płatność minął (7 minut)');
+      console.log('⏰ Czas na płatność minął (11 minut)');
     }
   });
   useEffect(() => {
