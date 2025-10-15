@@ -70,15 +70,10 @@ const ABTestThankYou = () => {
           const webhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
           
           const webhookPayload = {
-            event: 'sms_verified_with_payment_status',
-            payment_status: paymentStatus,
             name: savedUserData.name,
-            email: savedUserData.email,
             phone: savedUserData.phone,
-            session_id: savedUserData.session_id,
-            sms_verified_at: savedUserData.sms_verified_at,
-            ...(paymentStatus === 'Opłacone' && paymentData),
-            timestamp: new Date().toISOString()
+            email: savedUserData.email,
+            payment_status: paymentStatus
           };
           
           console.log('📤 Sending webhook payload:', webhookPayload);
