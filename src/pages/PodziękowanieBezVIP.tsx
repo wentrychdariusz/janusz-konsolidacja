@@ -12,7 +12,33 @@ const PodziękowanieBezVIP = () => {
 
   useEffect(() => {
     trackConversion('ThankYou Without VIP Page');
-  }, []);
+    
+    // Wysyłamy webhook do Make.com z danymi użytkownika
+    const sendWebhook = async () => {
+      const webhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
+      
+      const webhookPayload = {
+        name: name || 'Nie podano',
+        phone: phone || 'Nie podano',
+        email: email || 'Nie podano',
+        payment_status: 'Nieopłacone'
+      };
+      
+      try {
+        console.log('📤 Sending webhook from PodziękowanieBezVIP:', webhookPayload);
+        await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(webhookPayload)
+        });
+        console.log('✅ Webhook sent successfully');
+      } catch (error) {
+        console.error('❌ Webhook error:', error);
+      }
+    };
+    
+    sendWebhook();
+  }, [name, email, phone]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
