@@ -19,6 +19,15 @@ const Podziekowania = () => {
   const phone = searchParams.get('phone') || '';
   const isPaidTest = searchParams.get('paid') === 'true';
   const paymentStatusFromUrl = searchParams.get('payment_status') || 'Nieopłacone';
+  
+  console.log('🔍 Podziekowania - URL params:', {
+    name,
+    email,
+    phone,
+    isPaidTest,
+    paymentStatusFromUrl,
+    fullUrl: window.location.href
+  });
 
   const {
     trackPageView,
@@ -82,14 +91,15 @@ const Podziekowania = () => {
           name: cleanString(effectiveName),
           phone: cleanString(effectivePhone),
           email: cleanString(effectiveEmail),
-          payment_status: paymentStatusFromUrl || 'Nieopłacone',
+          payment_status: paymentStatusFromUrl,
         };
 
         console.log('📤 Sending webhook from /podziekowania:');
         console.log('   - Name:', payload.name);
         console.log('   - Phone:', payload.phone);
         console.log('   - Email:', payload.email);
-        console.log('   - Payment Status:', payload.payment_status);
+        console.log('   - Payment Status (from URL):', paymentStatusFromUrl);
+        console.log('   - Payment Status (in payload):', payload.payment_status);
         console.log('   - Full payload:', JSON.stringify(payload, null, 2));
         const res = await fetch(webhookUrl, {
           method: 'POST',

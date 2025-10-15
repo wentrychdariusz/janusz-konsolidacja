@@ -207,6 +207,17 @@ const PaymentTest = () => {
               email,
               phone: phone || phoneInput
             });
+            
+            console.log('🔗 Redirecting to /podziekowania with params:', {
+              paid: 'true',
+              payment_status: 'Opłacone',
+              transactionId: data.transactionId || transactionId,
+              name,
+              email,
+              phone: phone || phoneInput,
+              fullUrl: `/podziekowania?${params.toString()}`
+            });
+            
             navigate(`/podziekowania?${params.toString()}`);
             return;
           }
