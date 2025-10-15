@@ -168,7 +168,7 @@ const PaymentTest = () => {
             
             // Webhook do Make.com - informacja o opłaconym kliencie
             try {
-              const paymentWebhookUrl = 'https://hook.eu2.make.com/TWÓJ_WEBHOOK_URL_TUTAJ'; // Zamień na swój webhook URL
+              const paymentWebhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
               const sessionId = localStorage.getItem('session_id') || `session_${Date.now()}`;
               
               await fetch(paymentWebhookUrl, {
@@ -178,6 +178,7 @@ const PaymentTest = () => {
                 },
                 body: JSON.stringify({
                   event: 'payment_completed',
+                  payment_status: 'Opłacone',
                   session_id: sessionId,
                   transaction_id: transactionId,
                   amount: 9.90,
