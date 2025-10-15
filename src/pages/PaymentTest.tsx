@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useSupabaseTracking } from '@/hooks/useSupabaseTracking';
 import { supabase } from '@/integrations/supabase/client';
 import { Loader2 } from 'lucide-react';
+import { useCountdown } from '@/hooks/useCountdown';
 const PaymentTest = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -27,6 +28,14 @@ const PaymentTest = () => {
   const name = searchParams.get('name') || '';
   const email = searchParams.get('email') || '';
   const phone = searchParams.get('phone') || '';
+  
+  // Licznik 5 minut
+  const { formattedTime, isExpired } = useCountdown({ 
+    initialTime: 300, // 5 minut w sekundach
+    onComplete: () => {
+      console.log('⏰ Czas na płatność minął (5 minut)');
+    }
+  });
   useEffect(() => {
     trackPageView('payment_test', undefined, 'main_site');
   }, [trackPageView]);
@@ -244,6 +253,28 @@ const PaymentTest = () => {
   return <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-3xl">
         <div className="bg-white rounded-2xl shadow-xl border-0 p-6 sm:p-8 lg:p-10">
+          
+          {/* Licznik 5 minut */}
+          <div className={`mb-6 rounded-xl p-4 text-center transition-all duration-300 ${
+            isExpired 
+              ? 'bg-red-600 text-white' 
+              : 'bg-gradient-to-r from-orange-500 to-red-500 text-white'
+          }`}>
+            <div className="flex items-center justify-center gap-2 mb-1">
+              <svg className="w-5 h-5 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+              </svg>
+              <p className="text-sm sm:text-base font-bold">
+                {isExpired ? '⏰ Czas minął' : 'Czas na płatność'}
+              </p>
+            </div>
+            <p className="text-2xl sm:text-3xl font-black tracking-wider">
+              {formattedTime}
+            </p>
+            <p className="text-xs sm:text-sm opacity-90 mt-1">
+              {isExpired ? 'Odśwież stronę, aby spróbować ponownie' : 'Pozostało do końca oferty'}
+            </p>
+          </div>
           
           {/* Header z wizerunkiem Dariusza Wentrycha */}
           <div className="text-center mb-6">
