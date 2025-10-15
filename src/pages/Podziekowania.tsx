@@ -17,6 +17,22 @@ const Podziekowania = () => {
   const name = searchParams.get('name') || '';
   const email = searchParams.get('email') || '';
   const phone = searchParams.get('phone') || '';
+  // Dane użytkownika z URL + fallback z localStorage
+  const savedUserData = localStorage.getItem('user_data');
+  let effectiveName = name;
+  let effectiveEmail = email;
+  let effectivePhone = phone;
+  if ((!effectiveName || !effectiveEmail || !effectivePhone) && savedUserData) {
+    try {
+      const userData = JSON.parse(savedUserData);
+      effectiveName = effectiveName || userData.name || '';
+      effectiveEmail = effectiveEmail || userData.email || '';
+      effectivePhone = effectivePhone || userData.phone || '';
+    } catch (e) {
+      console.error('Error parsing user_data from localStorage:', e);
+    }
+  }
+
   const {
     trackPageView,
     trackConversion
@@ -42,6 +58,37 @@ const Podziekowania = () => {
       console.log('🎯 Facebook Pixel: Lead conversion tracked for wentrych.pl/podziekowania');
     }
   }, []);
+
+  // Wyślij webhook do Make.com natychmiast z danymi i statusem płatności
+  useEffect(() => {
+    const send = async () => {
+      try {
+        const paymentStatus = localStorage.getItem('payment_status') || 'Nieopłacone';
+        const smsVerifiedTimestamp = localStorage.getItem('sms_verified_timestamp');
+        const webhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
+
+        const payload = {
+          name: effectiveName || 'Nie podano',
+          phone: effectivePhone || 'Nie podano',
+          email: effectiveEmail || 'Nie podano',
+          payment: paymentStatus,
+          payment_status: paymentStatus,
+          sms_verified: smsVerifiedTimestamp ? 'Zweryfikowany' : 'Niezweryfikowany'
+        };
+
+        console.log('📤 Sending webhook from /podziekowania:', payload);
+        const res = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        console.log('✅ Webhook response status:', res.status);
+      } catch (err) {
+        console.error('❌ Webhook error (/podziekowania):', err);
+      }
+    };
+    send();
+  }, [effectiveName, effectiveEmail, effectivePhone]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
