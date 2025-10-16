@@ -81,9 +81,19 @@ const Podziekowania = () => {
       try {
         const webhookUrl = 'https://hook.eu2.make.com/mqcldwrvdmcd4ntk338yqipsi1p5ijv3';
 
+        // Walidacja - NIE WYSYŁAJ jeśli brak kluczowych danych
+        if (!effectiveName || !effectivePhone || !effectiveEmail) {
+          console.log('⚠️ Brak wymaganych danych, webhook nie zostanie wysłany:', {
+            name: effectiveName,
+            phone: effectivePhone,
+            email: effectiveEmail
+          });
+          return;
+        }
+
         // Oczyść dane z potencjalnych problemów
         const cleanString = (str: string) => {
-          if (!str) return 'Nie podano';
+          if (!str) return '';
           return str.trim().replace(/[\r\n\t]/g, ' ');
         };
 
