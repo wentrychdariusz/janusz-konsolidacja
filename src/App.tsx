@@ -30,6 +30,7 @@ import AdminLogout from "./pages/AdminLogout";
 import NotFound from "./pages/NotFound";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 import PaymentTest from "./pages/PaymentTest";
+import PaymentExpress from "./pages/PaymentExpress";
 
 const queryClient = new QueryClient();
 
@@ -60,6 +61,7 @@ const App = () => (
           <Route path="/podziekowania" element={<Podziekowania />} />
           <Route path="/podziekowaniebezvip" element={<PodziękowanieBezVIP />} />
           <Route path="/payment" element={<PaymentTest />} />
+          <Route path="/payment-express" element={<PaymentExpress />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/panel" element={
             <ProtectedAdminRoute>
