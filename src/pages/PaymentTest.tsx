@@ -310,7 +310,7 @@ const PaymentTest = () => {
               <span className="text-4xl sm:text-5xl lg:text-6xl font-black text-navy-900">9,90 zł</span>
             </div>
             <p className="text-xs sm:text-sm text-prestige-gold-700 font-bold">
-              💡 Analizujemy Twoje dokumenty jako najlepsi doradcy finansowi w Polsce. Nigdzie nie znajdziesz lepszej usługi.
+              💡 Za 9,90 zł dedykowany zespół, który zna historie ponad 15.000 przypadków i wie, czy można Ci pomóc
             </p>
           </div>
 
