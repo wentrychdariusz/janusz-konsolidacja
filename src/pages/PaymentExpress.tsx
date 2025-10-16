@@ -21,17 +21,23 @@ const PaymentExpress = () => {
   const [isWaitingForConfirmation, setIsWaitingForConfirmation] = useState(false);
 
   // Dane z formularza kontaktowego (już są przekazane)
-  const firstName = searchParams.get('name')?.split(' ')[0] || '';
-  const lastName = searchParams.get('name')?.split(' ').slice(1).join(' ') || '';
-  const email = searchParams.get('email') || '';
-  const phone = searchParams.get('phone') || '';
+  const fullName = searchParams.get('name') || 'Jan Kowalski';
+  const nameParts = fullName.trim().split(' ');
+  const firstName = nameParts[0] || 'Jan';
+  const lastName = nameParts.slice(1).join(' ') || 'Kowalski';
+  const email = searchParams.get('email') || 'kontakt@example.com';
+  const phone = searchParams.get('phone') || '123456789';
   
   // Licznik 11 minut
   const { formattedTime, isExpired } = useCountdown({ 
     initialTime: 660,
     storageKey: 'payment_express_timer',
     onComplete: () => {
-      const params = new URLSearchParams({ name: `${firstName} ${lastName}`, email, phone });
+      const params = new URLSearchParams({ 
+        name: fullName, 
+        email, 
+        phone 
+      });
       navigate(`/podziekowaniebezvip?${params.toString()}`);
     }
   });
@@ -44,6 +50,16 @@ const PaymentExpress = () => {
 
   const handleInitiatePayment = async () => {
     if (transactionId) return; // Already created
+    
+    // Validate data before creating transaction
+    if (!firstName || firstName.length < 3) {
+      setError('Imię musi mieć minimum 3 znaki');
+      return;
+    }
+    if (!phone || phone.length < 9) {
+      setError('Numer telefonu musi mieć minimum 9 cyfr');
+      return;
+    }
     
     setIsProcessing(true);
     try {
@@ -149,7 +165,7 @@ const PaymentExpress = () => {
               paid: 'true',
               payment_status: 'Opłacone',
               transactionId,
-              name: `${firstName} ${lastName}`,
+              name: fullName,
               email,
               phone
             });
@@ -230,10 +246,18 @@ const PaymentExpress = () => {
             <p className="text-gray-600 text-sm">
               Dariusz Wentrych czeka na Twój sygnał
             </p>
+            <div className="mt-2 text-xs text-gray-500">
+              {fullName} • {phone}
+            </div>
           </div>
 
           {/* Why Pay - Compact */}
           <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 mb-6 border border-blue-200">
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-3">
+                <p className="text-sm text-red-800">{error}</p>
+              </div>
+            )}
             <div className="flex items-start gap-3 mb-3">
               <Shield className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
               <div>
@@ -285,12 +309,6 @@ const PaymentExpress = () => {
                   disabled={isProcessing || isWaitingForConfirmation}
                 />
               </div>
-
-              {error && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                  <p className="text-sm text-red-800">{error}</p>
-                </div>
-              )}
 
               {isWaitingForConfirmation && (
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
