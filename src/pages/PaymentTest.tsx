@@ -28,10 +28,14 @@ const PaymentTest = () => {
   const name = searchParams.get('name') || '';
   const email = searchParams.get('email') || '';
   const phone = searchParams.get('phone') || '';
-  
+
   // Licznik 11 minut - zapisywany w sessionStorage
-  const { formattedTime, isExpired } = useCountdown({ 
-    initialTime: 660, // 11 minut w sekundach
+  const {
+    formattedTime,
+    isExpired
+  } = useCountdown({
+    initialTime: 660,
+    // 11 minut w sekundach
     storageKey: 'payment_vip_timer',
     onComplete: () => {
       console.log('⏰ Czas na płatność minął (11 minut) - przekierowanie na podziekowaniebezvip');
@@ -161,7 +165,7 @@ const PaymentTest = () => {
           if (statusData.status === 'correct' || statusData.paymentStatus === 'correct') {
             console.log('✅ Payment confirmed!');
             pollingActive = false;
-            
+
             // Facebook Pixel - track lead conversion (wysyła do Make.com/CRM)
             if (typeof window !== 'undefined' && (window as any).fbq) {
               (window as any).fbq('track', 'Lead', {
@@ -172,7 +176,7 @@ const PaymentTest = () => {
               });
               console.log('🎯 Facebook Pixel: Lead conversion tracked for payment');
             }
-            
+
             // Google Ads conversion tracking
             if ((window as any).gtag) {
               (window as any).gtag('event', 'conversion', {
@@ -183,10 +187,10 @@ const PaymentTest = () => {
               });
               console.log('🎯 Google Ads: Conversion tracked for payment');
             }
-            
+
             // Zapisz status płatności i dane do localStorage (webhook wyśle timer w ABTestThankYou)
             localStorage.setItem('payment_status', 'Opłacone');
-            
+
             // Zapisz także dane płatności dla webhooka
             const paymentData = {
               transaction_id: transactionId,
@@ -195,10 +199,8 @@ const PaymentTest = () => {
               paid_at: new Date().toISOString()
             };
             localStorage.setItem('payment_data', JSON.stringify(paymentData));
-            
             console.log('✅ Payment status saved to localStorage: Opłacone');
             console.log('💳 Payment data saved:', paymentData);
-            
             const params = new URLSearchParams({
               paid: 'true',
               payment_status: 'Opłacone',
@@ -207,7 +209,6 @@ const PaymentTest = () => {
               email,
               phone: phone || phoneInput
             });
-            
             console.log('🔗 Redirecting to /podziekowania with params:', {
               paid: 'true',
               payment_status: 'Opłacone',
@@ -217,7 +218,6 @@ const PaymentTest = () => {
               phone: phone || phoneInput,
               fullUrl: `/podziekowania?${params.toString()}`
             });
-            
             navigate(`/podziekowania?${params.toString()}`);
             return;
           }
@@ -360,31 +360,7 @@ const PaymentTest = () => {
           </div>
 
           {/* Licznik VIP - wyróżniony */}
-          <div className={`mb-6 rounded-xl p-5 sm:p-6 text-center border-2 transition-all duration-300 ${
-            isExpired 
-              ? 'bg-red-600 border-red-700 text-white' 
-              : 'bg-gradient-to-br from-orange-500 to-red-600 border-orange-600 text-white shadow-lg'
-          }`}>
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <svg className={`w-6 h-6 ${!isExpired && 'animate-pulse'}`} fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-              </svg>
-              <span className="text-base sm:text-lg font-bold">
-                {isExpired ? '⏰ CZAS MINĄŁ' : '🔥 ABY UZYSKAĆ STATUS VIP'}
-              </span>
-            </div>
-            <p className="text-xs sm:text-sm font-semibold opacity-95 mb-3">
-              {isExpired ? 'Przekierowujemy Cię za moment...' : 'Należy opłacić usługę w ciągu:'}
-            </p>
-            <div className="text-4xl sm:text-5xl font-black tracking-wider mb-2">
-              {formattedTime}
-            </div>
-            {!isExpired && (
-              <p className="text-xs sm:text-sm font-medium opacity-90">
-                ⚡ Priorytetowa obsługa VIP • Natychmiastowy kontakt
-              </p>
-            )}
-          </div>
+          
 
           {/* Analiza dokumentów - wyróżniona sekcja */}
           <div className="text-center mb-6 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-400 rounded-xl p-5 sm:p-6 shadow-md">
