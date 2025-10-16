@@ -310,7 +310,7 @@ const PaymentTest = () => {
               <span className="text-4xl sm:text-5xl lg:text-6xl font-black text-navy-900">9,90 zł</span>
             </div>
             <p className="text-xs sm:text-sm text-prestige-gold-700 font-bold">
-              💡 Za 9,90 zł dedykowany zespół, który zna historie ponad 15.000 przypadków i wie, czy można Ci pomóc
+              💡 Zwracamy w całości przy rozpoczęciu współpracy!
             </p>
           </div>
 
@@ -350,11 +350,19 @@ const PaymentTest = () => {
               </div>
               
               {/* Wiersz 4 */}
+              <div className="p-3 border-b border-r border-gray-200 bg-white">
+                <p className="text-xs sm:text-sm text-gray-600">—</p>
+              </div>
+              <div className="p-3 border-b bg-green-50">
+                <p className="text-xs sm:text-sm text-green-700 font-semibold">💼 Obsługa VIP przez cały proces</p>
+              </div>
+              
+              {/* Wiersz 5 */}
               <div className="p-3 border-r border-gray-200 bg-white">
                 <p className="text-xs sm:text-sm text-gray-600">—</p>
               </div>
               <div className="p-3 bg-green-50">
-                <p className="text-xs sm:text-sm text-green-700 font-semibold">💼 Obsługa VIP przez cały proces</p>
+                <p className="text-xs sm:text-sm text-green-700 font-semibold">🎯 Dedykowany zespół z historią 15.000+ przypadków</p>
               </div>
             </div>
           </div>
