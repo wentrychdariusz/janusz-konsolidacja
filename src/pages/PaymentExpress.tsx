@@ -50,7 +50,6 @@ const PaymentExpress = () => {
     
     if (!hasRealData) {
       console.warn('⚠️ PaymentExpress otwarty bez danych z formularza - używam danych testowych');
-      setError('⚠️ UWAGA: Strona otwarta bez danych. Użyj linku z formularza kontaktowego.');
     }
     
     // Auto-create transaction on page load
