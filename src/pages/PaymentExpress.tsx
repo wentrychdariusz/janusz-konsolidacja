@@ -261,21 +261,29 @@ const PaymentExpress = () => {
           </div>
 
           {/* Why Pay - Compact */}
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 mb-6 border border-blue-200">
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-5 mb-6 border border-blue-200">
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-3">
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
                 <p className="text-sm text-red-800">{error}</p>
               </div>
             )}
-            <div className="flex items-start gap-3 mb-3">
-              <Shield className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+            <div className="flex items-start gap-3 mb-4">
+              <Shield className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="text-sm text-gray-700 font-medium mb-1">
-                  Dlaczego 9,90 zł?
+                <p className="text-base text-gray-900 font-bold mb-2">
+                  Dlaczego pobieramy 9,90 zł?
                 </p>
-                <p className="text-xs text-gray-600 leading-relaxed">
-                  Wielu wypełnia formularz, ale nie odbiera telefonu. Ta symboliczna opłata potwierdza, że naprawdę zależy Ci na pomocy.
+                <p className="text-sm text-gray-700 leading-relaxed mb-3">
+                  Codziennie dziesiątki osób wypełnia formularz, ale potem nie odbiera telefonu. Nasz zespół traci cenny czas, który mógłby pomóc innym w potrzebie.
                 </p>
+                <p className="text-sm text-gray-700 leading-relaxed mb-3">
+                  Ta symboliczna opłata pokazuje, że naprawdę Ci zależy i jesteś gotowy na rozmowę. To jedyny sposób, żeby chronić nasz czas i pomagać tym, którzy naprawdę tego potrzebują.
+                </p>
+                <div className="bg-green-50 border-l-4 border-green-500 p-3 rounded">
+                  <p className="text-sm text-green-900 font-bold">
+                    💚 ZWROT GWARANTOWANY: Zwrócimy Ci całe 9,90 zł natychmiast po rozpoczęciu współpracy i analizie Twoich dokumentów!
+                  </p>
+                </div>
               </div>
             </div>
             
