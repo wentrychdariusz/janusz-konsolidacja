@@ -269,13 +269,13 @@ const PaymentExpress = () => {
             <div className="flex flex-col md:flex-row items-start md:gap-3 mb-4">
               <Shield className="w-6 h-6 text-blue-600 flex-shrink-0 mb-2 md:mb-0 md:mt-0.5 mx-auto md:mx-0" />
               <div className="w-full">
-                <p className="text-base text-gray-900 font-bold mb-2">
+                <p className="text-lg text-gray-900 font-bold mb-2">
                   Dlaczego chcemy teraz pobrać od Ciebie 9,90 zł?
                 </p>
                 <div className="flex items-center gap-4 mb-3 text-xs text-gray-600">
                   <div className="flex items-center gap-1">
                     <Zap className="w-3.5 h-3.5 text-blue-600" />
-                    <span>BLIK 30s</span>
+                    <span>BLIK 30 sekund</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <CheckCircle className="w-3.5 h-3.5 text-green-600" />
