@@ -269,8 +269,11 @@ const PaymentExpress = () => {
             <div className="flex flex-col md:flex-row items-start md:gap-3 mb-4">
               <Shield className="w-6 h-6 text-blue-600 flex-shrink-0 mb-2 md:mb-0 md:mt-0.5 mx-auto md:mx-0" />
               <div className="w-full">
-                <p className="text-base text-gray-900 font-bold mb-2">
-                  Dlaczego pobieramy 9,90 zł?
+                <p className="text-base text-gray-900 font-bold mb-1">
+                  Dlaczego chcemy teraz pobrać od Ciebie 9,90 zł?
+                </p>
+                <p className="text-xs text-gray-500 mb-3">
+                  płatność blikiem lub przelewy online 30 sekund
                 </p>
                 <p className="text-sm text-gray-700 leading-relaxed mb-3">
                   Codziennie wiele osób wypełnia formularz kontaktowy, ale część z nich nigdy nie odbiera telefonu. A my to nie przypadkowa infolinia – tylko zespół ludzi, którzy poświęcają swój czas, żeby realnie pomagać. Wśród nas są osoby, które po pracy wracają do rodzin, niektórzy mają dzieci – a mimo to znajdują czas, by wspierać innych.
