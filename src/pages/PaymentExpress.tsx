@@ -13,9 +13,7 @@ const PaymentExpress = () => {
     trackPageView
   } = useSupabaseTracking();
   const [isProcessing, setIsProcessing] = useState(false);
-  const [step, setStep] = useState<'blik' | 'other'>('blik');
   const [transactionId, setTransactionId] = useState('');
-  const [paymentUrl, setPaymentUrl] = useState('');
   const [blikCode, setBlikCode] = useState('');
   const [error, setError] = useState('');
   const [isWaitingForConfirmation, setIsWaitingForConfirmation] = useState(false);
@@ -87,7 +85,6 @@ const PaymentExpress = () => {
       if (functionError) throw new Error(functionError.message || 'Błąd tworzenia transakcji');
       if (data.error) throw new Error(data.details || data.error);
       setTransactionId(data.transactionId);
-      setPaymentUrl(data.paymentUrl);
     } catch (err) {
       console.error('❌ Error:', err);
       setError(err instanceof Error ? err.message : 'Wystąpił błąd. Spróbuj ponownie.');
@@ -213,11 +210,6 @@ const PaymentExpress = () => {
       setError(err instanceof Error ? err.message : 'Płatność nie powiodła się. Sprawdź kod BLIK i spróbuj ponownie.');
     }
   };
-  const handleOtherPaymentMethods = () => {
-    if (paymentUrl) {
-      window.location.href = paymentUrl;
-    }
-  };
   return <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Sticky Timer Bar */}
@@ -318,46 +310,31 @@ const PaymentExpress = () => {
           </div>
 
           {/* BLIK Payment Form */}
-          {step === 'blik' && <form onSubmit={handleBlikPayment} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Kod BLIK z aplikacji bankowej
-                </label>
-                <Input type="text" inputMode="numeric" pattern="[0-9]*" maxLength={6} value={blikCode} onChange={e => setBlikCode(e.target.value.replace(/\D/g, ''))} placeholder="_ _ _ _ _ _" className="text-center text-2xl font-mono tracking-widest h-14" disabled={isProcessing || isWaitingForConfirmation} />
-              </div>
+          <form onSubmit={handleBlikPayment} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Kod BLIK z aplikacji bankowej
+              </label>
+              <Input type="text" inputMode="numeric" pattern="[0-9]*" maxLength={6} value={blikCode} onChange={e => setBlikCode(e.target.value.replace(/\D/g, ''))} placeholder="_ _ _ _ _ _" className="text-center text-2xl font-mono tracking-widest h-14" disabled={isProcessing || isWaitingForConfirmation} />
+            </div>
 
-              {isWaitingForConfirmation && <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
-                  <Loader2 className="w-6 h-6 animate-spin mx-auto mb-2 text-blue-600" />
-                  <p className="text-sm text-blue-800 font-medium">
-                    Potwierdź płatność w aplikacji bankowej
-                  </p>
-                </div>}
+            {isWaitingForConfirmation && <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+                <Loader2 className="w-6 h-6 animate-spin mx-auto mb-2 text-blue-600" />
+                <p className="text-sm text-blue-800 font-medium">
+                  Potwierdź płatność w aplikacji bankowej
+                </p>
+              </div>}
 
-              <Button type="submit" className="w-full h-14 text-lg font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg" disabled={isProcessing || isWaitingForConfirmation || blikCode.length !== 6}>
-                {isProcessing ? <>
-                    <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                    Przetwarzanie...
-                  </> : <>
-                    <Zap className="w-5 h-5 mr-2" />
-                    Zapłać BLIK
-                  </>}
-              </Button>
-
-              <button type="button" onClick={() => setStep('other')} className="w-full text-sm text-gray-600 hover:text-gray-900 font-medium" disabled={isProcessing}>
-                Lub wybierz inną metodę płatności
-              </button>
-            </form>}
-
-          {/* Other Payment Methods */}
-          {step === 'other' && <div className="space-y-4">
-              <Button onClick={handleOtherPaymentMethods} className="w-full h-14 text-lg font-bold bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 shadow-lg" disabled={!paymentUrl}>
-                Zapłać kartą lub przelewem
-              </Button>
-
-              <button type="button" onClick={() => setStep('blik')} className="w-full text-sm text-gray-600 hover:text-gray-900 font-medium">
-                ← Wróć do płatności BLIK
-              </button>
-            </div>}
+            <Button type="submit" className="w-full h-14 text-lg font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg" disabled={isProcessing || isWaitingForConfirmation || blikCode.length !== 6}>
+              {isProcessing ? <>
+                  <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                  Przetwarzanie...
+                </> : <>
+                  <Zap className="w-5 h-5 mr-2" />
+                  Zapłać BLIK
+                </>}
+            </Button>
+          </form>
 
           {/* Trust Badges */}
           <div className="mt-6 pt-6 border-t border-gray-200">
