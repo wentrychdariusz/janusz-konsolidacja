@@ -266,9 +266,9 @@ const PaymentExpress = () => {
                 <p className="text-sm text-red-800">{error}</p>
               </div>
             )}
-            <div className="flex items-start gap-3 mb-4">
-              <Shield className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" />
-              <div>
+            <div className="flex flex-col md:flex-row items-start md:gap-3 mb-4">
+              <Shield className="w-6 h-6 text-blue-600 flex-shrink-0 mb-2 md:mb-0 md:mt-0.5 mx-auto md:mx-0" />
+              <div className="w-full">
                 <p className="text-base text-gray-900 font-bold mb-2">
                   Dlaczego pobieramy 9,90 zł?
                 </p>
