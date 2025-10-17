@@ -278,6 +278,27 @@ const PaymentExpress = () => {
                 <p className="text-sm text-gray-700 leading-relaxed mb-3">
                   Symboliczna wpłata 9,90 zł to forma weryfikacji, która pozwala nam mieć pewność, że zgłasza się do nas osoba rzeczywiście zainteresowana rozmową i pomocą w sprawie finansowej. To proste zabezpieczenie przed przypadkowymi zgłoszeniami, które blokują czas naszych doradców.
                 </p>
+                <p className="text-sm text-gray-900 font-semibold mb-2">
+                  W ramach weryfikacji analizujemy Twoją sytuację kredytową, w tym:
+                </p>
+                <div className="space-y-2 mb-3">
+                  <div className="flex items-start gap-2 text-sm text-gray-700">
+                    <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span>możliwości uzyskania finansowania na podstawie przedstawionych danych,</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-sm text-gray-700">
+                    <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span>błędy i nieprawidłowości widoczne w raportach BIK, BIG i InfoMonitora,</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-sm text-gray-700">
+                    <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span>czynniki obniżające zdolność kredytową oraz to, co można poprawić,</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-sm text-gray-700">
+                    <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
+                    <span>potencjalne ścieżki rozwiązania problemu finansowego.</span>
+                  </div>
+                </div>
                 <div className="bg-green-50 border-l-4 border-green-500 p-3 rounded">
                   <p className="text-sm text-green-900 font-bold mb-2">
                     ZWROT GWARANTOWANY
