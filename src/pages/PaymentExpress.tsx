@@ -299,17 +299,6 @@ const PaymentExpress = () => {
                     <span>potencjalne ścieżki rozwiązania problemu finansowego.</span>
                   </div>
                 </div>
-                <div className="bg-green-50 border-l-4 border-green-500 p-3 rounded">
-                  <p className="text-sm text-green-900 font-bold mb-2">
-                    ZWROT GWARANTOWANY
-                  </p>
-                  <p className="text-sm text-green-800 leading-relaxed">
-                    Zwrot wpłaty następuje po rozpoczęciu współpracy – czyli wtedy, gdy analiza dokumentów przebiegnie pomyślnie i podpiszemy umowę o kredytowanie. Wtedy natychmiast zwracamy pełną kwotę.
-                  </p>
-                  <p className="text-sm text-green-900 font-medium mt-2">
-                    Uczciwe, przejrzyste zasady, dzięki którym możemy skutecznie pomagać osobom, które naprawdę tego potrzebują.
-                  </p>
-                </div>
               </div>
             </div>
             
