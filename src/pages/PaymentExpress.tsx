@@ -49,10 +49,12 @@ const PaymentExpress = () => {
     const hasRealData = searchParams.get('name') && searchParams.get('email') && searchParams.get('phone');
     
     if (!hasRealData) {
-      console.warn('⚠️ PaymentExpress otwarty bez danych z formularza - używam danych testowych');
+      console.warn('⚠️ PaymentExpress otwarty bez danych z formularza');
+      setError('Brak danych. Przejdź przez formularz kontaktowy.');
+      return;
     }
     
-    // Auto-create transaction on page load
+    // Auto-create transaction only if we have real data
     handleInitiatePayment();
   }, []);
 
