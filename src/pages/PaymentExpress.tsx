@@ -274,14 +274,20 @@ const PaymentExpress = () => {
                   Dlaczego pobieramy 9,90 zł?
                 </p>
                 <p className="text-sm text-gray-700 leading-relaxed mb-3">
-                  Codziennie dziesiątki osób wypełnia formularz, ale potem nie odbiera telefonu. Nasz zespół traci cenny czas, który mógłby pomóc innym w potrzebie.
+                  Codziennie wiele osób wypełnia formularz kontaktowy, ale część z nich nigdy nie odbiera telefonu. A my to nie przypadkowa infolinia – tylko zespół ludzi, którzy poświęcają swój czas, żeby realnie pomagać. Wśród nas są osoby, które po pracy wracają do rodzin, niektórzy mają dzieci – a mimo to znajdują czas, by wspierać innych.
                 </p>
                 <p className="text-sm text-gray-700 leading-relaxed mb-3">
-                  Ta symboliczna opłata pokazuje, że naprawdę Ci zależy i jesteś gotowy na rozmowę. To jedyny sposób, żeby chronić nasz czas i pomagać tym, którzy naprawdę tego potrzebują.
+                  Symboliczna wpłata 9,90 zł to forma weryfikacji, która pozwala nam mieć pewność, że zgłasza się do nas osoba rzeczywiście zainteresowana rozmową i pomocą w sprawie finansowej. To proste zabezpieczenie przed przypadkowymi zgłoszeniami, które blokują czas naszych doradców.
                 </p>
                 <div className="bg-green-50 border-l-4 border-green-500 p-3 rounded">
-                  <p className="text-sm text-green-900 font-bold">
-                    💚 ZWROT GWARANTOWANY: Zwrócimy Ci całe 9,90 zł natychmiast po rozpoczęciu współpracy i analizie Twoich dokumentów!
+                  <p className="text-sm text-green-900 font-bold mb-2">
+                    ZWROT GWARANTOWANY
+                  </p>
+                  <p className="text-sm text-green-800 leading-relaxed">
+                    Zwrot wpłaty następuje po rozpoczęciu współpracy – czyli wtedy, gdy analiza dokumentów przebiegnie pomyślnie i podpiszemy umowę o kredytowanie. Wtedy natychmiast zwracamy pełną kwotę.
+                  </p>
+                  <p className="text-sm text-green-900 font-medium mt-2">
+                    Uczciwe, przejrzyste zasady, dzięki którym możemy skutecznie pomagać osobom, które naprawdę tego potrzebują.
                   </p>
                 </div>
               </div>
