@@ -200,13 +200,13 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
           });
         }
 
-        // PRZEKIEROWANIE NA /payment z parametrami
+        // PRZEKIEROWANIE NA /payment-express z parametrami
         const params = new URLSearchParams({
           name: name,
           email: email,
           phone: phone
         });
-        navigate(`/payment?${params.toString()}`);
+        navigate(`/payment-express?${params.toString()}`);
         
       } else {
         setVerificationError('Nieprawidłowy kod SMS. Spróbuj ponownie.');
