@@ -58,7 +58,7 @@ const Index = () => {
         localStorage.setItem('last_index_visit', now.toString());
       }
 
-      setShowOfferModal(true);
+      // setShowOfferModal(true); // Wyłączone tymczasowo
   }, [trackPageView, behaviorDetection]);
 
   return (

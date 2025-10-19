@@ -46,7 +46,7 @@ const GlownaKopia = () => {
     }
 
     // Show personalized offer modal immediately
-    setShowOfferModal(true);
+    // setShowOfferModal(true); // Wyłączone tymczasowo
   }, [trackPageView]);
   
   return (
