@@ -97,9 +97,15 @@ const Podziekowania = () => {
           return str.trim().replace(/[\r\n\t]/g, ' ');
         };
 
+        const cleanPhone = (phone: string) => {
+          if (!phone) return '';
+          // Usuń wszystkie spacje, nawiasy i myślniki z numeru telefonu
+          return phone.replace(/[\s\(\)\-]/g, '');
+        };
+
         const payload = {
           name: cleanString(effectiveName),
-          phone: cleanString(effectivePhone),
+          phone: cleanPhone(effectivePhone),
           email: cleanString(effectiveEmail),
           payment_status: paymentStatusFromUrl,
         };

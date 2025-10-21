@@ -36,6 +36,13 @@ Deno.serve(async (req) => {
     // Make.com webhook URL
     const makeWebhookUrl = 'https://hook.eu2.make.com/janusz-go-ba-63dd01e7';
 
+    // Helper function to clean phone numbers
+    const cleanPhone = (phone: string) => {
+      if (!phone) return '';
+      // Remove all spaces, parentheses, and hyphens from phone number
+      return phone.replace(/[\s\(\)\-]/g, '');
+    };
+
     // Send each lead to Make.com
     const results = [];
     for (const lead of leads || []) {
@@ -50,7 +57,7 @@ Deno.serve(async (req) => {
           body: JSON.stringify({
             rows: [{
               name: lead.name,
-              phone: lead.phone,
+              phone: cleanPhone(lead.phone),
               email: lead.email,
               payment_status: lead.payment_status,
             }]
