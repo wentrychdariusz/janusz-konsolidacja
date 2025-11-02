@@ -457,27 +457,24 @@ const PaymentTest = () => {
 
                   {/* Premium Payment Button - z wyraźnym BLIK */}
                   <div className="relative mt-8">
-                    <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-8 sm:py-11 text-lg sm:text-2xl rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-all duration-300 hover:shadow-blue-500/50 border-4 border-blue-300" size="lg" disabled={isProcessing || !firstName.trim() || !lastName.trim() || phoneInput.trim().length !== 9}>
+                    <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-7 sm:py-9 text-lg sm:text-xl rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-all duration-300" size="lg" disabled={isProcessing || !firstName.trim() || !lastName.trim() || phoneInput.trim().length !== 9}>
                       {isProcessing ? <div className="flex items-center justify-center w-full">
-                          <Loader2 className="mr-2 h-6 w-6 sm:h-7 sm:w-7 animate-spin" />
-                          <span className="text-base sm:text-xl">Przygotowywanie płatności BLIK...</span>
-                        </div> : <div className="flex flex-col items-center gap-2 w-full">
-                          <div className="flex items-center gap-3">
-                            <div className="bg-white px-3 py-2 rounded-lg">
-                              <img src="/logos/blik-logo.png" alt="BLIK" className="h-6 sm:h-8 w-auto object-contain" />
-                            </div>
-                            <span className="text-2xl sm:text-3xl font-black">ZAPŁAĆ BLIK</span>
+                          <Loader2 className="mr-2 h-5 w-5 sm:h-6 sm:w-6 animate-spin" />
+                          <span className="text-base sm:text-lg">Przygotowywanie...</span>
+                        </div> : <div className="flex items-center justify-center gap-3 w-full">
+                          <div className="bg-white px-2 py-1 rounded">
+                            <img src="/logos/blik-logo.png" alt="BLIK" className="h-5 sm:h-6 w-auto object-contain" />
                           </div>
-                          <div className="text-center">
-                            <span className="text-xl sm:text-2xl font-bold">9,90 zł</span>
-                            <span className="text-xs sm:text-sm font-medium opacity-90 block mt-1">
-                              ⚡ Następny krok: wpisz kod BLIK (6 cyfr)
+                          <div className="flex flex-col items-start">
+                            <span className="text-lg sm:text-xl font-bold leading-tight">ZAPŁAĆ BLIK 9,90 zł</span>
+                            <span className="text-xs sm:text-sm font-medium opacity-90">
+                              Następny krok: kod 6-cyfrowy
                             </span>
                           </div>
                         </div>}
                     </Button>
                     <p className="text-center text-xs sm:text-sm text-gray-600 mt-3 font-medium">
-                      💳 Na następnym ekranie możesz też wybrać kartę lub przelew
+                      💳 Lub wybierz kartę / przelew na następnym ekranie
                     </p>
                   </div>
                 </>}
