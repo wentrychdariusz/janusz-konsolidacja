@@ -390,9 +390,7 @@ const PaymentTest = () => {
           {/* BLIK Payment Method Banner - WYRAŹNE OZNACZENIE */}
           <div className="mb-6 bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-2xl p-6 sm:p-8 shadow-2xl border-4 border-blue-300">
             <div className="flex items-center justify-center gap-4 mb-4">
-              <div className="bg-white px-4 py-3 rounded-xl shadow-lg">
-                <img src="/logos/blik-logo.png" alt="BLIK" className="h-8 sm:h-10 w-auto object-contain" />
-              </div>
+              <img src="/logos/blik-logo-rgb.png" alt="BLIK" className="h-10 sm:h-12 w-auto object-contain" />
               <div className="text-left">
                 <h2 className="text-2xl sm:text-3xl font-black mb-1">PŁATNOŚĆ BLIK</h2>
                 <p className="text-sm sm:text-base font-semibold opacity-95">⚡ Najszybsza metoda - tylko 20 sekund</p>
@@ -455,20 +453,17 @@ const PaymentTest = () => {
                       ⚠️ {error}
                     </div>}
 
-                  {/* Premium Payment Button - z wyraźnym BLIK */}
+                  {/* Premium Payment Button - bez logo */}
                   <div className="relative mt-8">
                     <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-7 sm:py-9 text-lg sm:text-xl rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-all duration-300" size="lg" disabled={isProcessing || !firstName.trim() || !lastName.trim() || phoneInput.trim().length !== 9}>
                       {isProcessing ? <div className="flex items-center justify-center w-full">
                           <Loader2 className="mr-2 h-5 w-5 sm:h-6 sm:w-6 animate-spin" />
                           <span className="text-base sm:text-lg">Przygotowywanie...</span>
-                        </div> : <div className="flex items-center justify-center gap-3 w-full">
-                          <img src="/logos/blik-logo-rgb.png" alt="BLIK" className="h-8 sm:h-10 w-auto object-contain" />
-                          <div className="flex flex-col items-start">
-                            <span className="text-lg sm:text-xl font-bold leading-tight">PŁATNOŚĆ BLIK</span>
-                            <span className="text-xs sm:text-sm font-medium opacity-90">
-                              ⚡ Najszybsza metoda - tylko 20 sekund
-                            </span>
-                          </div>
+                        </div> : <div className="flex flex-col items-center gap-1 w-full">
+                          <span className="text-xl sm:text-2xl font-bold leading-tight">ZAPŁAĆ 9,90 zł</span>
+                          <span className="text-xs sm:text-sm font-medium opacity-90">
+                            Następny krok: kod BLIK 6-cyfrowy
+                          </span>
                         </div>}
                     </Button>
                     <p className="text-center text-xs sm:text-sm text-gray-600 mt-3 font-medium">
