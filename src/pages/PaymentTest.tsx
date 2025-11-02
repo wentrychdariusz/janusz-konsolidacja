@@ -414,59 +414,80 @@ const PaymentTest = () => {
               />
             </div>
             <p className="text-xs text-center text-gray-600 mt-2 font-medium">
-              {step === 'form' ? '📝 Wypełnij dane kontaktowe' : '💳 Ostatni krok - potwierdź płatność!'}
+              {step === 'form' ? '📝 Wypełnij dane kontaktowe' : '💳 Ostatni krok - wybierz metodę płatności!'}
             </p>
           </div>
 
+          {/* Podsumowanie danych - pokazuje się po wypełnieniu formularza */}
+          {step !== 'form' && (
+            <div className="mb-6 bg-green-50 border-2 border-green-300 rounded-xl p-4 animate-fade-in">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-bold text-green-900">✓ Dane kontaktowe zapisane</p>
+                  <p className="text-xs text-green-700">{firstName} {lastName} • {phoneInput}</p>
+                </div>
+                <button 
+                  onClick={() => {
+                    setStep('form');
+                    setError('');
+                  }}
+                  className="text-xs text-green-700 hover:text-green-900 font-medium underline"
+                >
+                  Zmień
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Formularz płatności - Płynne rozwinięcie */}
           <div className="space-y-5">
-            {/* KROK 1: Imię i nazwisko - zawsze widoczne */}
-            <form onSubmit={handleInitiatePayment} className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="firstName" className="block text-sm font-semibold text-navy-900 mb-2">
-                    Imię
-                  </label>
-                  <Input id="firstName" type="text" placeholder="Jan" value={firstName} onChange={e => setFirstName(e.target.value)} className="h-14 border-2 border-gray-300 focus:border-business-blue-600 rounded-lg text-base" disabled={isProcessing || step !== 'form'} required />
-                </div>
-                <div>
-                  <label htmlFor="lastName" className="block text-sm font-semibold text-navy-900 mb-2">
-                    Nazwisko
-                  </label>
-                  <Input id="lastName" type="text" placeholder="Kowalski" value={lastName} onChange={e => setLastName(e.target.value)} className="h-14 border-2 border-gray-300 focus:border-business-blue-600 rounded-lg text-base" disabled={isProcessing || step !== 'form'} required />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="phone" className="block text-sm font-semibold text-navy-900 mb-2">
-                  Telefon <span className="text-red-600">*</span>
-                </label>
-                <Input id="phone" type="tel" placeholder="600 000 000" value={phoneInput} onChange={e => setPhoneInput(e.target.value.replace(/[^0-9]/g, ''))} maxLength={9} className="h-14 border-2 border-gray-300 focus:border-business-blue-600 rounded-lg text-base" disabled={isProcessing || step !== 'form'} required />
-              </div>
-
-              {step === 'form' && <>
-                  {error && <div className="bg-red-50 border-2 border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm font-semibold animate-in fade-in slide-in-from-top-2 duration-300">
-                      ⚠️ {error}
-                    </div>}
-
-                  {/* Premium Payment Button - bez logo */}
-                  <div className="relative mt-8">
-                    <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-7 sm:py-9 text-lg sm:text-xl rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-all duration-300" size="lg" disabled={isProcessing || !firstName.trim() || !lastName.trim() || phoneInput.trim().length !== 9}>
-                      {isProcessing ? <div className="flex items-center justify-center w-full">
-                          <Loader2 className="mr-2 h-5 w-5 sm:h-6 sm:w-6 animate-spin" />
-                          <span className="text-base sm:text-lg">Przygotowywanie...</span>
-                        </div> : <div className="flex flex-col items-center gap-1 w-full">
-                          <span className="text-xl sm:text-2xl font-bold leading-tight">ZAPŁAĆ 9,90 zł</span>
-                          <span className="text-xs sm:text-sm font-medium opacity-90">
-                            Następny krok: kod BLIK 6-cyfrowy
-                          </span>
-                        </div>}
-                    </Button>
-                    <p className="text-center text-xs sm:text-sm text-gray-600 mt-3 font-medium">
-                      💳 Lub wybierz kartę / przelew na następnym ekranie
-                    </p>
+            {/* KROK 1: Imię i nazwisko - widoczne tylko gdy step === 'form' */}
+            {step === 'form' && (
+              <form onSubmit={handleInitiatePayment} className="space-y-5 animate-fade-in">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="firstName" className="block text-sm font-semibold text-navy-900 mb-2">
+                      Imię
+                    </label>
+                    <Input id="firstName" type="text" placeholder="Jan" value={firstName} onChange={e => setFirstName(e.target.value)} className="h-14 border-2 border-gray-300 focus:border-business-blue-600 rounded-lg text-base" disabled={isProcessing} required />
                   </div>
-                </>}
-            </form>
+                  <div>
+                    <label htmlFor="lastName" className="block text-sm font-semibold text-navy-900 mb-2">
+                      Nazwisko
+                    </label>
+                    <Input id="lastName" type="text" placeholder="Kowalski" value={lastName} onChange={e => setLastName(e.target.value)} className="h-14 border-2 border-gray-300 focus:border-business-blue-600 rounded-lg text-base" disabled={isProcessing} required />
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-semibold text-navy-900 mb-2">
+                    Telefon <span className="text-red-600">*</span>
+                  </label>
+                  <Input id="phone" type="tel" placeholder="600 000 000" value={phoneInput} onChange={e => setPhoneInput(e.target.value.replace(/[^0-9]/g, ''))} maxLength={9} className="h-14 border-2 border-gray-300 focus:border-business-blue-600 rounded-lg text-base" disabled={isProcessing} required />
+                </div>
+
+                {error && <div className="bg-red-50 border-2 border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm font-semibold animate-in fade-in slide-in-from-top-2 duration-300">
+                    ⚠️ {error}
+                  </div>}
+
+                {/* Premium Payment Button - bez logo */}
+                <div className="relative mt-8">
+                  <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-7 sm:py-9 text-lg sm:text-xl rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-all duration-300" size="lg" disabled={isProcessing || !firstName.trim() || !lastName.trim() || phoneInput.trim().length !== 9}>
+                    {isProcessing ? <div className="flex items-center justify-center w-full">
+                        <Loader2 className="mr-2 h-5 w-5 sm:h-6 sm:w-6 animate-spin" />
+                        <span className="text-base sm:text-lg">Przygotowywanie...</span>
+                      </div> : <div className="flex flex-col items-center gap-1 w-full">
+                        <span className="text-xl sm:text-2xl font-bold leading-tight">ZAPŁAĆ 9,90 zł</span>
+                        <span className="text-xs sm:text-sm font-medium opacity-90">
+                          Następny krok: kod BLIK 6-cyfrowy
+                        </span>
+                      </div>}
+                  </Button>
+                  <p className="text-center text-xs sm:text-sm text-gray-600 mt-3 font-medium">
+                    💳 Lub wybierz kartę / przelew na następnym ekranie
+                  </p>
+                </div>
+              </form>
+            )}
 
             {/* KROK 2: Wybór metody płatności - rozwijanie */}
             {step !== 'form' && <div className="space-y-4 animate-in fade-in slide-in-from-top-4 duration-500">
