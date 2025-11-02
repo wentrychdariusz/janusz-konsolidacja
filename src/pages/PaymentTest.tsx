@@ -461,11 +461,14 @@ const PaymentTest = () => {
                       {isProcessing ? <div className="flex items-center justify-center w-full">
                           <Loader2 className="mr-2 h-5 w-5 sm:h-6 sm:w-6 animate-spin" />
                           <span className="text-base sm:text-lg">Przygotowywanie...</span>
-                        </div> : <div className="flex flex-col items-center gap-1 w-full">
-                          <span className="text-xl sm:text-2xl font-bold leading-tight">ZAPŁAĆ BLIK 9,90 zł</span>
-                          <span className="text-xs sm:text-sm font-medium opacity-90">
-                            Następny krok: kod 6-cyfrowy
-                          </span>
+                        </div> : <div className="flex items-center justify-center gap-3 w-full">
+                          <img src="/logos/blik-logo-rgb.png" alt="BLIK" className="h-8 sm:h-10 w-auto object-contain" />
+                          <div className="flex flex-col items-start">
+                            <span className="text-lg sm:text-xl font-bold leading-tight">PŁATNOŚĆ BLIK</span>
+                            <span className="text-xs sm:text-sm font-medium opacity-90">
+                              ⚡ Najszybsza metoda - tylko 20 sekund
+                            </span>
+                          </div>
                         </div>}
                     </Button>
                     <p className="text-center text-xs sm:text-sm text-gray-600 mt-3 font-medium">
