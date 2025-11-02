@@ -397,7 +397,7 @@ const PaymentTest = () => {
               </div>
             </div>
             <p className="text-center text-sm font-medium opacity-90">
-              Wypełnij dane → Wpisz kod 6-cyfrowy → Gotowe! 💳 Lub płać kartą
+              Wypełnij dane → Wpisz kod 6-cyfrowy → Gotowe! 💳 Lub zapłać przelewami online lub kartą
             </p>
           </div>
 
