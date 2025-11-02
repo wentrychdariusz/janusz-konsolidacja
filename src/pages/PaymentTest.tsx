@@ -401,6 +401,23 @@ const PaymentTest = () => {
             </p>
           </div>
 
+          {/* Progress bar - pokazuje że jest blisko */}
+          <div className="mb-6">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-bold text-navy-900">Krok {step === 'form' ? '1' : '2'} z 2</span>
+              <span className="text-sm font-semibold text-green-600">{step === 'form' ? '50%' : '100%'} ✓</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-green-500 to-emerald-500 rounded-full transition-all duration-500 ease-out"
+                style={{ width: step === 'form' ? '50%' : '100%' }}
+              />
+            </div>
+            <p className="text-xs text-center text-gray-600 mt-2 font-medium">
+              {step === 'form' ? '📝 Wypełnij dane kontaktowe' : '💳 Ostatni krok - potwierdź płatność!'}
+            </p>
+          </div>
+
           {/* Formularz płatności - Płynne rozwinięcie */}
           <div className="space-y-5">
             {/* KROK 1: Imię i nazwisko - zawsze widoczne */}
