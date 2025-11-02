@@ -387,13 +387,42 @@ const PaymentTest = () => {
             </svg>
           </div>
 
+          {/* BLIK Payment Method Banner - WYRAŹNE OZNACZENIE */}
+          <div className="mb-6 bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-2xl p-6 sm:p-8 shadow-2xl border-4 border-blue-300">
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <div className="bg-white px-4 py-3 rounded-xl shadow-lg">
+                <img src="/logos/blik-logo.png" alt="BLIK" className="h-8 sm:h-10 w-auto object-contain" />
+              </div>
+              <div className="text-left">
+                <h2 className="text-2xl sm:text-3xl font-black mb-1">PŁATNOŚĆ BLIK</h2>
+                <p className="text-sm sm:text-base font-semibold opacity-95">⚡ Najszybsza metoda - tylko 20 sekund</p>
+              </div>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border-2 border-white/30">
+              <div className="grid grid-cols-3 gap-2 text-center">
+                <div>
+                  <div className="text-2xl sm:text-3xl font-bold mb-1">1️⃣</div>
+                  <p className="text-xs sm:text-sm font-medium">Wypełnij dane</p>
+                </div>
+                <div>
+                  <div className="text-2xl sm:text-3xl font-bold mb-1">2️⃣</div>
+                  <p className="text-xs sm:text-sm font-medium">Wpisz kod BLIK</p>
+                </div>
+                <div>
+                  <div className="text-2xl sm:text-3xl font-bold mb-1">3️⃣</div>
+                  <p className="text-xs sm:text-sm font-medium">Gotowe!</p>
+                </div>
+              </div>
+            </div>
+            <p className="text-center text-xs sm:text-sm font-medium mt-3 opacity-90">
+              💡 Możesz też wybrać kartę lub przelew na następnym kroku
+            </p>
+          </div>
+
           {/* Nagłówek sekcji płatności */}
           <div className="text-center mb-6 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl p-5 sm:p-6 shadow-lg">
-            <h2 className="text-2xl sm:text-3xl font-black mb-2">💳 PŁATNOŚĆ</h2>
-            <p className="text-sm sm:text-base font-semibold opacity-95">⚡ Zajmie Ci to tylko 20 sekund</p>
-            <p className="text-xs sm:text-sm font-medium opacity-90 mt-2">
-              ✅ Wypełnij dane poniżej, aby trafić na listę klientów Premium
-            </p>
+            <h2 className="text-2xl sm:text-3xl font-black mb-2">📝 TWOJE DANE</h2>
+            <p className="text-sm sm:text-base font-semibold opacity-95">⚡ Krok 1 z 2 - Wypełnij poniżej</p>
           </div>
 
           {/* Formularz płatności - Płynne rozwinięcie */}
@@ -426,24 +455,30 @@ const PaymentTest = () => {
                       ⚠️ {error}
                     </div>}
 
-                  {/* Premium Payment Button - profesjonalny */}
+                  {/* Premium Payment Button - z wyraźnym BLIK */}
                   <div className="relative mt-8">
-                    <Button type="submit" className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-8 sm:py-11 text-lg sm:text-2xl rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-all duration-300 hover:shadow-green-500/50" size="lg" disabled={isProcessing || !firstName.trim() || !lastName.trim() || phoneInput.trim().length !== 9}>
+                    <Button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-8 sm:py-11 text-lg sm:text-2xl rounded-2xl shadow-2xl transform hover:scale-[1.02] transition-all duration-300 hover:shadow-blue-500/50 border-4 border-blue-300" size="lg" disabled={isProcessing || !firstName.trim() || !lastName.trim() || phoneInput.trim().length !== 9}>
                       {isProcessing ? <div className="flex items-center justify-center w-full">
                           <Loader2 className="mr-2 h-6 w-6 sm:h-7 sm:w-7 animate-spin" />
-                          <span className="text-base sm:text-xl">Przygotowywanie...</span>
-                        </div> : <div className="flex items-center justify-center gap-3 w-full">
-                          <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <div className="flex flex-col items-start">
-                            <span className="text-xl sm:text-2xl font-bold">ZAPŁAĆ TERAZ 9,90 zł</span>
-                            <span className="text-xs sm:text-sm font-medium opacity-90">
-                              Bezpieczna płatność • Priorytet VIP
+                          <span className="text-base sm:text-xl">Przygotowywanie płatności BLIK...</span>
+                        </div> : <div className="flex flex-col items-center gap-2 w-full">
+                          <div className="flex items-center gap-3">
+                            <div className="bg-white px-3 py-2 rounded-lg">
+                              <img src="/logos/blik-logo.png" alt="BLIK" className="h-6 sm:h-8 w-auto object-contain" />
+                            </div>
+                            <span className="text-2xl sm:text-3xl font-black">ZAPŁAĆ BLIK</span>
+                          </div>
+                          <div className="text-center">
+                            <span className="text-xl sm:text-2xl font-bold">9,90 zł</span>
+                            <span className="text-xs sm:text-sm font-medium opacity-90 block mt-1">
+                              ⚡ Następny krok: wpisz kod BLIK (6 cyfr)
                             </span>
                           </div>
                         </div>}
                     </Button>
+                    <p className="text-center text-xs sm:text-sm text-gray-600 mt-3 font-medium">
+                      💳 Na następnym ekranie możesz też wybrać kartę lub przelew
+                    </p>
                   </div>
                 </>}
             </form>
