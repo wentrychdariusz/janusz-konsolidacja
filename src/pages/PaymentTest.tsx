@@ -387,40 +387,18 @@ const PaymentTest = () => {
             </svg>
           </div>
 
-          {/* BLIK Payment Method Banner - WYRAŹNE OZNACZENIE */}
-          <div className="mb-6 bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-2xl p-6 sm:p-8 shadow-2xl border-4 border-blue-300">
-            <div className="flex items-center justify-center gap-4 mb-4">
+          {/* Prosty baner BLIK */}
+          <div className="mb-8 bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-2xl p-6 shadow-xl">
+            <div className="flex items-center justify-center gap-4 mb-3">
               <img src="/logos/blik-logo-rgb.png" alt="BLIK" className="h-10 sm:h-12 w-auto object-contain" />
-              <div className="text-left">
-                <h2 className="text-2xl sm:text-3xl font-black mb-1">PŁATNOŚĆ BLIK</h2>
-                <p className="text-sm sm:text-base font-semibold opacity-95">⚡ Najszybsza metoda - tylko 20 sekund</p>
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-black">PŁATNOŚĆ BLIK</h2>
+                <p className="text-sm sm:text-base font-semibold opacity-95">⚡ Tylko 20 sekund</p>
               </div>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border-2 border-white/30">
-              <div className="grid grid-cols-3 gap-2 text-center">
-                <div>
-                  <div className="text-2xl sm:text-3xl font-bold mb-1">1️⃣</div>
-                  <p className="text-xs sm:text-sm font-medium">Wypełnij dane</p>
-                </div>
-                <div>
-                  <div className="text-2xl sm:text-3xl font-bold mb-1">2️⃣</div>
-                  <p className="text-xs sm:text-sm font-medium">Wpisz kod BLIK</p>
-                </div>
-                <div>
-                  <div className="text-2xl sm:text-3xl font-bold mb-1">3️⃣</div>
-                  <p className="text-xs sm:text-sm font-medium">Gotowe!</p>
-                </div>
-              </div>
-            </div>
-            <p className="text-center text-xs sm:text-sm font-medium mt-3 opacity-90">
-              💡 Możesz też wybrać kartę lub przelew na następnym kroku
+            <p className="text-center text-sm font-medium opacity-90">
+              Wypełnij dane → Wpisz kod 6-cyfrowy → Gotowe! 💳 Lub płać kartą
             </p>
-          </div>
-
-          {/* Nagłówek sekcji płatności */}
-          <div className="text-center mb-6 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl p-5 sm:p-6 shadow-lg">
-            <h2 className="text-2xl sm:text-3xl font-black mb-2">📝 TWOJE DANE</h2>
-            <p className="text-sm sm:text-base font-semibold opacity-95">⚡ Krok 1 z 2 - Wypełnij poniżej</p>
           </div>
 
           {/* Formularz płatności - Płynne rozwinięcie */}
