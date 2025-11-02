@@ -475,12 +475,7 @@ const PaymentTest = () => {
                     {isProcessing ? <div className="flex items-center justify-center w-full">
                         <Loader2 className="mr-2 h-5 w-5 sm:h-6 sm:w-6 animate-spin" />
                         <span className="text-base sm:text-lg">Przygotowywanie...</span>
-                      </div> : <div className="flex flex-col items-center gap-1 w-full">
-                        <span className="text-xl sm:text-2xl font-bold leading-tight">ZAPŁAĆ 9,90 zł</span>
-                        <span className="text-xs sm:text-sm font-medium opacity-90">
-                          Następny krok: kod BLIK 6-cyfrowy
-                        </span>
-                      </div>}
+                      </div> : <span className="text-xl sm:text-2xl font-bold">ZAPŁAĆ 9,90 zł</span>}
                   </Button>
                   <p className="text-center text-xs sm:text-sm text-gray-600 mt-3 font-medium">
                     💳 Lub wybierz kartę / przelew na następnym ekranie
