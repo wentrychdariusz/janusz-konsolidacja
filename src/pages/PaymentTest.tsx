@@ -90,7 +90,7 @@ const PaymentTest = () => {
       console.log('✅ Transaction created:', data);
       setTransactionId(data.transactionId);
       setPaymentUrl(data.paymentUrl);
-      setStep('payment-choice'); // Move to payment method selection
+      setStep('blik-input'); // Od razu przejdź do inputu BLIK
     } catch (err) {
       console.error('❌ Error:', err);
       setError(err instanceof Error ? err.message : 'Wystąpił błąd. Spróbuj ponownie.');
