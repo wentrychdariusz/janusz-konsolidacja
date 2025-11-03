@@ -387,7 +387,7 @@ const PaymentTest = () => {
             </svg>
           </div>
 
-          {/* Prosty baner BLIK */}
+          {/* Prosty baner BLIK z social proof */}
           <div className="mb-8 bg-gradient-to-br from-blue-600 to-indigo-600 text-white rounded-2xl p-6 shadow-xl">
             <div className="flex items-center justify-center gap-4 mb-3">
               <img src="/logos/blik-logo-rgb.png" alt="BLIK" className="h-10 sm:h-12 w-auto object-contain" />
@@ -396,8 +396,16 @@ const PaymentTest = () => {
                 <p className="text-sm sm:text-base font-semibold opacity-95">⚡ Tylko 20 sekund</p>
               </div>
             </div>
+            
+            {/* Social proof - ile osób dzisiaj zapłaciło */}
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2 mb-3 text-center">
+              <p className="text-sm font-bold">
+                🔥 142 osoby zapłaciły dziś za analizę VIP
+              </p>
+            </div>
+            
             <p className="text-center text-sm font-medium opacity-90">
-              Wypełnij dane → Wpisz kod 6-cyfrowy → Gotowe! 💳 Lub zapłać przelewami online lub kartą
+              Wypełnij dane → Wpisz kod 6-cyfrowy → Gotowe! 💳 Lub zapłać kartą/przelewem
             </p>
           </div>
 
@@ -512,18 +520,39 @@ const PaymentTest = () => {
 
                 {/* BLIK Code Input - rozwinięcie */}
                 {step === 'blik-input' && <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-2xl p-4 sm:p-6 animate-in fade-in slide-in-from-top-4 duration-500">
-                    <div className="flex items-center justify-center gap-2 mb-4">
+                    <div className="flex items-center justify-center gap-2 mb-3">
                       <img src="/logos/blik-logo.png" alt="BLIK" className="h-6 sm:h-8 w-auto object-contain" />
                       <h4 className="font-bold text-navy-900 text-sm sm:text-base">Płatność BLIK</h4>
                     </div>
+                    
+                    {/* Urgency + Trust badges */}
+                    <div className="flex items-center justify-center gap-3 mb-3">
+                      <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                        <span>🔥</span>
+                        <span>5 miejsc VIP zostało</span>
+                      </div>
+                      <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                        </svg>
+                        <span>Bezpieczne</span>
+                      </div>
+                    </div>
 
                     {!isWaitingForConfirmation ? <>
-                        <div className="bg-white rounded-lg p-3 sm:p-4 mb-4">
+                        <div className="bg-white rounded-lg p-3 sm:p-4 mb-3">
                           <ol className="text-xs sm:text-sm text-gray-700 space-y-1">
                             <li>1️⃣ Otwórz aplikację bankową</li>
                             <li>2️⃣ Wygeneruj kod BLIK</li>
                             <li>3️⃣ Wpisz poniżej (ważny 2 min)</li>
                           </ol>
+                        </div>
+                        
+                        {/* Dodatkowa motywacja */}
+                        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-2 mb-3 text-center">
+                          <p className="text-xs font-semibold text-yellow-900">
+                            ⚡ 78% klientów kończy w 30 sekund
+                          </p>
                         </div>
 
                         <form onSubmit={handleBlikPayment} className="space-y-4">
@@ -535,12 +564,21 @@ const PaymentTest = () => {
                               ⚠️ {error}
                             </div>}
 
-                          <Button type="submit" className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-4 text-sm sm:text-base rounded-xl" disabled={isProcessing || blikCode.length !== 6}>
+                          <Button type="submit" className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-5 text-base sm:text-lg rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02]" disabled={isProcessing || blikCode.length !== 6}>
                             {isProcessing ? <>
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                Wysyłanie...
-                              </> : '✅ Zapłać 9,90 zł'}
+                                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                                <span>Wysyłanie...</span>
+                              </> : <>
+                                <span className="text-lg sm:text-xl">✅ ZAPŁAĆ 9,90 zł - ZDOBĄDŹ VIP</span>
+                              </>}
                           </Button>
+                          
+                          {/* Gwarancja pod buttonem */}
+                          <div className="text-center mt-2">
+                            <p className="text-xs text-green-700 font-semibold">
+                              💯 Zwrot 100% przy współpracy | 🔒 Bezpieczna płatność TPay
+                            </p>
+                          </div>
 
                           <Button type="button" variant="ghost" onClick={() => {
                     setStep('payment-choice');
