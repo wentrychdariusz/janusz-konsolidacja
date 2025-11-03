@@ -413,7 +413,7 @@ const PaymentTest = () => {
             {/* Social proof - ile osób dzisiaj zapłaciło */}
             <div className="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2 mb-3 text-center">
               <p className="text-sm font-bold">
-                🔥 142 osoby zapłaciły dziś za analizę VIP
+                🔥 67 osób zapłaciło dziś za analizę VIP
               </p>
             </div>
             
