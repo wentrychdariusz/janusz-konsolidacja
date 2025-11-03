@@ -306,6 +306,19 @@ const PaymentTest = () => {
           {/* Cena - duże wyróżnienie */}
           <div className="bg-gradient-to-br from-prestige-gold-100 to-prestige-gold-50 border-2 border-prestige-gold-400 rounded-2xl p-6 mb-6 text-center shadow-lg">
             <p className="text-base sm:text-lg text-navy-700 mb-2 font-medium">Priorytetowa Obsługa</p>
+            
+            {/* Social proof + Urgency badges */}
+            <div className="flex items-center justify-center gap-2 mb-3 flex-wrap">
+              <div className="bg-green-600 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                <span>👥</span>
+                <span>67 osób zapłaciło dziś</span>
+              </div>
+              <div className="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 animate-pulse">
+                <span>🔥</span>
+                <span>Tylko 5 miejsc VIP!</span>
+              </div>
+            </div>
+            
             <div className="flex items-center justify-center gap-3 mb-2">
               <span className="text-4xl sm:text-5xl lg:text-6xl font-black text-navy-900">9,90 zł</span>
             </div>
