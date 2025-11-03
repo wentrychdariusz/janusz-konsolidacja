@@ -3,7 +3,6 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useSupabaseTracking } from '@/hooks/useSupabaseTracking';
 import { supabase } from '@/integrations/supabase/client';
 import { Loader2 } from 'lucide-react';
@@ -24,7 +23,6 @@ const PaymentTest = () => {
   const [phoneInput, setPhoneInput] = useState(searchParams.get('phone') || '');
   const [error, setError] = useState('');
   const [isWaitingForConfirmation, setIsWaitingForConfirmation] = useState(false);
-  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 
   // Dane z formularza kontaktowego
   const name = searchParams.get('name') || '';
@@ -64,13 +62,6 @@ const PaymentTest = () => {
       setError('Podaj pełny numer telefonu (9 cyfr)');
       return;
     }
-    
-    // Pokaż modal potwierdzający zamiast od razu tworzyć transakcję
-    setShowConfirmationModal(true);
-  };
-
-  const handleConfirmPayment = async () => {
-    setShowConfirmationModal(false);
     setIsProcessing(true);
     try {
       console.log('🚀 Creating transaction...');
@@ -281,63 +272,6 @@ const PaymentTest = () => {
     setError('');
   };
   return <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
-      {/* Confirmation Modal */}
-      <Dialog open={showConfirmationModal} onOpenChange={setShowConfirmationModal}>
-        <DialogContent className="sm:max-w-[500px]">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-center text-navy-900">
-              🎯 Potwierdź płatność za analizę VIP
-            </DialogTitle>
-            <DialogDescription className="text-center text-base text-gray-600 mt-2">
-              Sprawdź jeszcze raz co zyskujesz za jedyne 9,90 zł
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-3 py-4">
-            <div className="bg-green-50 border-l-4 border-green-500 p-3 rounded">
-              <p className="text-sm font-semibold text-green-900">✅ Pomiń kolejkę - Priorytet #1</p>
-            </div>
-            <div className="bg-green-50 border-l-4 border-green-500 p-3 rounded">
-              <p className="text-sm font-semibold text-green-900">⚡ Natychmiastowy kontakt z doradcą</p>
-            </div>
-            <div className="bg-green-50 border-l-4 border-green-500 p-3 rounded">
-              <p className="text-sm font-semibold text-green-900">🚀 Szybka konsultacja i analiza dokumentów</p>
-            </div>
-            <div className="bg-green-50 border-l-4 border-green-500 p-3 rounded">
-              <p className="text-sm font-semibold text-green-900">💼 Obsługa VIP przez cały proces</p>
-            </div>
-            <div className="bg-green-50 border-l-4 border-green-500 p-3 rounded">
-              <p className="text-sm font-semibold text-green-900">🎯 Dedykowany zespół z historią 15.000+ przypadków</p>
-            </div>
-            <div className="bg-gradient-to-r from-yellow-50 to-yellow-100 border-l-4 border-yellow-500 p-3 rounded">
-              <p className="text-sm font-bold text-yellow-900">💯 Zwrot 100% przy rozpoczęciu współpracy konsolidacyjnej</p>
-            </div>
-          </div>
-
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
-            <p className="text-lg font-bold text-navy-900 mb-1">Kwota do zapłaty:</p>
-            <p className="text-4xl font-black text-business-blue-600">9,90 zł</p>
-            <p className="text-xs text-gray-600 mt-2">🔒 Bezpieczna płatność TPay</p>
-          </div>
-
-          <DialogFooter className="flex-col sm:flex-row gap-2">
-            <Button
-              variant="outline"
-              onClick={() => setShowConfirmationModal(false)}
-              className="w-full sm:w-auto"
-            >
-              Anuluj
-            </Button>
-            <Button
-              onClick={handleConfirmPayment}
-              className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold"
-            >
-              Tak, przejdź do płatności
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
       <div className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-3xl">
         <div className="bg-white rounded-2xl shadow-xl border-0 p-6 sm:p-8 lg:p-10">
           
