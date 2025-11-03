@@ -589,7 +589,7 @@ const PaymentTest = () => {
                           {/* Gwarancja pod buttonem */}
                           <div className="text-center mt-2">
                             <p className="text-xs text-green-700 font-semibold">
-                              💯 Zwrot 100% przy współpracy | 🔒 Bezpieczna płatność TPay
+                              💯 Zwrot 100% przy rozpoczęciu współpracy konsolidacyjnej | 🔒 Bezpieczna płatność TPay
                             </p>
                           </div>
 
