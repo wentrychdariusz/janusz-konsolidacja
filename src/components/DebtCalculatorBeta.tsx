@@ -586,7 +586,8 @@ const DebtCalculatorBeta = () => {
               <button
                 onClick={() => {
                   setHasBikReport(true);
-                  setTimeout(goToNextStep, 300);
+                  // Przekierowanie na stronę dwentrych.pl
+                  window.location.href = 'https://dwentrych.pl';
                 }}
                 className={`w-full px-6 py-5 rounded-xl text-lg font-bold transition-all transform active:scale-95 ${
                   hasBikReport === true 
@@ -613,7 +614,7 @@ const DebtCalculatorBeta = () => {
 
             <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4 mt-6">
               <p className="text-blue-800 text-sm">
-                💡 <strong>Wskazówka:</strong> Raport BIK możesz zamówić na stronie bik.pl lub przez aplikację mobilną BIK.
+                💡 <strong>Wskazówka:</strong> Raport BIK pomoże nam lepiej dopasować ofertę do Twojej sytuacji.
               </p>
             </div>
           </div>;
