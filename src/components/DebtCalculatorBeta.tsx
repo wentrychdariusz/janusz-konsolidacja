@@ -587,7 +587,7 @@ const DebtCalculatorBeta = () => {
                 onClick={() => {
                   setHasBikReport(true);
                   // Przekierowanie na stronę dwentrych.pl
-                  window.location.href = 'https://dwentrych.pl';
+                  window.location.href = 'https://dwentrych.pl/';
                 }}
                 className={`w-full px-6 py-5 rounded-xl text-lg font-bold transition-all transform active:scale-95 ${
                   hasBikReport === true 
