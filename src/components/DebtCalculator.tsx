@@ -15,6 +15,8 @@ const DebtCalculator = () => {
   const [income, setIncome] = useState('');
   const [paydayDebt, setPaydayDebt] = useState('');
   const [bankDebt, setBankDebt] = useState('');
+  const [hasBikReport, setHasBikReport] = useState<boolean | null>(null);
+  const [currentStep, setCurrentStep] = useState(1);
   const [hasUsedCalculator, setHasUsedCalculator] = useState(false);
   const [result, setResult] = useState<{
     message: string;
@@ -22,13 +24,23 @@ const DebtCalculator = () => {
     showForm: boolean;
   }>({ message: '', type: null, showForm: false });
 
+  const totalSteps = 4;
+
   // Sprawdź czy kalkulator był już używany
   useEffect(() => {
     const calculatorUsed = localStorage.getItem('debt_calculator_used');
     if (calculatorUsed === 'true') {
       setHasUsedCalculator(true);
+      setCurrentStep(4);
     }
   }, []);
+
+  // Nawigacja kroków
+  const goToNextStep = () => {
+    if (currentStep < totalSteps && !hasUsedCalculator) {
+      setCurrentStep(prev => prev + 1);
+    }
+  };
 
   // Stałe z oryginalnego kalkulatora
   const MARGIN = 10000;
@@ -132,7 +144,7 @@ const DebtCalculator = () => {
       console.log('🧮 Calculator positive result - tracking conversion and redirect to /kontakt');
       trackConversion('calculator_success', 'A', 'glowna1_calculator');
       // Przekieruj do strony kontakt zamiast pokazywać formularz
-      window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&result=positive&data=' + encodedData;
+      window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&hasBikReport=' + encodeURIComponent(hasBikReport === true ? 'tak' : 'nie') + '&result=positive&data=' + encodedData;
       return;
     }
 
@@ -144,7 +156,7 @@ const DebtCalculator = () => {
       console.log('🧮 Calculator warning result - tracking conversion and redirect to /kontakt');
       trackConversion('calculator_success', 'A', 'glowna1_calculator');
       // Przekieruj do strony kontakt zamiast pokazywać formularz
-      window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&result=warning&data=' + encodedData;
+      window.location.href = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&hasBikReport=' + encodeURIComponent(hasBikReport === true ? 'tak' : 'nie') + '&result=warning&data=' + encodedData;
       return;
     }
 
@@ -294,202 +306,260 @@ const DebtCalculator = () => {
     }
   };
 
+  const renderStepContent = () => {
+    if (hasUsedCalculator) {
+      return (
+        <div className="text-center animate-fade-in">
+          <div className="mb-6">
+            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Calculator className="w-8 h-8 text-gray-400" />
+            </div>
+            <h3 className="text-xl font-bold text-navy-900 mb-2">Kalkulator wykorzystany</h3>
+            <p className="text-warm-neutral-600 mb-6">Kalkulator może być użyty tylko raz na sesję</p>
+          </div>
+          <div className="p-4 rounded-xl border-2 bg-blue-50 border-blue-200 text-blue-700">
+            <p className="font-medium">📞 Masz pytania? Zadzwoń: <strong>+48 663 024 522</strong></p>
+          </div>
+        </div>
+      );
+    }
+
+    switch (currentStep) {
+      case 1:
+        return (
+          <div className="text-center animate-fade-in w-full max-w-md mx-auto">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-navy-900 to-business-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">💰</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Jaki jest Twój dochód?</h3>
+              <p className="text-warm-neutral-600">Podaj miesięczny dochód netto</p>
+            </div>
+            <div className="relative mb-6">
+              <Input
+                type="text"
+                value={income}
+                onChange={handleIncomeChange}
+                placeholder="4 000"
+                className="pr-16 text-center h-16 text-2xl font-bold border-4 border-blue-400 focus:border-blue-600 rounded-xl"
+                autoFocus
+              />
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-blue-600 text-xl font-bold">PLN</span>
+            </div>
+            <Button
+              onClick={goToNextStep}
+              disabled={!income || parsePLN(income) < 3000}
+              className="w-full h-14 text-lg font-bold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white"
+            >
+              {parsePLN(income) < 3000 && income ? '⚠️ Minimum 3000 PLN' : '✅ Dalej →'}
+            </Button>
+            {income && parsePLN(income) < 3000 && (
+              <div className="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl">
+                <p className="text-red-700 font-medium text-sm">⚠️ Przy dochodzie poniżej 3000 PLN nie możemy pomóc</p>
+              </div>
+            )}
+          </div>
+        );
+      case 2:
+        return (
+          <div className="text-center animate-fade-in w-full max-w-md mx-auto">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">📋</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 mb-3">Czy masz raport BIK?</h3>
+              <p className="text-warm-neutral-600 text-sm leading-relaxed px-4">
+                Raport BIK to kluczowy dokument pokazujący Twoją historię kredytową, na podstawie którego banki oceniają Twoją wiarygodność.
+              </p>
+            </div>
+            <div className="flex flex-col gap-4 mt-6">
+              <button
+                onClick={() => {
+                  setHasBikReport(true);
+                  window.location.href = 'https://dwentrych.pl/';
+                }}
+                className={`w-full px-6 py-5 rounded-xl text-lg font-bold transition-all transform active:scale-95 ${
+                  hasBikReport === true 
+                    ? 'bg-emerald-500 text-white shadow-lg scale-105' 
+                    : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200 hover:border-emerald-400 shadow-md'
+                }`}
+              >
+                ✅ Tak, mam raport BIK
+              </button>
+              <button
+                onClick={() => {
+                  setHasBikReport(false);
+                  setTimeout(goToNextStep, 300);
+                }}
+                className={`w-full px-6 py-5 rounded-xl text-lg font-bold transition-all transform active:scale-95 ${
+                  hasBikReport === false 
+                    ? 'bg-orange-500 text-white shadow-lg scale-105' 
+                    : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200 hover:border-orange-400 shadow-md'
+                }`}
+              >
+                ❌ Nie, nie mam raportu BIK
+              </button>
+            </div>
+            <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4 mt-6">
+              <p className="text-blue-800 text-sm">
+                💡 <strong>Wskazówka:</strong> Raport BIK pomoże nam lepiej dopasować ofertę do Twojej sytuacji.
+              </p>
+            </div>
+          </div>
+        );
+      case 3:
+        return (
+          <div className="text-center animate-fade-in">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">⚡</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Chwilówki i parabanki</h3>
+              <p className="text-warm-neutral-600">Suma wszystkich chwilówek i pożyczek pozabankowych</p>
+            </div>
+            <div className="relative mb-4">
+              <Input
+                type="text"
+                value={paydayDebt}
+                onChange={handlePaydayChange}
+                placeholder="30 000"
+                className="pr-16 text-center h-16 text-2xl font-bold border-4 border-red-400 focus:border-red-600 rounded-xl"
+                autoFocus
+              />
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-xl font-bold">PLN</span>
+            </div>
+            <Button
+              onClick={goToNextStep}
+              disabled={!paydayDebt}
+              className="w-full h-14 text-lg font-bold rounded-xl bg-gradient-to-r from-navy-900 to-business-blue-600 text-white"
+            >
+              Dalej →
+            </Button>
+          </div>
+        );
+      case 4:
+        return (
+          <div className="text-center animate-fade-in">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">🏦</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 mb-2">Kredyty bankowe</h3>
+              <p className="text-warm-neutral-600">Suma wszystkich kredytów bankowych</p>
+            </div>
+            <div className="relative mb-4">
+              <Input
+                type="text"
+                value={bankDebt}
+                onChange={handleBankChange}
+                placeholder="20 000"
+                className="pr-16 text-center h-16 text-2xl font-bold border-4 border-green-400 focus:border-green-600 rounded-xl"
+                autoFocus
+              />
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-xl font-bold">PLN</span>
+            </div>
+            <div className="bg-green-100 border-2 border-green-500 rounded-xl p-4 mb-4">
+              <p className="text-green-900 font-bold">💡 Wpisz 0 jeśli nie masz kredytów bankowych</p>
+            </div>
+            <Button
+              onClick={calculate}
+              disabled={!bankDebt && bankDebt !== '0'}
+              className="w-full h-14 text-lg font-bold rounded-xl bg-gradient-to-r from-navy-900 to-business-blue-600 text-white"
+            >
+              <Calculator className="w-5 h-5 mr-2" />
+              🔍 Sprawdź swój wynik
+            </Button>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="w-full h-full flex flex-col">
-      <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 items-start h-full">
-        {/* Formularz rejestracyjny - pokazuje się automatycznie po pozytywnym wyniku */}
+      <div className="grid grid-cols-1 gap-6 items-start h-full">
         {result.showForm ? (
           <div className="animate-fade-in h-full">
             <QuickRegistrationForm calculatorData={{ income, paydayDebt, bankDebt }} />
           </div>
         ) : (
-          <>
-            {/* Kalkulator - oryginalny widok z blokadą */}
-            <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 xl:p-10 h-full flex flex-col justify-between min-h-[600px] w-full">
-              <div>
-                <div className="text-center mb-3 lg:mb-4">
-                  <div className="flex justify-center items-center mb-2 lg:mb-3">
-                    <div className="bg-gradient-to-r from-navy-900 to-business-blue-600 p-2 lg:p-3 rounded-full">
-                      <Calculator className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
-                    </div>
-                  </div>
-                  <h2 className="text-lg lg:text-xl xl:text-2xl font-bold text-navy-900 mb-1 lg:mb-2">
-                    Kalkulator Oddłużania
-                  </h2>
-                  <p className="text-warm-neutral-600 text-sm lg:text-base leading-relaxed">
-                    {hasUsedCalculator ? 
-                      "Kalkulator został już wykorzystany" : 
-                      "Sprawdź, czy możemy Ci pomóc w konsolidacji chwilówek"
-                    }
-                  </p>
-                </div>
-
-                {/* Sekcja z Dariuszem i zespołem - bardzo zmniejszona */}
-                <div className="text-center mb-3 lg:mb-4 bg-gradient-to-r from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 rounded-xl p-2 lg:p-3 border border-warm-neutral-200">
-                  <div className="flex justify-center items-center mb-1 lg:mb-2">
-                    <div className="flex items-center space-x-1">
-                      {/* Dariusz main photo - bardzo zmniejszony */}
-                      <img 
-                        src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                        alt="Dariusz Wentrych"
-                        className="w-8 h-8 lg:w-10 lg:h-10 rounded-full overflow-hidden border-2 border-prestige-gold-400 shadow-md object-cover"
-                      />
-                      
-                      {/* Plus icon - bardzo zmniejszony */}
-                      <Plus className="w-1.5 h-1.5 lg:w-2 lg:h-2 text-prestige-gold-400" />
-                      
-                      {/* Team members - bardzo zmniejszeni */}
-                      <div className="flex items-center space-x-0.5">
-                        <Avatar className="w-5 h-5 lg:w-6 lg:h-6 border-2 border-prestige-gold-400">
-                          <AvatarImage 
-                            src="/lovable-uploads/763d172c-71d2-4164-a6e6-97c3127b6592.png"
-                            alt="Członek zespołu"
-                            className="object-cover"
-                          />
-                          <AvatarFallback className="text-xs">KZ</AvatarFallback>
-                        </Avatar>
-                        <Avatar className="w-5 h-5 lg:w-6 lg:h-6 border-2 border-prestige-gold-400">
-                          <AvatarImage 
-                            src="/lovable-uploads/cbddfa95-6c86-4139-b791-f13477aaea8a.png"
-                            alt="Członek zespołu"
-                            className="object-cover"
-                          />
-                          <AvatarFallback className="text-xs">MK</AvatarFallback>
-                        </Avatar>
-                        <Avatar className="w-5 h-5 lg:w-6 lg:h-6 border-2 border-prestige-gold-400">
-                          <AvatarImage 
-                            src="/lovable-uploads/73083e2d-4631-4f25-abd0-a482d29bb838.png"
-                            alt="Członek zespołu"
-                            className="object-cover"
-                          />
-                          <AvatarFallback className="text-xs">AS</AvatarFallback>
-                        </Avatar>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mb-1">
-                    <h3 className="text-xs lg:text-sm font-semibold text-navy-800">Eksperci w oddłużeniu</h3>
-                    <p className="text-xs text-warm-neutral-600">20+ lat doświadczenia</p>
+          <div className="bg-white rounded-2xl shadow-xl border-0 p-6 lg:p-8 h-full flex flex-col justify-between min-h-[600px] w-full">
+            <div>
+              <div className="text-center mb-4">
+                <div className="flex justify-center items-center mb-3">
+                  <div className="bg-gradient-to-r from-navy-900 to-business-blue-600 p-3 rounded-full">
+                    <Calculator className="w-6 h-6 text-white" />
                   </div>
                 </div>
-
-                {/* Zmieniona informacja na pozytywną i zachęcającą */}
-                {!hasUsedCalculator && (
-                  <div className="mt-3 mb-4 p-4 bg-gradient-to-r from-success-50 to-blue-50 border-2 border-success-300 rounded-xl shadow-md">
-                    <div className="flex items-center justify-center">
-                      <div className="bg-success-100 p-2 rounded-full mr-3">
-                        <Shield className="w-5 h-5 text-success-600" />
-                      </div>
-                      <div className="text-center">
-                        <p className="text-success-800 text-sm font-bold">
-                          ✨ Podaj prawdziwe dane - to gwarantuje najlepszą pomoc
-                        </p>
-                        <p className="text-success-700 text-xs mt-1">
-                          Precyzyjna analiza = skuteczne rozwiązanie Twojego problemu
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                <h2 className="text-xl font-bold text-navy-900 mb-1">Kalkulator Oddłużania</h2>
+                <p className="text-sm text-warm-neutral-600">Krok {currentStep} z {totalSteps}</p>
               </div>
 
-              <div className="space-y-3 lg:space-y-4">
-                <div>
-                  <Label htmlFor="income" className="text-navy-800 font-medium text-sm lg:text-base">
-                    Twój dochód netto (umowa o pracę)
-                  </Label>
-                  <div className="relative mt-2">
-                    <Input
-                      id="income"
-                      type="text"
-                      value={income}
-                      onChange={handleIncomeChange}
-                      placeholder="4 000"
-                      disabled={hasUsedCalculator}
-                      className={`pr-12 text-right h-12 lg:h-14 xl:h-16 text-lg lg:text-xl xl:text-2xl font-semibold ${hasUsedCalculator ? 'bg-gray-100 cursor-not-allowed' : ''}`}
-                    />
-                    <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-sm lg:text-base">
-                      PLN
-                    </span>
-                  </div>
+              {/* Progress bar */}
+              <div className="mb-6">
+                <div className="w-full bg-gray-200 rounded-full h-3">
+                  <div 
+                    className="bg-gradient-to-r from-navy-900 to-business-blue-600 h-3 rounded-full transition-all duration-300" 
+                    style={{ width: `${(currentStep / totalSteps) * 100}%` }} 
+                  />
                 </div>
-
-                <div>
-                  <Label htmlFor="payday" className="text-navy-800 font-medium text-sm lg:text-base">
-                    Suma wszystkich chwilówek/parabanków
-                  </Label>
-                  <div className="relative mt-2">
-                    <Input
-                      id="payday"
-                      type="text"
-                      value={paydayDebt}
-                      onChange={handlePaydayChange}
-                      placeholder="70 000"
-                      disabled={hasUsedCalculator}
-                      className={`pr-12 text-right h-12 lg:h-14 xl:h-16 text-lg lg:text-xl xl:text-2xl font-semibold ${hasUsedCalculator ? 'bg-gray-100 cursor-not-allowed' : ''}`}
-                    />
-                    <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-sm lg:text-base">
-                      PLN
-                    </span>
-                  </div>
+                <div className="flex justify-between mt-2 text-sm">
+                  <span className="text-warm-neutral-600">Postęp</span>
+                  <span className="font-bold text-navy-900">{Math.round((currentStep / totalSteps) * 100)}%</span>
                 </div>
+              </div>
 
-                <div>
-                  <Label htmlFor="bank" className="text-navy-800 font-medium text-sm lg:text-base">
-                    Suma wszystkich kredytów bankowych
-                  </Label>
-                  <div className="relative mt-2">
-                    <Input
-                      id="bank"
-                      type="text"
-                      value={bankDebt}
-                      onChange={handleBankChange}
-                      placeholder="50 000"
-                      disabled={hasUsedCalculator}
-                      className={`pr-12 text-right h-12 lg:h-14 xl:h-16 text-lg lg:text-xl xl:text-2xl font-semibold ${hasUsedCalculator ? 'bg-gray-100 cursor-not-allowed' : ''}`}
-                    />
-                    <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-warm-neutral-500 text-sm lg:text-base">
-                      PLN
-                    </span>
-                  </div>
-                </div>
-
-                <Button
-                  onClick={calculate}
-                  disabled={hasUsedCalculator}
-                  className={`w-full font-bold py-4 lg:py-5 text-base lg:text-lg rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 h-14 lg:h-16 ${
-                    hasUsedCalculator 
-                      ? 'bg-gray-400 cursor-not-allowed' 
-                      : 'bg-gradient-to-r from-navy-900 to-business-blue-600 hover:from-navy-800 hover:to-business-blue-500 text-white'
-                  }`}
-                >
-                  <Calculator className="w-4 h-4 lg:w-5 lg:h-5 mr-2" />
-                  {hasUsedCalculator ? 'Kalkulator został wykorzystany' : 'Sprawdź czy Ci pomożemy'}
-                </Button>
-
-                {hasUsedCalculator && !result.showForm && (
-                  <div className="p-3 lg:p-4 rounded-xl border-2 bg-blue-50 border-blue-200 text-blue-700">
-                    <p className="font-medium leading-relaxed text-sm lg:text-base text-center">
-                      📞 Masz pytania? Zadzwoń bezpośrednio: <strong>+48 663 024 522</strong>
-                    </p>
-                  </div>
-                )}
-
-                {result.message && !result.showForm && (
-                  <div className={`p-3 lg:p-4 rounded-xl border-2 ${getResultClasses()}`}>
-                    <div className="flex items-start space-x-3">
-                      {getResultIcon()}
-                      <div className="flex-1">
-                        <p className="font-medium leading-relaxed text-sm lg:text-base">
-                          {result.message}
-                        </p>
+              {/* Expert section */}
+              <div className="text-center mb-4 bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-3 border-2 border-blue-200">
+                <div className="flex justify-center items-center">
+                  <img 
+                    src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                    alt="Dariusz Wentrych"
+                    className="w-10 h-10 rounded-full border-2 border-prestige-gold-400 object-cover mr-3"
+                  />
+                  <div className="text-left">
+                    <div className="text-sm font-bold text-navy-900 flex items-center gap-1">
+                      Dariusz Wentrych
+                      <div className="flex">
+                        {[1,2,3,4,5].map(i => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
                       </div>
                     </div>
+                    <div className="text-xs text-green-700 font-medium">✅ Ekspert nr 1 w oddłużeniu</div>
                   </div>
-                )}
+                </div>
               </div>
             </div>
-          </>
+
+            {/* Step content */}
+            <div className="flex-1 flex items-center justify-center px-2">
+              {renderStepContent()}
+            </div>
+
+            {/* Result message */}
+            {result.message && (
+              <div className={`mt-4 p-4 rounded-xl border-2 ${getResultClasses()}`}>
+                <div className="flex items-start space-x-3">
+                  {getResultIcon()}
+                  <p className="font-medium leading-relaxed text-sm">{result.message}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Footer */}
+            <div className="mt-4 text-center border-t pt-4">
+              <div className="flex items-center justify-center space-x-4 text-xs text-warm-neutral-600">
+                <div className="flex items-center space-x-1">
+                  <Shield className="w-3 h-3 text-green-600" />
+                  <span className="font-medium">100% bezpieczeństwo</span>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <CheckCircle className="w-3 h-3 text-green-600" />
+                  <span className="font-medium">Darmowa analiza</span>
+                </div>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>
