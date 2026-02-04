@@ -13,6 +13,7 @@ const DebtCalculatorBeta = () => {
   const { trackConversion } = useSupabaseTracking();
   const [income, setIncome] = useState('');
   const [incomeType, setIncomeType] = useState('');
+  const [hasBikReport, setHasBikReport] = useState<boolean | null>(null); // Pytanie o raport BIK
   const [paydayDebt, setPaydayDebt] = useState(''); // Puste - placeholder pokaże domyślne
   const [bankDebt, setBankDebt] = useState(''); // Puste - placeholder pokaże domyślne
   const [currentStep, setCurrentStep] = useState(1);
@@ -36,7 +37,7 @@ const DebtCalculatorBeta = () => {
     type: null,
     showForm: false
   });
-  const totalSteps = 3;
+  const totalSteps = 4;
 
   // Sprawdź czy kalkulator był już używany i inicjalizuj analizę
   useEffect(() => {
@@ -116,6 +117,7 @@ const DebtCalculatorBeta = () => {
     // Zresetuj wszystkie stany
     setIncome('');
     setIncomeType('');
+    setHasBikReport(null);
     setPaydayDebt(''); // Puste - placeholder pokaże domyślne
     setBankDebt(''); // Puste - placeholder pokaże domyślne
     setCurrentStep(1);
@@ -276,7 +278,7 @@ const DebtCalculatorBeta = () => {
     window.dispatchEvent(new CustomEvent('calculatorUsed'));
 
     // Przygotuj dane do przekazania agentowi
-    const baseUrl = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&incomeType=' + encodeURIComponent(incomeType) + '&source=beta';
+    const baseUrl = '/kontakt?income=' + encodeURIComponent(incomeVal) + '&paydayDebt=' + encodeURIComponent(paydayVal) + '&bankDebt=' + encodeURIComponent(bankVal) + '&incomeType=' + encodeURIComponent(incomeType) + '&hasBikReport=' + encodeURIComponent(hasBikReport === true ? 'tak' : 'nie') + '&source=beta';
 
     // Przygotuj szczegółowe dane podejrzanych zachowań dla agenta
     const legacySuspiciousData = {
@@ -569,6 +571,53 @@ const DebtCalculatorBeta = () => {
               </div>}
           </div>;
       case 2:
+        return <div className="text-center animate-fade-in w-full max-w-md mx-auto">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">📋</span>
+              </div>
+              <h3 className="text-xl font-bold text-navy-900 mb-3">Czy masz raport BIK?</h3>
+              <p className="text-warm-neutral-600 text-sm leading-relaxed px-4">
+                Raport BIK to kluczowy dokument pokazujący Twoją historię kredytową, na podstawie którego banki oceniają Twoją wiarygodność.
+              </p>
+            </div>
+            
+            <div className="flex flex-col gap-4 mt-6">
+              <button
+                onClick={() => {
+                  setHasBikReport(true);
+                  setTimeout(goToNextStep, 300);
+                }}
+                className={`w-full px-6 py-5 rounded-xl text-lg font-bold transition-all transform active:scale-95 ${
+                  hasBikReport === true 
+                    ? 'bg-emerald-500 text-white shadow-lg scale-105' 
+                    : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200 hover:border-emerald-400 shadow-md'
+                }`}
+              >
+                ✅ Tak, mam raport BIK
+              </button>
+              <button
+                onClick={() => {
+                  setHasBikReport(false);
+                  setTimeout(goToNextStep, 300);
+                }}
+                className={`w-full px-6 py-5 rounded-xl text-lg font-bold transition-all transform active:scale-95 ${
+                  hasBikReport === false 
+                    ? 'bg-orange-500 text-white shadow-lg scale-105' 
+                    : 'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200 hover:border-orange-400 shadow-md'
+                }`}
+              >
+                ❌ Nie, nie mam raportu BIK
+              </button>
+            </div>
+
+            <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4 mt-6">
+              <p className="text-blue-800 text-sm">
+                💡 <strong>Wskazówka:</strong> Raport BIK możesz zamówić na stronie bik.pl lub przez aplikację mobilną BIK.
+              </p>
+            </div>
+          </div>;
+      case 3:
         return <div className="text-center animate-fade-in">
             <div className="mb-6">
               <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -596,7 +645,7 @@ const DebtCalculatorBeta = () => {
               Dalej →
             </Button>
           </div>;
-      case 3:
+      case 4:
         return <div className="text-center animate-fade-in">
             <div className="mb-6">
               <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
