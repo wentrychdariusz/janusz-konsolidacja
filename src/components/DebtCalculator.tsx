@@ -25,6 +25,7 @@ const DebtCalculator = () => {
   }>({ message: '', type: null, showForm: false });
 
   const totalSteps = 4;
+  // BIK step disabled - effectively 3 steps now
 
   // Sprawdź czy kalkulator był już używany
   useEffect(() => {
@@ -347,7 +348,7 @@ const DebtCalculator = () => {
               <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-blue-600 text-xl font-bold">PLN</span>
             </div>
             <Button
-              onClick={goToNextStep}
+              onClick={() => setCurrentStep(3)}
               disabled={!income || parsePLN(income) < 3000}
               className="w-full h-14 text-lg font-bold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white"
             >
