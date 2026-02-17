@@ -38,7 +38,6 @@ const DebtCalculatorBeta = () => {
     showForm: false
   });
   const totalSteps = 4;
-  // BIK step disabled - effectively 3 steps now
 
   // Sprawdź czy kalkulator był już używany i inicjalizuj analizę
   useEffect(() => {
@@ -388,8 +387,7 @@ const DebtCalculatorBeta = () => {
     // Rozpocznij timing następnego pola
     timingAnalysis.startFieldTiming('payday_debt');
     
-    // Skip BIK step (step 2) - go directly to step 3 (debt questions)
-    setTimeout(() => setCurrentStep(3), 300);
+    setTimeout(goToNextStep, 300);
   };
   const handlePaydayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!hasUsedCalculator) {
@@ -561,7 +559,7 @@ const DebtCalculatorBeta = () => {
               </div>}
 
             {/* Duży przycisk */}
-            <Button onClick={() => setCurrentStep(3)} disabled={!income || parsePLN(income) < 3000 || !incomeType} className={`w-full h-16 text-lg font-bold rounded-xl transition-all duration-300 ${income && parsePLN(income) >= 3000 && incomeType ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 border-0' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}>
+            <Button onClick={goToNextStep} disabled={!income || parsePLN(income) < 3000 || !incomeType} className={`w-full h-16 text-lg font-bold rounded-xl transition-all duration-300 ${income && parsePLN(income) >= 3000 && incomeType ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 border-0' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}>
               {!incomeType && income && parsePLN(income) >= 3000 ? '⚡ Wybierz rodzaj dochodu' : income && parsePLN(income) < 3000 ? '⚠️ Minimum 3000 PLN' : '✅ Dalej →'}
             </Button>
 
