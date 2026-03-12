@@ -31,6 +31,7 @@ const Index = () => {
   const abTestLoaded = true;
   
   const [showOfferModal, setShowOfferModal] = useState(false);
+  const [showCalculatorModal, setShowCalculatorModal] = useState(false);
 
   useEffect(() => {
     console.log(`🏠 Index page: Using default variant B (no A/B test)`);
