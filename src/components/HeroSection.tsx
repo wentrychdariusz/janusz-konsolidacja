@@ -296,9 +296,15 @@ const HeroSection = ({ onOpenCalculator }: HeroSectionProps) => {
               </div>
             </div>
             
-            {/* Calculator Section - Mobile */}
-            <div className="animate-fade-in">
-              <DebtCalculatorBeta />
+            {/* CTA Button - Mobile */}
+            <div className="animate-fade-in text-center mt-6">
+              <button
+                onClick={onOpenCalculator}
+                className="w-full sm:w-auto px-8 py-5 bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 text-navy-900 font-montserrat font-black text-xl sm:text-2xl rounded-2xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 uppercase tracking-wide"
+              >
+                🔍 Sprawdź czy Ci pomogę
+              </button>
+              <p className="text-warm-neutral-300 text-sm mt-3">Bezpłatna analiza • Bez zobowiązań</p>
             </div>
           </div>
 
