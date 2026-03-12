@@ -13,6 +13,7 @@ import Premium from "./pages/Premium";
 import Gratulacje4000_6000 from "./pages/Gratulacje4000_6000";
 import Calculator from "./pages/Calculator";
 import CalculatorBeta from "./pages/CalculatorBeta";
+import CalculatorNowy from "./pages/CalculatorNowy";
 import Analiza from "./pages/Analiza";
 import SuspiciousAnalysis from "./pages/SuspiciousAnalysis";
 import ThankYou from "./pages/ThankYou";
