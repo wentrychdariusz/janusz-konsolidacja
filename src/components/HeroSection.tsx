@@ -1,6 +1,7 @@
 // Updated to fix build cache issue
 import React, { useState, useEffect } from 'react';
 import OptimizedImage from './OptimizedImage';
+import CalculatorTeaser from './CalculatorTeaser';
 
 import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star } from 'lucide-react';
 
