@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-const webhookUrl = "https://hook.eu2.make.com/yusy3i37uoiv14b2dx1zv6wro898d9q5";
+
 
 const KontaktNowy = () => {
   const navigate = useNavigate();
@@ -29,29 +29,6 @@ const KontaktNowy = () => {
     setIsSubmitting(true);
 
     try {
-      // Ten sam schemat co ContactFormVariantA
-      const dataToSend = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        timestamp: new Date().toISOString(),
-        source: "ContactFormVariantA",
-        variant: "A",
-        // Dodatkowe dane z kalkulatora (snake_case + camelCase dla kompatybilności Make)
-        salary_range: salaryRange,
-        debt_range: debtRange,
-        has_bik: hasBik,
-        salaryRange,
-        debtRange,
-        hasBik,
-      };
-
-      await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dataToSend),
-      });
-
       // Facebook Pixel
       if (typeof window !== 'undefined' && window.fbq) {
         window.fbq('track', 'Lead', {
