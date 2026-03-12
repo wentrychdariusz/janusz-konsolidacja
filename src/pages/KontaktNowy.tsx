@@ -88,7 +88,7 @@ const KontaktNowy = () => {
         debt_range: debtRange,
         has_bik: hasBik,
       });
-      navigate(`/podziekowaniebezvip?${params.toString()}`);
+      navigate(`/podziekowanie-nowy?${params.toString()}`);
     } finally {
       setIsSubmitting(false);
     }
