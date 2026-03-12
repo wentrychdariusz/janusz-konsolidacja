@@ -69,25 +69,28 @@ const SmsVerificationNowy = () => {
   }
 
   return (
-    <div className="font-lato min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="font-lato min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex flex-col p-4">
+      <div className="w-full max-w-md mx-auto pt-6 sm:pt-12">
+        
+        {/* Nagłówek na górze */}
+        <div className="text-center mb-6">
+          <img
+            src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+            alt="Dariusz Wentrych"
+            className="w-14 h-14 rounded-full border-2 border-business-blue-200 shadow-lg object-cover mx-auto mb-3"
+          />
+          <h1 className="text-2xl sm:text-3xl font-bold text-navy-900 mb-2">
+            Potwierdź miejsce na konsultację
+          </h1>
+          <p className="text-warm-neutral-600 text-base">
+            Wysłaliśmy SMS z kodem na numer: <strong>{decodeURIComponent(phone) || 'Twój numer'}</strong>
+          </p>
+        </div>
+
+        {/* Karta z kodem */}
         <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8">
+          <p className="text-center text-navy-800 font-semibold text-lg mb-5">Wpisz 3-cyfrowy kod z SMS</p>
 
-          <div className="text-center mb-8">
-            <img
-              src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-              alt="Dariusz Wentrych"
-              className="w-16 h-16 rounded-full border-2 border-business-blue-200 shadow-lg object-cover mx-auto mb-4"
-            />
-            <h1 className="text-2xl sm:text-3xl font-bold text-navy-900 mb-2">
-              Potwierdź numer telefonu
-            </h1>
-            <p className="text-warm-neutral-600">
-              Wysłaliśmy kod na: <strong>{decodeURIComponent(phone) || 'Twój numer'}</strong>
-            </p>
-          </div>
-
-          {/* OTP Input */}
           <div className="flex justify-center mb-6">
             <InputOTP maxLength={3} value={smsCode} onChange={setSmsCode}>
               <InputOTPGroup className="gap-4">
@@ -111,7 +114,7 @@ const SmsVerificationNowy = () => {
             disabled={smsCode.length !== 3 || isVerifying}
             className="w-full bg-navy-900 hover:bg-navy-800 text-white font-bold py-4 text-xl rounded-xl shadow-lg transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isVerifying ? 'Weryfikuję...' : 'Potwierdź'}
+            {isVerifying ? 'Weryfikuję...' : 'Potwierdź konsultację'}
           </button>
 
           <p className="text-center text-warm-neutral-500 text-sm mt-4">
