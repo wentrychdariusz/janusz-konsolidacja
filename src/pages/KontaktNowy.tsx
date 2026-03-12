@@ -74,7 +74,7 @@ const KontaktNowy = () => {
           debt_range: debtRange,
           has_bik: hasBik,
         });
-        navigate(`/sms-verification-nowy?${params.toString()}`);
+        navigate(`/podziekowaniebezvip?${params.toString()}`);
       }, 2000);
 
     } catch (error) {
@@ -88,7 +88,7 @@ const KontaktNowy = () => {
         debt_range: debtRange,
         has_bik: hasBik,
       });
-      navigate(`/sms-verification-nowy?${params.toString()}`);
+      navigate(`/podziekowaniebezvip?${params.toString()}`);
     } finally {
       setIsSubmitting(false);
     }
