@@ -4,7 +4,11 @@ import OptimizedImage from './OptimizedImage';
 
 import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star } from 'lucide-react';
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  onOpenCalculator?: () => void;
+}
+
+const HeroSection = ({ onOpenCalculator }: HeroSectionProps) => {
   const [currentMiniTestimonial, setCurrentMiniTestimonial] = useState(0);
 
   const benefits = [
