@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import LoanAmountsBar from '../components/LoanAmountsBar';
 import TopHeader from '../components/TopHeader';
 import HeroSection from '../components/HeroSection';
@@ -16,12 +16,10 @@ import CalculatorSection4000 from '../components/CalculatorSection4000';
 import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
-import CalculatorNowyModal from '../components/CalculatorNowyModal';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 
 const Premium = () => {
   const { trackPageView } = useSupabaseTracking();
-  const [showCalculatorModal, setShowCalculatorModal] = useState(false);
   
   useEffect(() => {
     console.log('🎉 Premium page: Tracking page view for premium page');
@@ -49,7 +47,7 @@ const Premium = () => {
     <div className="font-lato">
       <LoanAmountsBar />
       <TopHeader />
-      <HeroSection onOpenCalculator={() => setShowCalculatorModal(true)} />
+      <HeroSection />
       <ImagineSection />
       <VideoSection />
       <DariuszLetterSection />
@@ -62,12 +60,8 @@ const Premium = () => {
       <TeamSection />
       <CalculatorSection4000 />
       <GuaranteeSection />
-      <FloatingAvatar onOpenCalculator={() => setShowCalculatorModal(true)} />
+      <FloatingAvatar />
       <Footer />
-      <CalculatorNowyModal 
-        isOpen={showCalculatorModal} 
-        onClose={() => setShowCalculatorModal(false)} 
-      />
     </div>
   );
 };

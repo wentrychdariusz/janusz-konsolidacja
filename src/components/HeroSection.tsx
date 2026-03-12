@@ -1,15 +1,11 @@
 // Updated to fix build cache issue
 import React, { useState, useEffect } from 'react';
+import DebtCalculatorBeta from './DebtCalculatorBeta';
 import OptimizedImage from './OptimizedImage';
-import CalculatorTeaser from './CalculatorTeaser';
 
 import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star } from 'lucide-react';
 
-interface HeroSectionProps {
-  onOpenCalculator?: () => void;
-}
-
-const HeroSection = ({ onOpenCalculator }: HeroSectionProps) => {
+const HeroSection = () => {
   const [currentMiniTestimonial, setCurrentMiniTestimonial] = useState(0);
 
   const benefits = [
@@ -297,9 +293,9 @@ const HeroSection = ({ onOpenCalculator }: HeroSectionProps) => {
               </div>
             </div>
             
-            {/* Calculator Teaser - Mobile */}
+            {/* Calculator Section - Mobile */}
             <div className="animate-fade-in">
-              <CalculatorTeaser onOpen={onOpenCalculator!} />
+              <DebtCalculatorBeta />
             </div>
           </div>
 
@@ -346,10 +342,10 @@ const HeroSection = ({ onOpenCalculator }: HeroSectionProps) => {
               </div>
             </div>
             
-            {/* Right Content - Calculator Teaser */}
+            {/* Right Content - 50% */}
             <div className="flex justify-center animate-fade-in">
               <div className="w-full">
-                <CalculatorTeaser onOpen={onOpenCalculator!} />
+                <DebtCalculatorBeta />
               </div>
             </div>
           </div>
