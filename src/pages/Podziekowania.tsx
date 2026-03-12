@@ -111,6 +111,12 @@ const Podziekowania = () => {
           phone: cleanPhone(effectivePhone),
           email: cleanString(effectiveEmail),
           payment_status: paymentStatusFromUrl,
+          salary_range: salaryRange,
+          debt_range: debtRange,
+          has_bik: hasBik,
+          salaryRange,
+          debtRange,
+          hasBik,
         };
 
         console.log('📤 Sending webhook from /podziekowania:');

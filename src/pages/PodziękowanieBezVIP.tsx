@@ -40,7 +40,13 @@ const PodziękowanieBezVIP = () => {
         phone: phone || 'Nie podano',
         email: email || 'Nie podano',
         payment: 'Nieopłacone',
-        payment_status: 'Nieopłacone'
+        payment_status: 'Nieopłacone',
+        salary_range: salaryRange,
+        debt_range: debtRange,
+        has_bik: hasBik,
+        salaryRange,
+        debtRange,
+        hasBik,
       };
       
       try {
