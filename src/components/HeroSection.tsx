@@ -330,7 +330,7 @@ const HeroSection = () => {
             
             {/* Calculator Section - Mobile */}
             <div className="animate-fade-in">
-              <DebtCalculatorBeta />
+              {calculatorTriggerCard}
             </div>
           </div>
 
