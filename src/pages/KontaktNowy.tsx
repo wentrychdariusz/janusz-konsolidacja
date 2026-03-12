@@ -81,7 +81,7 @@ const KontaktNowy = () => {
         email: formData.email,
         phone: formData.phone
       });
-      navigate(`/sms-verification?${params.toString()}`);
+      navigate(`/sms-verification-nowy?${params.toString()}`);
     } finally {
       setIsSubmitting(false);
     }
