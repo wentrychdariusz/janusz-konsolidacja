@@ -78,6 +78,40 @@ const HeroSection = () => {
     "/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png"
   ];
 
+  const calculatorTriggerCard = (
+    <div
+      onClick={() => setIsCalculatorModalOpen(true)}
+      className="cursor-pointer bg-gradient-to-r from-white/15 to-white/10 rounded-2xl shadow-xl border-2 border-business-blue-300/70 hover:border-business-blue-200 hover:shadow-2xl transition-all duration-300 p-6 sm:p-8 backdrop-blur-sm"
+    >
+      <div className="flex justify-center mb-4">
+        <img
+          src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+          alt="Dariusz Wentrych"
+          className="w-16 h-16 rounded-full border-3 border-business-blue-200 shadow-xl object-cover"
+        />
+      </div>
+      <h3 className="text-xl sm:text-2xl font-bold text-white text-center mb-4">
+        Jaki jest Twój dochód?
+      </h3>
+      <div className="relative">
+        <input
+          type="text"
+          readOnly
+          placeholder="Wpisz kwotę..."
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsCalculatorModalOpen(true);
+          }}
+          onFocus={() => setIsCalculatorModalOpen(true)}
+          className="w-full h-14 rounded-xl border-2 border-business-blue-300 bg-white text-navy-900 px-4 text-lg font-semibold placeholder:text-warm-neutral-400 cursor-pointer"
+        />
+      </div>
+      <p className="text-warm-neutral-200 text-sm text-center mt-4">
+        Kliknij, a otworzy się szybki kalkulator
+      </p>
+    </div>
+  );
+
   return (
     <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden pt-14 md:pt-16 pb-8 md:pb-12">
       {/* Desktop background - Dariusz image z lazy loading */}
