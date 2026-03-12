@@ -67,7 +67,6 @@ const KontaktNowy = () => {
       // Ten sam redirect co ContactFormVariantA
       setTimeout(() => {
         const params = new URLSearchParams({
-          success: 'true',
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
@@ -75,7 +74,7 @@ const KontaktNowy = () => {
           debt_range: debtRange,
           has_bik: hasBik,
         });
-        navigate(`/payment?${params.toString()}`);
+        navigate(`/sms-verification-nowy?${params.toString()}`);
       }, 2000);
 
     } catch (error) {
