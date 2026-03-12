@@ -87,9 +87,9 @@ const FloatingAvatar = ({ onOpenCalculator }: FloatingAvatarProps) => {
   }, []);
 
   const handleAvatarClick = () => {
-    if (!isDragging) {
-      console.log('Avatar clicked, opening modal');
-      setIsOpen(true);
+    if (!isDragging && onOpenCalculator) {
+      console.log('Avatar clicked, opening calculator modal');
+      onOpenCalculator();
     }
   };
 
