@@ -1,5 +1,5 @@
 import React from 'react';
-import DebtCalculatorBeta from './DebtCalculatorBeta';
+import NewCalculatorEmbed from './NewCalculatorEmbed';
 
 const CalculatorSectionBeta = () => {
   return (
@@ -15,8 +15,8 @@ const CalculatorSectionBeta = () => {
           </p>
         </div>
         
-        <div className="max-w-4xl mx-auto">
-          <DebtCalculatorBeta />
+        <div className="max-w-2xl mx-auto">
+          <NewCalculatorEmbed />
         </div>
       </div>
     </section>
