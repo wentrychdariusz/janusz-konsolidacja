@@ -118,49 +118,55 @@ const KontaktNowy = () => {
               className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-business-blue-200 shadow-lg object-cover mx-auto mb-4"
             />
             <h1 className="text-2xl sm:text-3xl font-bold text-navy-900 mb-2">
-              Zarezerwuj darmową konsultację
+              Wypełnij formularz i otrzymaj pomoc
             </h1>
-            <p className="text-warm-neutral-600 text-base sm:text-lg">
-              Wypełnij formularz — oddzwonimy w ciągu <strong>24h</strong>
-            </p>
           </div>
 
-          {/* Form — te same pola co /kontakt */}
+          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="text"
-              name="name"
-              placeholder="Twoje imię"
-              value={formData.name}
-              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-              className="w-full px-5 py-4 text-lg border-2 border-warm-neutral-200 rounded-xl focus:border-business-blue-500 focus:ring-2 focus:ring-business-blue-200 outline-none transition-all"
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Adres e-mail"
-              value={formData.email}
-              onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-              className="w-full px-5 py-4 text-lg border-2 border-warm-neutral-200 rounded-xl focus:border-business-blue-500 focus:ring-2 focus:ring-business-blue-200 outline-none transition-all"
-              required
-            />
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Numer telefonu"
-              value={formData.phone}
-              onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-              className="w-full px-5 py-4 text-lg border-2 border-warm-neutral-200 rounded-xl focus:border-business-blue-500 focus:ring-2 focus:ring-business-blue-200 outline-none transition-all"
-              required
-            />
+            <div>
+              <label className="block text-sm font-semibold text-navy-800 mb-1">Imię i nazwisko *</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Wpisz swoje imię i nazwisko"
+                value={formData.name}
+                onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                className="w-full px-5 py-4 text-lg border-2 border-warm-neutral-200 rounded-xl focus:border-business-blue-500 focus:ring-2 focus:ring-business-blue-200 outline-none transition-all"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-navy-800 mb-1">Email *</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="twoj@email.com"
+                value={formData.email}
+                onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                className="w-full px-5 py-4 text-lg border-2 border-warm-neutral-200 rounded-xl focus:border-business-blue-500 focus:ring-2 focus:ring-business-blue-200 outline-none transition-all"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-navy-800 mb-1">Telefon *</label>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="+48 123 456 789"
+                value={formData.phone}
+                onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                className="w-full px-5 py-4 text-lg border-2 border-warm-neutral-200 rounded-xl focus:border-business-blue-500 focus:ring-2 focus:ring-business-blue-200 outline-none transition-all"
+                required
+              />
+            </div>
 
             <button
               type="submit"
               disabled={isSubmitting || !formData.name || !formData.email || !formData.phone}
               className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 sm:py-5 text-xl sm:text-2xl rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? 'Wysyłam...' : '📞 Umów darmową konsultację'}
+              {isSubmitting ? 'Wysyłam...' : 'Zapisz się na konsultację'}
             </button>
           </form>
 
