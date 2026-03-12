@@ -59,6 +59,7 @@ const App = () => (
           <Route path="/sms-verification" element={<SmsVerification />} />
           <Route path="/sms-verification-a" element={<SmsVerificationA />} />
           <Route path="/sms-verification-b" element={<SmsVerificationB />} />
+          <Route path="/sms-verification-nowy" element={<SmsVerificationNowy />} />
           <Route path="/kontakt" element={<ContactForm />} />
           <Route path="/kontakt-a" element={<ContactFormA />} />
           <Route path="/kontakt-b" element={<ContactFormB />} />
