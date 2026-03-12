@@ -238,7 +238,7 @@ const PaymentTest = () => {
 
             // Finalny webhook do Make.com z KOMPLETEM danych
             try {
-              await fetch('https://hook.eu2.make.com/yusy3i37uoiv14b2dx1zv6wro898d9q5', {
+              await fetch(MAKE_WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -248,6 +248,9 @@ const PaymentTest = () => {
                   salary_range: salaryRange,
                   debt_range: debtRange,
                   has_bik: hasBik,
+                  salaryRange,
+                  debtRange,
+                  hasBik,
                   payment_status: 'Opłacone',
                   transaction_id: transactionId,
                   amount: 9.90,
