@@ -67,7 +67,10 @@ const KontaktNowy = () => {
           success: 'true',
           name: formData.name,
           email: formData.email,
-          phone: formData.phone
+          phone: formData.phone,
+          salary_range: salaryRange,
+          debt_range: debtRange,
+          has_bik: hasBik,
         });
         navigate(`/payment?${params.toString()}`);
       }, 2000);
@@ -79,7 +82,10 @@ const KontaktNowy = () => {
         success: 'true',
         name: formData.name,
         email: formData.email,
-        phone: formData.phone
+        phone: formData.phone,
+        salary_range: salaryRange,
+        debt_range: debtRange,
+        has_bik: hasBik,
       });
       navigate(`/payment?${params.toString()}`);
     } finally {
