@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
 import { CheckCircle } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
 
 const VERIFICATION_CODE = '121';
-const verificationWebhookUrl = "https://hook.eu2.make.com/py94cyfbhaa514btm2klljd3m3q2tpye";
+const verificationWebhookUrl = "https://hook.eu2.make.com/yusy3i37uoiv14b2dx1zv6wro898d9q5";
 
 const SmsVerificationNowy = () => {
   const [searchParams] = useSearchParams();
@@ -13,6 +12,9 @@ const SmsVerificationNowy = () => {
   const name = searchParams.get('name') || '';
   const email = searchParams.get('email') || '';
   const phone = searchParams.get('phone') || '';
+  const salaryRange = searchParams.get('salary_range') || '';
+  const debtRange = searchParams.get('debt_range') || '';
+  const hasBik = searchParams.get('has_bik') || '';
 
   const [smsCode, setSmsCode] = useState('');
   const [isVerifying, setIsVerifying] = useState(false);
@@ -30,7 +32,7 @@ const SmsVerificationNowy = () => {
       return;
     }
 
-    // Wyślij do webhook
+    // Wyślij do webhook z pełnymi danymi
     try {
       await fetch(verificationWebhookUrl, {
         method: 'POST',
@@ -42,6 +44,15 @@ const SmsVerificationNowy = () => {
           sms_verified: true,
           sms_verified_at: new Date().toISOString(),
           verification_status: 'VERIFIED',
+          source: 'sms_verification_nowy',
+          // Dane finansowe
+          salary_range: salaryRange,
+          debt_range: debtRange,
+          has_bik: hasBik,
+          salaryRange,
+          debtRange,
+          hasBik,
+          timestamp: new Date().toISOString(),
         }),
       });
     } catch (err) {
@@ -50,7 +61,14 @@ const SmsVerificationNowy = () => {
 
     setSuccess(true);
     setTimeout(() => {
-      const params = new URLSearchParams({ name, email, phone });
+      const params = new URLSearchParams({
+        name,
+        email,
+        phone,
+        salary_range: salaryRange,
+        debt_range: debtRange,
+        has_bik: hasBik,
+      });
       navigate(`/payment?${params.toString()}`);
     }, 1500);
 
@@ -72,7 +90,6 @@ const SmsVerificationNowy = () => {
     <div className="font-lato min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex flex-col p-4">
       <div className="w-full max-w-md mx-auto pt-6 sm:pt-12">
         
-        {/* Nagłówek na górze */}
         <div className="text-center mb-6">
           <img
             src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
@@ -87,7 +104,6 @@ const SmsVerificationNowy = () => {
           </p>
         </div>
 
-        {/* Karta z kodem */}
         <div className="bg-white rounded-2xl shadow-2xl p-6 sm:p-8">
           <p className="text-center text-navy-800 font-semibold text-lg mb-5">Wpisz 3-cyfrowy kod z SMS</p>
 
