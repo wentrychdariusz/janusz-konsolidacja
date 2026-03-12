@@ -25,6 +25,7 @@ const PaymentTest = () => {
   const [phoneInput, setPhoneInput] = useState(searchParams.get('phone') || '');
   const [error, setError] = useState('');
   const [isWaitingForConfirmation, setIsWaitingForConfirmation] = useState(false);
+  const hasSentPaymentViewToMake = useRef(false);
 
   // Dane z formularza kontaktowego
   const name = searchParams.get('name') || '';
