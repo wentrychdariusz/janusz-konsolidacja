@@ -65,7 +65,7 @@ const Index = () => {
     <div className="font-lato">
       <LoanAmountsBar />
       <TopHeader />
-      <HeroSection />
+      <HeroSection onOpenCalculator={() => setShowCalculatorModal(true)} />
       <ImagineSection />
       <VideoSection />
       <DariuszLetterSection />
@@ -76,14 +76,14 @@ const Index = () => {
       <HeroesSection />
       <BookSection />
       <TeamSection />
-      
-      {/* Domyślnie używamy CalculatorSectionBeta */}
-      <CalculatorSectionBeta />
-      
       <GuaranteeSection />
-      <FloatingAvatar />
+      <FloatingAvatar onOpenCalculator={() => setShowCalculatorModal(true)} />
       <Footer />
       
+      <CalculatorNowyModal 
+        isOpen={showCalculatorModal} 
+        onClose={() => setShowCalculatorModal(false)} 
+      />
       <PersonalizedOfferModal 
         isOpen={showOfferModal} 
         onClose={() => setShowOfferModal(false)} 
