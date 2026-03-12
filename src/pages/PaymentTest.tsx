@@ -238,7 +238,10 @@ const PaymentTest = () => {
               transactionId: data.transactionId || transactionId,
               name,
               email,
-              phone: phone || phoneInput
+              phone: phone || phoneInput,
+              salary_range: salaryRange,
+              debt_range: debtRange,
+              has_bik: hasBik,
             });
             console.log('🔗 Redirecting to /podziekowania with params:', {
               paid: 'true',
