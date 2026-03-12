@@ -69,7 +69,7 @@ const KontaktNowy = () => {
           email: formData.email,
           phone: formData.phone
         });
-        navigate(`/sms-verification-nowy?${params.toString()}`);
+        navigate(`/payment?${params.toString()}`);
       }, 2000);
 
     } catch (error) {
