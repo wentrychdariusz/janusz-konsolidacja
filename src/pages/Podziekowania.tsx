@@ -19,6 +19,9 @@ const Podziekowania = () => {
   const phone = searchParams.get('phone') || '';
   const isPaidTest = searchParams.get('paid') === 'true';
   const paymentStatusFromUrl = searchParams.get('payment_status') || 'Nieopłacone';
+  const salaryRange = searchParams.get('salary_range') || '';
+  const debtRange = searchParams.get('debt_range') || '';
+  const hasBik = searchParams.get('has_bik') || '';
   
   console.log('🔍 Podziekowania - URL params:', {
     name,
