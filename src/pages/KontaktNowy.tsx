@@ -8,7 +8,7 @@ declare global {
   }
 }
 
-const webhookUrl = "https://hook.eu2.make.com/yusy3i37uoiv14b2dx1zv6wro898d9q5";
+
 
 const KontaktNowy = () => {
   const navigate = useNavigate();
