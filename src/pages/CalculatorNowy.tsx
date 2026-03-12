@@ -50,7 +50,7 @@ const CalculatorNowy = () => {
         debt_category: selectedDebt!.value,
         has_bik: value,
       });
-      navigate(`/kontakt?${params.toString()}`);
+      navigate(`/kontakt-nowy?${params.toString()}`);
     }, 400);
   };
 
