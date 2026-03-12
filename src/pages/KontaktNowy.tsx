@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { CheckCircle } from 'lucide-react';
+
+declare global {
+  interface Window {
+    fbq: (action: string, event: string, params?: any) => void;
+  }
+}
 
 const webhookUrl = "https://hook.eu2.make.com/yusy3i37uoiv14b2dx1zv6wro898d9q5";
 
 const KontaktNowy = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [spotsLeft] = useState(() => Math.floor(Math.random() * 3) + 2); // 2-4
-  const [formData, setFormData] = useState({ name: '', phone: '' });
+  const [spotsLeft] = useState(() => Math.floor(Math.random() * 3) + 2);
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
@@ -18,42 +24,76 @@ const KontaktNowy = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.phone) return;
+    if (!formData.name || !formData.email || !formData.phone) return;
 
     setIsSubmitting(true);
 
     try {
+      // Ten sam schemat co ContactFormVariantA
+      const dataToSend = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        timestamp: new Date().toISOString(),
+        source: "ContactFormVariantA",
+        variant: "A",
+        // Dodatkowe dane z kalkulatora
+        salary_range: salaryRange,
+        debt_range: debtRange,
+        has_bik: hasBik,
+      };
+
       await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          phone: formData.phone,
-          salary_range: salaryRange,
-          debt_range: debtRange,
-          has_bik: hasBik,
-          timestamp: new Date().toISOString(),
-          source: 'kontakt-nowy',
-        }),
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dataToSend),
       });
-    } catch (err) {
-      console.error('Webhook error:', err);
+
+      // Facebook Pixel
+      if (typeof window !== 'undefined' && window.fbq) {
+        window.fbq('track', 'Lead', {
+          content_name: 'Contact Form Variant A',
+          content_category: 'Lead Generation',
+          value: 1,
+          currency: 'PLN'
+        });
+      }
+
+      setSubmitSuccess(true);
+
+      // Ten sam redirect co ContactFormVariantA
+      setTimeout(() => {
+        const params = new URLSearchParams({
+          success: 'true',
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone
+        });
+        navigate(`/sms-verification?${params.toString()}`);
+      }, 2000);
+
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      // Redirect nawet przy błędzie — tak samo jak oryginał
+      const params = new URLSearchParams({
+        success: 'true',
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone
+      });
+      navigate(`/sms-verification?${params.toString()}`);
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setSubmitSuccess(true);
-    setTimeout(() => {
-      navigate(`/podziekowania?name=${encodeURIComponent(formData.name)}&phone=${encodeURIComponent(formData.phone)}`);
-    }, 1500);
-
-    setIsSubmitting(false);
   };
 
   if (submitSuccess) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50 flex items-center justify-center p-4">
-        <div className="text-center">
-          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4 animate-bounce" />
-          <h2 className="text-2xl sm:text-3xl font-bold text-navy-900">Gotowe! Przekierowuję...</h2>
+        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
+          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-navy-900 mb-3">Dziękujemy!</h2>
+          <p className="text-warm-neutral-600">Twoje dane zostały przesłane. Przekierowujemy...</p>
         </div>
       </div>
     );
@@ -81,41 +121,46 @@ const KontaktNowy = () => {
               Zarezerwuj darmową konsultację
             </h1>
             <p className="text-warm-neutral-600 text-base sm:text-lg">
-              Podaj imię i numer — oddzwonimy w ciągu <strong>24h</strong>
+              Wypełnij formularz — oddzwonimy w ciągu <strong>24h</strong>
             </p>
           </div>
 
-          {/* Form */}
+          {/* Form — te same pola co /kontakt */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <input
-                type="text"
-                name="name"
-                placeholder="Twoje imię"
-                value={formData.name}
-                onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                className="w-full px-5 py-4 text-lg border-2 border-warm-neutral-200 rounded-xl focus:border-business-blue-500 focus:ring-2 focus:ring-business-blue-200 outline-none transition-all"
-                required
-              />
-            </div>
-            <div>
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Numer telefonu"
-                value={formData.phone}
-                onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                className="w-full px-5 py-4 text-lg border-2 border-warm-neutral-200 rounded-xl focus:border-business-blue-500 focus:ring-2 focus:ring-business-blue-200 outline-none transition-all"
-                required
-              />
-            </div>
+            <input
+              type="text"
+              name="name"
+              placeholder="Twoje imię"
+              value={formData.name}
+              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+              className="w-full px-5 py-4 text-lg border-2 border-warm-neutral-200 rounded-xl focus:border-business-blue-500 focus:ring-2 focus:ring-business-blue-200 outline-none transition-all"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Adres e-mail"
+              value={formData.email}
+              onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+              className="w-full px-5 py-4 text-lg border-2 border-warm-neutral-200 rounded-xl focus:border-business-blue-500 focus:ring-2 focus:ring-business-blue-200 outline-none transition-all"
+              required
+            />
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Numer telefonu"
+              value={formData.phone}
+              onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+              className="w-full px-5 py-4 text-lg border-2 border-warm-neutral-200 rounded-xl focus:border-business-blue-500 focus:ring-2 focus:ring-business-blue-200 outline-none transition-all"
+              required
+            />
 
             <button
               type="submit"
-              disabled={isSubmitting || !formData.name || !formData.phone}
+              disabled={isSubmitting || !formData.name || !formData.email || !formData.phone}
               className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 sm:py-5 text-xl sm:text-2xl rounded-xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? 'Wysyłam...' : '📞 Zadzwońcie do mnie'}
+              {isSubmitting ? 'Wysyłam...' : '📞 Umów darmową konsultację'}
             </button>
           </form>
 
