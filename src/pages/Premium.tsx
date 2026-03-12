@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import LoanAmountsBar from '../components/LoanAmountsBar';
 import TopHeader from '../components/TopHeader';
 import HeroSection from '../components/HeroSection';
@@ -16,6 +16,7 @@ import CalculatorSection4000 from '../components/CalculatorSection4000';
 import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
+import CalculatorNowyModal from '../components/CalculatorNowyModal';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 
 const Premium = () => {
