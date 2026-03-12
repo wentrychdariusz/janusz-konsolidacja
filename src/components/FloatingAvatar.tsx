@@ -1,9 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
-import DebtCalculatorBeta from './DebtCalculatorBeta';
 
-const FloatingAvatar = () => {
+interface FloatingAvatarProps {
+  onOpenCalculator?: () => void;
+}
+
+const FloatingAvatar = ({ onOpenCalculator }: FloatingAvatarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [showAvatar, setShowAvatar] = useState(false);
