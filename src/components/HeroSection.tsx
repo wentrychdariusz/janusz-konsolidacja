@@ -1,12 +1,13 @@
 // Updated to fix build cache issue
 import React, { useState, useEffect } from 'react';
-import DebtCalculatorBeta from './DebtCalculatorBeta';
 import OptimizedImage from './OptimizedImage';
+import NewCalculatorEmbed from './NewCalculatorEmbed';
 
-import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star } from 'lucide-react';
+import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star, X } from 'lucide-react';
 
 const HeroSection = () => {
   const [currentMiniTestimonial, setCurrentMiniTestimonial] = useState(0);
+  const [isCalculatorModalOpen, setIsCalculatorModalOpen] = useState(false);
 
   const benefits = [
     {
@@ -76,6 +77,40 @@ const HeroSection = () => {
     "/lovable-uploads/24d5d0f4-76f1-4575-841f-89f9057c346f.png",
     "/lovable-uploads/7963235c-2a13-4cde-8100-43ced32bd3c5.png"
   ];
+
+  const calculatorTriggerCard = (
+    <div
+      onClick={() => setIsCalculatorModalOpen(true)}
+      className="cursor-pointer bg-gradient-to-r from-white/15 to-white/10 rounded-2xl shadow-xl border-2 border-business-blue-300/70 hover:border-business-blue-200 hover:shadow-2xl transition-all duration-300 p-6 sm:p-8 backdrop-blur-sm"
+    >
+      <div className="flex justify-center mb-4">
+        <img
+          src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+          alt="Dariusz Wentrych"
+          className="w-16 h-16 rounded-full border-3 border-business-blue-200 shadow-xl object-cover"
+        />
+      </div>
+      <h3 className="text-xl sm:text-2xl font-bold text-white text-center mb-4">
+        Jaki jest Twój dochód?
+      </h3>
+      <div className="relative">
+        <input
+          type="text"
+          readOnly
+          placeholder="Wpisz kwotę..."
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsCalculatorModalOpen(true);
+          }}
+          onFocus={() => setIsCalculatorModalOpen(true)}
+          className="w-full h-14 rounded-xl border-2 border-business-blue-300 bg-white text-navy-900 px-4 text-lg font-semibold placeholder:text-warm-neutral-400 cursor-pointer"
+        />
+      </div>
+      <p className="text-warm-neutral-200 text-sm text-center mt-4">
+        Kliknij, a otworzy się szybki kalkulator
+      </p>
+    </div>
+  );
 
   return (
     <section className="bg-gradient-to-br from-black via-gray-800 to-gray-900 min-h-screen relative overflow-hidden pt-14 md:pt-16 pb-8 md:pb-12">
@@ -295,7 +330,7 @@ const HeroSection = () => {
             
             {/* Calculator Section - Mobile */}
             <div className="animate-fade-in">
-              <DebtCalculatorBeta />
+              {calculatorTriggerCard}
             </div>
           </div>
 
@@ -345,12 +380,29 @@ const HeroSection = () => {
             {/* Right Content - 50% */}
             <div className="flex justify-center animate-fade-in">
               <div className="w-full">
-                <DebtCalculatorBeta />
+                {calculatorTriggerCard}
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {isCalculatorModalOpen && (
+        <div className="fixed inset-0 z-[80] bg-black/60 backdrop-blur-sm flex items-center justify-center p-2 md:p-4">
+          <div className="bg-white rounded-xl md:rounded-2xl shadow-2xl w-full max-w-2xl max-h-[95vh] overflow-hidden relative flex flex-col">
+            <button
+              onClick={() => setIsCalculatorModalOpen(false)}
+              className="absolute top-2 right-2 md:top-4 md:right-4 z-10 w-8 h-8 md:w-10 md:h-10 bg-warm-neutral-100 hover:bg-warm-neutral-200 rounded-full flex items-center justify-center transition-colors duration-200"
+              aria-label="Zamknij kalkulator"
+            >
+              <X className="w-4 h-4 md:w-5 md:h-5 text-warm-neutral-600" />
+            </button>
+            <div className="flex-1 overflow-y-auto p-4 md:p-8">
+              <NewCalculatorEmbed />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
