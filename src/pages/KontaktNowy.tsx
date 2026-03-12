@@ -105,7 +105,7 @@ const KontaktNowy = () => {
 
         {/* Urgency banner */}
         <div className="bg-red-600 text-white text-center py-3 px-4 rounded-t-2xl font-bold text-lg sm:text-xl animate-pulse">
-          🔥 Zostały tylko {spotsLeft} wolne miejsca na konsultację!
+          🔥 Zostały tylko {spotsLeft} wolne miejsca na konsultację dzisiaj!
         </div>
 
         <div className="bg-white rounded-b-2xl shadow-2xl p-6 sm:p-8">
