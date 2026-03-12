@@ -7,6 +7,7 @@ import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star, X } from 
 
 const HeroSection = () => {
   const [currentMiniTestimonial, setCurrentMiniTestimonial] = useState(0);
+  const [isCalculatorModalOpen, setIsCalculatorModalOpen] = useState(false);
 
   const benefits = [
     {
