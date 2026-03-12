@@ -3,37 +3,38 @@ import { useNavigate } from 'react-router-dom';
 import TopHeader from '../components/TopHeader';
 import LiveNotifications from '../components/LiveNotifications';
 
+const salaryOptions = [
+  { emoji: '💵', label: 'Poniżej 4 000 zł', value: 'ponizej_4000', range: '0-4000' },
+  { emoji: '💰', label: '4 000 – 6 000 zł', value: '4000_6000', range: '4000-6000' },
+  { emoji: '💎', label: '6 000 – 8 000 zł', value: '6000_8000', range: '6000-8000' },
+  { emoji: '🏆', label: 'Powyżej 8 000 zł', value: 'powyzej_8000', range: '8000+' },
+];
+
 const debtOptions = [
-  {
-    emoji: '💰',
-    label: 'Do 50 000 zł',
-    value: 'do_50000',
-    range: '0-50000',
-  },
-  {
-    emoji: '💳',
-    label: '50 000 – 150 000 zł',
-    value: '50000_150000',
-    range: '50000-150000',
-  },
-  {
-    emoji: '🏦',
-    label: 'Powyżej 150 000 zł',
-    value: 'powyzej_150000',
-    range: '150000+',
-  },
+  { emoji: '💰', label: 'Do 50 000 zł', value: 'do_50000', range: '0-50000' },
+  { emoji: '💳', label: '50 000 – 150 000 zł', value: '50000_150000', range: '50000-150000' },
+  { emoji: '🏦', label: 'Powyżej 150 000 zł', value: 'powyzej_150000', range: '150000+' },
 ];
 
 const CalculatorNowy = () => {
   const navigate = useNavigate();
-  const [selected, setSelected] = useState<string | null>(null);
+  const [step, setStep] = useState(1);
+  const [selectedSalary, setSelectedSalary] = useState<{ value: string; range: string } | null>(null);
+  const [selectedDebt, setSelectedDebt] = useState<string | null>(null);
 
-  const handleSelect = (value: string, range: string) => {
-    setSelected(value);
-    
-    // Krótkie opóźnienie dla efektu wizualnego, potem przekierowanie
+  const totalSteps = 2;
+
+  const handleSalarySelect = (value: string, range: string) => {
+    setSelectedSalary({ value, range });
+    setTimeout(() => setStep(2), 400);
+  };
+
+  const handleDebtSelect = (value: string, range: string) => {
+    setSelectedDebt(value);
     setTimeout(() => {
       const params = new URLSearchParams({
+        salary_range: selectedSalary!.range,
+        salary_category: selectedSalary!.value,
         debt_range: range,
         debt_category: value,
       });
@@ -41,54 +42,96 @@ const CalculatorNowy = () => {
     }, 400);
   };
 
+  const currentOptions = step === 1 ? salaryOptions : debtOptions;
+  const title = step === 1 ? 'Ile zarabiasz na rękę?' : 'Ile łącznie masz do spłaty?';
+  const subtitle = step === 1
+    ? 'Dzięki temu dobierzemy najlepsze rozwiązanie'
+    : 'Wybierz przedział zadłużenia';
+
   return (
     <div className="font-lato min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50">
       <TopHeader />
       <LiveNotifications />
       <div className="pt-24 pb-16 px-4">
         <div className="max-w-2xl mx-auto">
-          
+
+          {/* Progress bar */}
+          <div className="mb-8">
+            <div className="flex justify-between text-sm text-warm-neutral-500 mb-2">
+              <span>Krok {step} z {totalSteps}</span>
+              <span>{Math.round((step / totalSteps) * 100)}%</span>
+            </div>
+            <div className="w-full bg-warm-neutral-200 rounded-full h-2.5">
+              <div
+                className="bg-business-blue-600 h-2.5 rounded-full transition-all duration-500"
+                style={{ width: `${(step / totalSteps) * 100}%` }}
+              />
+            </div>
+          </div>
+
           {/* Header z ekspertem */}
           <div className="text-center mb-10">
             <div className="flex justify-center mb-6">
-              <img 
+              <img
                 src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
                 alt="Dariusz Wentrych"
                 className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-3 border-business-blue-200 shadow-xl object-cover"
               />
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-navy-900 mb-4">
-              Ile łącznie masz do spłaty?
+              {title}
             </h1>
             <p className="text-lg sm:text-xl text-warm-neutral-600 max-w-lg mx-auto">
-              Wybierz przedział, a dobierzemy najlepsze rozwiązanie dla Ciebie
+              {subtitle}
             </p>
           </div>
 
           {/* Opcje wyboru */}
           <div className="space-y-4 sm:space-y-5">
-            {debtOptions.map((option) => (
-              <button
-                key={option.value}
-                onClick={() => handleSelect(option.value, option.range)}
-                className={`
-                  w-full text-left p-6 sm:p-8 rounded-2xl border-2 transition-all duration-300
-                  transform hover:scale-[1.02] hover:shadow-xl
-                  ${selected === option.value
-                    ? 'border-business-blue-600 bg-business-blue-50 shadow-lg ring-2 ring-business-blue-200'
-                    : 'border-warm-neutral-200 bg-white hover:border-business-blue-300 shadow-md'
+            {currentOptions.map((option) => {
+              const isSelected = step === 1
+                ? selectedSalary?.value === option.value
+                : selectedDebt === option.value;
+
+              return (
+                <button
+                  key={option.value}
+                  onClick={() =>
+                    step === 1
+                      ? handleSalarySelect(option.value, option.range)
+                      : handleDebtSelect(option.value, option.range)
                   }
-                `}
-              >
-                <div className="flex items-center gap-4 sm:gap-6">
-                  <span className="text-4xl sm:text-5xl">{option.emoji}</span>
-                  <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-navy-900">
-                    {option.label}
-                  </span>
-                </div>
-              </button>
-            ))}
+                  className={`
+                    w-full text-left p-6 sm:p-8 rounded-2xl border-2 transition-all duration-300
+                    transform hover:scale-[1.02] hover:shadow-xl
+                    ${isSelected
+                      ? 'border-business-blue-600 bg-business-blue-50 shadow-lg ring-2 ring-business-blue-200'
+                      : 'border-warm-neutral-200 bg-white hover:border-business-blue-300 shadow-md'
+                    }
+                  `}
+                >
+                  <div className="flex items-center gap-4 sm:gap-6">
+                    <span className="text-4xl sm:text-5xl">{option.emoji}</span>
+                    <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-navy-900">
+                      {option.label}
+                    </span>
+                  </div>
+                </button>
+              );
+            })}
           </div>
+
+          {/* Cofnij na kroku 2 */}
+          {step === 2 && (
+            <div className="mt-6 text-center">
+              <button
+                onClick={() => setStep(1)}
+                className="text-business-blue-600 hover:underline font-medium text-lg"
+              >
+                ← Wróć do poprzedniego pytania
+              </button>
+            </div>
+          )}
 
           {/* Zaufanie */}
           <div className="mt-10 text-center">
