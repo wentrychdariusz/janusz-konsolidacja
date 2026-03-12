@@ -13,12 +13,11 @@ import TrustedClientsSection from '../components/TrustedClientsSection';
 import HeroesSection from '../components/HeroesSection';
 import BookSection from '../components/BookSection';
 import TeamSection from '../components/TeamSection';
-
-import CalculatorSectionBeta from '../components/CalculatorSectionBeta';
 import GuaranteeSection from '../components/GuaranteeSection';
 import FloatingAvatar from '../components/FloatingAvatar';
 import Footer from '../components/Footer';
 import PersonalizedOfferModal from '../components/PersonalizedOfferModal';
+import CalculatorNowyModal from '../components/CalculatorNowyModal';
 import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 import { useSuspiciousBehaviorDetection } from '../hooks/useSuspiciousBehaviorDetection';
 
