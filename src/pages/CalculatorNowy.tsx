@@ -16,13 +16,19 @@ const debtOptions = [
   { emoji: '🏦', label: 'Powyżej 150 000 zł', value: 'powyzej_150000', range: '150000+' },
 ];
 
+const bikOptions = [
+  { emoji: '✅', label: 'Tak, mam raport', value: 'tak' },
+  { emoji: '❌', label: 'Nie mam', value: 'nie' },
+];
+
 const CalculatorNowy = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [selectedSalary, setSelectedSalary] = useState<{ value: string; range: string } | null>(null);
-  const [selectedDebt, setSelectedDebt] = useState<string | null>(null);
+  const [selectedDebt, setSelectedDebt] = useState<{ value: string; range: string } | null>(null);
+  const [selectedBik, setSelectedBik] = useState<string | null>(null);
 
-  const totalSteps = 2;
+  const totalSteps = 3;
 
   const handleSalarySelect = (value: string, range: string) => {
     setSelectedSalary({ value, range });
@@ -30,23 +36,53 @@ const CalculatorNowy = () => {
   };
 
   const handleDebtSelect = (value: string, range: string) => {
-    setSelectedDebt(value);
+    setSelectedDebt({ value, range });
+    setTimeout(() => setStep(3), 400);
+  };
+
+  const handleBikSelect = (value: string) => {
+    setSelectedBik(value);
     setTimeout(() => {
       const params = new URLSearchParams({
         salary_range: selectedSalary!.range,
         salary_category: selectedSalary!.value,
-        debt_range: range,
-        debt_category: value,
+        debt_range: selectedDebt!.range,
+        debt_category: selectedDebt!.value,
+        has_bik: value,
       });
       navigate(`/kontakt?${params.toString()}`);
     }, 400);
   };
 
-  const currentOptions = step === 1 ? salaryOptions : debtOptions;
-  const title = step === 1 ? 'Ile zarabiasz na rękę?' : 'Ile łącznie masz do spłaty?';
-  const subtitle = step === 1
-    ? 'Dzięki temu dobierzemy najlepsze rozwiązanie'
-    : 'Wybierz przedział zadłużenia';
+  const getStepContent = () => {
+    if (step === 1) {
+      return {
+        title: 'Ile zarabiasz na rękę?',
+        subtitle: 'Dzięki temu dobierzemy najlepsze rozwiązanie',
+        options: salaryOptions,
+        onSelect: (opt: any) => handleSalarySelect(opt.value, opt.range),
+        selectedValue: selectedSalary?.value,
+      };
+    }
+    if (step === 2) {
+      return {
+        title: 'Ile łącznie masz do spłaty?',
+        subtitle: 'Wybierz przedział zadłużenia',
+        options: debtOptions,
+        onSelect: (opt: any) => handleDebtSelect(opt.value, opt.range),
+        selectedValue: selectedDebt?.value,
+      };
+    }
+    return {
+      title: 'Czy masz aktualny raport BIK?',
+      subtitle: 'BIK to takie prawo jazdy bankowe. Bank to sprawdza przed decyzją.',
+      options: bikOptions,
+      onSelect: (opt: any) => handleBikSelect(opt.value),
+      selectedValue: selectedBik,
+    };
+  };
+
+  const { title, subtitle, options, onSelect, selectedValue } = getStepContent();
 
   return (
     <div className="font-lato min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50">
@@ -87,44 +123,34 @@ const CalculatorNowy = () => {
 
           {/* Opcje wyboru */}
           <div className="space-y-4 sm:space-y-5">
-            {currentOptions.map((option) => {
-              const isSelected = step === 1
-                ? selectedSalary?.value === option.value
-                : selectedDebt === option.value;
-
-              return (
-                <button
-                  key={option.value}
-                  onClick={() =>
-                    step === 1
-                      ? handleSalarySelect(option.value, option.range)
-                      : handleDebtSelect(option.value, option.range)
+            {options.map((option) => (
+              <button
+                key={option.value}
+                onClick={() => onSelect(option)}
+                className={`
+                  w-full text-left p-6 sm:p-8 rounded-2xl border-2 transition-all duration-300
+                  transform hover:scale-[1.02] hover:shadow-xl
+                  ${selectedValue === option.value
+                    ? 'border-business-blue-600 bg-business-blue-50 shadow-lg ring-2 ring-business-blue-200'
+                    : 'border-warm-neutral-200 bg-white hover:border-business-blue-300 shadow-md'
                   }
-                  className={`
-                    w-full text-left p-6 sm:p-8 rounded-2xl border-2 transition-all duration-300
-                    transform hover:scale-[1.02] hover:shadow-xl
-                    ${isSelected
-                      ? 'border-business-blue-600 bg-business-blue-50 shadow-lg ring-2 ring-business-blue-200'
-                      : 'border-warm-neutral-200 bg-white hover:border-business-blue-300 shadow-md'
-                    }
-                  `}
-                >
-                  <div className="flex items-center gap-4 sm:gap-6">
-                    <span className="text-4xl sm:text-5xl">{option.emoji}</span>
-                    <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-navy-900">
-                      {option.label}
-                    </span>
-                  </div>
-                </button>
-              );
-            })}
+                `}
+              >
+                <div className="flex items-center gap-4 sm:gap-6">
+                  <span className="text-4xl sm:text-5xl">{option.emoji}</span>
+                  <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-navy-900">
+                    {option.label}
+                  </span>
+                </div>
+              </button>
+            ))}
           </div>
 
-          {/* Cofnij na kroku 2 */}
-          {step === 2 && (
+          {/* Cofnij */}
+          {step > 1 && (
             <div className="mt-6 text-center">
               <button
-                onClick={() => setStep(1)}
+                onClick={() => setStep(step - 1)}
                 className="text-business-blue-600 hover:underline font-medium text-lg"
               >
                 ← Wróć do poprzedniego pytania
