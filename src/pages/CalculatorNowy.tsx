@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import LiveNotifications from '../components/LiveNotifications';
+
 
 const salaryOptions = [
   { emoji: '💵', label: 'Poniżej 4 000 zł', value: 'ponizej_4000', range: '0-4000' },
