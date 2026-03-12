@@ -298,7 +298,7 @@ const HeroSection = () => {
             
             {/* Calculator Section - Mobile */}
             <div className="animate-fade-in">
-              {calculatorTriggerCard}
+              <DebtCalculatorFacade />
             </div>
           </div>
 
@@ -348,29 +348,12 @@ const HeroSection = () => {
             {/* Right Content - 50% */}
             <div className="flex justify-center animate-fade-in">
               <div className="w-full">
-                {calculatorTriggerCard}
+                <DebtCalculatorFacade />
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      {isCalculatorModalOpen && (
-        <div className="fixed inset-0 z-[80] bg-black/60 backdrop-blur-sm flex items-center justify-center p-2 md:p-4">
-          <div className="bg-white rounded-xl md:rounded-2xl shadow-2xl w-full max-w-2xl max-h-[95vh] overflow-hidden relative flex flex-col">
-            <button
-              onClick={() => setIsCalculatorModalOpen(false)}
-              className="absolute top-2 right-2 md:top-4 md:right-4 z-10 w-8 h-8 md:w-10 md:h-10 bg-warm-neutral-100 hover:bg-warm-neutral-200 rounded-full flex items-center justify-center transition-colors duration-200"
-              aria-label="Zamknij kalkulator"
-            >
-              <X className="w-4 h-4 md:w-5 md:h-5 text-warm-neutral-600" />
-            </button>
-            <div className="flex-1 overflow-y-auto p-4 md:p-8">
-              <NewCalculatorEmbed />
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 };
