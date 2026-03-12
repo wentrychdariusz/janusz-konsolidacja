@@ -46,7 +46,10 @@ const PaymentTest = () => {
       const params = new URLSearchParams({
         name,
         email,
-        phone: phone || phoneInput
+        phone: phone || phoneInput,
+        salary_range: salaryRange,
+        debt_range: debtRange,
+        has_bik: hasBik,
       });
       navigate(`/podziekowaniebezvip?${params.toString()}`);
     }
