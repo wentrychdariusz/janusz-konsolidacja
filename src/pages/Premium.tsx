@@ -49,7 +49,7 @@ const Premium = () => {
     <div className="font-lato">
       <LoanAmountsBar />
       <TopHeader />
-      <HeroSection />
+      <HeroSection onOpenCalculator={() => setShowCalculatorModal(true)} />
       <ImagineSection />
       <VideoSection />
       <DariuszLetterSection />
@@ -62,8 +62,12 @@ const Premium = () => {
       <TeamSection />
       <CalculatorSection4000 />
       <GuaranteeSection />
-      <FloatingAvatar />
+      <FloatingAvatar onOpenCalculator={() => setShowCalculatorModal(true)} />
       <Footer />
+      <CalculatorNowyModal 
+        isOpen={showCalculatorModal} 
+        onClose={() => setShowCalculatorModal(false)} 
+      />
     </div>
   );
 };
