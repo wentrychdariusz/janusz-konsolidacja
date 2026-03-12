@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TopHeader from '../components/TopHeader';
+
 import LiveNotifications from '../components/LiveNotifications';
 
 const salaryOptions = [
@@ -50,9 +50,8 @@ const CalculatorNowy = () => {
 
   return (
     <div className="font-lato min-h-screen bg-gradient-to-br from-warm-neutral-50 via-business-blue-50 to-prestige-gold-50">
-      <TopHeader />
       <LiveNotifications />
-      <div className="pt-24 pb-16 px-4">
+      <div className="pt-8 pb-16 px-4">
         <div className="max-w-2xl mx-auto">
 
           {/* Progress bar */}
