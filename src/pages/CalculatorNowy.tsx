@@ -139,7 +139,7 @@ const CalculatorNowy = () => {
               🔒 Twoje dane są bezpieczne i poufne
             </p>
             <p className="text-warm-neutral-400 text-sm sm:text-base mt-2">
-              Ponad <strong>12 000</strong> klientów skorzystało z naszej pomocy
+              Ponad <strong>15 000</strong> klientów skorzystało z naszej pomocy
             </p>
           </div>
 
