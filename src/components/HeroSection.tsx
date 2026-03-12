@@ -7,7 +7,6 @@ import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star } from 'lu
 
 const HeroSection = () => {
   const [currentMiniTestimonial, setCurrentMiniTestimonial] = useState(0);
-  const [isCalculatorModalOpen, setIsCalculatorModalOpen] = useState(false);
 
   const benefits = [
     {
