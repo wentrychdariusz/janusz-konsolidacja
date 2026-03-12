@@ -1,9 +1,9 @@
 // Updated to fix build cache issue
 import React, { useState, useEffect } from 'react';
 import OptimizedImage from './OptimizedImage';
-import NewCalculatorEmbed from './NewCalculatorEmbed';
+import DebtCalculatorFacade from './DebtCalculatorFacade';
 
-import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star, X } from 'lucide-react';
+import { CheckCircle, Shield, Award, Users, Trophy, Target, Car, Star } from 'lucide-react';
 
 const HeroSection = () => {
   const [currentMiniTestimonial, setCurrentMiniTestimonial] = useState(0);
