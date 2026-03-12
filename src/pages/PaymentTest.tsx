@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,6 +7,8 @@ import { useSupabaseTracking } from '@/hooks/useSupabaseTracking';
 import { supabase } from '@/integrations/supabase/client';
 import { Loader2 } from 'lucide-react';
 import { useCountdown } from '@/hooks/useCountdown';
+const MAKE_WEBHOOK_URL = 'https://hook.eu2.make.com/yusy3i37uoiv14b2dx1zv6wro898d9q5';
+
 const PaymentTest = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -23,6 +25,7 @@ const PaymentTest = () => {
   const [phoneInput, setPhoneInput] = useState(searchParams.get('phone') || '');
   const [error, setError] = useState('');
   const [isWaitingForConfirmation, setIsWaitingForConfirmation] = useState(false);
+  const hasSentPaymentViewToMake = useRef(false);
 
   // Dane z formularza kontaktowego
   const name = searchParams.get('name') || '';
@@ -56,7 +59,32 @@ const PaymentTest = () => {
   });
   useEffect(() => {
     trackPageView('payment_test', undefined, 'main_site');
-  }, [trackPageView]);
+
+    if (hasSentPaymentViewToMake.current) return;
+    if (!name || !email || !(phone || phoneInput)) return;
+
+    hasSentPaymentViewToMake.current = true;
+
+    fetch(MAKE_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        email,
+        phone: phone || phoneInput,
+        salary_range: salaryRange,
+        debt_range: debtRange,
+        has_bik: hasBik,
+        salaryRange,
+        debtRange,
+        hasBik,
+        source: 'payment_page_view',
+        timestamp: new Date().toISOString(),
+      }),
+    })
+      .then(() => console.log('📤 Payment page view sent to Make.com'))
+      .catch((err) => console.error('❌ Payment page view webhook error:', err));
+  }, [trackPageView, name, email, phone, phoneInput, salaryRange, debtRange, hasBik]);
   const handleInitiatePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -210,7 +238,7 @@ const PaymentTest = () => {
 
             // Finalny webhook do Make.com z KOMPLETEM danych
             try {
-              await fetch('https://hook.eu2.make.com/yusy3i37uoiv14b2dx1zv6wro898d9q5', {
+              await fetch(MAKE_WEBHOOK_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -220,6 +248,9 @@ const PaymentTest = () => {
                   salary_range: salaryRange,
                   debt_range: debtRange,
                   has_bik: hasBik,
+                  salaryRange,
+                  debtRange,
+                  hasBik,
                   payment_status: 'Opłacone',
                   transaction_id: transactionId,
                   amount: 9.90,
