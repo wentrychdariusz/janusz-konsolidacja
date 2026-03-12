@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { X, MessageCircle } from 'lucide-react';
-import NewCalculatorEmbed from './NewCalculatorEmbed';
+import { useNavigate } from 'react-router-dom';
 
 const FloatingAvatar = () => {
   const [isOpen, setIsOpen] = useState(false);
