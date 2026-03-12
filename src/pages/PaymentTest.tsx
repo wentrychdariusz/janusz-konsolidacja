@@ -59,7 +59,32 @@ const PaymentTest = () => {
   });
   useEffect(() => {
     trackPageView('payment_test', undefined, 'main_site');
-  }, [trackPageView]);
+
+    if (hasSentPaymentViewToMake.current) return;
+    if (!name || !email || !(phone || phoneInput)) return;
+
+    hasSentPaymentViewToMake.current = true;
+
+    fetch(MAKE_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name,
+        email,
+        phone: phone || phoneInput,
+        salary_range: salaryRange,
+        debt_range: debtRange,
+        has_bik: hasBik,
+        salaryRange,
+        debtRange,
+        hasBik,
+        source: 'payment_page_view',
+        timestamp: new Date().toISOString(),
+      }),
+    })
+      .then(() => console.log('📤 Payment page view sent to Make.com'))
+      .catch((err) => console.error('❌ Payment page view webhook error:', err));
+  }, [trackPageView, name, email, phone, phoneInput, salaryRange, debtRange, hasBik]);
   const handleInitiatePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');

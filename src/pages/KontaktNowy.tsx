@@ -37,10 +37,13 @@ const KontaktNowy = () => {
         timestamp: new Date().toISOString(),
         source: "ContactFormVariantA",
         variant: "A",
-        // Dodatkowe dane z kalkulatora
+        // Dodatkowe dane z kalkulatora (snake_case + camelCase dla kompatybilności Make)
         salary_range: salaryRange,
         debt_range: debtRange,
         has_bik: hasBik,
+        salaryRange,
+        debtRange,
+        hasBik,
       };
 
       await fetch(webhookUrl, {
