@@ -7,6 +7,8 @@ import { useSupabaseTracking } from '@/hooks/useSupabaseTracking';
 import { supabase } from '@/integrations/supabase/client';
 import { Loader2 } from 'lucide-react';
 import { useCountdown } from '@/hooks/useCountdown';
+const MAKE_WEBHOOK_URL = 'https://hook.eu2.make.com/yusy3i37uoiv14b2dx1zv6wro898d9q5';
+
 const PaymentTest = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
