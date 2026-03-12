@@ -7,7 +7,6 @@ interface FloatingAvatarProps {
 }
 
 const FloatingAvatar = ({ onOpenCalculator }: FloatingAvatarProps) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [showAvatar, setShowAvatar] = useState(false);
 
