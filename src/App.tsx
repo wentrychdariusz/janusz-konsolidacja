@@ -15,6 +15,7 @@ import Calculator from "./pages/Calculator";
 import CalculatorBeta from "./pages/CalculatorBeta";
 import CalculatorNowy from "./pages/CalculatorNowy";
 import KontaktNowy from "./pages/KontaktNowy";
+import SmsVerificationNowy from "./pages/SmsVerificationNowy";
 import Analiza from "./pages/Analiza";
 import SuspiciousAnalysis from "./pages/SuspiciousAnalysis";
 import ThankYou from "./pages/ThankYou";
