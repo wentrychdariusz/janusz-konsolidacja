@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TopHeader from '../components/TopHeader';
+
 import LiveNotifications from '../components/LiveNotifications';
 
 const salaryOptions = [
