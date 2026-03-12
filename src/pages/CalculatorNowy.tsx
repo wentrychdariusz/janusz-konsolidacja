@@ -146,17 +146,6 @@ const CalculatorNowy = () => {
             ))}
           </div>
 
-          {/* Cofnij */}
-          {step > 1 && (
-            <div className="mt-6 text-center">
-              <button
-                onClick={() => setStep(step - 1)}
-                className="text-business-blue-600 hover:underline font-medium text-lg"
-              >
-                ← Wróć do poprzedniego pytania
-              </button>
-            </div>
-          )}
 
           {/* Zaufanie */}
           <div className="mt-10 text-center">
