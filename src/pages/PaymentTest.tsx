@@ -204,6 +204,31 @@ const PaymentTest = () => {
             localStorage.setItem('payment_data', JSON.stringify(paymentData));
             console.log('✅ Payment status saved to localStorage: Opłacone');
             console.log('💳 Payment data saved:', paymentData);
+
+            // Finalny webhook do Make.com z KOMPLETEM danych
+            try {
+              await fetch('https://hook.eu2.make.com/yusy3i37uoiv14b2dx1zv6wro898d9q5', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  name,
+                  email,
+                  phone: phone || phoneInput,
+                  salary_range: salaryRange,
+                  debt_range: debtRange,
+                  has_bik: hasBik,
+                  payment_status: 'Opłacone',
+                  transaction_id: transactionId,
+                  amount: 9.90,
+                  paid_at: new Date().toISOString(),
+                  source: 'payment_completed',
+                }),
+              });
+              console.log('📤 Final webhook sent to Make.com with all data');
+            } catch (webhookErr) {
+              console.error('❌ Final webhook error:', webhookErr);
+            }
+
             const params = new URLSearchParams({
               paid: 'true',
               payment_status: 'Opłacone',
