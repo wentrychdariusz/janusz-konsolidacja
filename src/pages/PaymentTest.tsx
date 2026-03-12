@@ -28,6 +28,9 @@ const PaymentTest = () => {
   const name = searchParams.get('name') || '';
   const email = searchParams.get('email') || '';
   const phone = searchParams.get('phone') || '';
+  const salaryRange = searchParams.get('salary_range') || '';
+  const debtRange = searchParams.get('debt_range') || '';
+  const hasBik = searchParams.get('has_bik') || '';
 
   // Licznik 11 minut - zapisywany w sessionStorage
   const {
