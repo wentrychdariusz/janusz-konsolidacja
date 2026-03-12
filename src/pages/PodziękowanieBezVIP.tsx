@@ -6,10 +6,12 @@ const PodziękowanieBezVIP = () => {
   const [searchParams] = useSearchParams();
   const { trackConversion } = usePageTracking();
   
-  // Pobierz dane z URL lub localStorage
   let name = searchParams.get('name') || '';
   let email = searchParams.get('email') || '';
   let phone = searchParams.get('phone') || '';
+  const salaryRange = searchParams.get('salary_range') || '';
+  const debtRange = searchParams.get('debt_range') || '';
+  const hasBik = searchParams.get('has_bik') || '';
   
   // Jeśli dane nie są w URL, spróbuj pobrać z localStorage
   if (!name || !email || !phone) {
