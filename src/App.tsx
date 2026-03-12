@@ -16,6 +16,7 @@ import CalculatorBeta from "./pages/CalculatorBeta";
 import CalculatorNowy from "./pages/CalculatorNowy";
 import KontaktNowy from "./pages/KontaktNowy";
 import SmsVerificationNowy from "./pages/SmsVerificationNowy";
+import PodziekowanieNowy from "./pages/PodziekowanieNowy";
 import Analiza from "./pages/Analiza";
 import SuspiciousAnalysis from "./pages/SuspiciousAnalysis";
 import ThankYou from "./pages/ThankYou";
@@ -66,6 +67,7 @@ const App = () => (
           <Route path="/kontakt-nowy" element={<KontaktNowy />} />
           <Route path="/podziekowania" element={<Podziekowania />} />
           <Route path="/podziekowaniebezvip" element={<PodziękowanieBezVIP />} />
+          <Route path="/podziekowanie-nowy" element={<PodziekowanieNowy />} />
           <Route path="/payment" element={<PaymentTest />} />
           <Route path="/payment-express" element={<PaymentExpress />} />
           <Route path="/admin-login" element={<AdminLogin />} />
