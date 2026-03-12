@@ -21,6 +21,7 @@ import { useSupabaseTracking } from '../hooks/useSupabaseTracking';
 
 const Premium = () => {
   const { trackPageView } = useSupabaseTracking();
+  const [showCalculatorModal, setShowCalculatorModal] = useState(false);
   
   useEffect(() => {
     console.log('🎉 Premium page: Tracking page view for premium page');
