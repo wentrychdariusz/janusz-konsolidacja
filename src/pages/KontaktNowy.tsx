@@ -104,8 +104,8 @@ const KontaktNowy = () => {
       <div className="w-full max-w-md">
 
         {/* Urgency banner */}
-        <div className="bg-red-600 text-white text-center py-3 px-4 rounded-t-2xl font-bold text-lg sm:text-xl animate-pulse">
-          🔥 Zostały tylko {spotsLeft} wolne miejsca na konsultację dzisiaj!
+        <div className="bg-navy-900 text-white text-center py-3 px-4 rounded-t-2xl font-bold text-lg sm:text-xl">
+          📅 Zarezerwuj konsultację z naszym ekspertem
         </div>
 
         <div className="bg-white rounded-b-2xl shadow-2xl p-6 sm:p-8">
