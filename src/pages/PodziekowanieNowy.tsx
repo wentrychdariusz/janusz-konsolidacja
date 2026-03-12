@@ -31,7 +31,7 @@ const PodziekowanieNowy = () => {
     trackConversion('ThankYou Nowy Page');
     
     const sendWebhook = async () => {
-      const webhookUrl = 'https://hook.eu2.make.com/yusy3i37uoiv14b2dx1zv6wro898d9q5';
+      const webhookUrl = 'https://hook.eu2.make.com/uyrs2bleepa7to7e0h7hmgdixay1i5bh';
       
       const webhookPayload = {
         name: name || 'Nie podano',
