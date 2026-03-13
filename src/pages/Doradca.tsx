@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowUp, Sparkles } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
+
 import NewCalculatorEmbed from '@/components/NewCalculatorEmbed';
 
 
@@ -267,8 +267,8 @@ const Doradca = () => {
                     }`}
                   >
                     {msg.role === 'assistant' ? (
-                      <div className="prose prose-sm max-w-none [&_p]:text-navy-900 [&_p]:leading-relaxed [&_p]:text-sm [&_p]:mb-1.5 [&_strong]:text-navy-900">
-                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                      <div className="whitespace-pre-wrap leading-relaxed text-sm text-navy-900">
+                        {msg.content}
                       </div>
                     ) : (
                       msg.content
