@@ -71,6 +71,7 @@ const App = () => (
           <Route path="/podziekowanie-nowy" element={<PodziekowanieNowy />} />
           <Route path="/payment" element={<PaymentTest />} />
           <Route path="/payment-express" element={<PaymentExpress />} />
+          <Route path="/doradca" element={<Doradca />} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/panel" element={
             <ProtectedAdminRoute>
