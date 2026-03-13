@@ -31,6 +31,7 @@ import Podziekowania from "./pages/Podziekowania";
 import ABTestStats from "./pages/ABTestStats";
 import AdminLogin from "./pages/AdminLogin";
 import AdminLogout from "./pages/AdminLogout";
+import Doradca from "./pages/Doradca";
 import NotFound from "./pages/NotFound";
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
 import PaymentTest from "./pages/PaymentTest";
