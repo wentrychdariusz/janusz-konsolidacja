@@ -188,7 +188,10 @@ const Doradca = () => {
               📖 Autor bestsellerowej książki <span className="text-prestige-gold-400 font-semibold">„Nowe życie bez długów"</span>
             </p>
             <p>
-              📺 Wkrótce Dariusz Wentrych wystąpi w programie <span className="text-white font-semibold">„Życie na Kredycie"</span> — który pokazuje codzienne zmagania polskich rodzin z inflacją, wysokimi ratami kredytów i domowym budżetem.
+              📺 Wkrótce Dariusz Wentrych wystąpi w programie <span className="text-white font-semibold">„Życie na Kredycie"</span> — który pokazuje codzienne zmagania polskich rodzin z wysokimi ratami kredytów i domowym budżetem.
+            </p>
+            <p>
+              ✅ Ponad <span className="text-prestige-gold-400 font-semibold">15 000+ obsłużonych klientów</span> w całej Polsce
             </p>
           </div>
         </div>
