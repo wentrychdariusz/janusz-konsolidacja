@@ -164,7 +164,7 @@ const Doradca = () => {
       <meta name="description" content="Zadaj pytanie o oddłużanie, konsolidację kredytów i finanse. Dariusz Wentrych — 20 lat doświadczenia, 15 000+ klientów." />
 
       {/* Header z bio */}
-      <div className="bg-navy-900 text-white px-4 py-5">
+      <div className="bg-navy-900 text-white px-6 py-5">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center gap-3 mb-4">
             <img
