@@ -214,7 +214,7 @@ const Doradca = () => {
             </p>
 
             <div className="w-full max-w-lg mb-4">
-              <InputBox autoFocus />
+              {renderInputBox(true)}
             </div>
 
             <div className="flex flex-wrap gap-2 justify-center">
