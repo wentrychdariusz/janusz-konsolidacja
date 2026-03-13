@@ -46,7 +46,8 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<Doradca />} />
+          <Route path="/glownaarchiwum" element={<Index />} />
           <Route path="/glownakopia" element={<GlownaKopia />} />
           <Route path="/glowna1" element={<Glowna1 />} />
           <Route path="/glowna1a" element={<Glowna1A />} />
@@ -72,6 +73,7 @@ const App = () => (
           <Route path="/payment" element={<PaymentTest />} />
           <Route path="/payment-express" element={<PaymentExpress />} />
           <Route path="/doradca" element={<Doradca />} />
+          {/* /doradca kept as alias for backwards compatibility */}
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/panel" element={
             <ProtectedAdminRoute>
