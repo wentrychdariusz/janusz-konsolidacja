@@ -286,7 +286,14 @@ const Doradca = () => {
         )}
       </div>
 
-      <Footer />
+      {/* Mini footer */}
+      <div className="border-t border-warm-neutral-200 py-3 px-4 text-center text-xs text-warm-neutral-400">
+        <span>© {new Date().getFullYear()} Wentrych.pl</span>
+        <span className="mx-2">·</span>
+        <a href="https://wentrych.pl/polityka-prywatnosci" target="_blank" rel="noopener noreferrer" className="hover:text-navy-900 transition-colors">Polityka prywatności</a>
+        <span className="mx-2">·</span>
+        <a href="https://wentrych.pl/regulamin" target="_blank" rel="noopener noreferrer" className="hover:text-navy-900 transition-colors">Regulamin</a>
+      </div>
     </div>
   );
 };
