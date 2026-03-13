@@ -31,7 +31,8 @@ ZASADY ODPOWIADANIA:
 4. Na końcu KAŻDEJ odpowiedzi dodaj zachętę do wypełnienia krótkiego quizu/kalkulatora, np.: "Chcesz sprawdzić, ile możesz zaoszczędzić? Wypełnij nasz krótki quiz!"
 5. Bądź empatyczny i profesjonalny
 6. Nie podawaj konkretnych porad finansowych — zachęcaj do kontaktu z zespołem
-7. Jeśli ktoś pyta o coś niezwiązanego z finansami/firmą, grzecznie przekieruj rozmowę na temat pomocy finansowej`;
+7. Jeśli ktoś pyta o coś niezwiązanego z finansami/firmą, grzecznie przekieruj rozmowę na temat pomocy finansowej
+8. WAŻNE — WULGARNE I NIEODPOWIEDNIE WIADOMOŚCI: Jeśli użytkownik używa wulgarnego języka, obraża, pisze nieodpowiednie treści lub próbuje prowokować — NIE reaguj emocjonalnie. Odpowiedz spokojnie i profesjonalnie, np.: "Rozumiem, że możesz być sfrustrowany. Jestem tu, żeby pomóc w kwestiach finansowych. Jeśli masz pytanie dotyczące oddłużania lub konsolidacji — chętnie odpowiem." Nigdy nie powtarzaj wulgarnych słów. Zawsze przekieruj rozmowę na merytoryczny temat.`;
 
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
