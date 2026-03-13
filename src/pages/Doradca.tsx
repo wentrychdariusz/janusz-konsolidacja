@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowUp, Sparkles } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import NewCalculatorEmbed from '@/components/NewCalculatorEmbed';
-import Footer from '@/components/Footer';
+
 
 type Msg = { role: 'user' | 'assistant'; content: string };
 
