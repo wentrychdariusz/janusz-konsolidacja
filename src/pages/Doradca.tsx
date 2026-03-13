@@ -131,8 +131,7 @@ const Doradca = () => {
     }
   };
 
-  // Shared input component
-  const InputBox = ({ autoFocus = false }: { autoFocus?: boolean }) => (
+  const renderInputBox = (autoFocus = false) => (
     <form onSubmit={handleSubmit} className="relative w-full">
       <div className="bg-white border-2 border-warm-neutral-200 rounded-2xl overflow-hidden focus-within:border-prestige-gold-400 transition-colors shadow-lg">
         <textarea
@@ -215,7 +214,7 @@ const Doradca = () => {
             </p>
 
             <div className="w-full max-w-lg mb-4">
-              <InputBox autoFocus />
+              {renderInputBox(true)}
             </div>
 
             <div className="flex flex-wrap gap-2 justify-center">
@@ -308,7 +307,7 @@ const Doradca = () => {
 
             {/* Sticky input */}
             <div className="sticky bottom-0 bg-warm-neutral-50 pt-2 pb-3">
-              <InputBox />
+              {renderInputBox()}
             </div>
           </div>
         )}
