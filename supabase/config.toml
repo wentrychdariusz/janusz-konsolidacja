@@ -17,3 +17,6 @@ verify_jwt = false
 
 [functions.send-to-make]
 verify_jwt = false
+
+[functions.chat-doradca]
+verify_jwt = false
