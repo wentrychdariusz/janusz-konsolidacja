@@ -131,8 +131,7 @@ const Doradca = () => {
     }
   };
 
-  // Shared input component
-  const InputBox = ({ autoFocus = false }: { autoFocus?: boolean }) => (
+  const renderInputBox = (autoFocus = false) => (
     <form onSubmit={handleSubmit} className="relative w-full">
       <div className="bg-white border-2 border-warm-neutral-200 rounded-2xl overflow-hidden focus-within:border-prestige-gold-400 transition-colors shadow-lg">
         <textarea
