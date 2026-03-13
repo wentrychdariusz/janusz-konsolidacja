@@ -73,6 +73,7 @@ const App = () => (
           <Route path="/payment" element={<PaymentTest />} />
           <Route path="/payment-express" element={<PaymentExpress />} />
           <Route path="/doradca" element={<Doradca />} />
+          {/* /doradca kept as alias for backwards compatibility */}
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/panel" element={
             <ProtectedAdminRoute>
