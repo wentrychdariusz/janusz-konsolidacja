@@ -169,7 +169,7 @@ const Doradca = () => {
             <img
               src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
               alt="Dariusz Wentrych"
-              className="w-14 h-14 rounded-full border-2 border-prestige-gold-400/40 object-cover flex-shrink-0"
+              className="w-16 h-16 rounded-full border-2 border-prestige-gold-400/40 object-cover flex-shrink-0 -mt-8 shadow-xl"
             />
             <div className="min-w-0 flex-1">
               <h1 className="text-base font-bold font-montserrat leading-tight">Dariusz Wentrych</h1>
