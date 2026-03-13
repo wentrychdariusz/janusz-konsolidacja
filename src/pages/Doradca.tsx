@@ -176,6 +176,9 @@ const Doradca = () => {
               <p className="text-prestige-gold-400 text-xs font-semibold">
                 🏆 Nr 1 w oddłużaniu osób fizycznych w Polsce
               </p>
+              <p className="text-warm-neutral-300 text-xs">
+                Najbardziej zaufany ekspert w dziedzinie oddłużania
+              </p>
             </div>
           </div>
 
