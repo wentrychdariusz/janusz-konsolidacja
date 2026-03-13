@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowUp, ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowUp, Sparkles } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import NewCalculatorEmbed from '@/components/NewCalculatorEmbed';
+import Footer from '@/components/Footer';
 
 type Msg = { role: 'user' | 'assistant'; content: string };
 
@@ -28,7 +29,7 @@ const Doradca = () => {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, showQuiz]);
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -37,7 +38,6 @@ const Doradca = () => {
     }
   }, [input]);
 
-  // Show quiz after first AI response
   useEffect(() => {
     if (messages.length >= 2 && messages[messages.length - 1]?.role === 'assistant' && !isLoading) {
       setShowQuiz(true);
@@ -130,144 +130,163 @@ const Doradca = () => {
     }
   };
 
+  // Shared input component
+  const InputBox = ({ autoFocus = false }: { autoFocus?: boolean }) => (
+    <form onSubmit={handleSubmit} className="relative w-full">
+      <div className="bg-white border-2 border-warm-neutral-200 rounded-2xl overflow-hidden focus-within:border-prestige-gold-400 transition-colors shadow-lg">
+        <textarea
+          ref={textareaRef}
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Napisz swoje pytanie..."
+          rows={1}
+          autoFocus={autoFocus}
+          className="w-full bg-transparent text-navy-900 placeholder:text-warm-neutral-400 pl-4 pr-14 pt-3.5 pb-3.5 text-base resize-none focus:outline-none"
+          disabled={isLoading}
+        />
+        <button
+          type="submit"
+          disabled={!input.trim() || isLoading}
+          className="absolute right-3 top-1/2 -translate-y-1/2 bg-prestige-gold-400 hover:bg-prestige-gold-500 disabled:bg-warm-neutral-200 disabled:text-warm-neutral-400 text-navy-900 rounded-xl p-2 transition-all duration-200"
+        >
+          <ArrowUp className="w-4 h-4" />
+        </button>
+      </div>
+    </form>
+  );
+
   return (
     <div className="min-h-screen bg-warm-neutral-50 font-lato flex flex-col">
-      {/* Compact header with bio */}
-      <div className="bg-navy-900 text-white px-4 py-4 sm:py-5">
-        <div className="max-w-2xl mx-auto flex items-center gap-4">
+      {/* SEO */}
+      <title>Zapytaj Dariusza Wentrycha — Doradca Finansowy AI</title>
+      <meta name="description" content="Zadaj pytanie o oddłużanie, konsolidację kredytów i finanse. Dariusz Wentrych — 20 lat doświadczenia, 15 000+ klientów." />
+
+      {/* Compact header */}
+      <div className="bg-navy-900 text-white px-4 py-3">
+        <div className="max-w-2xl mx-auto flex items-center gap-3">
           <img
             src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
             alt="Dariusz Wentrych"
-            className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-prestige-gold-400/40 object-cover flex-shrink-0"
+            className="w-11 h-11 rounded-full border-2 border-prestige-gold-400/40 object-cover flex-shrink-0"
           />
-          <div className="min-w-0">
-            <h1 className="text-base sm:text-lg font-bold font-montserrat leading-tight">
-              Dariusz Wentrych
-            </h1>
-            <p className="text-prestige-gold-400 text-xs sm:text-sm font-medium">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-sm font-bold font-montserrat leading-tight">Dariusz Wentrych</h1>
+            <p className="text-prestige-gold-400 text-xs font-medium">
               Doradca finansowy · 20 lat · 15 000+ klientów
-            </p>
-            <p className="text-warm-neutral-400 text-xs mt-0.5 leading-snug hidden sm:block">
-              Autor „Nowe życie bez długów" · Ekspert TVN, TVP, Fakt
             </p>
           </div>
           <button
             onClick={() => navigate('/')}
-            className="ml-auto text-warm-neutral-500 hover:text-white text-xs whitespace-nowrap transition-colors flex-shrink-0"
+            className="text-warm-neutral-500 hover:text-white text-xs transition-colors flex-shrink-0"
           >
             ← Główna
           </button>
         </div>
       </div>
 
-      {/* Main area */}
-      <div className="flex-1 flex flex-col max-w-2xl mx-auto w-full">
+      {/* Main content */}
+      <div className="flex-1 flex flex-col max-w-2xl mx-auto w-full px-4">
+        {!hasConversation ? (
+          /* Empty state — centered vertically */
+          <div className="flex-1 flex flex-col items-center justify-center py-8">
+            <img
+              src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+              alt="Dariusz Wentrych"
+              className="w-16 h-16 rounded-full border-2 border-prestige-gold-300 object-cover mb-4 shadow-lg"
+            />
+            <h2 className="text-navy-900 font-bold text-lg sm:text-xl font-montserrat mb-1 text-center">
+              Co chciałbyś wiedzieć?
+            </h2>
+            <p className="text-warm-neutral-500 text-sm mb-6 text-center max-w-sm">
+              Zapytaj o Dariusza, konsolidację, oddłużanie lub nasze usługi
+            </p>
 
-        {/* Chat messages */}
-        <div className="flex-1 overflow-y-auto px-4 pt-4 pb-2">
-          {!hasConversation && (
-            <div className="text-center py-6 sm:py-10">
-              <p className="text-navy-900 font-bold text-lg sm:text-xl font-montserrat mb-1">
-                Co chciałbyś wiedzieć?
-              </p>
-              <p className="text-warm-neutral-500 text-sm mb-5">
-                Zapytaj o Dariusza, firmę lub nasze usługi finansowe
-              </p>
-              <div className="flex flex-wrap gap-2 justify-center">
-                {suggestions.map((s) => (
-                  <button
-                    key={s}
-                    onClick={() => send(s)}
-                    className="text-xs sm:text-sm text-warm-neutral-600 hover:text-navy-900 bg-white hover:bg-prestige-gold-50 border border-warm-neutral-200 hover:border-prestige-gold-300 rounded-full px-3 py-1.5 transition-all duration-200 shadow-sm"
+            <div className="w-full max-w-lg mb-4">
+              <InputBox autoFocus />
+            </div>
+
+            <div className="flex flex-wrap gap-2 justify-center">
+              {suggestions.map((s) => (
+                <button
+                  key={s}
+                  onClick={() => send(s)}
+                  className="text-xs text-warm-neutral-600 hover:text-navy-900 bg-white hover:bg-prestige-gold-50 border border-warm-neutral-200 hover:border-prestige-gold-300 rounded-full px-3 py-1.5 transition-all duration-200 shadow-sm"
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : (
+          /* Conversation view */
+          <div className="flex-1 flex flex-col py-4">
+            <div className="flex-1 overflow-y-auto space-y-4 mb-4">
+              {messages.map((msg, i) => (
+                <div key={i} className={`flex gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  {msg.role === 'assistant' && (
+                    <img
+                      src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+                      alt="Dariusz"
+                      className="w-7 h-7 rounded-full object-cover flex-shrink-0 mt-1 border border-prestige-gold-200"
+                    />
+                  )}
+                  <div
+                    className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm ${
+                      msg.role === 'user'
+                        ? 'bg-business-blue-600 text-white rounded-br-md'
+                        : 'bg-white border border-warm-neutral-200 text-navy-900 rounded-bl-md shadow-sm'
+                    }`}
                   >
-                    {s}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {messages.map((msg, i) => (
-            <div key={i} className={`flex gap-2.5 mb-4 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-              {msg.role === 'assistant' && (
-                <img
-                  src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-                  alt="Dariusz"
-                  className="w-7 h-7 rounded-full object-cover flex-shrink-0 mt-1 border border-prestige-gold-200"
-                />
-              )}
-              <div
-                className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm sm:text-base ${
-                  msg.role === 'user'
-                    ? 'bg-business-blue-600 text-white rounded-br-md'
-                    : 'bg-white border border-warm-neutral-200 text-navy-900 rounded-bl-md shadow-sm'
-                }`}
-              >
-                {msg.role === 'assistant' ? (
-                  <div className="prose prose-sm max-w-none [&_p]:text-navy-900 [&_p]:leading-relaxed [&_p]:text-sm [&_p]:mb-1.5 [&_strong]:text-navy-900">
-                    <ReactMarkdown>{msg.content}</ReactMarkdown>
+                    {msg.role === 'assistant' ? (
+                      <div className="prose prose-sm max-w-none [&_p]:text-navy-900 [&_p]:leading-relaxed [&_p]:text-sm [&_p]:mb-1.5 [&_strong]:text-navy-900">
+                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                      </div>
+                    ) : (
+                      msg.content
+                    )}
                   </div>
-                ) : (
-                  msg.content
-                )}
-              </div>
-            </div>
-          ))}
-
-          {isLoading && messages[messages.length - 1]?.role === 'user' && (
-            <div className="flex gap-2.5 mb-4">
-              <img src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" alt="Dariusz" className="w-7 h-7 rounded-full object-cover flex-shrink-0 mt-1 border border-prestige-gold-200" />
-              <div className="bg-white border border-warm-neutral-200 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
-                <div className="flex gap-1.5">
-                  <span className="w-1.5 h-1.5 bg-warm-neutral-300 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <span className="w-1.5 h-1.5 bg-warm-neutral-300 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <span className="w-1.5 h-1.5 bg-warm-neutral-300 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                 </div>
-              </div>
-            </div>
-          )}
+              ))}
 
-          <div ref={messagesEndRef} />
+              {isLoading && messages[messages.length - 1]?.role === 'user' && (
+                <div className="flex gap-2.5">
+                  <img src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" alt="Dariusz" className="w-7 h-7 rounded-full object-cover flex-shrink-0 mt-1 border border-prestige-gold-200" />
+                  <div className="bg-white border border-warm-neutral-200 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
+                    <div className="flex gap-1.5">
+                      <span className="w-1.5 h-1.5 bg-warm-neutral-300 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <span className="w-1.5 h-1.5 bg-warm-neutral-300 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <span className="w-1.5 h-1.5 bg-warm-neutral-300 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </div>
+                  </div>
+                </div>
+              )}
 
-          {/* Quiz appears inline after AI responds */}
-          {showQuiz && !isLoading && (
-            <div className="mt-4 mb-4 bg-white border-2 border-prestige-gold-300 rounded-2xl p-4 sm:p-6 shadow-lg">
-              <div className="flex items-center gap-2 mb-4">
-                <Sparkles className="w-4 h-4 text-prestige-gold-500" />
-                <p className="text-navy-900 font-bold text-sm sm:text-base font-montserrat">
-                  Sprawdź ile możesz zaoszczędzić
-                </p>
-              </div>
-              <NewCalculatorEmbed />
-            </div>
-          )}
-        </div>
+              {/* Quiz inline po odpowiedzi */}
+              {showQuiz && !isLoading && (
+                <div className="bg-white border-2 border-prestige-gold-300 rounded-2xl p-4 sm:p-5 shadow-lg">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Sparkles className="w-4 h-4 text-prestige-gold-500" />
+                    <p className="text-navy-900 font-bold text-sm font-montserrat">
+                      Sprawdź ile możesz zaoszczędzić
+                    </p>
+                  </div>
+                  <NewCalculatorEmbed />
+                </div>
+              )}
 
-        {/* Input — sticky bottom */}
-        <div className="sticky bottom-0 bg-warm-neutral-50 border-t border-warm-neutral-200 px-4 py-3">
-          <form onSubmit={handleSubmit} className="relative">
-            <div className="bg-white border-2 border-warm-neutral-200 rounded-2xl overflow-hidden focus-within:border-prestige-gold-400 transition-colors shadow-md">
-              <textarea
-                ref={textareaRef}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Napisz pytanie..."
-                rows={1}
-                className="w-full bg-transparent text-navy-900 placeholder:text-warm-neutral-400 pl-4 pr-12 pt-3 pb-3 text-sm sm:text-base resize-none focus:outline-none"
-                disabled={isLoading}
-              />
-              <button
-                type="submit"
-                disabled={!input.trim() || isLoading}
-                className="absolute right-2.5 bottom-2.5 bg-prestige-gold-400 hover:bg-prestige-gold-500 disabled:bg-warm-neutral-200 disabled:text-warm-neutral-400 text-navy-900 rounded-lg p-2 transition-all duration-200"
-              >
-                <ArrowUp className="w-4 h-4" />
-              </button>
+              <div ref={messagesEndRef} />
             </div>
-          </form>
-        </div>
+
+            {/* Sticky input */}
+            <div className="sticky bottom-0 bg-warm-neutral-50 pt-2 pb-3">
+              <InputBox />
+            </div>
+          </div>
+        )}
       </div>
+
+      <Footer />
     </div>
   );
 };
