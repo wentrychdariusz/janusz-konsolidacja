@@ -14,6 +14,7 @@ const suggestions = [
   'Jak działa konsolidacja?',
   'Ile zaoszczędzę?',
   'Pomożecie z długami?',
+  'Czy wasza oferta będzie lepsza niż konkurencja?',
 ];
 
 const Doradca = () => {
