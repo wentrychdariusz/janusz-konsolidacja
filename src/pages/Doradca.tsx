@@ -307,7 +307,7 @@ const Doradca = () => {
 
             {/* Sticky input */}
             <div className="sticky bottom-0 bg-warm-neutral-50 pt-2 pb-3">
-              <InputBox />
+              {renderInputBox()}
             </div>
           </div>
         )}
