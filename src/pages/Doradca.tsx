@@ -162,26 +162,31 @@ const Doradca = () => {
       <title>Zapytaj Dariusza Wentrycha — Doradca Finansowy AI</title>
       <meta name="description" content="Zadaj pytanie o oddłużanie, konsolidację kredytów i finanse. Dariusz Wentrych — 20 lat doświadczenia, 15 000+ klientów." />
 
-      {/* Compact header */}
-      <div className="bg-navy-900 text-white px-4 py-3">
-        <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <img
-            src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
-            alt="Dariusz Wentrych"
-            className="w-11 h-11 rounded-full border-2 border-prestige-gold-400/40 object-cover flex-shrink-0"
-          />
-          <div className="min-w-0 flex-1">
-            <h1 className="text-sm font-bold font-montserrat leading-tight">Dariusz Wentrych</h1>
-            <p className="text-prestige-gold-400 text-xs font-medium">
-              Doradca finansowy · 20 lat · 15 000+ klientów
+      {/* Header z bio */}
+      <div className="bg-navy-900 text-white px-4 py-5">
+        <div className="max-w-2xl mx-auto">
+          <div className="flex items-center gap-3 mb-4">
+            <img
+              src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png"
+              alt="Dariusz Wentrych"
+              className="w-14 h-14 rounded-full border-2 border-prestige-gold-400/40 object-cover flex-shrink-0"
+            />
+            <div className="min-w-0 flex-1">
+              <h1 className="text-base font-bold font-montserrat leading-tight">Dariusz Wentrych</h1>
+              <p className="text-prestige-gold-400 text-xs font-semibold">
+                🏆 Nr 1 w oddłużaniu osób fizycznych w Polsce
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-2 text-sm text-warm-neutral-300 leading-relaxed">
+            <p>
+              📖 Autor bestsellerowej książki <span className="text-prestige-gold-400 font-semibold">„Nowe życie bez długów"</span>
+            </p>
+            <p>
+              📺 Wkrótce Dariusz Wentrych wystąpi w programie <span className="text-white font-semibold">„Życie na Kredycie"</span> — który pokazuje codzienne zmagania polskich rodzin z inflacją, wysokimi ratami kredytów i domowym budżetem.
             </p>
           </div>
-          <button
-            onClick={() => navigate('/')}
-            className="text-warm-neutral-500 hover:text-white text-xs transition-colors flex-shrink-0"
-          >
-            ← Główna
-          </button>
         </div>
       </div>
 
