@@ -27,6 +27,9 @@ const Doradca = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const tracking = useDoradcaTracking();
+  const questionCountRef = useRef(0);
+  const calculatorShownTracked = useRef(false);
   const hasConversation = messages.length > 0;
 
   useEffect(() => {
