@@ -313,7 +313,10 @@ const Doradca = () => {
                       Sprawdź ile możesz zaoszczędzić
                     </p>
                   </div>
-                  <NewCalculatorEmbed />
+                  <NewCalculatorEmbed
+                    onStepComplete={(step, value) => tracking.trackCalculatorStep(step, value)}
+                    onComplete={() => tracking.trackCalculatorComplete()}
+                  />
                 </div>
               )}
 
