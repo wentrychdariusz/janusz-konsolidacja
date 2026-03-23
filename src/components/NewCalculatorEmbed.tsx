@@ -47,6 +47,8 @@ const NewCalculatorEmbed = ({ onStepComplete, onComplete }: NewCalculatorEmbedPr
 
   const handleBikSelect = (value: string) => {
     setSelectedBik(value);
+    onStepComplete?.(3, value);
+    onComplete?.();
     setTimeout(() => {
       const params = new URLSearchParams({
         salary_range: selectedSalary!.range,
