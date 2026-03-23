@@ -19,7 +19,12 @@ const bikOptions = [
   { emoji: '❌', label: 'Nie mam', value: 'nie' },
 ];
 
-const NewCalculatorEmbed = () => {
+interface NewCalculatorEmbedProps {
+  onStepComplete?: (step: number, value: string) => void;
+  onComplete?: () => void;
+}
+
+const NewCalculatorEmbed = ({ onStepComplete, onComplete }: NewCalculatorEmbedProps) => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [selectedSalary, setSelectedSalary] = useState<{ value: string; range: string } | null>(null);
