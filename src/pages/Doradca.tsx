@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowUp, Sparkles } from 'lucide-react';
 
 import NewCalculatorEmbed from '@/components/NewCalculatorEmbed';
+import { useDoradcaTracking } from '@/hooks/useDoradcaTracking';
 
 
 type Msg = { role: 'user' | 'assistant'; content: string };
@@ -26,6 +27,9 @@ const Doradca = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const tracking = useDoradcaTracking();
+  const questionCountRef = useRef(0);
+  const calculatorShownTracked = useRef(false);
   const hasConversation = messages.length > 0;
 
   useEffect(() => {
@@ -47,6 +51,10 @@ const Doradca = () => {
   useEffect(() => {
     if (messages.length >= 2 && messages[messages.length - 1]?.role === 'assistant' && !isLoading) {
       setShowQuiz(true);
+      if (!calculatorShownTracked.current) {
+        calculatorShownTracked.current = true;
+        tracking.trackCalculatorShown();
+      }
     }
   }, [messages, isLoading]);
 
@@ -111,6 +119,8 @@ const Doradca = () => {
     if (!text.trim() || isLoading) return;
     const userMsg: Msg = { role: 'user', content: text.trim() };
     const updated = [...messages, userMsg];
+    questionCountRef.current += 1;
+    tracking.trackQuestion(text.trim(), questionCountRef.current);
     setMessages(updated);
     setInput('');
     setIsLoading(true);
@@ -226,7 +236,7 @@ const Doradca = () => {
               {suggestions.map((s) => (
                 <button
                   key={s}
-                  onClick={() => send(s)}
+                  onClick={() => { tracking.trackSuggestionClick(s); send(s); }}
                   className="text-xs text-warm-neutral-600 hover:text-navy-900 bg-white hover:bg-prestige-gold-50 border border-warm-neutral-200 hover:border-prestige-gold-300 rounded-full px-3 py-1.5 transition-all duration-200 shadow-sm"
                 >
                   {s}
@@ -242,7 +252,7 @@ const Doradca = () => {
                 <div className="border-t border-warm-neutral-200 flex-1" />
               </div>
               <button
-                onClick={() => navigate('/kalkulator-nowy')}
+                onClick={() => { tracking.trackCtaClick(); navigate('/kalkulator-nowy'); }}
                 className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 hover:from-prestige-gold-500 hover:to-prestige-gold-600 text-navy-900 font-bold py-3.5 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl text-sm"
               >
                 <ArrowUp className="w-4 h-4 rotate-90" />
@@ -303,7 +313,10 @@ const Doradca = () => {
                       Sprawdź ile możesz zaoszczędzić
                     </p>
                   </div>
-                  <NewCalculatorEmbed />
+                  <NewCalculatorEmbed
+                    onStepComplete={(step, value) => tracking.trackCalculatorStep(step, value)}
+                    onComplete={() => tracking.trackCalculatorComplete()}
+                  />
                 </div>
               )}
 

@@ -19,7 +19,12 @@ const bikOptions = [
   { emoji: '❌', label: 'Nie mam', value: 'nie' },
 ];
 
-const NewCalculatorEmbed = () => {
+interface NewCalculatorEmbedProps {
+  onStepComplete?: (step: number, value: string) => void;
+  onComplete?: () => void;
+}
+
+const NewCalculatorEmbed = ({ onStepComplete, onComplete }: NewCalculatorEmbedProps) => {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [selectedSalary, setSelectedSalary] = useState<{ value: string; range: string } | null>(null);
@@ -30,16 +35,20 @@ const NewCalculatorEmbed = () => {
 
   const handleSalarySelect = (value: string, range: string) => {
     setSelectedSalary({ value, range });
+    onStepComplete?.(1, value);
     setTimeout(() => setStep(2), 400);
   };
 
   const handleDebtSelect = (value: string, range: string) => {
     setSelectedDebt({ value, range });
+    onStepComplete?.(2, value);
     setTimeout(() => setStep(3), 400);
   };
 
   const handleBikSelect = (value: string) => {
     setSelectedBik(value);
+    onStepComplete?.(3, value);
+    onComplete?.();
     setTimeout(() => {
       const params = new URLSearchParams({
         salary_range: selectedSalary!.range,
