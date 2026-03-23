@@ -252,7 +252,7 @@ const Doradca = () => {
                 <div className="border-t border-warm-neutral-200 flex-1" />
               </div>
               <button
-                onClick={() => navigate('/kalkulator-nowy')}
+                onClick={() => { tracking.trackCtaClick(); navigate('/kalkulator-nowy'); }}
                 className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-prestige-gold-400 to-prestige-gold-500 hover:from-prestige-gold-500 hover:to-prestige-gold-600 text-navy-900 font-bold py-3.5 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl text-sm"
               >
                 <ArrowUp className="w-4 h-4 rotate-90" />
