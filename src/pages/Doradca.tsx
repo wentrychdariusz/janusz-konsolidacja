@@ -119,6 +119,8 @@ const Doradca = () => {
     if (!text.trim() || isLoading) return;
     const userMsg: Msg = { role: 'user', content: text.trim() };
     const updated = [...messages, userMsg];
+    questionCountRef.current += 1;
+    tracking.trackQuestion(text.trim(), questionCountRef.current);
     setMessages(updated);
     setInput('');
     setIsLoading(true);
