@@ -35,11 +35,13 @@ const NewCalculatorEmbed = ({ onStepComplete, onComplete }: NewCalculatorEmbedPr
 
   const handleSalarySelect = (value: string, range: string) => {
     setSelectedSalary({ value, range });
+    onStepComplete?.(1, value);
     setTimeout(() => setStep(2), 400);
   };
 
   const handleDebtSelect = (value: string, range: string) => {
     setSelectedDebt({ value, range });
+    onStepComplete?.(2, value);
     setTimeout(() => setStep(3), 400);
   };
 
