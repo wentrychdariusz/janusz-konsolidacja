@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowUp, Sparkles } from 'lucide-react';
 
 import NewCalculatorEmbed from '@/components/NewCalculatorEmbed';
+import { useDoradcaTracking } from '@/hooks/useDoradcaTracking';
 
 
 type Msg = { role: 'user' | 'assistant'; content: string };
