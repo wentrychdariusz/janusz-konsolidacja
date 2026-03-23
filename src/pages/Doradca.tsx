@@ -236,7 +236,7 @@ const Doradca = () => {
               {suggestions.map((s) => (
                 <button
                   key={s}
-                  onClick={() => send(s)}
+                  onClick={() => { tracking.trackSuggestionClick(s); send(s); }}
                   className="text-xs text-warm-neutral-600 hover:text-navy-900 bg-white hover:bg-prestige-gold-50 border border-warm-neutral-200 hover:border-prestige-gold-300 rounded-full px-3 py-1.5 transition-all duration-200 shadow-sm"
                 >
                   {s}
