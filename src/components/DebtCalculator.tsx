@@ -445,7 +445,7 @@ const DebtCalculator = () => {
                     <Calculator className="w-6 h-6 text-white" />
                   </div>
                 </div>
-                <h2 className="text-xl font-bold text-navy-900 mb-1">Kalkulator Oddłużania</h2>
+                <h2 className="text-xl font-bold text-navy-900 mb-1">Kalkulator Konsolidacji</h2>
                 <p className="text-sm text-warm-neutral-600">Krok {currentStep} z {totalSteps}</p>
               </div>
 
