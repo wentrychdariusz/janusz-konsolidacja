@@ -81,7 +81,7 @@ const PodziękowanieBezVIP = () => {
                 />
                 <div className="text-center">
                   <h3 className="text-lg sm:text-xl font-bold text-navy-900">Dariusz Wentrych</h3>
-                  <p className="text-sm sm:text-base text-business-blue-600 font-medium">#1 Ekspert ds. oddłużeń</p>
+                  <p className="text-sm sm:text-base text-business-blue-600 font-medium">#1 Ekspert ds. konsolidacji kredytów</p>
                 </div>
               </div>
             </div>

@@ -44,7 +44,7 @@ const PodziekowanieNowy = () => {
               className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-3 border-business-blue-200 shadow-xl object-cover mx-auto mb-3" 
             />
             <h3 className="text-lg sm:text-xl font-bold text-navy-900">Dariusz Wentrych</h3>
-            <p className="text-sm sm:text-base text-business-blue-600 font-medium mb-4">#1 Ekspert ds. oddłużeń</p>
+            <p className="text-sm sm:text-base text-business-blue-600 font-medium mb-4">#1 Ekspert ds. konsolidacji kredytów</p>
             <h1 className="text-2xl sm:text-3xl font-bold text-navy-900">
               ✅ Dziękujemy{name ? `, ${decodeURIComponent(name)}` : ''}!
             </h1>

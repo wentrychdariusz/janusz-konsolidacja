@@ -166,7 +166,7 @@ const BeforeAfterSection = () => {
                 onClick={handleCalculatorOpen}
                 className="bg-gradient-to-r from-prestige-gold-500 to-yellow-400 text-slate-900 font-bold px-10 py-4 rounded-full hover:from-prestige-gold-600 hover:to-yellow-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg"
               >
-                Dołącz do Wyzwania Oddłużeniowego
+                Dołącz do Wyzwania Konsolidacyjnego
               </button>
             </div>
           </div>

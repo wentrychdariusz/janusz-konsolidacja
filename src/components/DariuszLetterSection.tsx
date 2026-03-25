@@ -104,7 +104,7 @@ const DariuszLetterSection = () => {
           {/* Social Proof */}
           <div className="space-y-4">
             <p className="text-lg md:text-lg font-lato leading-relaxed text-slate-700">
-              <strong>Tysiące osób</strong> skorzystały już z naszej unikalnej metody oddłużeniowej i dziś cieszą się życiem <strong>BEZ DŁUGÓW</strong>.
+              <strong>Tysiące osób</strong> skorzystały już z naszej unikalnej metody konsolidacji i dziś cieszą się życiem <strong>BEZ DŁUGÓW</strong>.
             </p>
             <p className="text-xl md:text-xl font-montserrat font-bold text-slate-700">
               Teraz czas na Ciebie!

@@ -13,10 +13,10 @@ const CalculatorBeta = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h1 className="text-4xl font-bold text-navy-900 mb-2">
-              🧮 Kalkulator Oddłużania BETA
+              🧮 Kalkulator Konsolidacji BETA
             </h1>
             <p className="text-xl text-warm-neutral-600">
-              Sprawdź, czy możemy Ci pomóc w oddłużeniu
+              Sprawdź, czy możemy Ci pomóc z konsolidacją kredytów
             </p>
           </div>
           <DebtCalculatorBeta />

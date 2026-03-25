@@ -11,7 +11,7 @@ const CalculatorSection4000 = () => {
             <span className="text-prestige-gold-400"> POMÓC</span>
           </h2>
           <p className="text-warm-neutral-600 text-lg md:text-xl leading-relaxed max-w-4xl mx-auto">
-            Skorzystaj z naszego kalkulatora oddłużeniowego i dowiedz się, czy możemy pomóc w Twojej sytuacji finansowej
+            Skorzystaj z naszego kalkulatora konsolidacji i dowiedz się, czy możemy pomóc w Twojej sytuacji finansowej
           </p>
         </div>
         

@@ -242,7 +242,7 @@ const Analiza = () => {
                 <Card className="border-2 border-business-blue-300">
                   <CardHeader className="bg-gradient-to-r from-business-blue-100 to-business-blue-200">
                     <CardTitle className="text-lg md:text-xl font-bold text-navy-900 text-center">
-                      🧮 Kalkulator Oddłużenia
+                      🧮 Kalkulator Konsolidacji
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-6">

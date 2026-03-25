@@ -359,7 +359,7 @@ const PaymentTest = () => {
           {/* Problem i rozwiązanie */}
           <div className="bg-red-50 border-l-4 border-red-500 p-4 sm:p-5 rounded-lg mb-4">
             <p className="text-sm sm:text-base text-red-900 font-semibold mb-3">
-              ⚠️ W branży oddłużeniowej ludzie wypełniają formularze, ale nie odbierają telefonu.
+              ⚠️ W branży finansowej ludzie wypełniają formularze, ale nie odbierają telefonu.
               To marnuje czas doradców, a osoby, które naprawdę potrzebują pomocy, muszą czekać dłużej.
             </p>
             <p className="text-sm sm:text-base text-red-900 leading-relaxed">

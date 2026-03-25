@@ -59,7 +59,7 @@ const DebtCalculatorFacade = () => {
                       </div>
                     </div>
                     <div className="text-sm text-green-700 font-medium">
-                      ✅ Ekspert nr 1 w oddłużeniu • 15.000+ zadowolonych klientów
+                      ✅ Ekspert nr 1 w konsolidacji kredytów • 15.000+ zadowolonych klientów
                     </div>
                     <div className="text-xs text-blue-600 font-medium mt-1">
                       💬 "Pomagam od 20 lat - sprawdź, czy mogę pomóc również Tobie!"
