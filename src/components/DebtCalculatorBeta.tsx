@@ -566,7 +566,7 @@ const DebtCalculatorBeta = () => {
             {/* Komunikat o minimum */}
             {income && parsePLN(income) < 3000 && <div className="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl animate-fade-in">
                 <p className="text-red-700 font-medium text-sm">
-                  ⚠️ Przy dochodzie poniżej 3000 PLN nie możemy pomóc z oddłużeniem
+                  ⚠️ Przy dochodzie poniżej 3000 PLN nie możemy pomóc z konsolidacją
                 </p>
               </div>}
           </div>;
