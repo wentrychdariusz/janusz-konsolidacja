@@ -21,7 +21,7 @@ const DariuszCongratulationsSection = () => {
               {/* Wizerunek Dariusza z opisem */}
               <div className="flex-shrink-0 mx-auto lg:mx-0">
                 <div className="relative">
-                  <img src={dariuszImage} alt="Dariusz Wentrych - Ekspert oddłużeniowy nr 1 w Polsce" className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-success-400 shadow-xl" />
+                  <img src={dariuszImage} alt="Dariusz Wentrych - Ekspert nr 1 w konsolidacji kredytów w Polsce" className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-success-400 shadow-xl" />
                   <div className="absolute -bottom-2 -right-2 bg-success-500 text-white p-3 rounded-full shadow-lg">
                     <span className="text-2xl">💼</span>
                   </div>
