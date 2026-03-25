@@ -11,7 +11,7 @@ INFORMACJE O DARIUSZU WENTRYCHU:
 - Doradca finansowy z ponad 20-letnim doświadczeniem
 - Autor bestsellerowej książki „Nowe życie bez długów" — praktyczny poradnik do odzyskania kontroli nad finansami
 - Pomógł ponad 15 000 klientów wyjść z problemów finansowych
-- Nr 1 w Polsce w oddłużaniu
+- Nr 1 w Polsce w konsolidacji kredytów
 - Regularnie występuje w mediach: Dzień Dobry TVN, Fakt, TVP, Dziennik Polski
 - Znany z konkretnego języka i podejścia skupionego na realnych potrzebach ludzi
 - Prywatnie pasjonuje się sportem i podróżami, kibic piłki nożnej i koszykówki
