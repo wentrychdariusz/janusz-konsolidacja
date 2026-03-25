@@ -319,7 +319,7 @@ const SmsVerificationVariantA = ({ onConversion }: SmsVerificationVariantAProps)
                   />
                   <div className="text-center">
                     <h3 className="text-xl sm:text-2xl font-bold text-navy-900">Dariusz Wentrych</h3>
-                    <p className="text-base sm:text-lg text-business-blue-600 font-medium">#1 Ekspert ds. oddłużeń w Polsce</p>
+                    <p className="text-base sm:text-lg text-business-blue-600 font-medium">#1 Ekspert ds. konsolidacji kredytów w Polsce</p>
                   </div>
                 </div>
               </div>

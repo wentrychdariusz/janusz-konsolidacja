@@ -21,7 +21,7 @@ const HeroSectionBeta = () => {
   const benefits = [
     {
       icon: <CheckCircle className="w-5 h-5 text-green-600" />,
-      text: "Nr 1 w Polsce - Lider w branży oddłużeniowej z 20-letnim doświadczeniem"
+      text: "Nr 1 w Polsce - Lider w konsolidacji kredytów z 20-letnim doświadczeniem"
     },
     {
       icon: <Users className="w-5 h-5 text-blue-600" />,

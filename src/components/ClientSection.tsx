@@ -17,7 +17,7 @@ const ClientSection = () => {
   }, {
     icon: Award,
     number: "Nr 1",
-    text: "w Polsce w oddłużaniu"
+    text: "w Polsce w konsolidacji kredytów"
   }];
   const clientImages = ["/lovable-uploads/73ec7538-32fd-47a6-9460-ecfe26f5985b.png", "/lovable-uploads/731a75cc-be2d-432e-ba08-6d2b2f601a69.png", "/lovable-uploads/006c64e3-6a85-4c9a-ac54-1d2b2f158ac8d8.png", "/lovable-uploads/e02defc0-4e3f-46bf-9b38-ccbd8ce23531.png", "/lovable-uploads/a7da1141-d0f1-484e-af6a-d6f7704d0efb.png", "/lovable-uploads/3eb21e4e-0f4f-42db-938e-f1e7b917cc4e.png", "/lovable-uploads/7400b6f6-4a58-46c3-a434-f941fcae211a.png", "/lovable-uploads/6d6c71e9-c427-4ea3-ba95-42f30c256d9f.png", "/lovable-uploads/ce402ba0-a1c6-47f9-b872-3b17a07691f3.png", "/lovable-uploads/e1583163-e7e1-453a-8a37-a5b927cc224e.png", "/lovable-uploads/fd5a99a1-5cfe-4ed4-9f16-b9ff7764b433.png"];
   const mediaLogos = [{

@@ -566,7 +566,7 @@ const DebtCalculatorBeta = () => {
             {/* Komunikat o minimum */}
             {income && parsePLN(income) < 3000 && <div className="mt-4 p-4 bg-red-50 border-2 border-red-200 rounded-xl animate-fade-in">
                 <p className="text-red-700 font-medium text-sm">
-                  ⚠️ Przy dochodzie poniżej 3000 PLN nie możemy pomóc z oddłużeniem
+                  ⚠️ Przy dochodzie poniżej 3000 PLN nie możemy pomóc z konsolidacją
                 </p>
               </div>}
           </div>;
@@ -657,7 +657,7 @@ const DebtCalculatorBeta = () => {
                   </div>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-bold text-navy-900 mb-1">
-                  Kalkulator Oddłużania
+                  Kalkulator Konsolidacji
                 </h2>
                 <p className="text-sm text-prestige-gold-600 font-semibold mb-1">W 30 sekund powiemy Ci czy możemy pomóc!</p>
                 <p className="text-sm text-warm-neutral-600">
@@ -706,7 +706,7 @@ const DebtCalculatorBeta = () => {
                          </div>
                        </div>
                        <div className="text-sm text-green-700 font-medium">
-                         ✅ Ekspert nr 1 w oddłużeniu • 15.000+ zadowolonych klientów
+                         ✅ Ekspert nr 1 w konsolidacji kredytów • 15.000+ zadowolonych klientów
                        </div>
                        <div className="text-xs text-blue-600 font-medium mt-1">
                          💬 "Pomagam od 20 lat - sprawdź, czy mogę pomóc również Tobie!"

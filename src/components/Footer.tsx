@@ -14,7 +14,7 @@ const Footer = () => {
               Wentrych.pl
             </h3>
             <p className="text-gray-300 mb-4 font-lato">
-              Doradztwo finansowe i oddłużanie z 20-letnim doświadczeniem
+              Doradztwo finansowe i konsolidacja kredytów z 20-letnim doświadczeniem
             </p>
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-gray-300">

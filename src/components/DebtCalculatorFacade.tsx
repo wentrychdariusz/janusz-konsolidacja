@@ -22,7 +22,7 @@ const DebtCalculatorFacade = () => {
                 </div>
               </div>
               <h2 className="text-xl sm:text-2xl font-bold text-navy-900 mb-1">
-                Kalkulator Oddłużania
+                Kalkulator Konsolidacji
               </h2>
               <p className="text-sm text-prestige-gold-600 font-semibold mb-1">W 30 sekund powiemy Ci czy możemy pomóc!</p>
               <p className="text-sm text-warm-neutral-600">
@@ -59,7 +59,7 @@ const DebtCalculatorFacade = () => {
                       </div>
                     </div>
                     <div className="text-sm text-green-700 font-medium">
-                      ✅ Ekspert nr 1 w oddłużeniu • 15.000+ zadowolonych klientów
+                      ✅ Ekspert nr 1 w konsolidacji kredytów • 15.000+ zadowolonych klientów
                     </div>
                     <div className="text-xs text-blue-600 font-medium mt-1">
                       💬 "Pomagam od 20 lat - sprawdź, czy mogę pomóc również Tobie!"

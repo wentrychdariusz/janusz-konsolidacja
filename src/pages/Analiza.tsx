@@ -165,7 +165,7 @@ const Analiza = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-6 md:mb-8">
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-navy-900 mb-2 md:mb-4 px-2">
-              Analiza Kalkulatora Oddłużenia
+              Analiza Kalkulatora Konsolidacji
             </h1>
             <p className="text-warm-neutral-600 text-base md:text-lg px-2">
               Raport dotyczący kwot dochodów użytkowników kalkulatora
@@ -187,7 +187,7 @@ const Analiza = () => {
                     {formatCurrency(formattedSalary)}
                   </div>
                   <p className="text-warm-neutral-600">
-                    Ta kwota została wprowadzona w poprzednim kroku. Porównaj ją z kalkulatorem oddłużenia poniżej.
+                    Ta kwota została wprowadzona w poprzednim kroku. Porównaj ją z kalkulatorem konsolidacji poniżej.
                   </p>
                 </div>
               </CardContent>
@@ -198,7 +198,7 @@ const Analiza = () => {
           {formattedSalary > 0 && (
             <div className="mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-navy-900 mb-6 text-center">
-                Porównaj z Kalkulatorem Oddłużenia
+                Porównaj z Kalkulatorem Konsolidacji
               </h2>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Poprzednia kwota */}
@@ -242,7 +242,7 @@ const Analiza = () => {
                 <Card className="border-2 border-business-blue-300">
                   <CardHeader className="bg-gradient-to-r from-business-blue-100 to-business-blue-200">
                     <CardTitle className="text-lg md:text-xl font-bold text-navy-900 text-center">
-                      🧮 Kalkulator Oddłużenia
+                      🧮 Kalkulator Konsolidacji
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-6">

@@ -11,7 +11,7 @@ const DariuszCongratulationsSection = () => {
               🎉 Gratulacje!
             </h2>
             <p className="text-lg md:text-xl font-medium">
-              Twój dochód kwalifikuje Cię do oddłużenia i zamiany długów w jedną, niższą ratę!
+              Twój dochód kwalifikuje Cię do konsolidacji i zamiany zobowiązań w jedną, niższą ratę!
             </p>
           </div>
 
@@ -21,7 +21,7 @@ const DariuszCongratulationsSection = () => {
               {/* Wizerunek Dariusza z opisem */}
               <div className="flex-shrink-0 mx-auto lg:mx-0">
                 <div className="relative">
-                  <img src={dariuszImage} alt="Dariusz Wentrych - Ekspert oddłużeniowy nr 1 w Polsce" className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-success-400 shadow-xl" />
+                  <img src={dariuszImage} alt="Dariusz Wentrych - Ekspert nr 1 w konsolidacji kredytów w Polsce" className="w-48 h-48 md:w-56 md:h-56 rounded-full object-cover border-4 border-success-400 shadow-xl" />
                   <div className="absolute -bottom-2 -right-2 bg-success-500 text-white p-3 rounded-full shadow-lg">
                     <span className="text-2xl">💼</span>
                   </div>
@@ -31,7 +31,7 @@ const DariuszCongratulationsSection = () => {
                 <div className="mt-6 text-center">
                   <h3 className="text-xl font-bold text-navy-800 mb-3">Dariusz Wentrych</h3>
                   <div className="space-y-1 text-sm text-navy-600">
-                    <p className="font-semibold text-prestige-gold-600">🏆 Nr 1 w oddłużeniu i konsolidacji</p>
+                    <p className="font-semibold text-prestige-gold-600">🏆 Nr 1 w konsolidacji kredytów</p>
                     <p>👥 15.000+ klientów</p>
                     <p>⏰ 20+ lat doświadczenia</p>
                     <p>📖 Autor <em>"Nowe życie bez długów"</em></p>

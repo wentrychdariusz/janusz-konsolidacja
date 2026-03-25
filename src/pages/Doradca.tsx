@@ -175,7 +175,7 @@ const Doradca = () => {
     <div className="min-h-screen bg-warm-neutral-50 font-lato flex flex-col">
       {/* SEO */}
       <title>Zapytaj Dariusza Wentrycha — Doradca Finansowy AI</title>
-      <meta name="description" content="Zadaj pytanie o oddłużanie, konsolidację kredytów i finanse. Dariusz Wentrych — 20 lat doświadczenia, 15 000+ klientów." />
+      <meta name="description" content="Zadaj pytanie o konsolidację kredytów, pożyczek i finanse. Dariusz Wentrych — 20 lat doświadczenia, 15 000+ klientów." />
 
       {/* Header z bio */}
       <div className="bg-navy-900 text-white px-6 pt-8 pb-5">
@@ -189,10 +189,10 @@ const Doradca = () => {
             <div className="min-w-0 flex-1">
               <h1 className="text-base font-bold font-montserrat leading-tight">Dariusz Wentrych</h1>
               <p className="text-prestige-gold-400 text-xs font-semibold">
-                🏆 Nr 1 w oddłużaniu osób fizycznych w Polsce
+                🏆 Nr 1 w konsolidacji kredytów w Polsce
               </p>
               <p className="text-warm-neutral-300 text-xs">
-                Najbardziej zaufany ekspert w dziedzinie oddłużania
+                Najbardziej zaufany ekspert w dziedzinie konsolidacji kredytów
               </p>
             </div>
           </div>
@@ -225,7 +225,7 @@ const Doradca = () => {
               Co chciałbyś wiedzieć?
             </h2>
             <p className="text-warm-neutral-500 text-sm mb-6 text-center max-w-sm">
-              Zapytaj o Dariusza, konsolidację, oddłużanie lub nasze usługi
+              Zapytaj o Dariusza, konsolidację kredytów lub nasze usługi
             </p>
 
             <div className="w-full max-w-lg mb-4">

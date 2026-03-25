@@ -53,7 +53,7 @@ const GuaranteeSection = () => {
             {/* Stopka z podpisem eksperta */}
             <div className="text-center pt-6 border-t border-prestige-gold-400/30">
               <p className="text-warm-neutral-300 text-sm md:text-base">
-                <span className="font-semibold text-prestige-gold-400">Dariusz Wentrych</span> - ekspert nr 1 w oddłużniu osób fizycznych w Polsce.<br />
+                <span className="font-semibold text-prestige-gold-400">Dariusz Wentrych</span> - ekspert nr 1 w konsolidacji kredytów w Polsce.<br />
                 Twoja satysfakcja to nasz priorytet.
               </p>
             </div>

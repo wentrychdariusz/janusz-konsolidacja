@@ -29,7 +29,7 @@ const BeforeAfterSection = () => {
     },
     {
       icon: <XCircle className="w-6 h-6 text-red-500" />,
-      text: 'Słyszysz „oddłużanie" i myślisz: „To pewnie kolejna ściema"'
+      text: 'Słyszysz „konsolidacja" i myślisz: „To pewnie kolejna ściema"'
     }
   ];
 
@@ -76,7 +76,7 @@ const BeforeAfterSection = () => {
           {/* Header */}
           <div className="text-center mb-16">
             <h2 className="font-montserrat text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-              Dołącz do <span className="text-prestige-gold-600">„Wyzwania Oddłużeniowego"</span> z Dariuszem Wentrychem!
+              Dołącz do <span className="text-prestige-gold-600">„Wyzwania Konsolidacyjnego"</span> z Dariuszem Wentrychem!
             </h2>
             
             <p className="text-slate-700 text-xl md:text-2xl font-lato max-w-4xl mx-auto mb-8 leading-relaxed">
@@ -93,7 +93,7 @@ const BeforeAfterSection = () => {
             </div>
             
             <p className="text-slate-600 text-lg md:text-xl font-lato max-w-3xl mx-auto">
-              Zobacz, jak wygląda życie przed i po oddłużeniu z najlepszym ekspertem w Polsce 👇
+              Zobacz, jak wygląda życie przed i po konsolidacji z najlepszym ekspertem w Polsce 👇
             </p>
           </div>
 
@@ -107,7 +107,7 @@ const BeforeAfterSection = () => {
                 <div className="flex items-center justify-center">
                   <Frown className="w-12 h-12 text-red-500 mr-4" />
                   <h3 className="font-montserrat text-xl md:text-2xl font-bold text-red-800 text-center">
-                    Przed oddłużaniem z Dariuszem Wentrychem…
+                    Przed konsolidacją z Dariuszem Wentrychem…
                   </h3>
                 </div>
               </div>
@@ -136,7 +136,7 @@ const BeforeAfterSection = () => {
                 <div className="flex items-center justify-center">
                   <Smile className="w-12 h-12 text-emerald-500 mr-4" />
                   <h3 className="font-montserrat text-xl md:text-2xl font-bold text-emerald-800 text-center">
-                    Po oddłużeniu z Dariuszem Wentrychem…
+                    Po konsolidacji z Dariuszem Wentrychem…
                   </h3>
                 </div>
               </div>
@@ -166,7 +166,7 @@ const BeforeAfterSection = () => {
                 onClick={handleCalculatorOpen}
                 className="bg-gradient-to-r from-prestige-gold-500 to-yellow-400 text-slate-900 font-bold px-10 py-4 rounded-full hover:from-prestige-gold-600 hover:to-yellow-500 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg"
               >
-                Dołącz do Wyzwania Oddłużeniowego
+                Dołącz do Wyzwania Konsolidacyjnego
               </button>
             </div>
           </div>

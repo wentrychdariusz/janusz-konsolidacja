@@ -281,7 +281,7 @@ const SmsVerificationVariantB = ({ onConversion }: SmsVerificationVariantBProps)
                   </div>
                   <div className="text-center">
                     <h3 className="text-xl font-black text-red-900">Dariusz Wentrych</h3>
-                    <p className="text-base text-red-600 font-bold">#1 Ekspert ds. oddłużeń w Polsce</p>
+                    <p className="text-base text-red-600 font-bold">#1 Ekspert ds. konsolidacji kredytów w Polsce</p>
                   </div>
                 </div>
               </div>
