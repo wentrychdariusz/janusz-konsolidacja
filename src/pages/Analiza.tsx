@@ -187,7 +187,7 @@ const Analiza = () => {
                     {formatCurrency(formattedSalary)}
                   </div>
                   <p className="text-warm-neutral-600">
-                    Ta kwota została wprowadzona w poprzednim kroku. Porównaj ją z kalkulatorem oddłużenia poniżej.
+                    Ta kwota została wprowadzona w poprzednim kroku. Porównaj ją z kalkulatorem konsolidacji poniżej.
                   </p>
                 </div>
               </CardContent>
