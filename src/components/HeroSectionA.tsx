@@ -148,7 +148,7 @@ const HeroSectionA = () => {
               Dariusz Wentrych nr 1 w Polsce w konsolidacji kredytów
             </div>
             <div className="font-lato text-warm-neutral-200 text-lg md:text-xl lg:text-2xl font-normal mt-1 lg:mt-2 uppercase tracking-wide">
-              KONSOLIDACJA POŻYCZEK BANKOWYCH I POZABANKOWYCH
+              KONSOLIDACJA POŻYCZEK BANKOWYCH, POZABANKOWYCH I CHWILÓWEK
             </div>
           </div>
 
