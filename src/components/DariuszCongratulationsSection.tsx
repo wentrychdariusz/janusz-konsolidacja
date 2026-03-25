@@ -31,7 +31,7 @@ const DariuszCongratulationsSection = () => {
                 <div className="mt-6 text-center">
                   <h3 className="text-xl font-bold text-navy-800 mb-3">Dariusz Wentrych</h3>
                   <div className="space-y-1 text-sm text-navy-600">
-                    <p className="font-semibold text-prestige-gold-600">🏆 Nr 1 w oddłużeniu i konsolidacji</p>
+                    <p className="font-semibold text-prestige-gold-600">🏆 Nr 1 w konsolidacji kredytów</p>
                     <p>👥 15.000+ klientów</p>
                     <p>⏰ 20+ lat doświadczenia</p>
                     <p>📖 Autor <em>"Nowe życie bez długów"</em></p>
