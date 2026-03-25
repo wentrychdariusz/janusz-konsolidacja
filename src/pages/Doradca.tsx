@@ -189,7 +189,7 @@ const Doradca = () => {
             <div className="min-w-0 flex-1">
               <h1 className="text-base font-bold font-montserrat leading-tight">Dariusz Wentrych</h1>
               <p className="text-prestige-gold-400 text-xs font-semibold">
-                🏆 Nr 1 w oddłużaniu osób fizycznych w Polsce
+                🏆 Nr 1 w konsolidacji kredytów w Polsce
               </p>
               <p className="text-warm-neutral-300 text-xs">
                 Najbardziej zaufany ekspert w dziedzinie oddłużania
