@@ -657,7 +657,7 @@ const DebtCalculatorBeta = () => {
                   </div>
                 </div>
                 <h2 className="text-xl sm:text-2xl font-bold text-navy-900 mb-1">
-                  Kalkulator Oddłużania
+                  Kalkulator Konsolidacji
                 </h2>
                 <p className="text-sm text-prestige-gold-600 font-semibold mb-1">W 30 sekund powiemy Ci czy możemy pomóc!</p>
                 <p className="text-sm text-warm-neutral-600">
