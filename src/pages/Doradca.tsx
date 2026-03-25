@@ -175,7 +175,7 @@ const Doradca = () => {
     <div className="min-h-screen bg-warm-neutral-50 font-lato flex flex-col">
       {/* SEO */}
       <title>Zapytaj Dariusza Wentrycha — Doradca Finansowy AI</title>
-      <meta name="description" content="Zadaj pytanie o oddłużanie, konsolidację kredytów i finanse. Dariusz Wentrych — 20 lat doświadczenia, 15 000+ klientów." />
+      <meta name="description" content="Zadaj pytanie o konsolidację kredytów, pożyczek i finanse. Dariusz Wentrych — 20 lat doświadczenia, 15 000+ klientów." />
 
       {/* Header z bio */}
       <div className="bg-navy-900 text-white px-6 pt-8 pb-5">
