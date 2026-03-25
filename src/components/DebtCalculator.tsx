@@ -478,7 +478,7 @@ const DebtCalculator = () => {
                         {[1,2,3,4,5].map(i => <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
                       </div>
                     </div>
-                    <div className="text-xs text-green-700 font-medium">✅ Ekspert nr 1 w oddłużeniu</div>
+                    <div className="text-xs text-green-700 font-medium">✅ Ekspert nr 1 w konsolidacji kredytów</div>
                   </div>
                 </div>
               </div>

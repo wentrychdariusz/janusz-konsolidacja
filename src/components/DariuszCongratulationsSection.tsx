@@ -11,7 +11,7 @@ const DariuszCongratulationsSection = () => {
               🎉 Gratulacje!
             </h2>
             <p className="text-lg md:text-xl font-medium">
-              Twój dochód kwalifikuje Cię do oddłużenia i zamiany długów w jedną, niższą ratę!
+              Twój dochód kwalifikuje Cię do konsolidacji i zamiany zobowiązań w jedną, niższą ratę!
             </p>
           </div>
 

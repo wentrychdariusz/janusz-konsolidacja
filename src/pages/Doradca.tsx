@@ -225,7 +225,7 @@ const Doradca = () => {
               Co chciałbyś wiedzieć?
             </h2>
             <p className="text-warm-neutral-500 text-sm mb-6 text-center max-w-sm">
-              Zapytaj o Dariusza, konsolidację, oddłużanie lub nasze usługi
+              Zapytaj o Dariusza, konsolidację kredytów lub nasze usługi
             </p>
 
             <div className="w-full max-w-lg mb-4">

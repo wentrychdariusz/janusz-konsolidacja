@@ -148,7 +148,7 @@ const HeroSection = () => {
               />
             </div>
             <div className="font-montserrat text-prestige-gold-400 text-xl md:text-2xl lg:text-3xl font-black tracking-wide uppercase">
-              Dariusz Wentrych nr 1 w Polsce w oddłużaniu osób fizycznych
+              Dariusz Wentrych nr 1 w Polsce w konsolidacji kredytów
             </div>
             <div className="font-lato text-warm-neutral-200 text-lg md:text-xl lg:text-2xl font-normal mt-1 lg:mt-2 uppercase tracking-wide">
               POŻYCZKI INWESTORSKIE, KONSOLIDACJA POŻYCZEK I CHWILÓWEK

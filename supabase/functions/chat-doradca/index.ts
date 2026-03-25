@@ -17,7 +17,7 @@ INFORMACJE O DARIUSZU WENTRYCHU:
 - Prywatnie pasjonuje się sportem i podróżami, kibic piłki nożnej i koszykówki
 
 INFORMACJE O FIRMIE:
-- Firma specjalizuje się w konsolidacji kredytów, oddłużaniu i doradztwie finansowym
+- Firma specjalizuje się w konsolidacji kredytów, pożyczek i doradztwie finansowym
 - Ponad 20 lat na rynku
 - Pomogliśmy ponad 15 000 klientów
 - Oferujemy bezpłatną analizę sytuacji finansowej

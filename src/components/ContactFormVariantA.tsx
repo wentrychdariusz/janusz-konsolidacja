@@ -156,7 +156,7 @@ const ContactFormVariantA = ({ onConversion }: ContactFormVariantAProps) => {
           <div className="bg-gradient-to-r from-success-600 to-success-500 p-6 rounded-xl mb-6">
             <div className="text-white">
               <h1 className="text-2xl font-bold mb-2">🎉 Gratulacje!</h1>
-              <p className="text-lg text-success-100">Zakwalifikowałeś się do oddłużenia i konsolidacji</p>
+              <p className="text-lg text-success-100">Zakwalifikowałeś się do konsolidacji kredytów</p>
             </div>
           </div>
 

@@ -187,7 +187,7 @@ const PersonalizedOfferModal = ({ isOpen, onClose }: PersonalizedOfferModalProps
                     </div>
                   </h3>
                   <div className="text-sm sm:text-xs text-green-700 font-bold">
-                    ✅ Ekspert nr 1 w oddłużaniu i konsolidacji
+                    ✅ Ekspert nr 1 w konsolidacji kredytów
                   </div>
                   <div className="text-sm sm:text-xs text-blue-600 font-medium">
                     📚 Autor bestsellera "Nowe życie bez długów"
