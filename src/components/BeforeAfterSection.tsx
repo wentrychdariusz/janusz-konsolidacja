@@ -93,7 +93,7 @@ const BeforeAfterSection = () => {
             </div>
             
             <p className="text-slate-600 text-lg md:text-xl font-lato max-w-3xl mx-auto">
-              Zobacz, jak wygląda życie przed i po oddłużeniu z najlepszym ekspertem w Polsce 👇
+              Zobacz, jak wygląda życie przed i po konsolidacji z najlepszym ekspertem w Polsce 👇
             </p>
           </div>
 
