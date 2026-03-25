@@ -47,7 +47,7 @@ const FinancialHealthCheck = () => {
     return num.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
   };
 
-  // Algorytm oddłużenia - używamy tego samego co w kalkulatorze
+  // Algorytm konsolidacji - używamy tego samego co w kalkulatorze
   const MARGIN = 10000;
   
   const nonBankLimit = (income: number) => 
