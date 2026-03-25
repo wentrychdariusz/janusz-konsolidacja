@@ -76,7 +76,7 @@ const BeforeAfterSection = () => {
           {/* Header */}
           <div className="text-center mb-16">
             <h2 className="font-montserrat text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-              Dołącz do <span className="text-prestige-gold-600">„Wyzwania Oddłużeniowego"</span> z Dariuszem Wentrychem!
+              Dołącz do <span className="text-prestige-gold-600">„Wyzwania Konsolidacyjnego"</span> z Dariuszem Wentrychem!
             </h2>
             
             <p className="text-slate-700 text-xl md:text-2xl font-lato max-w-4xl mx-auto mb-8 leading-relaxed">
