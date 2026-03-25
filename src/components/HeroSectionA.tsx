@@ -12,7 +12,7 @@ const HeroSectionA = () => {
     {
       icon: Trophy,
       title: "Nr 1 w Polsce",
-      description: "Lider w branży oddłużeniowej z 20-letnim doświadczeniem"
+      description: "Lider w konsolidacji kredytów z 20-letnim doświadczeniem"
     },
     {
       icon: Users,
