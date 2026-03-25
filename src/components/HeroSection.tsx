@@ -265,10 +265,10 @@ const HeroSection = () => {
               
               <div className="text-warm-neutral-200 text-xl md:text-2xl text-center font-lato leading-relaxed font-medium space-y-4">
                 <p>
-                  <span className="text-white font-bold">Masz długi, chwilówki, komornika na karku?</span> Nie jesteś sam. Od 20 lat pomagamy tam, gdzie inni zawiedli.
+                  <span className="text-white font-bold">Masz kredyty, chwilówki, pożyczki pozabankowe?</span> Połącz je w jedną, niższą ratę. Od 20 lat pomagamy tam, gdzie inni zawiedli.
                 </p>
                 <p className="text-business-blue-400 font-bold text-lg lg:text-xl uppercase tracking-wide">
-                  WSPIERAMY KLIENTÓW TAM, GDZIE INNI NIE POTRAFILI ZNALEŹĆ ROZWIĄZAŃ.
+                  KONSOLIDACJA POŻYCZEK BANKOWYCH, POZABANKOWYCH I CHWILÓWEK
                 </p>
                 <p>
                   <span className="text-white font-bold">Zamień chaos w jedną ratę</span> i odzyskaj kontrolę nad życiem.
