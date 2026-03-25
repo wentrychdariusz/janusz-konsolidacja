@@ -29,7 +29,7 @@ const BeforeAfterSection = () => {
     },
     {
       icon: <XCircle className="w-6 h-6 text-red-500" />,
-      text: 'Słyszysz „oddłużanie" i myślisz: „To pewnie kolejna ściema"'
+      text: 'Słyszysz „konsolidacja" i myślisz: „To pewnie kolejna ściema"'
     }
   ];
 
