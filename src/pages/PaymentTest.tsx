@@ -347,7 +347,7 @@ const PaymentTest = () => {
                 <img src="/lovable-uploads/01dcb25b-999a-4c0d-b7da-525c21306610.png" alt="Dariusz Wentrych" className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-3 border-business-blue-200 shadow-xl object-cover mb-3" />
                 <div className="text-center">
                   <h3 className="text-lg sm:text-xl font-bold text-navy-900">Dariusz Wentrych</h3>
-                  <p className="text-sm sm:text-base text-business-blue-600 font-medium">#1 Ekspert ds. oddłużeń</p>
+                  <p className="text-sm sm:text-base text-business-blue-600 font-medium">#1 Ekspert ds. konsolidacji kredytów</p>
                 </div>
               </div>
             </div>
