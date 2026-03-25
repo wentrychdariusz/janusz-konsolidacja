@@ -136,7 +136,7 @@ const BeforeAfterSection = () => {
                 <div className="flex items-center justify-center">
                   <Smile className="w-12 h-12 text-emerald-500 mr-4" />
                   <h3 className="font-montserrat text-xl md:text-2xl font-bold text-emerald-800 text-center">
-                    Po oddłużeniu z Dariuszem Wentrychem…
+                    Po konsolidacji z Dariuszem Wentrychem…
                   </h3>
                 </div>
               </div>
