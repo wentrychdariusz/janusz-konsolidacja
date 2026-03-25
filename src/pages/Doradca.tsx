@@ -192,7 +192,7 @@ const Doradca = () => {
                 🏆 Nr 1 w konsolidacji kredytów w Polsce
               </p>
               <p className="text-warm-neutral-300 text-xs">
-                Najbardziej zaufany ekspert w dziedzinie oddłużania
+                Najbardziej zaufany ekspert w dziedzinie konsolidacji kredytów
               </p>
             </div>
           </div>
