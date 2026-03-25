@@ -198,7 +198,7 @@ const Analiza = () => {
           {formattedSalary > 0 && (
             <div className="mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-navy-900 mb-6 text-center">
-                Porównaj z Kalkulatorem Oddłużenia
+                Porównaj z Kalkulatorem Konsolidacji
               </h2>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Poprzednia kwota */}
