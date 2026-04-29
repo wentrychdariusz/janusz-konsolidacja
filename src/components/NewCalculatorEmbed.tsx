@@ -50,6 +50,10 @@ const NewCalculatorEmbed = ({ onStepComplete, onComplete }: NewCalculatorEmbedPr
     onStepComplete?.(3, value);
     onComplete?.();
     setTimeout(() => {
+      if (value === 'tak') {
+        window.location.href = 'https://dwentrych.pl';
+        return;
+      }
       const params = new URLSearchParams({
         salary_range: selectedSalary!.range,
         salary_category: selectedSalary!.value,
