@@ -43,6 +43,10 @@ const CalculatorNowy = () => {
   const handleBikSelect = (value: string) => {
     setSelectedBik(value);
     setTimeout(() => {
+      if (value === 'tak') {
+        window.location.href = 'https://dwentrych.pl';
+        return;
+      }
       const params = new URLSearchParams({
         salary_range: selectedSalary!.range,
         salary_category: selectedSalary!.value,
